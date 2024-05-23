@@ -4,6 +4,7 @@ const routes = {
   signUp: "/sign-up",
   admin: "/admin",
   chatList: "/chat-list",
+  pickleList: "/pickle-list",
 };
 
 Object.freeze(routes);

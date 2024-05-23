@@ -5,6 +5,7 @@ import Admin from "./pages/Admin";
 import SignUp from "./pages/SignUp";
 import SingIn from "./pages/SingIn";
 import ChatList from "./pages/ChatList";
+import PickleList from "./pages/PickleList";
 const router = createBrowserRouter([
   {
     path: "",
@@ -23,6 +24,10 @@ const router = createBrowserRouter([
         path: routes.admin,
         element: <Admin />,
       },
+      {
+        path: routes.pickleList,
+        element: <PickleList />,
+      }
     ],
   },
   {
