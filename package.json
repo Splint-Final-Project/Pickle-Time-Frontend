@@ -31,5 +31,8 @@
     "eslint-plugin-react-refresh": "^0.4.6",
     "typescript": "^5.2.2",
     "vite": "^5.2.0"
-  }
+  },
+  "repository": "https://github.com/whai2/Pickle-Time-Frontend.git",
+  "author": "whai2 <whai2125@gmail.com>",
+  "license": "MIT"
 }
