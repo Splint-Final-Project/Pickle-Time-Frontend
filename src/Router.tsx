@@ -1,11 +1,11 @@
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { createBrowserRouter } from 'react-router-dom';
 
-import Home from '@pages/Home';
-import ChatList from '@pages/ChatList';
-import Admin from '@pages/Admin';
-import SingIn from '@pages/SingIn';
-import SignUp from '@pages/SignUp';
-import routes from '@constants/routes';
+import Home from '@/pages/Home';
+import ChatList from '@/pages/ChatList';
+import Admin from '@/pages/Admin';
+import SingIn from '@/pages/SingIn';
+import SignUp from '@/pages/SignUp';
+import routes from '@/constants/routes';
 
 const router = createBrowserRouter([
   {
@@ -37,10 +37,4 @@ const router = createBrowserRouter([
   },
 ]);
 
-const Router = () => (
-  <>
-    <RouterProvider router={router} />
-  </>
-);
-
-export default Router;
+export default router;
