@@ -19,12 +19,12 @@
     "baseUrl": ".",
     "paths": {
       "@/*": ["/*"],
-      "@apis/*": ["src/apis/*"],
-      "@components/*": ["src/components/*"],
-      "@constants/*": ["src/constants/*"],
-      "@hooks/*": ["src/hooks/*"],
-      "@pages/*": ["src/pages/*"],
-      "@styles/*": ["src/styles/*"]
+      "@/apis/*": ["src/apis/*"],
+      "@/components/*": ["src/components/*"],
+      "@/constants/*": ["src/constants/*"],
+      "@/hooks/*": ["src/hooks/*"],
+      "@/pages/*": ["src/pages/*"],
+      "@/styles/*": ["src/styles/*"]
     }
   },
   "include": ["src"],
