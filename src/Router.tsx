@@ -5,6 +5,8 @@ import ChatList from '@/pages/ChatList';
 import Admin from '@/pages/Admin';
 import SingIn from '@/pages/SingIn';
 import SignUp from '@/pages/SignUp';
+import ChatList from "@/pages/ChatList";
+import PickleList from "@/pages/PickleList";
 import routes from '@/constants/routes';
 
 const router = createBrowserRouter([
@@ -25,6 +27,10 @@ const router = createBrowserRouter([
         path: routes.admin,
         element: <Admin />,
       },
+      {
+        path: routes.pickleList,
+        element: <PickleList />,
+      }
     ],
   },
   {
