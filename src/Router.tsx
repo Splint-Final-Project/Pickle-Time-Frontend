@@ -1,13 +1,15 @@
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import routes from "./constants/routes";
-import Home from "./pages/Home";
-import Admin from "./pages/Admin";
-import SignUp from "./pages/SignUp";
-import SingIn from "./pages/SingIn";
-import ChatList from "./pages/ChatList";
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+
+import Home from '@pages/Home';
+import ChatList from '@pages/ChatList';
+import Admin from '@pages/Admin';
+import SingIn from '@pages/SingIn';
+import SignUp from '@pages/SignUp';
+import routes from '@constants/routes';
+
 const router = createBrowserRouter([
   {
-    path: "",
+    path: '',
     // element: <Layout />, // 로그인 안 되어있을 시 리다이렉트
     // errorElement: <NotFound />,
     children: [
