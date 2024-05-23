@@ -1,5 +1,10 @@
 import React from "react";
+import Pickle from "./Pickle";
 
 export default function PickleList() {
-  return <div></div>;
+  return (
+    <div>
+      <Pickle />
+    </div>
+  );
 }
