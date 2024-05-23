@@ -4,6 +4,7 @@ import Home from "./pages/Home";
 import Admin from "./pages/Admin";
 import SignUp from "./pages/SignUp";
 import SingIn from "./pages/SingIn";
+import ChatList from "./pages/ChatList";
 const router = createBrowserRouter([
   {
     path: "",
@@ -13,6 +14,10 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <Home />,
+      },
+      {
+        path: routes.chatList,
+        element: <ChatList />,
       },
       {
         path: routes.admin,
