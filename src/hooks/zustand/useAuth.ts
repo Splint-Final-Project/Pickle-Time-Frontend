@@ -1,8 +1,9 @@
 import { create } from 'zustand';
+import { SignInFormValues, UserInfoType } from '../../apis/types/authTypes';
 
 const useAuth = create<{
-  getUser: () => object | null;
-  signIn: (arg0: { email: string; password: string }) => void;
+  getUser: () => UserInfoType | null;
+  signIn: (arg0: SignInFormValues) => void;
   signOut: () => void;
 }>()(() => ({
   getUser: () => {
@@ -13,7 +14,7 @@ const useAuth = create<{
     const parsed = JSON.parse(item);
     return parsed;
   },
-  signIn: async (data: { email: string; password: string }) => {
+  signIn: async (data: SignInFormValues) => {
     try {
       // const res = await logIn(data);
       // localStorage.setItem("user", JSON.stringify(res.user));

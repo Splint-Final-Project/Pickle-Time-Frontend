@@ -1,21 +1,17 @@
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
 import useAuth from '../hooks/zustand/useAuth';
-
-type FormValues = {
-  email: string;
-  password: string;
-};
+import { SignInFormValues } from '../apis/types/authTypes';
 
 export default function SingIn() {
-  const { register, handleSubmit } = useForm<FormValues>();
+  const { register, handleSubmit } = useForm<SignInFormValues>();
   const { signIn } = useAuth();
   const navigate = useNavigate();
-  const handleSignIn: SubmitHandler<FormValues> = async data => {
+  const handleSignIn: SubmitHandler<SignInFormValues> = async data => {
     try {
       await signIn(data);
-      alert('로그인 성공');
       navigate('/');
+      alert('로그인 성공');
     } catch (e) {
       console.log(e);
     }
