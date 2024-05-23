@@ -1,4 +1,4 @@
-import { create } from "zustand";
+import { create } from 'zustand';
 
 const useAuth = create<{
   getUser: () => object | null;
@@ -6,8 +6,8 @@ const useAuth = create<{
   signOut: () => void;
 }>()(() => ({
   getUser: () => {
-    const item = localStorage.getItem("user");
-    if (!item || item === "undefined") {
+    const item = localStorage.getItem('user');
+    if (!item || item === 'undefined') {
       return null;
     }
     const parsed = JSON.parse(item);
@@ -17,19 +17,19 @@ const useAuth = create<{
     try {
       // const res = await logIn(data);
       // localStorage.setItem("user", JSON.stringify(res.user));
-      await new Promise((resolve) => setTimeout(resolve, 1000));
-      localStorage.setItem("user", JSON.stringify({ email: data.email }));
-      localStorage.setItem("token", "randomToken");
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      localStorage.setItem('user', JSON.stringify({ email: data.email }));
+      localStorage.setItem('token', 'randomToken');
     } catch (err) {
       throw new Error();
     }
   },
   signOut: () => {
     try {
-      localStorage.removeItem("user");
-      localStorage.removeItem("token");
-      console.log("logout success");
-      location.replace("/signIn");
+      localStorage.removeItem('user');
+      localStorage.removeItem('token');
+      console.log('logout success');
+      location.replace('/sign-in');
     } catch (e) {
       console.log(e);
     }
