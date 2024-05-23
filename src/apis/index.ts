@@ -5,7 +5,7 @@ import axios from './axios';
 
 const TOKEN = '임시 토큰';
 
-// auth
+// auth : react-Query에서 호출 x, 대신 zustand에서 직접 호출합니다!
 export const authRequests = Object.freeze({
   signIn : async () =>  {
     const { data } = await axios.post('login', {

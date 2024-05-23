@@ -4,7 +4,7 @@ import Home from "./pages/Home";
 import Admin from "./pages/Admin";
 import SignUp from "./pages/SignUp";
 import SingIn from "./pages/SingIn";
-import ChatList from "./pages/ChatList";
+import ChatList from "./pages/ConversationList";
 import PickleList from "./pages/PickleList";
 
 const router = createBrowserRouter([
