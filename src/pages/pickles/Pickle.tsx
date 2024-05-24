@@ -1,3 +1,3 @@
 export default function Pickle() {
-  return <div></div>;
+  return <div>피클입니다</div>;
 }

@@ -1,12 +1,34 @@
 import { createBrowserRouter } from 'react-router-dom';
 
 import Home from '@/pages/home/Home';
-import PickleList from '@/pages/pickles/PickleList';
 import Admin from '@/pages/auth/Admin';
 import SingIn from '@/pages/auth/SingIn';
-import SignUp from '@/pages/SignUp';
-import ChatList from '@/pages/chat/ConversationList';
+import SignUp from '@/pages/auth/SignUp';
+import Pickle from '@/pages/pickles/Pickle';
+import PickleList from '@/pages/pickles/PickleList';
+import Conversation from '@/pages/chat/Conversation';
+import ConversationList from '@/pages/chat/ConversationList';
+import MyPage from '@/pages/profile/MyPage';
 import routes from '@/constants/routes';
+
+const privateChildren = [
+  {
+    path: routes.admin,
+    element: <Admin />,
+  },
+  {
+    path: routes.chat,
+    element: <Conversation />,
+  },
+  {
+    path: routes.chatList,
+    element: <ConversationList />,
+  },
+  {
+    path: routes.mypage,
+    element: <MyPage />,
+  },
+];
 
 const router = createBrowserRouter([
   {
@@ -15,30 +37,32 @@ const router = createBrowserRouter([
     // errorElement: <NotFound />,
     children: [
       {
-        index: true,
+        path: routes.home,
         element: <Home />,
       },
       {
-        path: routes.chatList,
-        element: <ChatList />,
-      },
-      {
-        path: routes.admin,
-        element: <Admin />,
+        path: routes.pickle,
+        element: <Pickle />,
       },
       {
         path: routes.pickleList,
         element: <PickleList />,
       },
+      {
+        path: routes.signIn,
+        element: <SingIn />,
+      },
+      {
+        path: routes.signUp,
+        element: <SignUp />,
+      },
+      {
+        // 로그인시에만 접속 가능
+        path: '',
+        // element: <PrivateLayout />,
+        children: [...privateChildren],
+      },
     ],
-  },
-  {
-    path: routes.signIn,
-    element: <SingIn />,
-  },
-  {
-    path: routes.signUp,
-    element: <SignUp />,
   },
 ]);
 
