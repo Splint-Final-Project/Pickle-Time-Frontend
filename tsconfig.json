@@ -20,9 +20,11 @@
     "paths": {
       "@/*": ["/*"],
       "@/apis/*": ["src/apis/*"],
+      "@/assets/*": ["src/assets/*"],
       "@/components/*": ["src/components/*"],
       "@/constants/*": ["src/constants/*"],
       "@/hooks/*": ["src/hooks/*"],
+      "@/mocks/*": ["src/mocks/*"],
       "@/pages/*": ["src/pages/*"],
       "@/styles/*": ["src/styles/*"]
     }

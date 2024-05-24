@@ -9,9 +9,11 @@ export default defineConfig({
     alias: [
       { find: '@/', replacement: path.resolve(__dirname) },
       { find: '@/apis', replacement: path.resolve(__dirname, 'src/apis') },
+      { find: '@/assets', replacement: path.resolve(__dirname, 'src/assets') },
       { find: '@/components', replacement: path.resolve(__dirname, 'src/components') },
       { find: '@/constants', replacement: path.resolve(__dirname, 'src/constants') },
       { find: '@/hooks', replacement: path.resolve(__dirname, 'src/hooks') },
+      { find: '@/mocks', replacement: path.resolve(__dirname, 'src/mocks') },
       { find: '@/pages', replacement: path.resolve(__dirname, 'src/pages') },
       { find: '@/styles', replacement: path.resolve(__dirname, 'src/styles') },
     ],
