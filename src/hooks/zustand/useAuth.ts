@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import { SignInFormValues, UserInfoType } from '../../apis/types/authTypes';
+import { SignInFormValues, UserInfoType } from '@/apis/types/authTypes';
 
 const useAuth = create<{
   getUser: () => UserInfoType | null;
