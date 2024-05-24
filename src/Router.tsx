@@ -1,11 +1,11 @@
 import { createBrowserRouter } from 'react-router-dom';
 
-import Home from '@/pages/Home';
-import PickleList from './pages/PickleList';
-import Admin from '@/pages/Admin';
-import SingIn from '@/pages/SingIn';
+import Home from '@/pages/home/Home';
+import PickleList from '@/pages/pickles/PickleList';
+import Admin from '@/pages/auth/Admin';
+import SingIn from '@/pages/auth/SingIn';
 import SignUp from '@/pages/SignUp';
-import ChatList from "./pages/ConversationList";
+import ChatList from '@/pages/chat/ConversationList';
 import routes from '@/constants/routes';
 
 const router = createBrowserRouter([
@@ -29,7 +29,7 @@ const router = createBrowserRouter([
       {
         path: routes.pickleList,
         element: <PickleList />,
-      }
+      },
     ],
   },
   {

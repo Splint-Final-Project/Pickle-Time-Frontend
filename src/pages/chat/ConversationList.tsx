@@ -1,5 +1,5 @@
-import { Link } from "react-router-dom";
-import useButtonClick from "../hooks/zustand/test";
+import { Link } from 'react-router-dom';
+import useButtonClick from '@/hooks/zustand/test';
 
 export default function ConversationList() {
   const { count, inc } = useButtonClick();
