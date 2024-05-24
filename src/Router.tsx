@@ -1,12 +1,11 @@
 import { createBrowserRouter } from 'react-router-dom';
 
 import Home from '@/pages/Home';
-import ChatList from '@/pages/ChatList';
+import PickleList from './pages/PickleList';
 import Admin from '@/pages/Admin';
 import SingIn from '@/pages/SingIn';
 import SignUp from '@/pages/SignUp';
-import ChatList from "@/pages/ChatList";
-import PickleList from "@/pages/PickleList";
+import ChatList from "./pages/ConversationList";
 import routes from '@/constants/routes';
 
 const router = createBrowserRouter([
