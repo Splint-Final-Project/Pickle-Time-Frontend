@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import { Link } from 'react-router-dom';
-import useButtonClick from '../hooks/zustand/test';
-import useAuth from '../hooks/zustand/useAuth';
+import useButtonClick from '@/hooks/zustand/test';
+import useAuth from '@/hooks/zustand/useAuth';
 
 const Button = styled.button`
   color: hotpink;
