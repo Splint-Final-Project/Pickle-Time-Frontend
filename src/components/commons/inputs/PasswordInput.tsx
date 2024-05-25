@@ -6,7 +6,7 @@ import ErrorMessage from './ErrorMessage';
 
 interface PasswordInput {
   id: string;
-  label: string;
+  labelText: string;
   placeholder: string;
 }
 /**
@@ -18,7 +18,7 @@ interface PasswordInput {
 export default function PasswordInput<
   TFieldValues extends FieldValues = FieldValues,
   TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>,
->({ id, label, placeholder, ...restProps }: PasswordInput & UseControllerProps<TFieldValues, TName>) {
+>({ id, labelText, placeholder, ...restProps }: PasswordInput & UseControllerProps<TFieldValues, TName>) {
   const {
     field: { value = '', onChange },
     fieldState: { error },
@@ -30,7 +30,7 @@ export default function PasswordInput<
   };
   return (
     <div>
-      <Label htmlFor={id}>{label}</Label>
+      <Label htmlFor={id}>{labelText}</Label>
       <div>
         <Input
           id={id}
