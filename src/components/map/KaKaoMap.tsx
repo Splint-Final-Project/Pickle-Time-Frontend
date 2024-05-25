@@ -1,12 +1,35 @@
+import { useGeolocation } from '@/hooks/useGeolocation';
 import React from 'react';
 import { Map, MapMarker } from 'react-kakao-maps-sdk';
 
+const geolocationOptions = {
+  enableHighAccuracy: true,
+  timeout: 1000 * 10,
+  maximumAge: 1000 * 3600 * 24,
+};
+
 export default function KaKaoMap() {
+  const { location, error } = useGeolocation(geolocationOptions);
+
+  if (error) {
+    return <div>에러 발생: {error}</div>;
+  }
+
   return (
-    <Map center={{ lat: 33.450701, lng: 126.570667 }} style={{ width: '100%', height: '400px' }} level={3}>
-      <MapMarker position={{ lat: 33.450701, lng: 126.570667 }}>
-        <div style={{ color: '#000' }}>Hello World!</div>
-      </MapMarker>
-    </Map>
+    <div>
+      {location ? (
+        <Map
+          center={{ lat: location.latitude, lng: location.longitude }}
+          style={{ width: '100%', height: '400px' }}
+          level={3}
+        >
+          <MapMarker position={{ lat: location.latitude, lng: location.longitude }}>
+            <div style={{ color: '#000' }}>Hello World!</div>
+          </MapMarker>
+        </Map>
+      ) : (
+        <div>지도 로딩중</div>
+      )}
+    </div>
   );
 }
