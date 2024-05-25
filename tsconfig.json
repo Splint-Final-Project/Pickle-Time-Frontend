@@ -17,6 +17,7 @@
     "jsx": "react-jsx",
     "jsxImportSource": "@emotion/react",
     "baseUrl": ".",
+    "types": ["kakao.maps.d.ts"],
     "paths": {
       "@/*": ["/*"],
       "@/apis/*": ["src/apis/*"],
