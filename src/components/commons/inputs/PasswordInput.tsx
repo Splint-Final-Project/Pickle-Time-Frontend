@@ -4,6 +4,7 @@ import Label from './Label';
 import Input from './Input';
 import ErrorMessage from './ErrorMessage';
 
+//TODO : 스타일링 추가 및 구조 변경
 interface PasswordInput {
   id: string;
   labelText: string;

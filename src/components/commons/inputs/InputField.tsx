@@ -4,6 +4,7 @@ import Input from './Input';
 import ErrorMessage from './ErrorMessage';
 import Label from './Label';
 
+//TODO : 스타일링 추가
 interface InputFieldProps {
   id: string;
   labelText: string;
@@ -17,7 +18,7 @@ interface InputFieldProps {
  * @
  */
 
-export function InputField<
+export default function InputField<
   TFieldValues extends FieldValues = FieldValues,
   TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>,
 >({
