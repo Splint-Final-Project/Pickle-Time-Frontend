@@ -1,5 +1,8 @@
 import { useState } from 'react';
 import { FieldPath, FieldValues, UseControllerProps, useController, useForm } from 'react-hook-form';
+import Label from './Label';
+import Input from './Input';
+import ErrorMessage from './ErrorMessage';
 
 interface PasswordInput {
   id: string;
@@ -22,9 +25,9 @@ export default function PasswordInput<
   };
   return (
     <div>
-      <label htmlFor={id}>{label}</label>
+      <Label htmlFor={id}>{label}</Label>
       <div>
-        <input
+        <Input
           id={id}
           type={!isShow ? 'password' : 'text'}
           value={value}
@@ -35,7 +38,7 @@ export default function PasswordInput<
           비번오픈
         </button>
       </div>
-      <p>{error?.message}</p>
+      <ErrorMessage>{error?.message}</ErrorMessage>
     </div>
   );
 }
