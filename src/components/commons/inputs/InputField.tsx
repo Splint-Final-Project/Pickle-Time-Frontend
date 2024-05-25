@@ -11,6 +11,12 @@ interface InputFieldProps {
   focus?: boolean;
 }
 
+/**
+ * @InputField필수Props id, label(라벨 텍스트), placeholder(input placeholder), name(react-hook-form과 연결할 이름), control(useForm함수가 리턴하는 control을 넘겨주세요)
+ * @InputField선택Props focus(focus만 넘기면 mount될 때 바로 focus), rules(검증할 패턴이 많다면 패턴을 객체로 만들어서 넘겨주세요)
+ * @
+ */
+
 export function InputField<
   TFieldValues extends FieldValues = FieldValues,
   TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>,
