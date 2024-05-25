@@ -1,10 +1,21 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect } from 'react';
 
-export const useGeoLocation = (options) => {
-  const [location, setLocation] = useState();
-  const [error, setError] = useState("");
+interface Geolocation {
+  latitude: number;
+  longitude: number;
+}
 
-  const handleSuccess = (pos) => {
+interface GeolocationOptions {
+  enableHighAccuracy?: boolean;
+  timeout?: number;
+  maximumAge?: number;
+}
+
+export const useGeolocation = (options?: GeolocationOptions) => {
+  const [location, setLocation] = useState<Geolocation | null>(null);
+  const [error, setError] = useState<string>('');
+
+  const handleSuccess = (pos: GeolocationPosition) => {
     const { latitude, longitude } = pos.coords;
 
     setLocation({
@@ -13,7 +24,7 @@ export const useGeoLocation = (options) => {
     });
   };
 
-  const handleError = (err) => {
+  const handleError = (err: GeolocationPositionError) => {
     setError(err.message);
   };
 
@@ -21,7 +32,7 @@ export const useGeoLocation = (options) => {
     const { geolocation } = navigator;
 
     if (!geolocation) {
-      setError("Geolocation is not supported.");
+      setError('Geolocation is not supported.');
       return;
     }
 
