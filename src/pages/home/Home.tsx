@@ -2,6 +2,7 @@ import styled from '@emotion/styled';
 import { Link } from 'react-router-dom';
 import useButtonClick from '@/hooks/zustand/test';
 import useAuth from '@/hooks/zustand/useAuth';
+import KaKaoMap from '@/components/map/KaKaoMap';
 
 const Button = styled.button`
   color: hotpink;
@@ -28,6 +29,7 @@ export default function Home() {
         ) : (
           <Link to="/sign-in">Sign In</Link>
         )}
+        <KaKaoMap />
       </div>
     </div>
   );
