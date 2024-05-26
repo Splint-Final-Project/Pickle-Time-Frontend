@@ -1,4 +1,4 @@
-export const theme = {
+const theme = Object.freeze({
   // TODO: 디자인 확정되면 채울예정
   color: {
     white: '#FFF',
@@ -10,4 +10,6 @@ export const theme = {
     body: {},
   },
   animation: {},
-};
+});
+
+export default theme;
