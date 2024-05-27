@@ -10,6 +10,7 @@ import Conversation from '@/pages/chat/Conversation';
 import ConversationList from '@/pages/chat/ConversationList';
 import MyPage from '@/pages/profile/MyPage';
 import routes from '@/constants/routes';
+import MobilePaymentRedirect from './pages/pickles/MobilePaymentRedirect';
 
 const privateChildren = [
   {
@@ -27,6 +28,10 @@ const privateChildren = [
   {
     path: routes.mypage,
     element: <MyPage />,
+  },
+  {
+    path: routes.mobilePaymentRedirect,
+    element: <MobilePaymentRedirect />,
   },
 ];
 
