@@ -20,7 +20,7 @@ export default function Pickle() {
       buyer_email: 'test@example.com',
       buyer_addr: '삼일대로 343',
       buyer_postcode: '04538',
-      m_redirect_url: `http://172.20.10.8:5173/payment-redirect`,
+      m_redirect_url: '/payment-redirect',
     };
 
     IMP.init('imp88171622');
