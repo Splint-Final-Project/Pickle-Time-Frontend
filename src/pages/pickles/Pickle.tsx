@@ -24,21 +24,27 @@ export default function Pickle() {
     };
 
     IMP.init('imp88171622');
-    IMP.request_pay(data, (response: any) => {
-      alert(JSON.stringify(response));
+    IMP.request_pay(data, async (response: any) => {
       // const { success, merchant_uid, error_msg } = response;
       if (!response.success) {
         return alert(`결제에 실패하였습니다. 에러 내용: ${response.error_msg}`);
       }
-      alert('결제에 성공하였습니다.');
-      // const notified = await fetch(`${SERVER_BASE_URL}/payment/complete`, {
-      //   method: 'POST',
-      //   headers: { 'Content-Type': 'application/json' },
-      //   body: JSON.stringify({
-      //     imp_uid: response.imp_uid,
-      //     merchant_uid: response.merchant_uid,
-      //   }),
-      // });
+      let headers = new Headers();
+
+      headers.append('Content-Type', 'application/json');
+      headers.append('Accept', 'application/json');
+      headers.append('Origin', 'http://localhost:5173');
+      const notified = await fetch(`http://localhost:8080/verify_iamport/${response.imp_uid}`, {
+        method: 'POST',
+        headers: headers,
+        // body: JSON.stringify({
+        //   imp_uid: response.imp_uid,
+        //   merchant_uid: response.merchant_uid,
+        // }),
+        mode: 'cors',
+      });
+      console.log(notified);
+      alert('결제에 성공하였습니다?');
     });
   }
 
