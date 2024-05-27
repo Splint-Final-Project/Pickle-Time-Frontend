@@ -1,6 +1,6 @@
 import reset from 'emotion-reset';
 import { css } from '@emotion/react';
-import { theme } from './theme';
+import theme from '@/styles/theme';
 
 // TODO: 서비스에 맞게 조정 필요
 const globalStyle = css`
@@ -11,9 +11,22 @@ const globalStyle = css`
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
     text-decoration: none;
-    font-family: 'Pretendard Variable', Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto,
-      'Helvetica Neue', 'Segoe UI', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', 'Apple Color Emoji',
-      'Segoe UI Emoji', 'Segoe UI Symbol', sans-serif;
+    font-family:
+      'Pretendard Variable',
+      Pretendard,
+      -apple-system,
+      BlinkMacSystemFont,
+      system-ui,
+      Roboto,
+      'Helvetica Neue',
+      'Segoe UI',
+      'Apple SD Gothic Neo',
+      'Noto Sans KR',
+      'Malgun Gothic',
+      'Apple Color Emoji',
+      'Segoe UI Emoji',
+      'Segoe UI Symbol',
+      sans-serif;
   }
 
   html {
