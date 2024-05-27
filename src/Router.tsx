@@ -59,7 +59,7 @@ const router = createBrowserRouter([
       {
         // 로그인시에만 접속 가능
         path: '',
-        // element: <PrivateLayout />,
+        // element: <PrivateRedirector />,
         children: [...privateChildren],
       },
     ],

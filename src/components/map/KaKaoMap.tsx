@@ -1,9 +1,9 @@
 import { useGeolocation } from '@/hooks/useGeolocation';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Map, MapMarker } from 'react-kakao-maps-sdk';
 import markerData, { MarkerData } from '../../mocks/markerData';
-// import image from '/public/images/temporaryMarkerImage.png';
-import image from '/public/images/hing.png';
+// import image from '/images/temporaryMarkerImage.png';
+import image from '/images/hing.png';
 
 const geolocationOptions = {
   enableHighAccuracy: true,
@@ -17,7 +17,7 @@ export default function KaKaoMap() {
   const [isLoaded, setIsLoaded] = useState(false);
   // const [isOpen, setIsOpen] = useState(false);
   const [sortedMarkers, setSortedMarkers] = useState<MarkerData[]>([]);
-
+  console.log(location);
   useEffect(() => {
     if (location) {
       setIsLoaded(true);
@@ -54,7 +54,7 @@ export default function KaKaoMap() {
 
   return (
     <div>
-      {isLoaded ? (
+      {isLoaded && location ? (
         <>
           <Map
             center={{ lat: location.latitude, lng: location.longitude }}
@@ -64,7 +64,7 @@ export default function KaKaoMap() {
           >
             <MapMarker
               position={{ lat: location.latitude, lng: location.longitude }}
-              onClick={() => handleMarkerClick(location)}
+              onClick={() => handleMarkerClick({ id: 0, name: '현재 위치', ...location })} // 현재 위치 클릭 시 현재 위치 정보를 가지고 있는 마커를 클릭한 것으로 처리
             >
               <div style={{ color: '#000' }}>현재 위치</div>
             </MapMarker>
@@ -89,7 +89,7 @@ export default function KaKaoMap() {
             <ul>
               {sortedMarkers.map((marker, index) => (
                 <li key={marker.id}>
-                  {index + 1}. {marker.name} - {marker.distance.toFixed(2)} km
+                  {index + 1}. {marker.name} - {marker.distance?.toFixed(2)} km
                 </li>
               ))}
             </ul>
