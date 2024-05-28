@@ -3,6 +3,7 @@ export interface MarkerData {
   name: string;
   latitude: number;
   longitude: number;
+  distance?: number;
 }
 
 export const markerData: MarkerData[] = [
