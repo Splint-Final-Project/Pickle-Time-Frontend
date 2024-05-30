@@ -14,20 +14,8 @@ const geolocationOptions = {
 export default function KaKaoMap() {
   const { location, error } = useGeolocation(geolocationOptions);
   const [map, setMap] = useState<kakao.maps.Map | null>(null);
-  const [isLoaded, setIsLoaded] = useState(false);
   // const [isOpen, setIsOpen] = useState(false);
   const [sortedMarkers, setSortedMarkers] = useState<MarkerData[]>([]);
-  console.log(location);
-  useEffect(() => {
-    if (location) {
-      setIsLoaded(true);
-      // if (map) {
-      //   const center = new kakao.maps.LatLng(location.latitude, location.longitude);
-      //   map.setCenter(center);
-      // }
-    }
-    // }, [location,map]);
-  }, [location]);
 
   if (error) {
     return <div>에러 발생: {error}</div>;
@@ -51,10 +39,10 @@ export default function KaKaoMap() {
     const sorted = distances.sort((a, b) => a.distance - b.distance);
     setSortedMarkers(sorted);
   };
-
+  console.log(location);
   return (
     <div>
-      {isLoaded && location ? (
+      {location ? (
         <>
           <Map
             center={{ lat: location.latitude, lng: location.longitude }}
