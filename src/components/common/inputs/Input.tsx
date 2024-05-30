@@ -1,3 +1,4 @@
+import styled from '@emotion/styled';
 import React from 'react';
 //TODO : 스타일 컴포넌트로 만들기
 interface InputProps {
@@ -8,11 +9,12 @@ interface InputProps {
   onChange: () => void;
 }
 
-function Input(
-  { type, id, onChange, placeholder, value }: InputProps,
-  ref: React.LegacyRef<HTMLInputElement> | undefined,
-) {
-  return <input type={type} id={id} onChange={onChange} placeholder={placeholder} value={value} ref={ref} />;
+function Input({ ...inputProps }: InputProps, ref: React.LegacyRef<HTMLInputElement> | undefined) {
+  return <Styled.Input {...inputProps} ref={ref} />;
 }
 
 export default React.forwardRef(Input);
+//TODO : 스타일링 추가 및 변경
+const Styled = {
+  Input: styled.input``,
+};
