@@ -8,6 +8,7 @@ const routes = {
   pickle: '/pickle',
   pickleList: '/pickle-list',
   mypage: '/mypage',
+  mobilePaymentRedirect: '/payment-redirect',
 };
 
 Object.freeze(routes);
