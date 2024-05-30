@@ -9,7 +9,7 @@ export default function SignUp() {
     register,
     handleSubmit,
     getValues,
-    formState: { isSubmitting, errors },
+    formState: { isSubmitting, isValid, errors },
   } = useForm<SignUpFormValues>();
 
   const [revealPw, setRevealPw] = useState(false);
@@ -17,12 +17,12 @@ export default function SignUp() {
   const navigate = useNavigate();
   async function handleSignUp(data: SignUpFormValues) {
     try {
-      await authRequests.signup(data);
-      alert('회원가입 성공');
+      await authRequests.signUp(data);
+      alert('회원가입 마무리 단계 페이지로 리다이렉팅됩니다');
+      navigate('/sign-up2');
     } catch (e) {
       console.log(e);
     }
-    // navigate('/sign-in');
   }
   return (
     <div>
@@ -47,22 +47,6 @@ export default function SignUp() {
                 },
               })}
             />
-          </div>
-          <div>
-            <label htmlFor="nickname">닉네임</label>
-            <input
-              id="nickname"
-              type="nickname"
-              placeholder="닉네임을 입력해 주세요"
-              {...register('nickname', {
-                required: true,
-                minLength: {
-                  value: 2,
-                  message: '2자 이상 입력해 주세요.',
-                },
-              })}
-            />
-            {errors.nickname && <span>{errors.nickname.message?.toString()}</span>}
           </div>
           <div>
             <label htmlFor="password">비밀번호</label>
@@ -103,7 +87,9 @@ export default function SignUp() {
             />
             {errors.checkPassword && <span>{errors.checkPassword.message?.toString()}</span>}
           </div>
-          <button type="submit">회원가입</button>
+          <button type="submit" disabled={!isValid}>
+            이메일로 시작하기
+          </button>
         </fieldset>
       </form>
       <br />

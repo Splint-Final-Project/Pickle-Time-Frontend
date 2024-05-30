@@ -5,6 +5,7 @@ import { authRequests } from '@/apis/index';
 const useAuth = create<{
   getUser: () => UserInfoType | null;
   signIn: (arg0: SignInFormValues) => void;
+  oAuthSetToken: (token: string) => void;
   signOut: () => void;
 }>()(() => ({
   getUser: () => {
@@ -27,7 +28,6 @@ const useAuth = create<{
       throw new Error();
     }
   },
-
   signOut: () => {
     try {
       localStorage.removeItem('user');

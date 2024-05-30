@@ -1,6 +1,6 @@
 // 추후 폴더 격리를 통해, 리팩토링도 가능합니다.
 import client from './axios';
-import { SignInFormValues, SignUpFormValues } from './types/authTypes';
+import { SignInFormValues, SignUpFormValues, SignUpFormValues2 } from './types/authTypes';
 
 // const ERROR_MESSAGE = '에러 발생:';
 
@@ -15,8 +15,14 @@ export const authRequests = Object.freeze({
   },
 
   signup: async (body: SignUpFormValues) => {
-
+    console.log(body);
     const { data } = await client.post('user/join', body);
+    return data;
+  },
+
+  signUp2: async (body: SignUpFormValues2) => {
+    console.log(body);
+    const { data } = await client.put('user/join2', body);
     return data;
   },
 
