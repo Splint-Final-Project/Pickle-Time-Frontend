@@ -16,35 +16,28 @@ export default function Pickle() {
       amount: 1000,
       name: '아임포트 결제 데이터 분석',
       buyer_name: '홍길동',
-      buyer_tel: '01012341234',
-      buyer_email: 'test@example.com',
-      buyer_addr: '삼일대로 343',
-      buyer_postcode: '04538',
-      m_redirect_url: '/payment-redirect',
+      // buyer_tel: '01012341234',
+      // buyer_email: 'test@example.com',
+      // buyer_addr: '삼일대로 343',
+      // buyer_postcode: '04538',
+      m_redirect_url: `${window.location.origin.toString()}/payment-redirect`,
     };
-
     IMP.init('imp88171622');
     IMP.request_pay(data, async (response: any) => {
-      // const { success, merchant_uid, error_msg } = response;
       if (!response.success) {
-        return alert(`결제에 실패하였습니다. 에러 내용: ${response.error_msg}`);
+        return alert(`에러 내용: ${response.error_msg}`);
       }
-      let headers = new Headers();
-
-      headers.append('Content-Type', 'application/json');
-      headers.append('Accept', 'application/json');
-      headers.append('Origin', 'http://localhost:5173');
-      const notified = await fetch(`http://localhost:8080/verify_iamport/${response.imp_uid}`, {
+      const notified = await fetch(`${import.meta.env.VITE_BACKEND_URL}/verify_iamport/${response.imp_uid}`, {
         method: 'POST',
-        headers: headers,
-        // body: JSON.stringify({
-        //   imp_uid: response.imp_uid,
-        //   merchant_uid: response.merchant_uid,
-        // }),
-        mode: 'cors',
       });
       console.log(notified);
-      alert('결제에 성공하였습니다?');
+      const notifiedText = await notified.text(); // Fix: Use the text() method instead of string()
+      console.log(notifiedText);
+      //notified http status에 따라 분기.
+      //OK의 경우에는 성공했다고 띄우고 피클 페이지로 이동(신청버튼이 '신청함'으로 바뀌고비활성화됨)
+      //실패의 경우에는 실패했다고 띄우고 다시 그 피클 페이지
+      //같은 작업을 redirect url에서도 해야함
+      alert('피클 신청에 성공하였습니다?');
     });
   }
 
