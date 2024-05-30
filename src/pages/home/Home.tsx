@@ -4,13 +4,20 @@ import useButtonClick from '@/hooks/zustand/test';
 import useAuth from '@/hooks/zustand/useAuth';
 import KaKaoMap from '@/components/map/KaKaoMap';
 import routes from '@/constants/routes';
+import BackDropModal from '@/components/common/modal/BackDropModal';
+import { useState } from 'react';
 
 const Button = styled.button`
   color: hotpink;
+  border: 1px solid black;
 `;
 
 export default function Home() {
   const { count, inc } = useButtonClick();
+  const [isModalOpen, setModalOpen] = useState(false);
+
+  const openModal = () => setModalOpen(true);
+  const closeModal = () => setModalOpen(false);
 
   const { getUser, signOut } = useAuth();
   const user = getUser();
@@ -38,6 +45,12 @@ export default function Home() {
       <br />
       <br />
       <KaKaoMap />
+      <Button type="button" onClick={openModal}>
+        모달 테스트 버튼
+      </Button>
+      <BackDropModal isOpen={isModalOpen} onClose={closeModal}>
+        <div>티라노 앙</div>
+      </BackDropModal>
     </div>
   );
 }
