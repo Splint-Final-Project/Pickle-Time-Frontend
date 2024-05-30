@@ -6,9 +6,11 @@ const client = axios.create({
 
 client.interceptors.request.use(async config => {
   const token = localStorage.getItem('token');
+
   if (config.headers && token && token !== 'undefined') {
     config.headers.Authorization = token;
   }
+  
   return config;
 });
 

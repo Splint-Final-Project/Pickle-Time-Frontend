@@ -9,13 +9,13 @@ const TOKEN = '임시 토큰';
 // auth : react-Query에서 호출 x, 대신 zustand에서 직접 호출합니다!
 export const authRequests = Object.freeze({
   signIn: async (body: SignInFormValues) => {
-    console.log(body);
+
     const { data } = await client.post('user/login', body);
     return data;
   },
 
   signup: async (body: SignUpFormValues) => {
-    console.log(body);
+
     const { data } = await client.post('user/join', body);
     return data;
   },

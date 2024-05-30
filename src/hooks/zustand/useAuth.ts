@@ -15,22 +15,26 @@ const useAuth = create<{
     const parsed = JSON.parse(item);
     return parsed;
   },
+
   signIn: async (data: SignInFormValues) => {
     try {
       console.log(data);
+
       const res = await authRequests.signIn(data);
-      // console.log(res.response.token);
       localStorage.setItem('token', res.response.token);
+
     } catch (err) {
       throw new Error();
     }
   },
+
   signOut: () => {
     try {
       localStorage.removeItem('user');
       localStorage.removeItem('token');
       console.log('logout success');
       location.replace('/sign-in');
+
     } catch (e) {
       console.log(e);
     }
