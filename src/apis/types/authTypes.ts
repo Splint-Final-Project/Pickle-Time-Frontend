@@ -10,5 +10,6 @@ export type UserInfoType = {
 export type SignUpFormValues = {
   email: string;
   password: string;
-  confirmPassword: string;
+  checkPassword: string;
+  nickname: string;
 };

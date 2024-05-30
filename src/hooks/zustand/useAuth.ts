@@ -1,5 +1,6 @@
 import { create } from 'zustand';
 import { SignInFormValues, UserInfoType } from '@/apis/types/authTypes';
+import { authRequests } from '@/apis/index';
 
 const useAuth = create<{
   getUser: () => UserInfoType | null;
@@ -16,11 +17,10 @@ const useAuth = create<{
   },
   signIn: async (data: SignInFormValues) => {
     try {
-      // const res = await logIn(data);
-      // localStorage.setItem("user", JSON.stringify(res.user));
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      localStorage.setItem('user', JSON.stringify({ email: data.email }));
-      localStorage.setItem('token', 'randomToken');
+      console.log(data);
+      const res = await authRequests.signIn(data);
+      // console.log(res.response.token);
+      localStorage.setItem('token', res.response.token);
     } catch (err) {
       throw new Error();
     }
