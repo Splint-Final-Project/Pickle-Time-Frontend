@@ -12,7 +12,6 @@ const Button = styled.button`
 `;
 
 export default function Home() {
-  const { count, inc } = useButtonClick();
   const [isModalOpen, setModalOpen] = useState(false);
 
   const openModal = () => setModalOpen(true);
