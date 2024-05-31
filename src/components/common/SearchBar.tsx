@@ -16,7 +16,9 @@ export default function SearchBar({ placeholder, uri, ...htmlInputProps }: Searc
   const inputRef = useRef<HTMLInputElement>(null);
   const navigate = useNavigate();
 
-  const navigateToKeyword = (input: string) => {
+  const navigateToKeyword = (input: string | null) => {
+    if (!input) return;
+
     const keyword = input?.replace(/(\s*)/g, '');
     if (keyword === '') return;
 
@@ -28,7 +30,10 @@ export default function SearchBar({ placeholder, uri, ...htmlInputProps }: Searc
 
   const handleEnterKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.key !== 'Enter') return;
-    navigateToKeyword(inputRef.current.value);
+
+    if (inputRef.current) {
+      navigateToKeyword(inputRef.current.value);
+    }
   };
 
   return (
