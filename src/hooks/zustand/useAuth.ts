@@ -28,6 +28,11 @@ const useAuth = create<{
       throw new Error();
     }
   },
+  oAuthSetToken: (token: string) => {
+    if (token) {
+      localStorage.setItem('token', token);
+    }
+  },
   signOut: () => {
     try {
       localStorage.removeItem('user');

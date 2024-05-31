@@ -14,7 +14,7 @@ export const authRequests = Object.freeze({
     return data;
   },
 
-  signup: async (body: SignUpFormValues) => {
+  signUp: async (body: SignUpFormValues) => {
     console.log(body);
     const { data } = await client.post('user/join', body);
     return data;
