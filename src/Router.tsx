@@ -2,7 +2,7 @@ import { createBrowserRouter } from 'react-router-dom';
 
 import Home from '@/pages/home/Home';
 import Admin from '@/pages/auth/Admin';
-import SingIn from '@/pages/auth/SingIn';
+import SignIn from '@/pages/auth/SignIn';
 import SignUp from '@/pages/auth/SignUp';
 import Pickle from '@/pages/pickles/Pickle';
 import PickleList from '@/pages/pickles/PickleList';
@@ -54,7 +54,7 @@ const router = createBrowserRouter([
       },
       {
         path: '/sign-in',
-        element: <SingIn />,
+        element: <SignIn />,
       },
       {
         path: '/sign-up',

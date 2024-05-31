@@ -4,7 +4,7 @@ import useAuth from '@/hooks/zustand/useAuth';
 import { SignInFormValues } from '@/apis/types/authTypes';
 import { useState } from 'react';
 
-export default function SingIn() {
+export default function SignIn() {
   const {
     register,
     handleSubmit,
@@ -16,6 +16,7 @@ export default function SingIn() {
   const navigate = useNavigate();
   const handleSignIn: SubmitHandler<SignInFormValues> = async data => {
     try {
+      console.log(data);
       await signIn(data);
       navigate('/');
       alert('로그인 성공');

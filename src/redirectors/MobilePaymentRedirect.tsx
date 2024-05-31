@@ -3,12 +3,12 @@ import { useLocation, useSearchParams } from 'react-router-dom';
 
 export default function MobilePaymentRedirect() {
   const [searchParams] = useSearchParams();
-  if (!searchParams.get('imp_success')) {
-    return alert(`에러 내용: ${searchParams.get('error_msg')}`);
-  }
   async function handlePayment() {
     const notified = await fetch(`${import.meta.env.VITE_BACKEND_URL}/verify_iamport/${searchParams.get('imp_uid')}`, {
       method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
     });
     console.log(notified);
     const notifiedText = await notified.text(); // Fix: Use the text() method instead of string()
@@ -20,7 +20,11 @@ export default function MobilePaymentRedirect() {
     alert('피클 신청에 성공하였습니다?');
   }
   useEffect(() => {
-    handlePayment();
+    if (!searchParams.get('imp_success')) {
+      alert(`에러 내용: ${searchParams.get('error_msg')}`);
+    } else {
+      handlePayment();
+    }
   }, []);
   return <div>결제 진행 중... 창을 닫지 마세요</div>;
 }

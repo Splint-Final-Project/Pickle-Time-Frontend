@@ -1,8 +1,11 @@
-interface ErrorMessageProps {
-  children: React.ReactNode;
-}
-//TODO : 스타일 컴포넌트로 만들기
+import styled from '@emotion/styled';
+import React from 'react';
 
-export default function ErrorMessage({ children }: ErrorMessageProps) {
-  return <p>{children}</p>;
+//TODO : 스타일 컴포넌트로 만들기
+export default function ErrorMessage({ children }: { children: React.ReactNode }) {
+  return <Styled.MessageBox>{children}</Styled.MessageBox>;
 }
+//TODO : 스타일링 추가 및 변경
+const Styled = {
+  MessageBox: styled.p``,
+};
