@@ -1,8 +1,8 @@
 // 추후 폴더 격리를 통해, 리팩토링도 가능합니다.
 import client from './axios';
-import { SignInFormValues, SignUpFormValues, SignUpFormValues2 } from './types/authTypes';
 
-// const ERROR_MESSAGE = '에러 발생:';
+import { SignInFormValues, SignUpFormValues, SignUpFormValues2 } from './types/authTypes';
+import { MessageType } from './types/messages.type';
 
 const TOKEN = '임시 토큰';
 
@@ -35,3 +35,19 @@ export const authRequests = Object.freeze({
 
 // pickles
 export const picklesRequests = Object.freeze({});
+
+
+//messages
+export const messages = Object.freeze({
+  send: async (body: MessageType, receiverId: string) => {
+
+    const { data } = await client.post(`messages/send/${receiverId}`, body);
+    return data;
+  },
+
+  get: async (body: MessageType, receiverId: string) => {
+
+    const { data } = await client.post(`messages/${receiverId}`, body);
+    return data;
+  }
+});
