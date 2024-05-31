@@ -1,6 +1,5 @@
 import styled from '@emotion/styled';
 import { Link } from 'react-router-dom';
-import useButtonClick from '@/hooks/zustand/test';
 import useAuth from '@/hooks/zustand/useAuth';
 import KaKaoMap from '@/components/map/KaKaoMap';
 import routes from '@/constants/routes';
@@ -19,8 +18,10 @@ export default function Home() {
   const openModal = () => setModalOpen(true);
   const closeModal = () => setModalOpen(false);
 
+  // 전역 상태
   const { getUser, signOut } = useAuth();
   const user = getUser();
+
   return (
     <div>
       <h1>피클타임 홈 페이지</h1>
@@ -35,7 +36,6 @@ export default function Home() {
       </div>
       <br />
       <br />
-      <Button onClick={inc}>Styled Button {count}</Button>
       <div style={{ display: 'flex', flexDirection: 'column' }}>
         <Link to={routes.chatList}>Chat List</Link>
 
