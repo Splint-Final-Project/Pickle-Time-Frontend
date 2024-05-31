@@ -1,38 +1,33 @@
 import { useState } from 'react';
-import { FieldPath, FieldValues, UseControllerProps, useController, useForm } from 'react-hook-form';
+import { FieldPath, FieldValues, UseControllerProps, useController } from 'react-hook-form';
 import Label from './Label';
 import Input from './Input';
 import ErrorMessage from './ErrorMessage';
+import styled from '@emotion/styled';
 
-//TODO : 스타일링 추가 및 구조 변경
-interface PasswordInput {
+export interface PasswordInputProps {
   id: string;
   labelText: string;
   placeholder: string;
 }
-/**
- * @PasswordInput필수Props id, label(라벨 텍스트), placeholder(input placeholder), name(react-hook-form과 연결할 이름), control(useForm함수가 리턴하는 control을 넘겨주세요)
- * @PasswordInput선택Props rules(검증할 패턴이 많다면 패턴을 객체로 만들어서 넘겨주세요)
- 
- */
 
 export default function PasswordInput<
   TFieldValues extends FieldValues = FieldValues,
   TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>,
->({ id, labelText, placeholder, ...restProps }: PasswordInput & UseControllerProps<TFieldValues, TName>) {
+>({ id, labelText, placeholder, ...controllerProps }: PasswordInputProps & UseControllerProps<TFieldValues, TName>) {
   const {
     field: { value = '', onChange },
     fieldState: { error },
-  } = useController(restProps);
+  } = useController(controllerProps);
   const [isShow, setIsShow] = useState<boolean>(false);
 
   const handleIsShowState = () => {
     setIsShow(prev => !prev);
   };
   return (
-    <div>
+    <Styled.PasswordInputWrapper>
       <Label htmlFor={id}>{labelText}</Label>
-      <div>
+      <Styled.PasswordInputInner>
         <Input
           id={id}
           type={!isShow ? 'password' : 'text'}
@@ -43,8 +38,13 @@ export default function PasswordInput<
         <button type="button" onClick={handleIsShowState}>
           비번오픈
         </button>
-      </div>
+      </Styled.PasswordInputInner>
       <ErrorMessage>{error?.message}</ErrorMessage>
-    </div>
+    </Styled.PasswordInputWrapper>
   );
 }
+//TODO : 스타일링 추가 및 변경
+const Styled = {
+  PasswordInputWrapper: styled.div``,
+  PasswordInputInner: styled.div``,
+};

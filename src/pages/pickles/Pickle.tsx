@@ -1,3 +1,4 @@
+
 import { useState } from 'react';
 
 declare global {
@@ -8,6 +9,7 @@ declare global {
 export default function Pickle() {
   const { IMP } = window;
   const [paymentMethod, setPaymentMethod] = useState<string>('kakaopay');
+
   function onClickPayment() {
     const data = {
       pg: `${paymentMethod === 'kakaopay' ? 'kakaopay.TC0ONETIME' : 'tosspay.tosstest'}`,
@@ -22,14 +24,18 @@ export default function Pickle() {
       // buyer_postcode: '04538',
       m_redirect_url: `${window.location.origin.toString()}/payment-redirect`,
     };
+
     IMP.init('imp88171622');
+    
     IMP.request_pay(data, async (response: any) => {
       if (!response.success) {
         return alert(`에러 내용: ${response.error_msg}`);
       }
+
       const notified = await fetch(`${import.meta.env.VITE_BACKEND_URL}/verify_iamport/${response.imp_uid}`, {
         method: 'POST',
       });
+
       console.log(notified);
       const notifiedText = await notified.text(); // Fix: Use the text() method instead of string()
       console.log(notifiedText);
@@ -37,7 +43,7 @@ export default function Pickle() {
       //OK의 경우에는 성공했다고 띄우고 피클 페이지로 이동(신청버튼이 '신청함'으로 바뀌고비활성화됨)
       //실패의 경우에는 실패했다고 띄우고 다시 그 피클 페이지
       //같은 작업을 redirect url에서도 해야함
-      alert('피클 신청에 성공하였습니다?');
+      alert('피클 신청에 성공하였습니다!');
     });
   }
 
