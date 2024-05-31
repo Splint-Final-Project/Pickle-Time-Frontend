@@ -12,6 +12,7 @@ export default function LoginRedirector() {
       function (response: any) {
         return response;
       },
+
       function (error: any) {
         const status = error.response?.status;
         if (status === 401) {
@@ -22,13 +23,17 @@ export default function LoginRedirector() {
         return Promise.reject(error);
       },
     );
+
     return () => {
       client.interceptors.response.eject(responseInterceptor);
     };
   }, [navigate]);
+
   console.log('asdfasfd');
+
   if (!getUser()) {
     return <Navigate to="/sign-in" />;
   }
+  
   return <Outlet />;
 }
