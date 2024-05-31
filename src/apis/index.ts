@@ -45,9 +45,9 @@ export const messages = Object.freeze({
     return data;
   },
 
-  get: async (body: MessageType, receiverId: string) => {
+  get: async (receiverId: string) => {
 
-    const { data } = await client.post(`messages/${receiverId}`, body);
+    const { data } = await client.get(`messages/${receiverId}`);
     return data;
   }
 });
