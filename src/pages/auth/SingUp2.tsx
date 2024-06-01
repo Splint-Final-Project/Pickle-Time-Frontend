@@ -1,5 +1,5 @@
-import { authRequests } from '@/apis/index';
-import { SignUpFormValues2 } from '@/apis/types/authTypes';
+import { authRequests } from '@/apis/auth.api';
+import { SignUpFormValues2 } from '@/apis/types/auth.type';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
