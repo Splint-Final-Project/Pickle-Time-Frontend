@@ -22,7 +22,8 @@ const useAuth = create<{
       console.log(data);
 
       const res = await authRequests.signIn(data);
-      localStorage.setItem('token', res.response.token);
+      console.log(res);
+      localStorage.setItem('token', res.token); // java: res.response.token 적용, express: res.token 적용
 
     } catch (err) {
       throw new Error();
