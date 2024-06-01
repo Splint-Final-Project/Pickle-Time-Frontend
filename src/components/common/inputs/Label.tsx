@@ -14,5 +14,6 @@ const Styled = {
   Label: styled.label`
     display: block;
     margin-bottom: 8px;
+    font-size: 12px;
   `,
 };
