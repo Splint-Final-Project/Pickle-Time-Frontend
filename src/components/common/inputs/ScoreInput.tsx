@@ -23,19 +23,21 @@ export default function ScoreInput<
   return (
     <Styled.Fieldset>
       <Styled.Legend>평점</Styled.Legend>
-      <Styled.ScoreIcon>{SCORE_ICON[value]}</Styled.ScoreIcon>
-      {STAR_ARR.map(number => (
-        <>
-          <Styled.StarInput
-            type="radio"
-            id={`rating${number}`}
-            value={`${number}`}
-            onChange={() => onChange(`${number}`)}
-            {...controllerProps}
-          />
-          <Styled.StarLabel htmlFor={`rating${number}`}>⭐</Styled.StarLabel>
-        </>
-      ))}
+      <Styled.ScoreWrapper>
+        <Styled.ScoreIcon>{SCORE_ICON[value]}</Styled.ScoreIcon>
+        {STAR_ARR.map(number => (
+          <>
+            <Styled.StarInput
+              type="radio"
+              id={`rating${number}`}
+              value={`${number}`}
+              onChange={() => onChange(`${number}`)}
+              {...controllerProps}
+            />
+            <Styled.StarLabel htmlFor={`rating${number}`}>⭐</Styled.StarLabel>
+          </>
+        ))}
+      </Styled.ScoreWrapper>
     </Styled.Fieldset>
   );
 }
@@ -67,8 +69,12 @@ const Styled = {
   Legend: styled.legend`
     text-align: left;
     margin-bottom: 4px;
+    font-size: 12px;
   `,
   ScoreIcon: styled.span`
     font-size: 3rem;
+  `,
+  ScoreWrapper: styled.div`
+    float: left;
   `,
 };
