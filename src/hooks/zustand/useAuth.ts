@@ -3,18 +3,18 @@ import { SignInFormValues, UserInfoType } from '@/apis/types/authTypes';
 import { authRequests } from '@/apis/index';
 
 const useAuth = create<{
-  getUser: () => UserInfoType | null;
+  getUser: () => true | false;
   signIn: (arg0: SignInFormValues) => void;
   oAuthSetToken: (token: string) => void;
   signOut: () => void;
 }>()(() => ({
   getUser: () => {
-    const item = localStorage.getItem('user');
+    const item = localStorage.getItem('token');
     if (!item || item === 'undefined') {
-      return null;
+      return false;
     }
-    const parsed = JSON.parse(item);
-    return parsed;
+    // const parsed = JSON.parse(item);
+    return true;
   },
 
   signIn: async (data: SignInFormValues) => {

@@ -1,10 +1,12 @@
-import styled from '@emotion/styled';
 import { Link } from 'react-router-dom';
+
 import useAuth from '@/hooks/zustand/useAuth';
 import KaKaoMap from '@/components/map/KaKaoMap';
 import routes from '@/constants/routes';
 import BackDropModal from '@/components/common/modal/BackDropModal';
 import { useState } from 'react';
+
+import styled from '@emotion/styled';
 
 const Button = styled.button`
   color: hotpink;
@@ -27,7 +29,7 @@ export default function Home() {
       <div>
         {user ? (
           <>
-            안녕하세요 {user.email}님 <button onClick={signOut}>로그아웃</button>
+            안녕하세요 님 <button onClick={signOut}>로그아웃</button>
           </>
         ) : (
           <Link to={routes.signIn}>Sign In</Link>
