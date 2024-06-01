@@ -57,12 +57,14 @@ const Styled = {
     position: relative;
     cursor: pointer;
     width: 100%;
-    padding: 8px 12px;
+    padding: 16px 12px;
+    border-radius: 8px;
     border: 1px solid black;
   `,
   DropdownIconBox: styled.span`
     position: absolute;
-    top: 8px;
+    top: 50%;
+    transform: translateY(-50%);
     right: 12px;
   `,
   DropdownBox: styled.ul`
@@ -76,5 +78,10 @@ const Styled = {
     z-index: 500;
     width: 100%;
   `,
-  DropdownItem: styled.li``,
+  DropdownItem: styled.li`
+    padding: 8px 0;
+    &:hover {
+      /* background-color : rgba() */
+    }
+  `,
 };
