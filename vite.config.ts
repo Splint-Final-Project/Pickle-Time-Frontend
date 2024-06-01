@@ -18,4 +18,12 @@ export default defineConfig({
       { find: '@/styles', replacement: path.resolve(__dirname, 'src/styles') },
     ],
   },
+  server: {
+		port: 4000,
+		proxy: {
+			"/api": {
+				target: "http://localhost:8080",
+			},
+		},
+	},
 });
