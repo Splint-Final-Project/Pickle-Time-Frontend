@@ -1,6 +1,6 @@
 import { create } from 'zustand';
-import { SignInFormValues, UserInfoType } from '@/apis/types/authTypes';
-import { authRequests } from '@/apis/index';
+import { SignInFormValues, UserInfoType } from '@/apis/types/auth.type';
+import { authRequests } from '@/apis/auth.api';
 
 const useAuth = create<{
   getUser: () => true | false;
@@ -24,7 +24,6 @@ const useAuth = create<{
       const res = await authRequests.signIn(data);
       console.log(res);
       localStorage.setItem('token', res.token); // java: res.response.token 적용, express: res.token 적용
-
     } catch (err) {
       throw new Error();
     }
@@ -40,7 +39,6 @@ const useAuth = create<{
       localStorage.removeItem('token');
       console.log('logout success');
       location.replace('/sign-in');
-
     } catch (e) {
       console.log(e);
     }

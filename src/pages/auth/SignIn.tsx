@@ -1,7 +1,7 @@
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
 import useAuth from '@/hooks/zustand/useAuth';
-import { SignInFormValues } from '@/apis/types/authTypes';
+import { SignInFormValues } from '@/apis/types/auth.type';
 import { useState } from 'react';
 
 export default function SignIn() {
