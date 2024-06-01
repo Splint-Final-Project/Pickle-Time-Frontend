@@ -14,7 +14,7 @@ export default function CheckboxInput<
   } = useController(controllerProps);
   return (
     <Styled.CheckboxWrapper>
-      <Input type="checkbox" id={id} value={value} onChange={onChange} />
+      <input type="checkbox" id={id} value={value} onChange={onChange} />
       <label htmlFor={id}>{labelText}</label>
     </Styled.CheckboxWrapper>
   );
@@ -24,7 +24,6 @@ const Styled = {
   CheckboxWrapper: styled.div`
     display: inline-flex;
     align-items: center;
-    justify-content: center;
     gap: 4px;
   `,
 };
