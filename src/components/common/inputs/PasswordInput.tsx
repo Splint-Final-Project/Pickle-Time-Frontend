@@ -35,9 +35,9 @@ export default function PasswordInput<
           onChange={onChange}
           placeholder={placeholder}
         />
-        <button type="button" onClick={handleIsShowState}>
-          비번오픈
-        </button>
+        <Styled.PasswordShowBtn type="button" onClick={handleIsShowState}>
+          {isShow ? '🔓' : '🔒'}
+        </Styled.PasswordShowBtn>
       </Styled.PasswordInputInner>
       <ErrorMessage>{error?.message}</ErrorMessage>
     </Styled.PasswordInputWrapper>
@@ -46,5 +46,14 @@ export default function PasswordInput<
 //TODO : 스타일링 추가 및 변경
 const Styled = {
   PasswordInputWrapper: styled.div``,
-  PasswordInputInner: styled.div``,
+  PasswordInputInner: styled.div`
+    position: relative;
+  `,
+  PasswordShowBtn: styled.button`
+    font-size: 2rem;
+    position: absolute;
+    top: 50%;
+    right: 12px;
+    transform: translateY(-50%);
+  `,
 };

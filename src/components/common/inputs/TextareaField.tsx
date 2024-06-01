@@ -4,12 +4,13 @@ import { FieldPath, FieldValues, UseControllerProps, useController } from 'react
 
 interface TextareaFieldProps {
   labelText: string;
+  placeholder: string;
 }
 
 export default function TextareaField<
   TFieldValues extends FieldValues = FieldValues,
   TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>,
->({ labelText, ...controllerProps }: TextareaFieldProps & UseControllerProps<TFieldValues, TName>) {
+>({ labelText, placeholder, ...controllerProps }: TextareaFieldProps & UseControllerProps<TFieldValues, TName>) {
   const {
     field: { value, onChange },
     fieldState: { error },
@@ -17,7 +18,7 @@ export default function TextareaField<
   return (
     <Styled.TextareaFieldWrapper>
       <Label htmlFor="textarea">{labelText}</Label>
-      <Styled.Textarea id="textarea" onChange={onChange} />
+      <Styled.Textarea id="textarea" onChange={onChange} placeholder={placeholder} />
     </Styled.TextareaFieldWrapper>
   );
 }
@@ -28,5 +29,7 @@ const Styled = {
     resize: none;
     width: 100%;
     height: 200px;
+    border-radius: 8px;
+    padding: 8px 12px;
   `,
 };

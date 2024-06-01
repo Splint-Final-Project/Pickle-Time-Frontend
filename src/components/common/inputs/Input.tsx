@@ -16,5 +16,14 @@ function Input({ ...inputProps }: InputProps, ref: React.LegacyRef<HTMLInputElem
 export default React.forwardRef(Input);
 //TODO : 스타일링 추가 및 변경
 const Styled = {
-  Input: styled.input``,
+  Input: styled.input`
+    width: 100%;
+    padding: 8px 12px;
+    border-radius: 8px;
+    outline: none;
+    border: 1px solid gray;
+    &:focus {
+      border: 1px solid green;
+    }
+  `,
 };

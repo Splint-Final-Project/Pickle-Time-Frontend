@@ -19,7 +19,9 @@ function FormField({ children, handleSubmit, onSubmit }: FormFieldProps) {
 }
 //TODO : 스타일링 추가 및 변경
 const Styled = {
-  Form: styled.form``,
+  Form: styled.form`
+    width: 100%;
+  `,
 };
 
 const Form = Object.assign(FormField, {
@@ -75,6 +77,7 @@ export default function SigninPage() {
       score: '0',
       review: '',
     },
+    mode: 'onChange',
   });
 
   const handleOnSubmit = (data: any) => {
@@ -82,27 +85,30 @@ export default function SigninPage() {
   };
 
   return (
-    <div>
+    <div style={{ width: '40vw', margin: 'auto' }}>
       <Form handleSubmit={handleSubmit} onSubmit={handleOnSubmit}>
-        <Form.TextInput
-          id="userId"
-          labelText="아이디"
-          placeholder="아이디를 입력해주세요"
-          name="userId"
-          control={control}
-        />
-        <Form.PasswordInput
-          id="password"
-          placeholder="비밀번호를 입력해주세요"
-          labelText="비밀번호"
-          name="password"
-          control={control}
-        />
-        <Form.CheckboxInput id="checkbox" labelText="할루?" name="isshow" control={control} />
-        <Form.DropdownInput name="dropdown" defaultValue="1" control={control} renderList={RENDERLIST} />
-        <Form.ScoreInput name="score" control={control} />
-        <Form.TextareaField labelText="하이" name="review" control={control} />
-        <button type="submit">제출</button>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+          <Form.TextInput
+            id="userId"
+            labelText="아이디"
+            placeholder="아이디를 입력해주세요"
+            name="userId"
+            control={control}
+            rules={{ required: '아이디를 입력해주세요' }}
+          />
+          <Form.PasswordInput
+            id="password"
+            placeholder="비밀번호를 입력해주세요"
+            labelText="비밀번호"
+            name="password"
+            control={control}
+          />
+          <Form.CheckboxInput id="checkbox" labelText="할루?" name="isshow" control={control} />
+          <Form.DropdownInput name="dropdown" defaultValue="1" control={control} renderList={RENDERLIST} />
+          <Form.ScoreInput name="score" control={control} />
+          <Form.TextareaField labelText="하이" name="review" control={control} placeholder="글적어라" />
+          <button type="submit">제출</button>
+        </div>
       </Form>
     </div>
   );
