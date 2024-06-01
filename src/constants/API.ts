@@ -13,6 +13,7 @@ export const API_AUTH = Object.freeze({
 
 export const API_PICKLE = Object.freeze({
   GET_ALL: `${API.PICKLE}`,
+  NEARBY: `${API.PICKLE}/nearby`,
   CREATE: `${API.PICKLE}/create`,
   BY_ID: (pickleId: string) => `${API.PICKLE}/${pickleId}`,
   LIKE: (pickleId: string) => `${API.PICKLE}/${pickleId}/like`,

@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { Coordinates } from '@/apis/types/pickles.type';
 
 interface Geolocation {
   latitude: number;
@@ -12,7 +13,7 @@ interface GeolocationOptions {
 }
 
 export const useGeolocation = (options?: GeolocationOptions) => {
-  const [location, setLocation] = useState<Geolocation | null>(null);
+  const [location, setLocation] = useState<Coordinates | null>(null);
   const [error, setError] = useState<string>('');
 
   const handleSuccess = (pos: GeolocationPosition) => {
