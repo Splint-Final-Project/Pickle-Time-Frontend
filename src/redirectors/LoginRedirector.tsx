@@ -1,9 +1,9 @@
 import { ReactNode, useEffect } from 'react';
 import client from '@/apis/axios';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { Outlet, useNavigate } from 'react-router-dom';
 import useAuth from '@/hooks/zustand/useAuth';
 
-export default function LoginRedirector({ children }: { children: ReactNode }) {
+export default function LoginRedirector() {
   const navigate = useNavigate();
   const { signOut } = useAuth();
 
@@ -30,5 +30,5 @@ export default function LoginRedirector({ children }: { children: ReactNode }) {
     };
   }, [navigate]);
 
-  return children;
+  return <Outlet />;
 }

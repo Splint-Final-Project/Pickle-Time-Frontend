@@ -7,12 +7,20 @@ const useAuth = create<any>()(set => ({
   // signIn: (arg0: SignInFormValues) => any;
   // // oAuthSetToken: (token: string) => void;
   // signOut: () => void;
-  user: null,
+
+  getMe: () => {
+    const item = localStorage.getItem('me');
+    if (!item || item === 'undefined') {
+      return null;
+    }
+    const parsed = JSON.parse(item);
+    return parsed;
+  },
 
   signIn: async (data: SignInFormValues) => {
     try {
       const res = await authRequests.signIn(data);
-      set({ user: res.user });
+      localStorage.setItem('me', JSON.stringify(res.user));
       return res.user.status;
     } catch (err) {
       console.log(err);
@@ -23,7 +31,8 @@ const useAuth = create<any>()(set => ({
   signUp: async (data: SignUpFormValues) => {
     try {
       const res = await authRequests.signUp(data);
-      set({ user: res.user });
+      console.log(res);
+      localStorage.setItem('me', JSON.stringify(res.user));
     } catch (err) {
       console.log(err);
       throw new Error();
@@ -33,7 +42,7 @@ const useAuth = create<any>()(set => ({
   signUp2: async (data: SignUpFormValues2) => {
     try {
       const res = await authRequests.signUp2(data);
-      set({ user: res.user });
+      localStorage.setItem('me', JSON.stringify(res.user));
     } catch (err) {
       console.log(err);
       throw new Error();
@@ -46,7 +55,7 @@ const useAuth = create<any>()(set => ({
   // },
   signOut: async () => {
     try {
-      set({ user: null });
+      localStorage.removeItem('me');
       const res = await authRequests.signOut();
       console.log(res);
     } catch (e) {

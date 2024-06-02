@@ -4,7 +4,7 @@ import useAuth from '@/hooks/zustand/useAuth';
 import KaKaoMap from '@/components/map/KaKaoMap';
 import routes from '@/constants/routes';
 import BackDropModal from '@/components/common/modal/BackDropModal';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import styled from '@emotion/styled';
 
@@ -20,15 +20,15 @@ export default function Home() {
   const closeModal = () => setModalOpen(false);
 
   // 전역 상태
-  const { user, signOut } = useAuth();
+  const { getMe, signOut } = useAuth();
 
   return (
     <div>
       <h1>피클타임 홈 페이지</h1>
       <div>
-        {user ? (
+        {getMe() ? (
           <>
-            안녕하세요 님 <button onClick={signOut}>로그아웃</button>
+            안녕하세요 {getMe()?.nickname}님 <button onClick={signOut}>로그아웃</button>
           </>
         ) : (
           <Link to={routes.signIn}>Sign In</Link>

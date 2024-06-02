@@ -26,7 +26,7 @@ export default function SignUp2() {
   }
   return (
     <div>
-      회원가입 마무리하기 (아직 한 단계 남았어요!)
+      회원가입을 마무리해주세요 (아직 한 단계 남았어요!)
       <form
         autoComplete="off"
         onSubmit={handleSubmit(handleSignUp2)}
