@@ -15,9 +15,9 @@ export default function SignUp2() {
   const navigate = useNavigate();
   async function handleSignUp(data: SignUpFormValues2) {
     try {
-      // await authRequests.signUp2(data);
-      alert('회원가입 완료. 로그인 페이지로 이동합니다');
-      navigate('/sign-in');
+      await authRequests.signUp2(data);
+      alert('회원가입이 완료되었습니다. 홈 페이지로 이동합니다');
+      navigate('/');
     } catch (e) {
       console.log(e);
     }

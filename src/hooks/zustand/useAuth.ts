@@ -4,8 +4,8 @@ import { authRequests } from '@/apis/auth.api';
 
 const useAuth = create<{
   getUser: () => true | false;
-  signIn: (arg0: SignInFormValues) => void;
-  oAuthSetToken: (token: string) => void;
+  signIn: (arg0: SignInFormValues) => any;
+  // oAuthSetToken: (token: string) => void;
   signOut: () => void;
 }>()(() => ({
   getUser: () => {
@@ -19,24 +19,25 @@ const useAuth = create<{
 
   signIn: async (data: SignInFormValues) => {
     try {
-      console.log(data);
-
       const res = await authRequests.signIn(data);
-      localStorage.setItem('token', res.response.token);
+      return res.user.status;
     } catch (err) {
+      console.log(err);
       throw new Error();
     }
   },
-  oAuthSetToken: (token: string) => {
-    if (token) {
-      localStorage.setItem('token', token);
-    }
-  },
-  signOut: () => {
+  // oAuthSetToken: (token: string) => {
+  //   if (token) {
+  //     localStorage.setItem('token', token);
+  //   }
+  // },
+  signOut: async () => {
     try {
-      localStorage.removeItem('user');
-      localStorage.removeItem('token');
-      console.log('logout success');
+      const res = await authRequests.signOut();
+      console.log(res);
+      // localStorage.removeItem('user');
+      // localStorage.removeItem('token');
+      // console.log('logout success');
       location.replace('/sign-in');
     } catch (e) {
       console.log(e);

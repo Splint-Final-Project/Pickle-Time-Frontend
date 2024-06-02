@@ -19,13 +19,12 @@ export const authRequests = Object.freeze({
 
   signUp2: async (body: SignUpFormValues2) => {
     console.log(body);
-    const { data } = await client.put(API_AUTH.JOIN, body);
+    const { data } = await client.put(API_AUTH.JOIN2, body);
     return data;
   },
 
-  // Logout : async () =>  {
-  //   const { data } = await client.post('logout', {
-  //   });
-  //   return data;
-  // },
+  signOut: async () => {
+    const { data } = await client.delete('logout', {});
+    return data;
+  },
 });
