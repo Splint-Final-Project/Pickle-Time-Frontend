@@ -24,7 +24,7 @@ export const authRequests = Object.freeze({
   },
 
   signOut: async () => {
-    const { data } = await client.delete('logout', {});
+    const { data } = await client.delete(API_AUTH.LOGOUT, {});
     return data;
   },
 });

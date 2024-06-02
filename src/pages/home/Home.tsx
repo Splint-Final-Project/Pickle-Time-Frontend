@@ -20,8 +20,7 @@ export default function Home() {
   const closeModal = () => setModalOpen(false);
 
   // 전역 상태
-  const { getUser, signOut } = useAuth();
-  const user = getUser();
+  const { user, signOut } = useAuth();
 
   return (
     <div>
