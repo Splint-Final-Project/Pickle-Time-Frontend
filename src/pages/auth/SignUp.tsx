@@ -1,5 +1,6 @@
 import { authRequests } from '@/apis/auth.api';
 import { SignUpFormValues } from '@/apis/types/auth.type';
+import useAuth from '@/hooks/zustand/useAuth';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
@@ -15,9 +16,10 @@ export default function SignUp() {
   const [revealPw, setRevealPw] = useState(false);
   const [revealConfirmPw, setRevealConfirmPw] = useState(false);
   const navigate = useNavigate();
+  const { signUp } = useAuth();
   async function handleSignUp(data: SignUpFormValues) {
     try {
-      await authRequests.signUp(data);
+      await signUp(data);
       alert('회원가입 마무리 단계 페이지로 리다이렉팅됩니다');
       navigate('/sign-up2');
     } catch (e) {

@@ -1,5 +1,6 @@
 import { authRequests } from '@/apis/auth.api';
 import { SignUpFormValues2 } from '@/apis/types/auth.type';
+import useAuth from '@/hooks/zustand/useAuth';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
@@ -13,21 +14,22 @@ export default function SignUp2() {
   } = useForm<SignUpFormValues2>();
 
   const navigate = useNavigate();
-  async function handleSignUp(data: SignUpFormValues2) {
+  const { signUp2 } = useAuth();
+  async function handleSignUp2(data: SignUpFormValues2) {
     try {
-      // await authRequests.signUp2(data);
-      alert('회원가입 완료. 로그인 페이지로 이동합니다');
-      navigate('/sign-in');
+      await signUp2(data);
+      alert('회원가입이 완료되었습니다. 홈 페이지로 이동합니다');
+      navigate('/');
     } catch (e) {
       console.log(e);
     }
   }
   return (
     <div>
-      회원가입 마무리하기 (아직 한 단계 남았어요!)
+      회원가입을 마무리해주세요 (아직 한 단계 남았어요!)
       <form
         autoComplete="off"
-        onSubmit={handleSubmit(handleSignUp)}
+        onSubmit={handleSubmit(handleSignUp2)}
         style={{ display: 'flex', flexDirection: 'column' }}
       >
         <fieldset disabled={isSubmitting}>

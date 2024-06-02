@@ -7,7 +7,10 @@ export const API = Object.freeze({
 
 export const API_AUTH = Object.freeze({
   LOGIN: `${API.AUTH}/login`,
+  ME: `${API.AUTH}/me`,
   JOIN: `${API.AUTH}/join`,
+  JOIN2: `${API.AUTH}/join2`,
+  LOGOUT: `${API.AUTH}/logout`,
   BY_ID: (userId: string) => `${API.AUTH}/${userId}`,
 });
 

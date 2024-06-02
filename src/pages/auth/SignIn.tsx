@@ -16,10 +16,15 @@ export default function SignIn() {
   const navigate = useNavigate();
   const handleSignIn: SubmitHandler<SignInFormValues> = async data => {
     try {
-      console.log(data);
-      await signIn(data);
-      navigate('/');
-      alert('로그인 성공');
+      // console.log(data);
+      const status = await signIn(data);
+      if (status === 'Pending') {
+        alert('추가 정보 입력 페이지로 이동');
+        navigate('/sign-up2');
+      } else {
+        alert('로그인 성공! 홈 페이지로 이동합니다.');
+        navigate('/');
+      }
     } catch (e) {
       console.log(e);
     }
@@ -70,6 +75,7 @@ export default function SignIn() {
           <button type="submit">로그인</button>
         </fieldset>
       </form>
+      <button>깃허브로 로그인</button>
       <button>카카오로 로그인</button>
       <button disabled>네이버로 로그인</button>
       <div>
