@@ -75,7 +75,16 @@ export default function SignIn() {
           <button type="submit">로그인</button>
         </fieldset>
       </form>
-      <button>깃허브로 로그인</button>
+      <button
+        onClick={() =>
+          window.open(
+            'https://github.com/login/oauth/authorize' + `?client_id=${import.meta.env.VITE_GITHUB_CLIEND_ID}`,
+            '_self',
+          )
+        }
+      >
+        깃허브로 로그인
+      </button>
       <button>카카오로 로그인</button>
       <button disabled>네이버로 로그인</button>
       <div>

@@ -12,7 +12,6 @@ import MyPage from '@/pages/profile/MyPage';
 import routes from '@/constants/routes';
 import MobilePaymentRedirect from './redirectors/MobilePaymentRedirect';
 import SignUp2 from './pages/auth/SingUp2';
-import OAuthPendingRedirector from './redirectors/OAuthPendingRedirector';
 import OAuthSuccessRedirector from './redirectors/OAuthSuccessRedirector';
 import LoginRedirector from './redirectors/LoginRedirector';
 
@@ -71,10 +70,10 @@ const router = createBrowserRouter([
             path: 'success',
             element: <OAuthSuccessRedirector />,
           },
-          {
-            path: 'pending',
-            element: <OAuthPendingRedirector />,
-          },
+          // {
+          //   path: 'pending',
+          //   element: <OAuthPendingRedirector />,
+          // },
         ],
       },
       {

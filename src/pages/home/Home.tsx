@@ -21,6 +21,7 @@ export default function Home() {
 
   // 전역 상태
   const { getMe, signOut } = useAuth();
+  console.log(getMe());
 
   return (
     <div>
