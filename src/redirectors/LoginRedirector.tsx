@@ -1,11 +1,11 @@
 import { ReactNode, useEffect } from 'react';
 import client from '@/apis/axios';
-import { Outlet, useNavigate } from 'react-router-dom';
+import { Navigate, Outlet, useNavigate } from 'react-router-dom';
 import useAuth from '@/hooks/zustand/useAuth';
 
 export default function LoginRedirector() {
   const navigate = useNavigate();
-  const { signOut } = useAuth();
+  const { getMe, signOut } = useAuth();
 
   useEffect(() => {
     const responseInterceptor = client.interceptors.response.use(
@@ -29,6 +29,9 @@ export default function LoginRedirector() {
       client.interceptors.response.eject(responseInterceptor);
     };
   }, [navigate]);
+  if (!getMe()) {
+    return <Navigate to="/sign-in" />;
+  }
 
   return <Outlet />;
 }
