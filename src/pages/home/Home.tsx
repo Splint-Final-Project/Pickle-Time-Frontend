@@ -7,6 +7,8 @@ import BackDropModal from '@/components/common/modal/BackDropModal';
 import { useEffect, useState } from 'react';
 
 import styled from '@emotion/styled';
+import HeartButton from '@/components/common/button/HeartButton';
+import useHeartButtonClick from '@/hooks/useHeartButtonClick';
 
 const Button = styled.button`
   color: hotpink;
@@ -15,6 +17,10 @@ const Button = styled.button`
 
 export default function Home() {
   const [isModalOpen, setModalOpen] = useState(false);
+  const { isHeartClicked, handleHeartClick } = useHeartButtonClick({
+    pickleId: '1',
+    isInUserWishList: false,
+  });
 
   const openModal = () => setModalOpen(true);
   const closeModal = () => setModalOpen(false);
@@ -52,6 +58,7 @@ export default function Home() {
       <BackDropModal isOpen={isModalOpen} onClose={closeModal}>
         <div>티라노 앙</div>
       </BackDropModal>
+      <HeartButton isActive={isHeartClicked} onClick={handleHeartClick} />
     </div>
   );
 }
