@@ -15,8 +15,7 @@ export const API_AUTH = Object.freeze({
 export const API_PICKLE = Object.freeze({
   CREATE: `${API.PICKLE}/create`,
   BY_ID: (pickleId: string) => `${API.PICKLE}/${pickleId}`,
-  LIKE: (pickleId: string) => `${API.PICKLE}/${pickleId}/like`,
-  UNLIKE: (pickleId: string) => `${API.PICKLE}/${pickleId}/unlike`,
+  LIKE: (pickleId: string) => `${API.PICKLE}/${pickleId}/scrap`,
   SEARCH: (pickleType: string) => `${API.PICKLE}/${pickleType}`, // 피클검색
   LOCATION_SEARCH: `${API.PICKLE}/search`, // 지역검색
   IN_LOCATION: `${API.PICKLE}/location`, // 지도 내 피클 조회
