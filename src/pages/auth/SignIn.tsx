@@ -78,15 +78,23 @@ export default function SignIn() {
       <button
         onClick={() =>
           window.open(
-            'https://github.com/login/oauth/authorize' + `?client_id=${import.meta.env.VITE_GITHUB_CLIEND_ID}`,
+            `https://kauth.kakao.com/oauth/authorize?client_id=${import.meta.env.VITE_KAKAO_CLIENT_ID}&redirect_uri=${import.meta.env.VITE_KAKAO_REDIRECT}&response_type=code`,
             '_self',
           )
         }
       >
-        깃허브로 로그인
+        카카오로 로그인
       </button>
-      <button>카카오로 로그인</button>
-      <button disabled>네이버로 로그인</button>
+      <button
+        onClick={() =>
+          window.open(
+            `https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=${import.meta.env.VITE_NAVER_CLIENT_ID}&redirect_uri=${import.meta.env.VITE_NAVER_REDIRECT}&state=${'abcde'}`,
+            '_self',
+          )
+        }
+      >
+        네이버로 로그인
+      </button>
       <div>
         <span>아직 회원이 아니신가요?</span>
         <Link to="/sign-up">가입하기</Link>
