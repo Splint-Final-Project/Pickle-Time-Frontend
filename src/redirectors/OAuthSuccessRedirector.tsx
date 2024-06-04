@@ -1,18 +1,34 @@
 import useAuth from '@/hooks/zustand/useAuth';
-import { useNavigate, useSearchParams } from 'react-router-dom';
+import { Navigate, useSearchParams } from 'react-router-dom';
 
 export default function OAuthSuccessRedirector() {
-  const { oAuthSetToken } = useAuth();
+  const { setMe } = useAuth();
   const [searchParams] = useSearchParams();
-  const token = searchParams.get('token');
-  const navigate = useNavigate();
-  if (!token) {
-    alert('토큰이 없습니다.');
-    navigate('/sign-in');
-  } else {
-    oAuthSetToken(token);
-    alert('로그인 성공.');
-    navigate('/');
+  const status = searchParams.get('status');
+  console.log(status);
+  if (status === 'Pending') {
+    console.log('추가 정보 입력 페이지로 이동합니다.');
+    // alert('추가 정보 입력 페이지로 이동합니다.');
+    return <Navigate to="/sign-up2" />;
   }
-  return <div>로딩 중</div>;
+  const _id = searchParams.get('_id');
+  const nickname = searchParams.get('nickname');
+  const profilePic = searchParams.get('profilePic');
+  const occupation = searchParams.get('occupation');
+  const oauthType = searchParams.get('oauthType');
+  const oauthId = searchParams.get('oauthId');
+  setMe({
+    _id,
+    nickname,
+    status,
+    profilePic,
+    occupation,
+    oauthType,
+    oauthId,
+  });
+
+  // alert('로그인 성공.');
+  return <Navigate to="/" />;
+
+  // return <div>로딩 중</div>;
 }

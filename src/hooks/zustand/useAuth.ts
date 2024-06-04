@@ -17,6 +17,10 @@ const useAuth = create<any>()(set => ({
     return parsed;
   },
 
+  setMe: (data: any) => {
+    localStorage.setItem('me', JSON.stringify(data));
+  },
+
   signIn: async (data: SignInFormValues) => {
     try {
       const res = await authRequests.signIn(data);
@@ -42,6 +46,7 @@ const useAuth = create<any>()(set => ({
   signUp2: async (data: SignUpFormValues2) => {
     try {
       const res = await authRequests.signUp2(data);
+      console.log(res);
       localStorage.setItem('me', JSON.stringify(res.user));
     } catch (err) {
       console.log(err);

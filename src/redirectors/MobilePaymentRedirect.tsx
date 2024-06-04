@@ -4,7 +4,7 @@ import { useLocation, useSearchParams } from 'react-router-dom';
 export default function MobilePaymentRedirect() {
   const [searchParams] = useSearchParams();
   async function handlePayment() {
-    const notified = await fetch(`${import.meta.env.VITE_BACKEND_URL}/verify_iamport/${searchParams.get('imp_uid')}`, {
+    const notified = await fetch(`${import.meta.env.VITE_BACKEND_URL}/payment/verify/${searchParams.get('imp_uid')}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

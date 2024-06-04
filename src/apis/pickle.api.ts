@@ -19,3 +19,13 @@ export const picklesRequests = Object.freeze({
     return data;
   },
 });
+
+const likePickle = (pickleId: string) => {
+  return client.put(API_PICKLE.LIKE(pickleId));
+};
+
+const deletePickleLike = (pickleId: string) => {
+  return client.delete(API_PICKLE.LIKE(pickleId));
+};
+
+export default { likePickle, deletePickleLike };
