@@ -4,6 +4,7 @@ import { Map, MapMarker } from 'react-kakao-maps-sdk';
 import markerData, { MarkerData } from '../../mocks/markerData';
 // import image from '/images/temporaryMarkerImage.png';
 import image from '/images/hing.png';
+import { useGetInfinitePickles, useGetNearbyPickles } from '@/hooks/query/pickles';
 
 const geolocationOptions = {
   enableHighAccuracy: true,
@@ -16,6 +17,11 @@ export default function KaKaoMap() {
   const [map, setMap] = useState<kakao.maps.Map | null>(null);
   // const [isOpen, setIsOpen] = useState(false);
   const [sortedMarkers, setSortedMarkers] = useState<MarkerData[]>([]);
+
+  //server state
+  const { data } = useGetInfinitePickles();
+  // const { data } = useGetNearbyPickles(location);
+  console.log(data);
 
   if (error) {
     return <div>에러 발생: {error}</div>;
