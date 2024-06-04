@@ -8,13 +8,14 @@ export const picklesRequests = Object.freeze({
     return data;
   },
 
-  getNearby: async ({latitude, longitude}: Coordinates) => {
+  getNearby: async (location: Coordinates | null) => {
+    if (location === null) return null;
     const { data } = await client.get(API_PICKLE.NEARBY, {
       params: {
-        latitude,
-        longitude
+        latitude: location.latitude,
+        longitude: location.longitude
       }
     });
     return data;
-  }
+  },
 });

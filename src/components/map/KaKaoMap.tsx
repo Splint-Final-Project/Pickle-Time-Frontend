@@ -19,8 +19,8 @@ export default function KaKaoMap() {
   const [sortedMarkers, setSortedMarkers] = useState<MarkerData[]>([]);
 
   //server state
-  // const { data } = useGetInfinitePickles();
-  const { data } = useGetNearbyPickles(location);
+  const { data } = useGetInfinitePickles();
+  // const { data } = useGetNearbyPickles(location);
   console.log(data);
 
   if (error) {
