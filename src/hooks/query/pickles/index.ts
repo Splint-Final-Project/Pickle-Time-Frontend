@@ -5,7 +5,7 @@ import { Coordinates } from "@/apis/types/pickles.type";
 
 export const useGetInfinitePickles = () => {
   return useInfiniteQuery({
-    queryKey: ["infinitePickles"],
+    queryKey: ["pickles"],
     initialPageParam: 0,
     queryFn: async ({ pageParam }) => await picklesRequests.getWithPage(),
 
@@ -21,7 +21,7 @@ export const useGetInfinitePickles = () => {
 
 export const useGetNearbyPickles = (location: Coordinates | null) => {
   return useQuery({
-    queryKey: ["nearbyPickles"],
+    queryKey: ["pickles", "nearby"],
     queryFn: async () => await picklesRequests.getNearby(location),
   })
 };
