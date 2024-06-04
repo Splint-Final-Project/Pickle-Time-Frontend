@@ -1,19 +1,20 @@
-import { useQuery, useInfiniteQuery } from "@tanstack/react-query";
+import { useQuery, useInfiniteQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 
-import { picklesRequests } from "@/apis/pickle.api";
-import { Coordinates } from "@/apis/types/pickles.type";
+import { picklesRequests } from '@/apis/pickle.api';
+import { Coordinates, CreatePickleData } from '@/apis/types/pickles.type';
+import toast from 'react-hot-toast';
 
 export const useGetInfinitePickles = () => {
   return useInfiniteQuery({
-    queryKey: ["infinitePickles"],
+    queryKey: ['infinitePickles'],
     initialPageParam: 0,
     queryFn: async ({ pageParam }) => await picklesRequests.getWithPage(),
 
-    getNextPageParam: (lastPage) => {
+    getNextPageParam: lastPage => {
       return lastPage.cursorId;
     },
 
-    select: (data) => {
+    select: data => {
       return data;
     },
   });
@@ -21,7 +22,20 @@ export const useGetInfinitePickles = () => {
 
 export const useGetNearbyPickles = (location: Coordinates | null) => {
   return useQuery({
-    queryKey: ["nearbyPickles"],
+    queryKey: ['nearbyPickles'],
     queryFn: async () => await picklesRequests.getNearby(location),
-  })
+  });
+};
+
+export const useCreatePickleMutation = (pickleData: CreatePickleData) => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async () => await picklesRequests.createPickle(pickleData),
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: ['pickles'] }),
+    onError: error => {
+      console.error(error);
+      toast.error('피클 생성에 실패했습니다.');
+    },
+  });
 };
