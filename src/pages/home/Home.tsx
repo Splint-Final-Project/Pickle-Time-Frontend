@@ -9,11 +9,33 @@ import { useEffect, useState } from 'react';
 import styled from '@emotion/styled';
 import HeartButton from '@/components/common/button/HeartButton';
 import useHeartButtonClick from '@/hooks/useHeartButtonClick';
+import { useCreatePickleMutation } from '@/hooks/query/pickles';
 
 const Button = styled.button`
   color: hotpink;
   border: 1px solid black;
 `;
+
+const temData = {
+  title: "명동 스터디6",
+  capacity: 5,
+  cost: 8000,
+  deadLine: "2024-06-10T23:00:00Z",
+  where: "명동커피",
+  when: {
+    summary: "사흘 간",
+    times: [
+      "2024-06-15T07:00:00Z",
+      "2024-06-16T07:00:00Z",
+      "2024-06-14T07:00:00.000Z",
+      "2024-06-13T07:00:00.000Z"
+    ]
+  },
+  content: "스터디",
+  explanation: "그냥 하고싶으신 거 모여서 합니다! 환영해요~.",
+  latitude: 37.5636,
+  longitude: 126.982
+}
 
 export default function Home() {
   const [isModalOpen, setModalOpen] = useState(false);
@@ -27,7 +49,14 @@ export default function Home() {
 
   // 전역 상태
   const { getMe, signOut } = useAuth();
-  console.log(getMe());
+  // console.log(getMe());
+
+  // server state
+  const { mutate } = useCreatePickleMutation(temData); 
+
+  const handleMutate = async () => {
+    mutate();
+  }
 
   return (
     <div>
@@ -48,6 +77,9 @@ export default function Home() {
 
         <Link to={routes.pickle}>테스트 피클 보기+결제하기</Link>
       </div>
+      <Button type="button" onClick={handleMutate}>
+        생성 테스트 버튼
+      </Button>
       <br />
       <br />
       <br />
