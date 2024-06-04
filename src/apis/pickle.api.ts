@@ -1,6 +1,6 @@
 import client from '@/apis/axios';
 import { API_PICKLE } from '@/constants/API';
-import { Coordinates } from './types/pickles.type';
+import { Coordinates, CreatePickleData } from './types/pickles.type';
 
 export const picklesRequests = Object.freeze({
   getWithPage: async () => {
@@ -13,9 +13,14 @@ export const picklesRequests = Object.freeze({
     const { data } = await client.get(API_PICKLE.NEARBY, {
       params: {
         latitude: location.latitude,
-        longitude: location.longitude
-      }
+        longitude: location.longitude,
+      },
     });
+    return data;
+  },
+
+  createPickle: async (pickleData: CreatePickleData) => {
+    const { data } = await client.post(API_PICKLE.CREATE, pickleData);
     return data;
   },
 });
