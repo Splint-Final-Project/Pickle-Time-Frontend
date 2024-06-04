@@ -1,5 +1,5 @@
 import React, { useCallback, useState } from 'react';
-import { useDeletePickelLikeMutation, usePickelLikeMutation } from './query/pickles/mutation';
+import { useDeletePickleLikeMutation, usePickleLikeMutation } from './query/pickles/mutation';
 
 export interface HeartClickProps {
   pickleId: string;
@@ -9,8 +9,8 @@ export interface HeartClickProps {
 export default function useHeartButtonClick({ pickleId, isInUserWishList }: HeartClickProps) {
   const [isHeartClicked, setIsHeartClicked] = useState(isInUserWishList);
 
-  const { mutate: postLikeMutate } = usePickelLikeMutation(() => setIsHeartClicked(true));
-  const { mutate: deleteLikeMutate } = useDeletePickelLikeMutation(() => setIsHeartClicked(false));
+  const { mutate: postLikeMutate } = usePickleLikeMutation(() => setIsHeartClicked(true));
+  const { mutate: deleteLikeMutate } = useDeletePickleLikeMutation(() => setIsHeartClicked(false));
 
   const handleHeartClick = useCallback(
     (e: React.MouseEvent<HTMLElement>) => {
