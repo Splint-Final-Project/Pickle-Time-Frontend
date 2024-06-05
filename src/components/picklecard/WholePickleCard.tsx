@@ -21,10 +21,10 @@ export default function WholePickleCard({ type }: WholePickleCardProps) {
 const S = {
   CardLayer: styled.a<{ $backImgType: 'study' | 'exercise' }>`
     display: block;
-    width: 15rem;
+    /* width: 15rem; */
     height: 10.7rem;
-    margin: auto;
-    margin-top: 20px;
+    /* margin: auto; */
+    /* margin-top: 20px; */
     background: #f3f4f6;
     border-radius: 0.4rem;
     padding: 1.2rem 0 1.2rem 1.4rem;
