@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import BottomNav from '@/components/common/BottomNav';
+import { Outlet } from 'react-router-dom';
 
 const breakpoints = {
   mobile: '768px',
@@ -30,7 +31,7 @@ const S = {
 };
 
 interface MainLayoutProps {
-  children: React.ReactNode;
+  children?: React.ReactNode;
 }
 
 export default function MainLayout({ children }: MainLayoutProps) {
@@ -38,7 +39,10 @@ export default function MainLayout({ children }: MainLayoutProps) {
     <S.LayoutContainer>
       {/* <Header /> */}
       <S.Content>
-        <S.MainContent>{children}</S.MainContent>
+        <S.MainContent>
+          <Outlet />
+          {children}
+        </S.MainContent>
       </S.Content>
       <BottomNav />
     </S.LayoutContainer>

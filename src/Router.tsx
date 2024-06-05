@@ -14,6 +14,7 @@ import MobilePaymentRedirect from './redirectors/MobilePaymentRedirect';
 import SignUp2 from './pages/auth/SingUp2';
 import OAuthSuccessRedirector from './redirectors/OAuthSuccessRedirector';
 import LoginRedirector from './redirectors/LoginRedirector';
+import MainLayout from '@/layouts/MainLayout';
 
 const privateChildren = [
   {
@@ -37,6 +38,7 @@ const privateChildren = [
 const router = createBrowserRouter([
   {
     path: '',
+    element: <MainLayout />,
     // errorElement: <NotFound />,
     children: [
       {
