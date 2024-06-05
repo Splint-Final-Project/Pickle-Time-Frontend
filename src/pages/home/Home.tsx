@@ -10,6 +10,7 @@ import styled from '@emotion/styled';
 import HeartButton from '@/components/common/button/HeartButton';
 import useHeartButtonClick from '@/hooks/useHeartButtonClick';
 import { useCreatePickleMutation } from '@/hooks/query/pickles';
+import Carousel from '@/components/carousel/Carousel';
 
 const Button = styled.button`
   color: hotpink;
@@ -60,7 +61,7 @@ export default function Home() {
 
   return (
     <div>
-      <h1>피클타임 홈 페이지</h1>
+      <Carousel/>
       <div>
         {getMe() ? (
           <>
