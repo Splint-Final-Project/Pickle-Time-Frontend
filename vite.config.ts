@@ -14,16 +14,17 @@ export default defineConfig({
       { find: '@/constants', replacement: path.resolve(__dirname, 'src/constants') },
       { find: '@/hooks', replacement: path.resolve(__dirname, 'src/hooks') },
       { find: '@/mocks', replacement: path.resolve(__dirname, 'src/mocks') },
+      { find: '@/layouts', replacement: path.resolve(__dirname, 'src/layouts') },
       { find: '@/pages', replacement: path.resolve(__dirname, 'src/pages') },
       { find: '@/styles', replacement: path.resolve(__dirname, 'src/styles') },
     ],
   },
   server: {
-		port: 4000,
-		proxy: {
-			"/api": {
-				target: "http://localhost:8080",
-			},
-		},
-	},
+    port: 4000,
+    proxy: {
+      '/api': {
+        target: 'http://localhost:8080',
+      },
+    },
+  },
 });
