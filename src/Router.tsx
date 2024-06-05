@@ -52,15 +52,15 @@ const router = createBrowserRouter([
         element: <PickleList />,
       },
       {
-        path: '/sign-in',
+        path: routes.signIn,
         element: <SignIn />,
       },
       {
-        path: '/sign-up',
+        path: routes.signUp,
         element: <SignUp />,
       },
       {
-        path: '/sign-up2',
+        path: routes.signUp2,
         element: <SignUp2 />,
       },
       {
