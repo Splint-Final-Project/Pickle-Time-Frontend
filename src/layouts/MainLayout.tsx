@@ -1,0 +1,50 @@
+import React from 'react';
+import styled from '@emotion/styled';
+import BottomNav from '@/components/common/BottomNav';
+import { Outlet } from 'react-router-dom';
+
+const breakpoints = {
+  mobile: '768px',
+};
+
+const S = {
+  LayoutContainer: styled.div`
+    display: flex;
+    flex-direction: column;
+    min-height: 100dvh;
+    border: 1px solid black;
+    width: 100%;
+
+    @media (min-width: ${breakpoints.mobile}) {
+      max-width: 767px;
+      margin: 0 auto;
+    }
+  `,
+  Content: styled.main`
+    flex: 1;
+    display: flex;
+    flex-direction: row;
+  `,
+  MainContent: styled.div`
+    flex: 1;
+  `,
+};
+
+interface MainLayoutProps {
+  children?: React.ReactNode;
+}
+
+export default function MainLayout({ children }: MainLayoutProps) {
+  return (
+    <S.LayoutContainer>
+      {/* <Header /> */}
+      <S.Content>
+        <S.MainContent>
+          <Outlet />
+          {children}
+        </S.MainContent>
+      </S.Content>
+      <BottomNav />
+    </S.LayoutContainer>
+  );
+}

@@ -15,6 +15,7 @@ import OAuthSuccessRedirector from './redirectors/OAuthSuccessRedirector';
 import LoginRedirector from './redirectors/LoginRedirector';
 import SignIn from './pages/auth/SignIn';
 import SignIn_Email from './pages/auth/SignIn_Email';
+import MainLayout from '@/layouts/MainLayout';
 
 const privateChildren = [
   {
@@ -38,6 +39,7 @@ const privateChildren = [
 const router = createBrowserRouter([
   {
     path: '',
+    element: <MainLayout />,
     // errorElement: <NotFound />,
     children: [
       {

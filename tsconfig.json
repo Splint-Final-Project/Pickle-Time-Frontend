@@ -27,7 +27,8 @@
       "@/hooks/*": ["src/hooks/*"],
       "@/mocks/*": ["src/mocks/*"],
       "@/pages/*": ["src/pages/*"],
-      "@/styles/*": ["src/styles/*"]
+      "@/styles/*": ["src/styles/*"],
+      "@/layouts/*": ["src/layouts/*"]
     }
   },
   "include": ["src"],
