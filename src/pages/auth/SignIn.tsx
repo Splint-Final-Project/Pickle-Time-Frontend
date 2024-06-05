@@ -1,104 +1,58 @@
-import { SubmitHandler, useForm } from 'react-hook-form';
-import { Link, useNavigate } from 'react-router-dom';
-import useAuth from '@/hooks/zustand/useAuth';
-import { SignInFormValues } from '@/apis/types/auth.type';
-import { useState } from 'react';
+import styled from '@emotion/styled';
+
+import { Container, Logo, Button, SocialStartButtons, EmailActionRedirectors } from '@/components/auth/AuthComponents';
+import { Link } from 'react-router-dom';
 
 export default function SignIn() {
-  const {
-    register,
-    handleSubmit,
-    formState: { isSubmitting, errors },
-  } = useForm<SignInFormValues>();
-
-  const [revealPw, setRevealPw] = useState(false);
-  const { signIn } = useAuth();
-  const navigate = useNavigate();
-  const handleSignIn: SubmitHandler<SignInFormValues> = async data => {
-    try {
-      // console.log(data);
-      const status = await signIn(data);
-      if (status === 'Pending') {
-        alert('추가 정보 입력 페이지로 이동');
-        navigate('/sign-up2');
-      } else {
-        alert('로그인 성공! 홈 페이지로 이동합니다.');
-        navigate('/');
-      }
-    } catch (e) {
-      console.log(e);
-    }
-  };
-
   return (
-    <div>
-      <h1>로그인 페이지</h1>
-      <Link to="/">Home</Link>
-      <form
-        autoComplete="off"
-        onSubmit={handleSubmit(handleSignIn)}
-        style={{ display: 'flex', flexDirection: 'column' }}
-      >
-        <fieldset disabled={isSubmitting}>
-          <div>
-            <label htmlFor="email">Email</label>
-            <input
-              id="email"
-              type="email"
-              placeholder="이메일을 입력해 주세요"
-              {...register('email', {
-                required: true,
-                pattern: {
-                  value: /\S+@\S+\.\S+/,
-                  message: '이메일 형식으로 작성해 주세요.',
-                },
-              })}
+    <Container>
+      <Logo>어플리케이션 소개 어플리케이션 소개로고</Logo>
+      <SocialStartButtons>
+        <Button
+          style={{
+            backgroundColor: '#FEE500',
+            color: 'black',
+          }}
+          onClick={() =>
+            window.open(
+              `https://kauth.kakao.com/oauth/authorize?client_id=${import.meta.env.VITE_KAKAO_CLIENT_ID}&redirect_uri=${import.meta.env.VITE_KAKAO_REDIRECT}&response_type=code`,
+              '_self',
+            )
+          }
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" width="12" height="11" viewBox="0 0 12 11" fill="none">
+            <path
+              d="M2.29095 1.17891C4.62867 -0.508806 7.96767 -0.370858 10.1291 1.50546C12.3277 3.41536 12.6281 6.53381 10.8198 8.76782C9.11645 10.8718 6.04426 11.5652 3.48649 10.48L3.34679 10.4183L0.724279 10.9866L0.700297 10.9902L0.679312 10.9945H0.66852L0.655329 10.9976H0.632545L0.61276 11L0.600169 10.9994L0.586379 11L0.566593 10.9982H0.545608L0.532417 10.9957L0.519227 10.9945L0.498242 10.9902L0.477857 10.9872L0.468263 10.9847L0.453874 10.9817L0.424495 10.9719L0.410105 10.9689L0.40351 10.9658L0.39032 10.9615L0.363339 10.9493L0.345352 10.942L0.338757 10.9384L0.330363 10.9347L0.311776 10.9237L0.284795 10.9091L0.275202 10.9023L0.253018 10.8865L0.229035 10.87L0.227836 10.8675L0.220042 10.8621L0.19426 10.8376L0.179271 10.8254L0.175674 10.8212L0.142098 10.7833L0.134303 10.7748L0.127708 10.7662L0.104325 10.732L0.0959311 10.7204L0.0929332 10.7143L0.0677513 10.6698L0.0635543 10.6625L0.0611561 10.6576L0.0569591 10.6502L0.0485652 10.6271L0.0365738 10.6014L0.0341754 10.5917L0.0317771 10.5855L0.0215845 10.5483L0.0173875 10.5373L0.0161883 10.5282L0.0131906 10.5166L0.0101927 10.4964L0.00539616 10.4708L0.00419697 10.4519L0.00239825 10.4458V10.436L0 10.403L0.000599526 10.3811L0.00119919 10.367L0.00239825 10.3347L0.00479649 10.3194V10.3078L0.00959313 10.2865L0.0125909 10.2657L0.0155888 10.2535L0.0179871 10.2413L0.0287794 10.2047L0.0305781 10.1967L0.720083 8.09091L0.706892 8.06832C-0.618156 5.78121 -0.0179871 2.94658 2.15365 1.28145L2.29095 1.17891Z"
+              fill="#070104"
             />
-            {errors.email && <span>{errors.email.message?.toString()}</span>}
-          </div>
-          <div>
-            <label htmlFor="password">Password</label>
-            <input
-              id="password"
-              type={revealPw ? 'text' : 'password'}
-              {...register('password', {
-                required: true,
-              })}
-            />
-            <img
-              onClick={() => setRevealPw(prev => !prev)}
-              src={revealPw ? '/icons/hide.svg' : '/icons/reveal.svg'}
-              alt="reveal"
-            />
-            {errors.password && <span>{errors.password.message?.toString()}</span>}
-          </div>
-          <button type="submit">로그인</button>
-        </fieldset>
-      </form>
-      <button
-        onClick={() =>
-          window.open(
-            `https://kauth.kakao.com/oauth/authorize?client_id=${import.meta.env.VITE_KAKAO_CLIENT_ID}&redirect_uri=${import.meta.env.VITE_KAKAO_REDIRECT}&response_type=code`,
-            '_self',
-          )
-        }
-      >
-        카카오로 로그인
-      </button>
-      <button
-        onClick={() =>
-          window.open(
-            `https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=${import.meta.env.VITE_NAVER_CLIENT_ID}&redirect_uri=${import.meta.env.VITE_NAVER_REDIRECT}&state=${'abcde'}`,
-            '_self',
-          )
-        }
-      >
-        네이버로 로그인
-      </button>
-      <div>
-        <span>아직 회원이 아니신가요?</span>
-        <Link to="/sign-up">가입하기</Link>
-      </div>
-    </div>
+          </svg>
+          카카오톡으로 시작하기
+        </Button>
+        <Button
+          style={{
+            backgroundColor: '#0AC50A',
+            color: 'white',
+          }}
+          onClick={() =>
+            window.open(
+              `https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=${import.meta.env.VITE_NAVER_CLIENT_ID}&redirect_uri=${import.meta.env.VITE_NAVER_REDIRECT}&state=${'abcde'}`,
+              '_self',
+            )
+          }
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" width="11" height="10" viewBox="0 0 11 10" fill="none">
+            <path d="M3.88235 0H0V10H3.88235V5L7.11765 10H11V0H7.11765V5L3.88235 0Z" fill="white" />
+          </svg>
+          네이버로 시작하기
+        </Button>
+      </SocialStartButtons>
+      <EmailActionRedirectors>
+        <Link to="/sign-in-email">이메일로 로그인</Link>
+        <svg xmlns="http://www.w3.org/2000/svg" width="2" height="14" viewBox="0 0 2 14" fill="none">
+          <path d="M1 14L1 -3.72529e-08" stroke="#D0D0D0" stroke-width="0.5" />
+        </svg>
+        <Link to="/sign-up">이메일로 회원가입</Link>
+      </EmailActionRedirectors>
+    </Container>
   );
 }

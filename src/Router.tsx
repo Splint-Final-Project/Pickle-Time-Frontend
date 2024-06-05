@@ -2,7 +2,6 @@ import { createBrowserRouter } from 'react-router-dom';
 
 import Home from '@/pages/home/Home';
 import Admin from '@/pages/auth/Admin';
-import SignIn from '@/pages/auth/SignIn';
 import SignUp from '@/pages/auth/SignUp';
 import Pickle from '@/pages/pickles/Pickle';
 import PickleList from '@/pages/pickles/PickleList';
@@ -14,6 +13,8 @@ import MobilePaymentRedirect from './redirectors/MobilePaymentRedirect';
 import SignUp2 from './pages/auth/SingUp2';
 import OAuthSuccessRedirector from './redirectors/OAuthSuccessRedirector';
 import LoginRedirector from './redirectors/LoginRedirector';
+import SignIn from './pages/auth/SignIn';
+import SignIn_Email from './pages/auth/SignIn_Email';
 
 const privateChildren = [
   {
@@ -54,6 +55,10 @@ const router = createBrowserRouter([
       {
         path: '/sign-in',
         element: <SignIn />,
+      },
+      {
+        path: '/sign-in-email',
+        element: <SignIn_Email />,
       },
       {
         path: '/sign-up',
