@@ -3,7 +3,7 @@ import axios from 'axios';
 import React, { useEffect } from 'react';
 import { useLocation, useSearchParams } from 'react-router-dom';
 
-export default function MobilePaymentRedirect() {
+export default function PickleJoinRedirector() {
   const [searchParams] = useSearchParams();
   async function handlePayment() {
     const notified = await client.post('/pickle/join', {
