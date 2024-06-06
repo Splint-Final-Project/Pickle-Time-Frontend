@@ -4,7 +4,7 @@ import pickleApi from '@/apis/pickle.api';
 
 type HandleSuccessFunction = (data: any) => void;
 
-export const usePickelLikeMutation = (handleSuccess: HandleSuccessFunction) => {
+export const usePickleLikeMutation = (handleSuccess: HandleSuccessFunction) => {
   return useMutation({
     mutationFn: async (pickleId: string) => {
       return pickleApi.likePickle(pickleId);
@@ -17,7 +17,7 @@ export const usePickelLikeMutation = (handleSuccess: HandleSuccessFunction) => {
   });
 };
 
-export const useDeletePickelLikeMutation = (handleSuccess: HandleSuccessFunction) => {
+export const useDeletePickleLikeMutation = (handleSuccess: HandleSuccessFunction) => {
   return useMutation({
     mutationFn: (pickleId: string) => pickleApi.deletePickleLike(pickleId),
     onSuccess: handleSuccess,
