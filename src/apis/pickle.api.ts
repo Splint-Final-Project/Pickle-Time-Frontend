@@ -7,7 +7,14 @@ export const picklesRequests = Object.freeze({
     const { data } = await client.get(API_PICKLE.GET_ALL);
     return data;
   },
-
+  getPopular: async () => {
+    const { data } = await client.get(API_PICKLE.POPULAR);
+    return data;
+  },
+  getHotTime: async () => {
+    const { data } = await client.get(API_PICKLE.HOT_TIME);
+    return data;
+  },
   getNearby: async (location: Coordinates | null) => {
     if (location === null) return null;
     const { data } = await client.get(API_PICKLE.NEARBY, {
