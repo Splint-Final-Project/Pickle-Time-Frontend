@@ -1,3 +1,4 @@
+import axios from 'axios';
 import { useState } from 'react';
 
 declare global {
@@ -5,6 +6,7 @@ declare global {
     IMP: any;
   }
 }
+
 export default function Pickle() {
   const { IMP } = window;
   const [paymentMethod, setPaymentMethod] = useState<string>('kakaopay');
@@ -21,7 +23,7 @@ export default function Pickle() {
       // buyer_email: 'test@example.com',
       // buyer_addr: '삼일대로 343',
       // buyer_postcode: '04538',
-      m_redirect_url: `${window.location.origin.toString()}/api/v1/payment-redirect`,
+      m_redirect_url: `${window.location.origin.toString()}/payment-redirect?pickle_id=${'asdfasdf'}&`,
     };
 
     IMP.init('imp88171622');
@@ -31,11 +33,12 @@ export default function Pickle() {
         return alert(`에러 내용: ${response.error_msg}`);
       }
 
-      const notified = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/v1/payment/verify/${response.imp_uid}`, {
-        method: 'POST',
+      const notified = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/v1/participate/`, {
+        imp_uid: response.imp_uid,
+        pickle_id: 'asdfasdf',
       });
 
-      const notifiedText = await notified.text(); // Fix: Use the text() method instead of string()
+      const notifiedText = notified.data(); // Fix: Use the text() method instead of string()
       //notified http status에 따라 분기.
       //OK의 경우에는 성공했다고 띄우고 피클 페이지로 이동(신청버튼이 '신청함'으로 바뀌고비활성화됨)
       //실패의 경우에는 실패했다고 띄우고 다시 그 피클 페이지
