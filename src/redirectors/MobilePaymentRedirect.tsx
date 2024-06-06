@@ -6,7 +6,7 @@ import { useLocation, useSearchParams } from 'react-router-dom';
 export default function MobilePaymentRedirect() {
   const [searchParams] = useSearchParams();
   async function handlePayment() {
-    const notified = await client.post('/participate/', {
+    const notified = await client.post('/pickle/join', {
       imp_uid: searchParams.get('imp_uid'),
       pickle_id: searchParams.get('pickle_id'),
     });

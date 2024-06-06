@@ -19,10 +19,6 @@ export default function Pickle() {
       amount: 1000,
       name: '아임포트 결제 데이터 분석',
       buyer_name: '홍길동',
-      // buyer_tel: '01012341234',
-      // buyer_email: 'test@example.com',
-      // buyer_addr: '삼일대로 343',
-      // buyer_postcode: '04538',
       m_redirect_url: `${window.location.origin.toString()}/payment-redirect?pickle_id=${'asdfasdf'}&`,
     };
 
@@ -33,12 +29,12 @@ export default function Pickle() {
         return alert(`에러 내용: ${response.error_msg}`);
       }
 
-      const notified = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/v1/participate/`, {
+      const notified = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/v1/pickle/join`, {
         imp_uid: response.imp_uid,
         pickle_id: 'asdfasdf',
       });
 
-      const notifiedText = notified.data(); // Fix: Use the text() method instead of string()
+      const notifiedText = notified.data();
       //notified http status에 따라 분기.
       //OK의 경우에는 성공했다고 띄우고 피클 페이지로 이동(신청버튼이 '신청함'으로 바뀌고비활성화됨)
       //실패의 경우에는 실패했다고 띄우고 다시 그 피클 페이지
