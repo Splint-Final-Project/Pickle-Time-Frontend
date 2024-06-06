@@ -4,8 +4,6 @@ import useAuth from '@/hooks/zustand/useAuth';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
-import { Button, Field, FieldSet, Form, Input, Label, Title, Subtitle } from '@/components/auth/AuthComponents';
-
 export default function SignUp2() {
   const {
     register,
@@ -27,11 +25,8 @@ export default function SignUp2() {
   }
   return (
     <div>
-      <Subtitle>1분이면 끝나요</Subtitle>
-      <Title>
-        피클 타임과
-        <br /> 함께 스터디해요!
-      </Title>
+      1분이면 끝나요 피클 타임과
+      <br /> 함께 스터디해요!
       <form
         autoComplete="off"
         onSubmit={handleSubmit(handleSignUp2)}

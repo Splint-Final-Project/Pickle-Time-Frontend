@@ -2,35 +2,19 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
 import useAuth from '@/hooks/zustand/useAuth';
 import { SignInFormValues } from '@/apis/types/auth.type';
-import { useState } from 'react';
-import {
-  Button,
-  Container,
-  Field,
-  FieldSet,
-  Form,
-  Input,
-  Label,
-  Or,
-  EmailSignupRedirectorLink,
-  SocialCircle,
-  SocialCircles,
-  Title,
-} from '@/components/auth/AuthComponents';
 
 export default function SignIn_Email() {
   const {
     register,
     handleSubmit,
     formState: { isSubmitting, errors },
-  } = useForm<SignInFormValues>();
-
-  const [revealPw, setRevealPw] = useState(false);
+  } = useForm<SignInFormValues>({
+    mode: 'onBlur',
+  });
   const { signIn } = useAuth();
   const navigate = useNavigate();
   const handleSignIn: SubmitHandler<SignInFormValues> = async data => {
     try {
-      // console.log(data);
       const status = await signIn(data);
       if (status === 'Pending') {
         alert('추가 정보 입력 페이지로 이동');
@@ -69,7 +53,7 @@ export default function SignIn_Email() {
               })}
             />
 
-            {/* {errors.email && <span>{errors.email.message?.toString()}</span>} */}
+            {errors.email?.message && <ErrorMessage>{errors.email.message?.toString()}</ErrorMessage>}
           </Field>
           <Field>
             <Label htmlFor="password">비밀번호</Label>
@@ -77,20 +61,22 @@ export default function SignIn_Email() {
               id="password"
               type="password"
               placeholder="비밀번호를 입력해 주세요."
-              $error={!!errors.email}
+              $error={!!errors.password}
               // type={revealPw ? 'text' : 'password'}
               {...register('password', {
                 required: true,
               })}
             />
-            {/* <img
-              onClick={() => setRevealPw(prev => !prev)}
-              src={revealPw ? '/icons/hide.svg' : '/icons/reveal.svg'}
-              alt="reveal"
-            /> */}
-            {/* {errors.password && <span>{errors.password.message?.toString()}</span>} */}
           </Field>
-          <Button type="submit">로그인</Button>
+          <Button
+            type="submit"
+            style={{
+              backgroundColor: '#5DC26D',
+              color: 'white',
+            }}
+          >
+            로그인
+          </Button>
         </FieldSet>
       </Form>
       <EmailSignupRedirectorLink>
@@ -99,11 +85,11 @@ export default function SignIn_Email() {
       </EmailSignupRedirectorLink>
       <Or>
         <svg xmlns="http://www.w3.org/2000/svg" width="96" height="2" viewBox="0 0 96 2" fill="none">
-          <path d="M0 1H96" stroke="#D0D0D0" stroke-width="0.5" />
+          <path d="M0 1H96" stroke="#D0D0D0" strokeWidth="0.5" />
         </svg>
         <span>또는</span>
         <svg xmlns="http://www.w3.org/2000/svg" width="96" height="2" viewBox="0 0 96 2" fill="none">
-          <path d="M0 1H96" stroke="#D0D0D0" stroke-width="0.5" />
+          <path d="M0 1H96" stroke="#D0D0D0" strokeWidth="0.5" />
         </svg>
       </Or>
       <SocialCircles>
@@ -142,3 +128,181 @@ export default function SignIn_Email() {
     </Container>
   );
 }
+
+import styled from '@emotion/styled';
+
+export const Container = styled.div`
+  width: 310px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
+export const Form = styled.form`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+`;
+
+export const Title = styled.h1`
+  color: #292929;
+  font-family: Pretendard;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  margin: 64px 0;
+`;
+
+export const Subtitle = styled.h4`
+  color: #989898;
+  font-family: Pretendard;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+`;
+
+export const FieldSet = styled.fieldset`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+`;
+
+export const Field = styled.div`
+  position: relative;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+`;
+
+export const Label = styled.label`
+  color: #2c2c2c;
+  font-family: Pretendard;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+`;
+
+export const Input = styled.input<{ $error: boolean }>`
+  width: 100%;
+  height: 44px;
+  padding: 13px;
+  color: black;
+  font-family: Pretendard;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  border-radius: 4px;
+  background-color: #f4f7f4;
+  border: none;
+  ::placeholder {
+    color: #bababa;
+  }
+  ${props => (props.$error ? 'border: 1px solid red;' : '')};
+  &:focus {
+    border: 1px solid green;
+  }
+`;
+
+export const ErrorMessage = styled.span`
+  /* position: absolute; */
+  color: #d54040;
+  font-family: Pretendard;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+`;
+
+export const Button = styled.button`
+  width: 100%;
+  height: 42px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  border-radius: 4px;
+  outline: none;
+  font-family: Pretendard;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+`;
+
+export const EmailSignupRedirectorLink = styled.div`
+  display: flex;
+  align-self: center;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  margin: 33px 0 118px;
+  font-family: Pretendard;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  span {
+    color: #777;
+    font-family: Pretendard;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+  }
+  a {
+    color: #0ac50a;
+    font-family: Pretendard;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    &hover {
+      color: green;
+    }
+  }
+`;
+
+export const Or = styled.div`
+  display: flex;
+  align-self: center;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+  gap: 11px;
+  span {
+    color: #777;
+    font-family: Pretendard;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+  }
+`;
+
+export const SocialCircles = styled.div`
+  display: flex;
+  align-self: center;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+`;
+
+export const SocialCircle = styled.button`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  color: #ababab;
+  font-family: Pretendard;
+  font-size: 10px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+`;

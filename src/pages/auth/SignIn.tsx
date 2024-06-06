@@ -1,12 +1,16 @@
 import styled from '@emotion/styled';
 
-import { Container, Logo, Button, SocialStartButtons, EmailActionRedirectors } from '@/components/auth/AuthComponents';
 import { Link } from 'react-router-dom';
 
 export default function SignIn() {
   return (
     <Container>
-      <Logo>어플리케이션 소개 어플리케이션 소개로고</Logo>
+      <SubTitle>
+        어디서든 나를 위해
+        <br /> 피클 타임하세요!
+      </SubTitle>
+      <Title>스터디 생성 플랫폼.</Title>
+      <Logo src="images/logo.png" />
       <SocialStartButtons>
         <Button
           style={{
@@ -49,10 +53,81 @@ export default function SignIn() {
       <EmailActionRedirectors>
         <Link to="/sign-in-email">이메일로 로그인</Link>
         <svg xmlns="http://www.w3.org/2000/svg" width="2" height="14" viewBox="0 0 2 14" fill="none">
-          <path d="M1 14L1 -3.72529e-08" stroke="#D0D0D0" stroke-width="0.5" />
+          <path d="M1 14L1 -3.72529e-08" stroke="#D0D0D0" strokeWidth="0.5" />
         </svg>
         <Link to="/sign-up">이메일로 회원가입</Link>
       </EmailActionRedirectors>
     </Container>
   );
 }
+
+export const Container = styled.div`
+  width: 310px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+`;
+export const Button = styled.button`
+  width: 100%;
+  height: 42px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  border-radius: 4px;
+  outline: none;
+  font-family: Pretendard;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+`;
+
+export const SocialStartButtons = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+`;
+
+export const EmailActionRedirectors = styled.div`
+  display: flex;
+  align-self: center;
+  justify-content: center;
+  gap: 27px;
+  margin-top: 30px;
+  a {
+    color: #777;
+    font-family: Pretendard;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+  }
+`;
+
+export const Title = styled.h1`
+  color: #000;
+  font-family: Pretendard;
+  font-size: 22px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 150%; /* 33px */
+  margin-top: 18px;
+`;
+
+export const SubTitle = styled.h2`
+  color: #000;
+  font-family: Pretendard;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 150%; /* 30px */
+`;
+
+export const Logo = styled.img`
+  align-self: center;
+  width: 50%;
+  margin: 50px;
+`;
