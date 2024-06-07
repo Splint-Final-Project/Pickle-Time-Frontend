@@ -8,13 +8,11 @@ interface SectionProps {
 }
 
 interface SectionHeaderProps {
-  category: 'deadline' | 'popular';
+  category: 'hotTime' | 'popular';
 }
 
-interface SectionBodyProps extends Pick<SectionProps, 'children'> {}
-
 const HEADER_CATEGORY_TEXT = {
-  deadline: {
+  hotTime: {
     title: '마감 임박 피클🔥',
     summary: '신청 시간이 얼마 남지 않았어요!',
     totalLink: '/',
