@@ -11,6 +11,7 @@ import HeartButton from '@/components/common/button/HeartButton';
 import useHeartButtonClick from '@/hooks/useHeartButtonClick';
 import { useCreatePickleMutation } from '@/hooks/query/pickles';
 import MainLayout from '@/layouts/MainLayout';
+import Carousel from '@/components/carousel/Carousel';
 
 const Button = styled.button`
   color: hotpink;
@@ -57,7 +58,7 @@ export default function Home() {
   return (
     <MainLayout>
       <div>
-        <h1>피클타임 홈 페이지</h1>
+      <Carousel/>
         <div>
           {getMe() ? (
             <>
