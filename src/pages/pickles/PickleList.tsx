@@ -4,6 +4,7 @@ import HeartButton from '@/components/common/button/HeartButton';
 import { useGetPickelDetail } from '@/hooks/query/pickles';
 import useHeartButtonClick from '@/hooks/useHeartButtonClick';
 import routes from '@/constants/routes';
+import { formatCurrency } from '@/utils/formatData';
 
 /**
  * 피클 상세 페이지
@@ -27,7 +28,7 @@ export default function PickleList() {
       <div>
         <p>우리 스터디는 {pickleDetailData?.title}야.</p>
         <p>{pickleDetailData?.capacity}명 모집할거고</p>
-        <p>참가비 {pickleDetailData?.cost}원이고</p>
+        <p>참가비는 {formatCurrency(pickleDetailData?.cost)}원이고</p>
         <p>
           총 {pickleDetailData?.when.summary}, {pickleDetailData?.where}에서 진행해
         </p>
