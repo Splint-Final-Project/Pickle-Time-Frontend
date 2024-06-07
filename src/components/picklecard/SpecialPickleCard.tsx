@@ -47,7 +47,7 @@ const S = {
     padding: 1.2rem 1rem 1.5rem 1.5rem;
     color: #161616;
     position: relative;
-    box-shadow: 0.5px 0.5px 2px 0px rgba(0, 0, 0, 0.25);
+    box-shadow: 0px 1px 2.8px 0px rgba(0, 0, 0, 0.25);
     transition: 0.5s;
     background-image: url(${BackImg});
   `,
