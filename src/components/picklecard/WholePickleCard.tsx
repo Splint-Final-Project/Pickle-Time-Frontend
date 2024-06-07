@@ -1,28 +1,32 @@
+import { Link } from 'react-router-dom';
 import styled from '@emotion/styled';
 
+import routes from '@/constants/routes';
 import { When } from '@/apis/types/pickles.type';
+import { formatCurrency } from '@/utils/formatData';
 import CategoryExercise from '@/assets/images/pickleCategoryImg-exercise.png';
 import CategoryStudy from '@/assets/images/pickleCategoryImg-study.png';
 
 interface WholePickleCardProps {
   type: 'study' | 'exercise';
+  id: string;
   title: string;
   when: When;
   cost: number;
 }
 
-export default function WholePickleCard({ type, title, when, cost }: WholePickleCardProps) {
+export default function WholePickleCard({ id: pickleId, type, title, when, cost }: WholePickleCardProps) {
   return (
-    <S.CardLayer $backImgType={type}>
+    <S.CardLayer to={`${routes.pickleList}/${pickleId}`} $backImgType={type}>
       <S.ProgressDay>{when.summary}</S.ProgressDay>
       <S.Title>{title}</S.Title>
-      <S.Price>{cost.toLocaleString('ko-KR')}원</S.Price>
+      <S.Price>{formatCurrency(cost)}원</S.Price>
     </S.CardLayer>
   );
 }
 
 const S = {
-  CardLayer: styled.a<{ $backImgType: 'study' | 'exercise' }>`
+  CardLayer: styled(Link)<{ $backImgType: 'study' | 'exercise' }>`
     display: block;
     /* width: 15rem; */
     height: 10.7rem;
@@ -36,6 +40,7 @@ const S = {
       $backImgType === 'study' ? `url(${CategoryStudy})` : `url(${CategoryExercise})`};
     background-repeat: no-repeat;
     background-position: bottom 15px right 0;
+    cursor: pointer;
   `,
   ProgressDay: styled.span`
     display: inline-block;
