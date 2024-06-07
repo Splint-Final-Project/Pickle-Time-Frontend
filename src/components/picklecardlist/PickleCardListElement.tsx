@@ -15,7 +15,7 @@ interface SectionBodyProps extends Pick<SectionProps, 'children'> {}
 
 const HEADER_CATEGORY_TEXT = {
   deadline: {
-    title: '마감 임박 피클',
+    title: '마감 임박 피클🔥',
     summary: '신청 시간이 얼마 남지 않았어요!',
     totalLink: '/',
   },
@@ -44,18 +44,9 @@ function Header({ category }: SectionHeaderProps) {
   );
 }
 
-function Body({ children }: SectionBodyProps) {
-  return (
-    <div>
-      <S.ListViewBox>{children}</S.ListViewBox>
-    </div>
-  );
-}
-
 const S = {
   Section: styled.section<{ $isBackcolor?: boolean }>`
     padding: 3rem 0;
-
     ${({ $isBackcolor }) =>
       $isBackcolor &&
       css`
@@ -98,6 +89,6 @@ const S = {
   `,
 };
 
-const PickleList = { Container, Header, Body };
+const PickleList = { Container, Header };
 
 export default PickleList;

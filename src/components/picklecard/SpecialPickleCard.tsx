@@ -3,19 +3,9 @@ import styled from '@emotion/styled';
 import HeartButton from '../common/button/HeartButton';
 import BackImg from '@/assets/images/specialPickleCardBackImg.png';
 
-interface SpecialPickleCardProps {
-  picklesData: {
-    capacity: number;
-    cost: number;
-    deadLine: Date;
-    title: string;
-    where?: string;
-    id: string;
-  };
-}
-
 const ONEDAY_MILLISECOND = 1000 * 60 * 60 * 24;
 
+//TODO : 데이터 타입 잡기
 const calculateDday = (deadLine: string) => {
   const today = new Date().getTime();
   const deadLineMilliseconds = new Date(deadLine).getTime();
