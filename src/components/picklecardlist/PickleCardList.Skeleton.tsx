@@ -6,6 +6,8 @@ export default function SkeletonPickleCardList() {
       <S.SkeletonCard />
       <S.SkeletonCard />
       <S.SkeletonCard />
+      <S.SkeletonCard />
+      <S.SkeletonCard />
     </S.SkeletonContainer>
   );
 }
@@ -13,7 +15,7 @@ export default function SkeletonPickleCardList() {
 const S = {
   SkeletonContainer: styled.div`
     display: inline-flex;
-    padding-left: 2.8rem;
+    /* padding-left: 2.8rem; */
     gap: 8px;
     flex-wrap: nowrap;
     height: 16.5rem;
