@@ -1,8 +1,8 @@
 import { useQuery, useInfiniteQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import toast from 'react-hot-toast';
 
 import { picklesRequests } from '@/apis/pickle.api';
 import { Coordinates, CreatePickleData } from '@/apis/types/pickles.type';
-import toast from 'react-hot-toast';
 
 export const useGetInfinitePickles = () => {
   return useInfiniteQuery({
@@ -38,6 +38,15 @@ export const useCreatePickleMutation = (pickleData: CreatePickleData) => {
     onError: error => {
       console.error(error);
       toast.error('피클 생성에 실패했습니다.');
+    },
+  });
+};
+
+export const useGetPickelDetail = (pickleId: string) => {
+  return useQuery({
+    queryKey: ['pickles', pickleId],
+    queryFn: async () => {
+      return await picklesRequests.getPickleDetail(pickleId);
     },
   });
 };
