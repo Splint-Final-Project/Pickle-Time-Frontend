@@ -1,10 +1,10 @@
 import client from '@/apis/axios';
-import { API_PICKLE } from '@/constants/API';
+import { API, API_PICKLE } from '@/constants/API';
 import { Coordinates, CreatePickleData } from './types/pickles.type';
 
 export const picklesRequests = Object.freeze({
   getWithPage: async () => {
-    const { data } = await client.get(API_PICKLE.GET_ALL);
+    const { data } = await client.get(API.PICKLE);
     return data;
   },
 

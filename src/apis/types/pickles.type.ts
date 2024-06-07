@@ -3,7 +3,7 @@ export interface Coordinates {
   longitude: number;
 }
 
-interface whenData {
+export interface When {
   summary: string;
   times: string[];
 }
@@ -13,9 +13,28 @@ export type CreatePickleData = {
   capacity: number;
   deadLine: string;
   where: string;
-  when: whenData;
+  when: When;
   content: string;
   explanation: string;
   latitude: number;
   longitude: number;
 };
+
+interface Participant {
+  isLeader: boolean;
+  user: string;
+  _id: string;
+}
+
+export interface WholePickle {
+  capacity: number;
+  cost: number;
+  deadLine: string;
+  id: string;
+  latitude: number;
+  longtitude: number;
+  participants: Participant[];
+  title: string;
+  when: When;
+  where: string;
+}

@@ -1,19 +1,22 @@
 import styled from '@emotion/styled';
+
+import { When } from '@/apis/types/pickles.type';
 import CategoryExercise from '@/assets/images/pickleCategoryImg-exercise.png';
 import CategoryStudy from '@/assets/images/pickleCategoryImg-study.png';
 
 interface WholePickleCardProps {
   type: 'study' | 'exercise';
+  title: string;
+  when: When;
+  cost: number;
 }
 
-export default function WholePickleCard({ type }: WholePickleCardProps) {
+export default function WholePickleCard({ type, title, when, cost }: WholePickleCardProps) {
   return (
     <S.CardLayer $backImgType={type}>
-      <S.ProgressDay>매주 수요일</S.ProgressDay>
-      <S.Title>명동 나이트 러닝 6km 서울 RUN!</S.Title>
-      <S.Price>
-        10,000<span>원</span>
-      </S.Price>
+      <S.ProgressDay>{when.summary}</S.ProgressDay>
+      <S.Title>{title}</S.Title>
+      <S.Price>{cost.toLocaleString('ko-KR')}원</S.Price>
     </S.CardLayer>
   );
 }
@@ -21,10 +24,10 @@ export default function WholePickleCard({ type }: WholePickleCardProps) {
 const S = {
   CardLayer: styled.a<{ $backImgType: 'study' | 'exercise' }>`
     display: block;
-    width: 15rem;
+    /* width: 15rem; */
     height: 10.7rem;
-    margin: auto;
-    margin-top: 20px;
+    /* margin: auto; */
+    /* margin-top: 20px; */
     background: #f3f4f6;
     border-radius: 0.4rem;
     padding: 1.2rem 0 1.2rem 1.4rem;
