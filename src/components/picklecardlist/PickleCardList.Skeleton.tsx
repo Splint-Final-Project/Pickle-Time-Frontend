@@ -3,22 +3,29 @@ import styled from '@emotion/styled';
 export default function SkeletonPickleCardList() {
   return (
     <S.SkeletonContainer>
-      <S.SkeletonCard />
-      <S.SkeletonCard />
-      <S.SkeletonCard />
-      <S.SkeletonCard />
-      <S.SkeletonCard />
+      <S.SkeletonInner>
+        <S.SkeletonCard />
+        <S.SkeletonCard />
+        <S.SkeletonCard />
+        <S.SkeletonCard />
+        <S.SkeletonCard />
+      </S.SkeletonInner>
     </S.SkeletonContainer>
   );
 }
 
 const S = {
   SkeletonContainer: styled.div`
+    overflow-x: hidden;
+    margin-left: -2.5rem;
+    margin-right: -2.5rem;
+  `,
+  SkeletonInner: styled.div`
     display: inline-flex;
-    /* padding-left: 2.8rem; */
     gap: 8px;
     flex-wrap: nowrap;
-    height: 16.5rem;
+    overflow: auto;
+    padding-left: 2.5rem;
   `,
   SkeletonCard: styled.div`
     width: 14.4rem;
