@@ -17,6 +17,7 @@ export default defineConfig({
       { find: '@/layouts', replacement: path.resolve(__dirname, 'src/layouts') },
       { find: '@/pages', replacement: path.resolve(__dirname, 'src/pages') },
       { find: '@/styles', replacement: path.resolve(__dirname, 'src/styles') },
+      { find: '@/utils', replacement: path.resolve(__dirname, 'src/utils') },
     ],
   },
   server: {
