@@ -1,22 +1,40 @@
-import { useEffect, useState } from "react";
+import { useNavigate, useParams } from 'react-router-dom';
 
+import HeartButton from '@/components/common/button/HeartButton';
+import { useGetPickelDetail } from '@/hooks/query/pickles';
+import useHeartButtonClick from '@/hooks/useHeartButtonClick';
+import routes from '@/constants/routes';
+import { formatCurrency } from '@/utils/formatData';
+
+/**
+ * 피클 상세 페이지
+ */
+//Todo: 디자인 나오면 데이터활용해서 ui 구성
 export default function PickleList() {
-  const[pickles, setPickles] = useState<{id: string, name: string}[]>([]);
-  async function handleFetch() {
-    const response = await fetch("/api/pickles");
-    const result = await response.json();
-    setPickles(result);
-  }
-  useEffect(() => {
-    handleFetch();
-  }, []);
+  const navigate = useNavigate();
+  const { pickleId = '' } = useParams();
+
+  const { data } = useGetPickelDetail(pickleId);
+  const pickleDetailData = data?.data;
+
+  const { isHeartClicked, handleHeartClick } = useHeartButtonClick({
+    pickleId,
+    isInUserWishList: false,
+  });
+
   return (
-    <div>
-       {pickles.map((pickle) => (
-        <div key={pickle.id}>
-          <h2>{pickle.name}</h2>
-          </div>
-      ))}
-    </div>
+    <>
+      안녕피클상세임
+      <div>
+        <p>우리 스터디는 {pickleDetailData?.title}야.</p>
+        <p>{pickleDetailData?.capacity}명 모집할거고</p>
+        <p>참가비는 {formatCurrency(pickleDetailData?.cost)}원이고</p>
+        <p>
+          총 {pickleDetailData?.when.summary}, {pickleDetailData?.where}에서 진행해
+        </p>
+      </div>
+      <HeartButton isActive={isHeartClicked} onClick={handleHeartClick} />
+      <button onClick={() => navigate(routes.pickle)}>참여하기</button>
+    </>
   );
 }

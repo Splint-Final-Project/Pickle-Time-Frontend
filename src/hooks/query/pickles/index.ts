@@ -1,9 +1,9 @@
+
 import { useQuery, useInfiniteQuery, useMutation, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
 
 import { picklesRequests } from '@/apis/pickle.api';
 import { Coordinates, CreatePickleData } from '@/apis/types/pickles.type';
 import toast from 'react-hot-toast';
-import axios from 'axios';
 
 export const useGetInfinitePickles = () => {
   return useInfiniteQuery({
@@ -43,6 +43,7 @@ export const useCreatePickleMutation = (pickleData: CreatePickleData) => {
   });
 };
 
+
 export const useGetSpecialPickles = (type: 'hotTime' | 'popular') => {
   if (type === 'hotTime') {
     return useSuspenseQuery({
@@ -57,4 +58,13 @@ export const useGetSpecialPickles = (type: 'hotTime' | 'popular') => {
       select: data => data.data,
     });
   }
+
+export const useGetPickelDetail = (pickleId: string) => {
+  return useQuery({
+    queryKey: ['pickles', pickleId],
+    queryFn: async () => {
+      return await picklesRequests.getPickleDetail(pickleId);
+    },
+  });
+
 };
