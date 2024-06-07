@@ -48,11 +48,13 @@ export const useGetSpecialPickles = (type: 'hotTime' | 'popular') => {
     return useSuspenseQuery({
       queryKey: ['pickles', 'hotTime'],
       queryFn: async () => await picklesRequests.getHotTime(),
+      select: data => data.data,
     });
   } else {
     return useSuspenseQuery({
       queryKey: ['pickles', 'popular'],
       queryFn: async () => await picklesRequests.getPopular(),
+      select: data => data.data,
     });
   }
 };
