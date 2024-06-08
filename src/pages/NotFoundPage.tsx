@@ -52,14 +52,14 @@ const S = {
 
     padding: 1.2rem;
     margin-top: 5rem;
-    border: 1px solid #5dc26d;
+    border: 1px solid ${({ theme }) => theme.color.primary};
     border-radius: 0.8rem;
     font-size: 1.6rem;
     font-weight: 500;
     background-color: #f7f9f7;
 
     &:hover {
-      background-color: #5dc26d;
+      background-color: ${({ theme }) => theme.color.primary};
     }
   `,
 };
