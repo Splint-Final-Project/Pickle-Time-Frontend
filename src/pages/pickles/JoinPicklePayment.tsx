@@ -11,10 +11,11 @@ declare global {
 
 export default function JoinPicklePayment() {
   const { state } = useLocation();
+  console.log(state);
   const navigate = useNavigate();
-  const { pickleId, pickleName, pickleCost } = state as any;
+  const { pickleId, pickleTitle, pickleCost } = state as any;
   // console.log(state);
-  // if (!pickleId || !pickleName || !pickleCost) {
+  // if (!pickleId || !pickleTitle || !pickleCost) {
   //   return <div>피클 정보가 부족합니다.</div>;
   // }
   const { IMP } = window;
@@ -47,7 +48,7 @@ export default function JoinPicklePayment() {
       } else {
         alert('신청이 실패하여 결제 금액은 환불되었습니다.' + notified.data.message);
       }
-      navigate(`/pickles/${pickleId}`);
+      navigate(`/pickle/${pickleId}`);
       //notified http status에 따라 분기.
       //OK의 경우에는 성공했다고 띄우고 피클 페이지로 이동(신청버튼이 '신청함'으로 바뀌고비활성화됨)
       //실패의 경우에는 실패했다고 띄우고 다시 그 피클 페이지
@@ -58,7 +59,7 @@ export default function JoinPicklePayment() {
   return (
     <div>
       <div style={{ display: 'flex', flexDirection: 'column' }}>
-        <h1>{pickleName}에 신청하기 위한 결제하기</h1>
+        <h1>{pickleTitle}에 신청하기 위한 결제하기</h1>
         <div>총 금액 {pickleCost}원</div>
         <input type="checkbox" /> 결제정보에동의
         <span>
