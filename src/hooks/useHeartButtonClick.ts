@@ -1,5 +1,5 @@
 import React, { useCallback, useState } from 'react';
-import { useDeletePickleLikeMutation, usePickleLikeMutation } from './query/pickles/mutation';
+import { useDeletePickleLikeMutation, usePickleLikeMutation } from '@/hooks/query/like';
 
 export interface HeartClickProps {
   pickleId: string;

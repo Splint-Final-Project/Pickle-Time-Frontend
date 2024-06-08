@@ -47,7 +47,7 @@ export default function PickleCardList({ category }: PickleCardListProps) {
       <S.ListViewBox>
         <S.ListInner onMouseOver={onMouseInEvent} onMouseLeave={onMouseLeaveEvent}>
           <S.List $transLateX={moveSliderValue} ref={ListRef}>
-            {data.length ? (
+            {data?.length ? (
               data.map((pickle: any) => (
                 <li key={pickle.id}>
                   <SpecialPickleCard pickleData={pickle} />

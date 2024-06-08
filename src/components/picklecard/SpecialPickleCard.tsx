@@ -16,10 +16,12 @@ const calculateDday = (deadLine: string) => {
 
 export default function SpecialPickleCard({ pickleData }: { pickleData: any }) {
   const Dday = calculateDday(pickleData.deadLine);
+  
   const { isHeartClicked, handleHeartClick } = useHeartButtonClick({
     pickleId: pickleData.id,
     isInUserWishList: false,
   });
+
   return (
     <S.CardLayer to={'/'}>
       <S.Wrap>
