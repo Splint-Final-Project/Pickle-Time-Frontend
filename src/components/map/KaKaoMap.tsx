@@ -21,7 +21,6 @@ export default function KaKaoMap() {
   //server state
   const { data } = useGetInfinitePickles();
   // const { data } = useGetNearbyPickles(location);
-  console.log(data);
 
   if (error) {
     return <div>에러 발생: {error}</div>;
@@ -45,7 +44,7 @@ export default function KaKaoMap() {
     const sorted = distances.sort((a, b) => a.distance - b.distance);
     setSortedMarkers(sorted);
   };
-  console.log(location);
+
   return (
     <div>
       {location ? (

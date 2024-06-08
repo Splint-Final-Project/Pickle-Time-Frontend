@@ -4,7 +4,7 @@ import useAuth from '@/hooks/zustand/useAuth';
 import KaKaoMap from '@/components/map/KaKaoMap';
 import routes from '@/constants/routes';
 import BackDropModal from '@/components/common/modal/BackDropModal';
-import { useEffect, useState } from 'react';
+import { Suspense, useEffect, useState } from 'react';
 
 import styled from '@emotion/styled';
 import HeartButton from '@/components/common/button/HeartButton';
@@ -12,6 +12,10 @@ import useHeartButtonClick from '@/hooks/useHeartButtonClick';
 import { useCreatePickleMutation } from '@/hooks/query/pickles';
 import MainLayout from '@/layouts/MainLayout';
 import Carousel from '@/components/carousel/Carousel';
+import PickleList from '@/components/picklecardlist/PickleCardListElement';
+import PickleCardList from '@/components/picklecardlist/PickleCardList';
+import ErrorBoundary from '@/components/common/ErrorBoundary';
+import SkeletonPickleCardList from '@/components/picklecardlist/PickleCardList.Skeleton';
 
 const Button = styled.button`
   color: hotpink;
@@ -58,7 +62,23 @@ export default function Home() {
   return (
     <MainLayout>
       <div>
-      <Carousel/>
+        <Carousel />
+        <PickleList.Container>
+          <PickleList.Header category="popular" />
+          <ErrorBoundary fallback={Error}>
+            <Suspense fallback={<SkeletonPickleCardList />}>
+              <PickleCardList category="popular" />
+            </Suspense>
+          </ErrorBoundary>
+        </PickleList.Container>
+        <PickleList.Container sectionBg>
+          <PickleList.Header category="hotTime" />
+          <ErrorBoundary fallback={Error}>
+            <Suspense fallback={<SkeletonPickleCardList />}>
+              <PickleCardList category="hotTime" />
+            </Suspense>
+          </ErrorBoundary>
+        </PickleList.Container>
         <div>
           {getMe() ? (
             <>
@@ -92,4 +112,9 @@ export default function Home() {
       </div>
     </MainLayout>
   );
+}
+
+function Error({ error }: { error: Error }) {
+  console.log(error);
+  return <h1>에러 발생</h1>;
 }

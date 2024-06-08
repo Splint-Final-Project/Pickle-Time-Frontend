@@ -28,6 +28,7 @@ const S = {
   `,
   MainContent: styled.div`
     flex: 1;
+    width: 100%;
   `,
 };
 

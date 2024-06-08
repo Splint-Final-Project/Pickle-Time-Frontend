@@ -1,17 +1,16 @@
+import client from '@/apis/axios';
+import axios from 'axios';
 import React, { useEffect } from 'react';
 import { useLocation, useSearchParams } from 'react-router-dom';
 
-export default function MobilePaymentRedirect() {
+export default function PickleJoinRedirector() {
   const [searchParams] = useSearchParams();
   async function handlePayment() {
-    const notified = await fetch(`${import.meta.env.VITE_BACKEND_URL}/payment/verify/${searchParams.get('imp_uid')}`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
+    const notified = await client.post('/pickle/join', {
+      imp_uid: searchParams.get('imp_uid'),
+      pickle_id: searchParams.get('pickle_id'),
     });
-    console.log(notified);
-    const notifiedText = await notified.text(); // Fix: Use the text() method instead of string()
+    const notifiedText = notified.data(); // Fix: Use the text() method instead of string()
     console.log(notifiedText);
     //notified http status에 따라 분기.
     //OK의 경우에는 성공했다고 띄우고 피클 페이지로 이동(신청버튼이 '신청함'으로 바뀌고비활성화됨)
