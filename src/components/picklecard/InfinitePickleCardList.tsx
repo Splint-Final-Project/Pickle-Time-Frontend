@@ -20,7 +20,7 @@ export default function InfinitePickleCardList() {
     <>
       <GridTemplate>
         {infiniteWholePickleData?.pages.map(page =>
-          page?.data.map((pickle: WholePickle) => <WholePickleCard key={pickle.id} {...pickle} />),
+          page?.data.map((pickle: WholePickle) => <WholePickleCard key={pickle.id} {...pickle} type={'study'} />),
         )}
       </GridTemplate>
       <InfinitePickleCardLoader
