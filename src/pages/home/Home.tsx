@@ -61,55 +61,53 @@ export default function Home() {
 
   return (
     <MainLayout>
+      <Carousel />
+      <PickleList.Container>
+        <PickleList.Header category="popular" />
+        <ErrorBoundary fallback={Error}>
+          <Suspense fallback={<SkeletonPickleCardList />}>
+            <PickleCardList category="popular" />
+          </Suspense>
+        </ErrorBoundary>
+      </PickleList.Container>
+      <PickleList.Container sectionBg>
+        <PickleList.Header category="hotTime" />
+        <ErrorBoundary fallback={Error}>
+          <Suspense fallback={<SkeletonPickleCardList />}>
+            <PickleCardList category="hotTime" />
+          </Suspense>
+        </ErrorBoundary>
+      </PickleList.Container>
       <div>
-        <Carousel />
-        <PickleList.Container>
-          <PickleList.Header category="popular" />
-          <ErrorBoundary fallback={Error}>
-            <Suspense fallback={<SkeletonPickleCardList />}>
-              <PickleCardList category="popular" />
-            </Suspense>
-          </ErrorBoundary>
-        </PickleList.Container>
-        <PickleList.Container sectionBg>
-          <PickleList.Header category="hotTime" />
-          <ErrorBoundary fallback={Error}>
-            <Suspense fallback={<SkeletonPickleCardList />}>
-              <PickleCardList category="hotTime" />
-            </Suspense>
-          </ErrorBoundary>
-        </PickleList.Container>
-        <div>
-          {getMe() ? (
-            <>
-              안녕하세요 {getMe()?.nickname}님 <button onClick={signOut}>로그아웃</button>
-            </>
-          ) : (
-            <Link to={routes.signIn}>Sign In</Link>
-          )}
-        </div>
-        <br />
-        <br />
-        <div style={{ display: 'flex', flexDirection: 'column' }}>
-          <Link to={routes.chatList}>Chat List</Link>
-
-          <Link to={routes.pickle}>테스트 피클 보기+결제하기</Link>
-        </div>
-        <Button type="button" onClick={handleMutate}>
-          생성 테스트 버튼
-        </Button>
-        <br />
-        <br />
-        <br />
-        <KaKaoMap />
-        <Button type="button" onClick={openModal}>
-          모달 테스트 버튼
-        </Button>
-        <BackDropModal isOpen={isModalOpen} onClose={closeModal}>
-          <div>티라노 앙</div>
-        </BackDropModal>
-        <HeartButton isActive={isHeartClicked} onClick={handleHeartClick} />
+        {getMe() ? (
+          <>
+            안녕하세요 {getMe()?.nickname}님 <button onClick={signOut}>로그아웃</button>
+          </>
+        ) : (
+          <Link to={routes.signIn}>Sign In</Link>
+        )}
       </div>
+      <br />
+      <br />
+      <div style={{ display: 'flex', flexDirection: 'column' }}>
+        <Link to={routes.chatList}>Chat List</Link>
+
+        <Link to={routes.pickle}>테스트 피클 보기+결제하기</Link>
+      </div>
+      <Button type="button" onClick={handleMutate}>
+        생성 테스트 버튼
+      </Button>
+      <br />
+      <br />
+      <br />
+      {/* <KaKaoMap /> */}
+      {/* <Button type="button" onClick={openModal}>
+        모달 테스트 버튼
+      </Button> */}
+      {/* <BackDropModal isOpen={isModalOpen} onClose={closeModal}>
+        <div>티라노 앙</div>
+      </BackDropModal> */}
+      {/* <HeartButton isActive={isHeartClicked} onClick={handleHeartClick} /> */}
     </MainLayout>
   );
 }
