@@ -7,16 +7,20 @@ import { Coordinates, CreatePickleData } from '@/apis/types/pickles.type';
 export const useGetInfinitePickles = () => {
   return useInfiniteQuery({
     queryKey: ['pickles'],
-
     initialPageParam: 0,
-    queryFn: async ({ pageParam }) => await picklesRequests.getWithPage(),
-
-    getNextPageParam: lastPage => {
-      return lastPage.cursorId;
+    queryFn: async ({ pageParam }) => {
+      const { data } = await picklesRequests.getWithPage(pageParam);
+      return data;
     },
 
-    select: data => {
-      return data;
+    getNextPageParam: lastPage => {
+      const currentPage = lastPage.page;
+      const totalPages = lastPage.pages;
+
+      if (currentPage >= totalPages) {
+        return undefined;
+      }
+      return currentPage + 1;
     },
   });
 };
