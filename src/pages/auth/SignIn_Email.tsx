@@ -42,7 +42,7 @@ export default function SignIn_Email() {
             <Input
               id="email"
               type="email"
-              placeholder="example@gmail.com"
+              placeholder="user@pickletime.com"
               $error={!!errors.email}
               {...register('email', {
                 required: true,
@@ -207,7 +207,7 @@ export const Input = styled.input<{ $error: boolean }>`
   }
   ${props => (props.$error ? 'border: 1px solid red;' : '')};
   &:focus {
-    border: 1px solid green;
+    border: 1px solid #888d88;
   }
 `;
 

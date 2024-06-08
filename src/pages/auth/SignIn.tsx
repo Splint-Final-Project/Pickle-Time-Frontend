@@ -9,8 +9,7 @@ export default function SignIn() {
         어디서든 나를 위해
         <br /> 피클 타임하세요!
       </SubTitle>
-      <Title>스터디 생성 플랫폼.</Title>
-      <Logo src="images/logo.png" />
+      <Logo src="images/logotext.svg" />
       <SocialStartButtons>
         <Button
           style={{
@@ -107,23 +106,13 @@ export const EmailActionRedirectors = styled.div`
   }
 `;
 
-export const Title = styled.h1`
-  color: #000;
-  font-family: Pretendard;
-  font-size: 22px;
-  font-style: normal;
-  font-weight: 700;
-  line-height: 150%; /* 33px */
-  margin-top: 18px;
-`;
-
 export const SubTitle = styled.h2`
   color: #000;
   font-family: Pretendard;
-  font-size: 20px;
+  font-size: 21px;
   font-style: normal;
-  font-weight: 600;
-  line-height: 150%; /* 30px */
+  font-weight: 500;
+  line-height: 150%; /* 31.5px */
 `;
 
 export const Logo = styled.img`

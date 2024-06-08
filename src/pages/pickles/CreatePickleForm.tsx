@@ -34,6 +34,14 @@ export default function NewPickle() {
   return (
     <div>
       <form onSubmit={() => navigate('/create-pickle-payment')}>
+        <label htmlFor="title">Title:</label>
+        <input type="text" id="title" value={title} onChange={e => setTitle(e.target.value)} />
+
+        <label htmlFor="capacity">Capacity:</label>
+        <input type="number" id="capacity" value={capacity} onChange={e => setCapacity(Number(e.target.value))} />
+
+        <label htmlFor="cost">Cost:</label>
+        <input type="number" id="cost" value={cost} onChange={e => setCost(Number(e.target.value))} />
         {/* <label htmlFor="deadline">Deadline:</label>
       <input type="date" id="deadline" value={deadLine} onChange={(e) => setDeadLine(e.target.value)} /> */}
 
