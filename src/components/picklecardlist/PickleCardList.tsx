@@ -3,7 +3,7 @@ import styled from '@emotion/styled';
 import SpecialPickleCard from '../picklecard/SpecialPickleCard';
 import { useGetSpecialPickles } from '@/hooks/query/pickles';
 
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import { css } from '@emotion/react';
 
 interface PickleCardListProps {
