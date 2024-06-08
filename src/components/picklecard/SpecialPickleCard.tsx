@@ -2,6 +2,8 @@ import SpecialPickleCardArrowIcon from '@/assets/icons/SpecialPickleCardArrowIco
 import styled from '@emotion/styled';
 import HeartButton from '../common/button/HeartButton';
 import BackImg from '@/assets/images/specialPickleCardBackImg.png';
+import useHeartButtonClick from '@/hooks/useHeartButtonClick';
+import { Link } from 'react-router-dom';
 
 const ONEDAY_MILLISECOND = 1000 * 60 * 60 * 24;
 
@@ -14,12 +16,15 @@ const calculateDday = (deadLine: string) => {
 
 export default function SpecialPickleCard({ pickleData }: { pickleData: any }) {
   const Dday = calculateDday(pickleData.deadLine);
-
+  const { isHeartClicked, handleHeartClick } = useHeartButtonClick({
+    pickleId: pickleData.id,
+    isInUserWishList: false,
+  });
   return (
-    <S.CardLayer href="/">
+    <S.CardLayer to={'/'}>
       <S.Wrap>
         <S.DeadlineBadge>D-{Dday}</S.DeadlineBadge>
-        {/* <HeartButton size={14} /> */}
+        <HeartButton size={22} isActive={isHeartClicked} onClick={handleHeartClick} />
       </S.Wrap>
       <S.Title>{pickleData.title}</S.Title>
       <S.ResgisterStatus>
@@ -37,7 +42,7 @@ export default function SpecialPickleCard({ pickleData }: { pickleData: any }) {
 }
 
 const S = {
-  CardLayer: styled.a`
+  CardLayer: styled(Link)`
     display: block;
     margin: auto;
     width: 14.4rem;
