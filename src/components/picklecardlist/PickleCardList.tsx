@@ -15,11 +15,13 @@ const SLIDER_MOVE_VALUE = 288;
 //TODO : 데이터 없을시 보여줄 ui 디자인하기
 export default function PickleCardList({ category }: PickleCardListProps) {
   const { data } = useGetSpecialPickles(category);
+  console.log(data);
 
   const [moveSliderValue, setMoveSliderValue] = useState(0);
   const [isMouseIn, setIsMouseIn] = useState(false);
   const ListRef = useRef<HTMLUListElement>(null);
   const ListContainerRef = useRef<HTMLDivElement>(null);
+
   const onMouseInEvent = () => {
     setIsMouseIn(true);
   };
