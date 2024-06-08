@@ -1,4 +1,3 @@
-
 import { useQuery, useInfiniteQuery, useMutation, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
 
 import { picklesRequests } from '@/apis/pickle.api';
@@ -43,7 +42,6 @@ export const useCreatePickleMutation = (pickleData: CreatePickleData) => {
   });
 };
 
-
 export const useGetSpecialPickles = (type: 'hotTime' | 'popular') => {
   if (type === 'hotTime') {
     return useSuspenseQuery({
@@ -58,6 +56,7 @@ export const useGetSpecialPickles = (type: 'hotTime' | 'popular') => {
       select: data => data.data,
     });
   }
+};
 
 export const useGetPickelDetail = (pickleId: string) => {
   return useQuery({
@@ -66,5 +65,4 @@ export const useGetPickelDetail = (pickleId: string) => {
       return await picklesRequests.getPickleDetail(pickleId);
     },
   });
-
 };
