@@ -3,16 +3,16 @@ import styled from '@emotion/styled';
 import SpecialPickleCard from '../picklecard/SpecialPickleCard';
 import { useGetSpecialPickles } from '@/hooks/query/pickles';
 
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { css } from '@emotion/react';
 
 interface PickleCardListProps {
   category: 'hotTime' | 'popular';
 }
 
-const PICKLECARD_WIDTH = 144;
+const SLIDER_MOVE_VALUE = 288;
 
-//TODO : 피클 API연결하기(지금은 목데이터 사용중 => 데이터가 없어서 ㅠㅠ)
+//TODO : 데이터 없을시 보여줄 ui 디자인하기
 export default function PickleCardList({ category }: PickleCardListProps) {
   const { data } = useGetSpecialPickles(category);
 
@@ -35,11 +35,12 @@ export default function PickleCardList({ category }: PickleCardListProps) {
   const handleRightBtn = () => {
     if (!ListRef.current || !ListContainerRef.current) return;
 
-    if (moveSliderValue * PICKLECARD_WIDTH > ListRef?.current.offsetWidth - ListContainerRef?.current.offsetWidth) {
+    if (moveSliderValue * SLIDER_MOVE_VALUE > ListRef?.current.offsetWidth - ListContainerRef?.current.offsetWidth) {
       return;
     }
     setMoveSliderValue(prev => prev + 1);
   };
+
   return (
     <S.Container ref={ListContainerRef}>
       <S.ListViewBox>
@@ -86,7 +87,7 @@ const S = {
     flex-wrap: nowrap;
     gap: 8px;
     transition: 0.5s;
-    transform: ${({ $transLateX }) => `translateX(-${$transLateX * 144}px)`};
+    transform: ${({ $transLateX }) => `translateX(-${$transLateX * SLIDER_MOVE_VALUE}px)`};
   `,
   SliderControlBtn: styled.button<{ $position: 'right' | 'left'; $isShow: boolean }>`
     display: ${({ $isShow }) => ($isShow ? 'inline-block' : 'none')};
