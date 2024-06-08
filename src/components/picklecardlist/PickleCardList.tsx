@@ -20,6 +20,7 @@ export default function PickleCardList({ category }: PickleCardListProps) {
   const [isMouseIn, setIsMouseIn] = useState(false);
   const ListRef = useRef<HTMLUListElement>(null);
   const ListContainerRef = useRef<HTMLDivElement>(null);
+
   const onMouseInEvent = () => {
     setIsMouseIn(true);
   };

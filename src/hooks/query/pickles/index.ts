@@ -18,6 +18,10 @@ export const useGetInfinitePickles = () => {
     select: data => {
       return data;
     },
+
+    refetchOnWindowFocus: true, // 포커스 될 때 재요청 
+    refetchIntervalInBackground: true, // 백그라운드 일 때 재요청 o
+    refetchInterval: 300000,
   });
 };
 
@@ -26,6 +30,10 @@ export const useGetNearbyPickles = (location: Coordinates | null) => {
     queryKey: ['pickles', 'nearby'],
 
     queryFn: async () => await picklesRequests.getNearby(location),
+
+    refetchOnWindowFocus: true, // 포커스 될 때 재요청 
+    refetchIntervalInBackground: true, // 백그라운드 일 때 재요청 o
+    refetchInterval: 300000,
   });
 };
 
@@ -48,6 +56,10 @@ export const useGetSpecialPickles = (type: 'hotTime' | 'popular') => {
       queryKey: ['pickles', 'hotTime'],
       queryFn: async () => await picklesRequests.getHotTime(),
       select: data => data.data,
+
+      refetchOnWindowFocus: true, // 포커스 될 때 재요청 
+      refetchIntervalInBackground: true, // 백그라운드 일 때 재요청 o
+      refetchInterval: 300000,
     });
   } else {
     return useSuspenseQuery({
