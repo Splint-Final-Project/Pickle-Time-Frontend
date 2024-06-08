@@ -1,9 +1,10 @@
+import { Link } from 'react-router-dom';
 import SpecialPickleCardArrowIcon from '@/assets/icons/SpecialPickleCardArrowIcon';
-import styled from '@emotion/styled';
 import HeartButton from '../common/button/HeartButton';
 import BackImg from '@/assets/images/specialPickleCardBackImg.png';
-import useHeartButtonClick from '@/hooks/useHeartButtonClick';
-import { Link } from 'react-router-dom';
+// import useHeartButtonClick from '@/hooks/useHeartButtonClick';
+import { useGetLikePickle, useDeletePickleLikeMutation, usePickleLikeMutation } from '@/hooks/query/like';
+import styled from '@emotion/styled';
 
 const ONEDAY_MILLISECOND = 1000 * 60 * 60 * 24;
 
@@ -17,16 +18,24 @@ const calculateDday = (deadLine: string) => {
 export default function SpecialPickleCard({ pickleData }: { pickleData: any }) {
   const Dday = calculateDday(pickleData.deadLine);
   
-  const { isHeartClicked, handleHeartClick } = useHeartButtonClick({
-    pickleId: pickleData.id,
-    isInUserWishList: false,
-  });
+  // // server state
+  const { data } = useGetLikePickle(pickleData.id);
+  const { mutate: postLikeMutate } = usePickleLikeMutation(pickleData.id);
+  const { mutate: deleteLikeMutate } = useDeletePickleLikeMutation(pickleData.id);
+
+  const handleHeartClick = () => {
+    if (data && data.data.length) {
+      deleteLikeMutate();
+    } else if (data && !data.data.length) {
+      postLikeMutate();
+    }
+  }
 
   return (
     <S.CardLayer to={'/'}>
       <S.Wrap>
         <S.DeadlineBadge>D-{Dday}</S.DeadlineBadge>
-        <HeartButton size={22} isActive={isHeartClicked} onClick={handleHeartClick} />
+        <HeartButton size={22} isActive={data?.data.length} onClick={handleHeartClick} />
       </S.Wrap>
       <S.Title>{pickleData.title}</S.Title>
       <S.ResgisterStatus>

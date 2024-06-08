@@ -2,7 +2,6 @@ import { useNavigate, useParams } from 'react-router-dom';
 
 import HeartButton from '@/components/common/button/HeartButton';
 import { useGetPickelDetail } from '@/hooks/query/pickles';
-import useHeartButtonClick from '@/hooks/useHeartButtonClick';
 import routes from '@/constants/routes';
 import { formatCurrency } from '@/utils/formatData';
 
@@ -17,11 +16,6 @@ export default function PickleList() {
   const { data } = useGetPickelDetail(pickleId);
   const pickleDetailData = data?.data;
 
-  const { isHeartClicked, handleHeartClick } = useHeartButtonClick({
-    pickleId,
-    isInUserWishList: false,
-  });
-
   return (
     <>
       안녕피클상세임
@@ -33,7 +27,6 @@ export default function PickleList() {
           총 {pickleDetailData?.when.summary}, {pickleDetailData?.where}에서 진행해
         </p>
       </div>
-      <HeartButton isActive={isHeartClicked} onClick={handleHeartClick} />
       <button onClick={() => navigate(routes.pickle)}>참여하기</button>
     </>
   );

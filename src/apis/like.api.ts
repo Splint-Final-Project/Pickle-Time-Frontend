@@ -2,8 +2,13 @@ import client from '@/apis/axios';
 import { API_LIKE } from '@/constants/API';
 
 export const likeRequests = Object.freeze({
-  pickles: async () => {
-    const { data } = await client.get(API_LIKE.GET());
+  getPickles: async () => {
+    const { data } = await client.get(API_LIKE.GETALL());
+    return data;
+  },
+
+  getPickle: async (pickleId: string) => {
+    const { data } = await client.get(API_LIKE.GET(pickleId));
     return data;
   },
 

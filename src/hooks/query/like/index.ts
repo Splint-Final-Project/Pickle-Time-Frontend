@@ -1,5 +1,5 @@
 import { toast } from 'react-hot-toast';
-import { useInfiniteQuery, useMutation } from '@tanstack/react-query';
+import { useQuery, useInfiniteQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { likeRequests } from '@/apis/like.api';
 
 type HandleSuccessFunction = (data: any) => void;
@@ -9,7 +9,7 @@ export const useGetLikePickles = () => {
     queryKey: ['pickles', 'like'],
 
     initialPageParam: 0,
-    queryFn: async ({ pageParam }) => await likeRequests.pickles(),
+    queryFn: async ({ pageParam }) => await likeRequests.getPickles(),
 
     getNextPageParam: lastPage => {
       return lastPage.cursorId;
@@ -23,14 +23,23 @@ export const useGetLikePickles = () => {
     refetchIntervalInBackground: true, // 백그라운드 일 때 재요청 o
     refetchInterval: 300000,
   })
+};
+
+export const useGetLikePickle = (pickleId: string) => {
+  return useQuery({
+    queryKey: ['pickles', 'like', pickleId],
+    queryFn: async () => await likeRequests.getPickle(pickleId),
+  });
 }
 
-export const usePickleLikeMutation = (handleSuccess: HandleSuccessFunction) => {
+export const usePickleLikeMutation = (pickleId: string) => {
+  const queryClient = useQueryClient();
+
   return useMutation({
-    mutationFn: async (pickleId: string) => {
+    mutationFn: async () => {
       return likeRequests.likePickle(pickleId);
     },
-    onSuccess: handleSuccess,
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: ['pickles', 'like', pickleId] }),
     onError: error => {
       console.log(error);
       toast.error('피클을 찜하지 못했습니다!');
@@ -38,9 +47,11 @@ export const usePickleLikeMutation = (handleSuccess: HandleSuccessFunction) => {
   });
 };
 
-export const useDeletePickleLikeMutation = (handleSuccess: HandleSuccessFunction) => {
+export const useDeletePickleLikeMutation = (pickleId: string) => {
+  const queryClient = useQueryClient();
+  
   return useMutation({
-    mutationFn: (pickleId: string) => likeRequests.deletePickleLike(pickleId),
-    onSuccess: handleSuccess,
+    mutationFn: () => likeRequests.deletePickleLike(pickleId),
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: ['pickles', 'like', pickleId] }),
   });
 };
