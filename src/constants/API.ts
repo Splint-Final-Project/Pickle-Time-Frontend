@@ -15,7 +15,6 @@ export const API_AUTH = Object.freeze({
 });
 
 export const API_PICKLE = Object.freeze({
-  GET_ALL: `${API.PICKLE}`,
   NEARBY: `${API.PICKLE}/nearby`,
   CREATE: `${API.PICKLE}/create`,
   POPULAR: `${API.PICKLE}/popular`,

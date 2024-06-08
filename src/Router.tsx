@@ -16,6 +16,7 @@ import LoginRedirector from './redirectors/LoginRedirector';
 import SignIn from './pages/auth/SignIn';
 import SignIn_Email from './pages/auth/SignIn_Email';
 import MainLayout from '@/layouts/MainLayout';
+import NotFoundPage from '@/pages/NotFoundPage';
 
 const privateChildren = [
   {
@@ -40,7 +41,7 @@ const router = createBrowserRouter([
   {
     path: '',
     element: <MainLayout />,
-    // errorElement: <NotFound />,
+    errorElement: <NotFoundPage />,
     children: [
       {
         path: routes.home,
@@ -51,11 +52,11 @@ const router = createBrowserRouter([
         element: <Pickle />,
       },
       {
-        path: routes.pickleList,
+        path: `${routes.pickleList}/:pickleId`,
         element: <PickleList />,
       },
       {
-        path: '/sign-in',
+        path: routes.signIn,
         element: <SignIn />,
       },
       {
@@ -63,11 +64,11 @@ const router = createBrowserRouter([
         element: <SignIn_Email />,
       },
       {
-        path: '/sign-up',
+        path: routes.signUp,
         element: <SignUp />,
       },
       {
-        path: '/sign-up2',
+        path: routes.signUp2,
         element: <SignUp2 />,
       },
       {

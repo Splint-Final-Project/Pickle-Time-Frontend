@@ -28,7 +28,8 @@
       "@/mocks/*": ["src/mocks/*"],
       "@/pages/*": ["src/pages/*"],
       "@/styles/*": ["src/styles/*"],
-      "@/layouts/*": ["src/layouts/*"]
+      "@/layouts/*": ["src/layouts/*"],
+      "@/utils/*": ["src/utils/*"]
     }
   },
   "include": ["src"],
