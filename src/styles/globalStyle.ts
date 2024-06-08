@@ -35,6 +35,10 @@ const globalStyle = css`
   }
 
   body {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     font-weight: 400;
     font-size: 1.6rem;
     color: ${theme.color.body};

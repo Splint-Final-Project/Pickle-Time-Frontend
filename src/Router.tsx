@@ -9,7 +9,7 @@ import Conversation from '@/pages/chat/Conversation';
 import ConversationList from '@/pages/chat/ConversationList';
 import MyPage from '@/pages/profile/MyPage';
 import routes from '@/constants/routes';
-import MobilePaymentRedirect from './redirectors/MobilePaymentRedirect';
+import PickleJoinRedirector from './redirectors/PickleJoinRedirector';
 import SignUp2 from './pages/auth/SingUp2';
 import OAuthSuccessRedirector from './redirectors/OAuthSuccessRedirector';
 import LoginRedirector from './redirectors/LoginRedirector';
@@ -86,7 +86,7 @@ const router = createBrowserRouter([
       },
       {
         path: routes.mobilePaymentRedirect,
-        element: <MobilePaymentRedirect />,
+        element: <PickleJoinRedirector />,
       },
       {
         path: '',

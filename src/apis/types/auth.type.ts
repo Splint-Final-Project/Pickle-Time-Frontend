@@ -15,6 +15,7 @@ export type SignUpFormValues = {
 
 export type SignUpFormValues2 = {
   nickname: string;
-  image_url: string;
-  company: string;
+  profilePic: string;
+  area?: string;
+  company?: string;
 };

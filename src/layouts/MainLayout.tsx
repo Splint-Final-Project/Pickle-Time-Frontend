@@ -12,7 +12,7 @@ const S = {
     display: flex;
     flex-direction: column;
     min-height: 100dvh;
-    border: 1px solid black;
+    border: 1px solid #f0f0f0;
     width: 100%;
 
     @media (min-width: ${breakpoints.mobile}) {
