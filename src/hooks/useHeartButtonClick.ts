@@ -14,6 +14,7 @@ export default function useHeartButtonClick({ pickleId, isInUserWishList }: Hear
 
   const handleHeartClick = useCallback(
     (e: React.MouseEvent<HTMLElement>) => {
+      e.preventDefault();
       e.stopPropagation();
       if (isHeartClicked) return deleteLikeMutate(pickleId);
       return postLikeMutate(pickleId);

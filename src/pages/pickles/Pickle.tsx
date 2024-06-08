@@ -1,75 +1,78 @@
-import { useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 
-declare global {
-  interface Window {
-    IMP: any;
-  }
-}
+import HeartButton from '@/components/common/button/HeartButton';
+import { useGetPickelDetail } from '@/hooks/query/pickles';
+import useHeartButtonClick from '@/hooks/useHeartButtonClick';
+import routes from '@/constants/routes';
+import { formatCurrency } from '@/utils/formatData';
+import useAuth from '@/hooks/zustand/useAuth';
+
+/**
+ * 피클 상세 페이지
+ */
+//Todo: 디자인 나오면 데이터활용해서 ui 구성
 export default function Pickle() {
-  const { IMP } = window;
-  const [paymentMethod, setPaymentMethod] = useState<string>('kakaopay');
+  const navigate = useNavigate();
+  const { id: pickleId = '' } = useParams();
+  const { getMe } = useAuth();
+  const user = getMe();
 
-  function onClickPayment() {
-    const data = {
-      pg: `${paymentMethod === 'kakaopay' ? 'kakaopay.TC0ONETIME' : 'tosspay.tosstest'}`,
-      pay_method: 'card',
-      merchant_uid: `mid_${new Date().getTime()}`, // 해당 피클의 아이디?
-      amount: 1000,
-      name: '아임포트 결제 데이터 분석',
-      buyer_name: '홍길동',
-      // buyer_tel: '01012341234',
-      // buyer_email: 'test@example.com',
-      // buyer_addr: '삼일대로 343',
-      // buyer_postcode: '04538',
-      m_redirect_url: `${window.location.origin.toString()}/api/v1/payment-redirect`,
-    };
+  const { data } = useGetPickelDetail(pickleId);
+  const pickleDetailData = data?.data;
 
-    IMP.init('imp88171622');
-
-    IMP.request_pay(data, async (response: any) => {
-      if (!response.success) {
-        return alert(`에러 내용: ${response.error_msg}`);
+  const { isHeartClicked, handleHeartClick } = useHeartButtonClick({
+    pickleId,
+    isInUserWishList: false,
+  });
+  console.log(user._id);
+  console.log(pickleDetailData?.participants);
+  //check if user is participant of the pickle
+  let isLeader = false;
+  const isParticipant = pickleDetailData?.participants.some((participant: any) => {
+    if (participant.user === user._id) {
+      if (participant.isLeader) {
+        isLeader = true;
       }
+      return true;
+    }
+    return false;
+  });
 
-      const notified = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/v1/payment/verify/${response.imp_uid}`, {
-        method: 'POST',
-      });
-
-      const notifiedText = await notified.text(); // Fix: Use the text() method instead of string()
-      //notified http status에 따라 분기.
-      //OK의 경우에는 성공했다고 띄우고 피클 페이지로 이동(신청버튼이 '신청함'으로 바뀌고비활성화됨)
-      //실패의 경우에는 실패했다고 띄우고 다시 그 피클 페이지
-      //같은 작업을 redirect url에서도 해야함
-      alert(notifiedText);
-    });
-  }
+  //check if user is the leader of the pickle
 
   return (
-    <div>
-      <div style={{ display: 'flex', flexDirection: 'column' }}>
-        <h1>피클입니다</h1>
-        <span>
-          <input
-            type="radio"
-            id="kakao"
-            name="paymentType"
-            value="kakaopay"
-            onChange={e => setPaymentMethod(e.target.value)}
-          />
-          <label htmlFor="kakao">카카오페이</label>
-        </span>
-        <span>
-          <input
-            type="radio"
-            id="toss"
-            name="paymentType"
-            value="tosspay"
-            onChange={e => setPaymentMethod(e.target.value)}
-          />
-          <label htmlFor="toss">토스페이</label>
-        </span>
-        <button onClick={onClickPayment}> 결제하기</button>
+    <>
+      안녕피클상세임
+      <div>
+        <p>우리 스터디는 {pickleDetailData?.title}야.</p>
+        <p>{pickleDetailData?.capacity}명 모집할거고</p>
+        <p>참가비는 {formatCurrency(pickleDetailData?.cost)}원이고</p>
+        <p>
+          총 {pickleDetailData?.when.summary}, {pickleDetailData?.where}에서 진행해
+        </p>
       </div>
-    </div>
+      <HeartButton isActive={isHeartClicked} onClick={handleHeartClick} />
+      {isParticipant ? (
+        isLeader ? (
+          <div>당신이 생성한 피클입니다. [관리하기]</div>
+        ) : (
+          <div>신청완료된 피클입니다</div>
+        )
+      ) : (
+        <button
+          onClick={() =>
+            navigate('/pickle-join', {
+              state: {
+                pickleId,
+                pickleTitle: pickleDetailData?.title,
+                pickleCost: pickleDetailData?.cost,
+              },
+            })
+          }
+        >
+          참여하기
+        </button>
+      )}
+    </>
   );
 }

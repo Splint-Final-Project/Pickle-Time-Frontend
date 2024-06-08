@@ -4,12 +4,11 @@ import Home from '@/pages/home/Home';
 import Admin from '@/pages/auth/Admin';
 import SignUp from '@/pages/auth/SignUp';
 import Pickle from '@/pages/pickles/Pickle';
-import PickleList from '@/pages/pickles/PickleList';
 import Conversation from '@/pages/chat/Conversation';
 import ConversationList from '@/pages/chat/ConversationList';
 import MyPage from '@/pages/profile/MyPage';
 import routes from '@/constants/routes';
-import MobilePaymentRedirect from './redirectors/MobilePaymentRedirect';
+import PickleJoinRedirector from './redirectors/PickleJoinRedirector';
 import SignUp2 from './pages/auth/SingUp2';
 import OAuthSuccessRedirector from './redirectors/OAuthSuccessRedirector';
 import LoginRedirector from './redirectors/LoginRedirector';
@@ -17,6 +16,9 @@ import SignIn from './pages/auth/SignIn';
 import SignIn_Email from './pages/auth/SignIn_Email';
 import MainLayout from '@/layouts/MainLayout';
 import NotFoundPage from '@/pages/NotFoundPage';
+import CreatePicklePayment from './pages/pickles/CreatePicklePayment';
+import CreatePickle from './pages/pickles/CreatePickleForm';
+import JoinPicklePayment from './pages/pickles/JoinPicklePayment';
 
 const privateChildren = [
   {
@@ -48,12 +50,20 @@ const router = createBrowserRouter([
         element: <Home />,
       },
       {
-        path: routes.pickle,
+        path: `pickle/:id`,
         element: <Pickle />,
       },
       {
-        path: `${routes.pickleList}/:pickleId`,
-        element: <PickleList />,
+        path: '/pickle-create',
+        element: <CreatePickle />,
+      },
+      {
+        path: '/pickle-join',
+        element: <JoinPicklePayment />,
+      },
+      {
+        path: '/pickle-create-payment',
+        element: <CreatePicklePayment />,
       },
       {
         path: routes.signIn,
@@ -78,15 +88,11 @@ const router = createBrowserRouter([
             path: 'success',
             element: <OAuthSuccessRedirector />,
           },
-          // {
-          //   path: 'pending',
-          //   element: <OAuthPendingRedirector />,
-          // },
         ],
       },
       {
         path: routes.mobilePaymentRedirect,
-        element: <MobilePaymentRedirect />,
+        element: <PickleJoinRedirector />,
       },
       {
         path: '',
