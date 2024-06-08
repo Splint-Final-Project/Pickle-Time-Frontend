@@ -1,21 +1,22 @@
 import client from '@/apis/axios';
 import { useState } from 'react';
+import { useNavigate } from 'react-router';
 
+import { useLocation } from 'react-router';
 declare global {
   interface Window {
     IMP: any;
   }
 }
 
-export default function JoinPicklePayment({
-  pickleId,
-  pickleName,
-  pickleCost,
-}: {
-  pickleId: string;
-  pickleName: string;
-  pickleCost: number;
-}) {
+export default function JoinPicklePayment() {
+  const { state } = useLocation();
+  const navigate = useNavigate();
+  const { pickleId, pickleName, pickleCost } = state as any;
+  // console.log(state);
+  // if (!pickleId || !pickleName || !pickleCost) {
+  //   return <div>피클 정보가 부족합니다.</div>;
+  // }
   const { IMP } = window;
   const [paymentMethod, setPaymentMethod] = useState<string>('kakaopay');
 
@@ -41,13 +42,16 @@ export default function JoinPicklePayment({
         imp_uid: response.imp_uid,
         pickle_id: pickleId,
       });
-
-      const notifiedText = notified.data();
+      if (notified.status === 200) {
+        alert('결제 및 신청이 완료되었습니다.');
+      } else {
+        alert('신청이 실패하여 결제 금액은 환불되었습니다.' + notified.data.message);
+      }
+      navigate(`/pickles/${pickleId}`);
       //notified http status에 따라 분기.
       //OK의 경우에는 성공했다고 띄우고 피클 페이지로 이동(신청버튼이 '신청함'으로 바뀌고비활성화됨)
       //실패의 경우에는 실패했다고 띄우고 다시 그 피클 페이지
       //같은 작업을 redirect url에서도 해야함
-      alert(notifiedText);
     });
   }
 
@@ -56,7 +60,7 @@ export default function JoinPicklePayment({
       <div style={{ display: 'flex', flexDirection: 'column' }}>
         <h1>{pickleName}에 신청하기 위한 결제하기</h1>
         <div>총 금액 {pickleCost}원</div>
-        <input type="checkbox" />
+        <input type="checkbox" /> 결제정보에동의
         <span>
           <input
             type="radio"

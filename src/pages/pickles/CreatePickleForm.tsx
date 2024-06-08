@@ -4,7 +4,7 @@ import axios from 'axios';
 import client from '@/apis/axios';
 import { useNavigate } from 'react-router-dom';
 
-export default function NewPickle() {
+export default function CreatePickle() {
   const {
     title,
     capacity,
@@ -12,7 +12,7 @@ export default function NewPickle() {
     deadLine,
     where,
     when,
-    content,
+    category,
     explanation,
     viewCount,
     latitude,
@@ -23,7 +23,7 @@ export default function NewPickle() {
     setDeadLine,
     setWhere,
     setWhen,
-    setContent,
+    setCategory,
     setExplanation,
     setViewCount,
     setLatitude,
@@ -51,14 +51,14 @@ export default function NewPickle() {
         {/* <label htmlFor="when">When:</label>
       <input type="datetime-local" id="when" value={when} onChange={(e) => setWhen(e.target.value)} /> */}
 
-        <label htmlFor="content">Content:</label>
-        <textarea id="content" value={content} onChange={e => setContent(e.target.value)} />
+        <label htmlFor="category">Category:</label>
+        <textarea id="category" value={category} onChange={e => setCategory(e.target.value)} />
 
         <label htmlFor="explanation">Explanation:</label>
         <textarea id="explanation" value={explanation} onChange={e => setExplanation(e.target.value)} />
 
-        <label htmlFor="viewCount">View Count:</label>
-        <input type="number" id="viewCount" value={viewCount} onChange={e => setViewCount(Number(e.target.value))} />
+        {/* <label htmlFor="viewCount">View Count:</label>
+        <input type="number" id="viewCount" value={viewCount} onChange={e => setViewCount(Number(e.target.value))} /> */}
 
         <label htmlFor="latitude">Latitude:</label>
         <input type="number" id="latitude" value={latitude} onChange={e => setLatitude(Number(e.target.value))} />
