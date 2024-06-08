@@ -12,8 +12,8 @@ const S = {
     display: flex;
     flex-direction: column;
     min-height: 100dvh;
-    border-left: 0.1px solid black;
-    border-right: 0.1px solid black;
+    border-left: 0.1px solid #f0f0f0;
+    border-right: 0.1px solid #f0f0f0;
     width: 100%;
 
     @media (min-width: ${breakpoints.mobile}) {
@@ -25,6 +25,7 @@ const S = {
     flex: 1;
     display: flex;
     flex-direction: row;
+    padding-bottom: 8.5rem;
   `,
   MainContent: styled.div`
     flex: 1;
