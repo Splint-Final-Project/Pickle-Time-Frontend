@@ -33,7 +33,7 @@ export default function CreatePickle() {
 
   return (
     <div>
-      <form onSubmit={() => navigate('/create-pickle-payment')}>
+      <form onSubmit={() => navigate('/pickle-create-payment')}>
         <label htmlFor="title">Title:</label>
         <input type="text" id="title" value={title} onChange={e => setTitle(e.target.value)} />
 

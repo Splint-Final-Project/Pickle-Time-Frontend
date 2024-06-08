@@ -1,12 +1,29 @@
 import client from '@/apis/axios';
 import usePickleCreation from '@/hooks/zustand/usePickleCreation';
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 export default function CreatePicklePayment() {
   const { IMP } = window;
+  const navigate = useNavigate();
   const [paymentMethod, setPaymentMethod] = useState<string>('kakaopay');
-  const { title, capacity, cost, deadLine, where, when, content, explanation, viewCount, latitude, longitude } =
+  const { title, capacity, cost, deadLine, where, when, category, explanation, viewCount, latitude, longitude, clear } =
     usePickleCreation();
+  if (
+    !title ||
+    !capacity ||
+    !cost ||
+    // !deadLine ||
+    !where ||
+    // !when ||
+    !category ||
+    !explanation ||
+    // !viewCount ||
+    !latitude ||
+    !longitude
+  ) {
+    return <div>피클 정보가 부족합니다.</div>;
+  }
   function onClickPayment() {
     const data = {
       pg: `${paymentMethod === 'kakaopay' ? 'kakaopay.TC0ONETIME' : 'tosspay.tosstest'}`,
@@ -33,7 +50,7 @@ export default function CreatePicklePayment() {
         deadLine,
         where,
         when,
-        content,
+        category,
         explanation,
         viewCount,
         latitude,
@@ -41,9 +58,14 @@ export default function CreatePicklePayment() {
       });
 
       // 결제 성공(피클도 생성됨) 결과에 따라 분기
-
-      const notifiedText = notified.data();
-      alert(notifiedText);
+      console.log(notified);
+      if (notified.status === 201) {
+        alert('결제 및 피클 생성이 완료되었습니다.');
+      } else {
+        alert('피클 생성이 실패하여 결제 금액은 환불되었습니다.' + notified.data.message);
+      }
+      clear();
+      navigate(`/pickle/${notified.data.pickle._id}`);
     });
   }
   return (

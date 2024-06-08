@@ -26,6 +26,7 @@ type Pickle = {
   setViewCount: (viewCount: number) => void;
   setLatitude: (latitude: number) => void;
   setLongitude: (longitude: number) => void;
+  clear: () => void;
 };
 
 const usePickleCreation = create<Pickle>(set => ({
@@ -54,6 +55,7 @@ const usePickleCreation = create<Pickle>(set => ({
   setViewCount: (viewCount: number) => set({ viewCount }),
   setLatitude: (latitude: number) => set({ latitude }),
   setLongitude: (longitude: number) => set({ longitude }),
+  clear: () => set({}),
 }));
 
 export default usePickleCreation;
