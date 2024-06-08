@@ -2,19 +2,37 @@ import SpecialPickleCardArrowIcon from '@/assets/icons/SpecialPickleCardArrowIco
 import styled from '@emotion/styled';
 import HeartButton from '../common/button/HeartButton';
 import BackImg from '@/assets/images/specialPickleCardBackImg.png';
-export default function SpecialPickleCard() {
+import useHeartButtonClick from '@/hooks/useHeartButtonClick';
+import { Link } from 'react-router-dom';
+
+const ONEDAY_MILLISECOND = 1000 * 60 * 60 * 24;
+
+//TODO : 데이터 타입 잡기
+const calculateDday = (deadLine: string) => {
+  const today = new Date().getTime();
+  const deadLineMilliseconds = new Date(deadLine).getTime();
+  return Math.floor((deadLineMilliseconds - today) / ONEDAY_MILLISECOND);
+};
+
+export default function SpecialPickleCard({ pickleData }: { pickleData: any }) {
+  const Dday = calculateDday(pickleData.deadLine);
+  const { isHeartClicked, handleHeartClick } = useHeartButtonClick({
+    pickleId: pickleData.id,
+    isInUserWishList: false,
+  });
   return (
-    <S.CardLayer href="/">
+    <S.CardLayer to={'/'}>
       <S.Wrap>
-        <S.DeadlineBadge>D-15</S.DeadlineBadge>
-        <HeartButton size={14} />
+        <S.DeadlineBadge>D-{Dday}</S.DeadlineBadge>
+        <HeartButton size={22} isActive={isHeartClicked} onClick={handleHeartClick} />
       </S.Wrap>
-      <S.Title>명동 나이트 러닝 6km 서울 RUN!</S.Title>
+      <S.Title>{pickleData.title}</S.Title>
       <S.ResgisterStatus>
-        6명 중 <span>3</span>명이 신청하는 중
+        {pickleData.capacity}명 중 <span>{pickleData.participants.length}</span>명이 신청하는 중
       </S.ResgisterStatus>
       <S.Price>
-        10,000<span>원</span>
+        {pickleData.cost.toLocaleString()}
+        <span>원</span>
       </S.Price>
       <S.Circle>
         <SpecialPickleCardArrowIcon />
@@ -24,7 +42,7 @@ export default function SpecialPickleCard() {
 }
 
 const S = {
-  CardLayer: styled.a`
+  CardLayer: styled(Link)`
     display: block;
     margin: auto;
     width: 14.4rem;
@@ -34,13 +52,9 @@ const S = {
     padding: 1.2rem 1rem 1.5rem 1.5rem;
     color: #161616;
     position: relative;
-    box-shadow: 0.5px 0.5px 2px 0px rgba(0, 0, 0, 0.25);
+    box-shadow: 0px 1px 2.8px 0px rgba(0, 0, 0, 0.25);
     transition: 0.5s;
     background-image: url(${BackImg});
-    &:hover {
-      transform: translate(-2px, -2px);
-      box-shadow: 2.5px 2.5px 2.8px 2px rgba(0, 0, 0, 0.25);
-    }
   `,
   Wrap: styled.div`
     display: flex;
@@ -64,6 +78,7 @@ const S = {
     line-height: 120.983%;
     letter-spacing: -0.8px;
     margin-bottom: 1.2rem;
+    min-height: 3.4rem;
   `,
   ResgisterStatus: styled.span`
     display: inline-block;
@@ -96,7 +111,7 @@ const S = {
     width: 2rem;
     height: 2rem;
     border-radius: 50%;
-    background: #0ac50a;
+    background: #6fa978;
     position: absolute;
     bottom: 1.7rem;
     right: 1rem;

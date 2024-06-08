@@ -1,8 +1,8 @@
-import { useQuery, useInfiniteQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import toast from 'react-hot-toast';
+import { useQuery, useInfiniteQuery, useMutation, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
 
 import { picklesRequests } from '@/apis/pickle.api';
 import { Coordinates, CreatePickleData } from '@/apis/types/pickles.type';
+import toast from 'react-hot-toast';
 
 export const useGetInfinitePickles = () => {
   return useInfiniteQuery({
@@ -40,6 +40,22 @@ export const useCreatePickleMutation = (pickleData: CreatePickleData) => {
       toast.error('피클 생성에 실패했습니다.');
     },
   });
+};
+
+export const useGetSpecialPickles = (type: 'hotTime' | 'popular') => {
+  if (type === 'hotTime') {
+    return useSuspenseQuery({
+      queryKey: ['pickles', 'hotTime'],
+      queryFn: async () => await picklesRequests.getHotTime(),
+      select: data => data.data,
+    });
+  } else {
+    return useSuspenseQuery({
+      queryKey: ['pickles', 'popular'],
+      queryFn: async () => await picklesRequests.getPopular(),
+      select: data => data.data,
+    });
+  }
 };
 
 export const useGetPickelDetail = (pickleId: string) => {

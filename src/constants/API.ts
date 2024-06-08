@@ -17,6 +17,8 @@ export const API_AUTH = Object.freeze({
 export const API_PICKLE = Object.freeze({
   NEARBY: `${API.PICKLE}/nearby`,
   CREATE: `${API.PICKLE}/create`,
+  POPULAR: `${API.PICKLE}/popular`,
+  HOT_TIME: `${API.PICKLE}/hotTime`,
   BY_ID: (pickleId: string) => `${API.PICKLE}/${pickleId}`,
   LIKE: (pickleId: string) => `${API.PICKLE}/${pickleId}/scrap`,
   SEARCH: (pickleType: string) => `${API.PICKLE}/${pickleType}`, // 피클검색

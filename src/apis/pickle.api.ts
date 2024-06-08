@@ -9,6 +9,14 @@ export const picklesRequests = Object.freeze({
     return data;
   },
 
+  getPopular: async () => {
+    const { data } = await client.get(API_PICKLE.POPULAR);
+    return data;
+  },
+  getHotTime: async () => {
+    const { data } = await client.get(API_PICKLE.HOT_TIME);
+    return data;
+  },
   // 가까운 피클
   getNearby: async (location: Coordinates | null) => {
     if (location === null) return null;
