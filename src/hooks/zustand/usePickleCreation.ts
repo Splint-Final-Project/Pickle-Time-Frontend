@@ -10,7 +10,7 @@ type Pickle = {
     summary: string;
     times: Date[];
   };
-  content: string;
+  category: string;
   explanation: string;
   viewCount: number; // 초기 viewCount 설정
   latitude: number;
@@ -21,11 +21,12 @@ type Pickle = {
   setDeadLine: (deadLine: Date) => void;
   setWhere: (where: string) => void;
   setWhen: (when: { summary: string; times: Date[] }) => void;
-  setContent: (content: string) => void;
+  setCategory: (category: string) => void;
   setExplanation: (explanation: string) => void;
   setViewCount: (viewCount: number) => void;
   setLatitude: (latitude: number) => void;
   setLongitude: (longitude: number) => void;
+  clear: () => void;
 };
 
 const usePickleCreation = create<Pickle>(set => ({
@@ -38,7 +39,7 @@ const usePickleCreation = create<Pickle>(set => ({
     summary: '',
     times: [],
   },
-  content: '',
+  category: '',
   explanation: '',
   viewCount: 0,
   latitude: 0,
@@ -49,11 +50,12 @@ const usePickleCreation = create<Pickle>(set => ({
   setDeadLine: (deadLine: Date) => set({ deadLine }),
   setWhere: (where: string) => set({ where }),
   setWhen: (when: { summary: string; times: Date[] }) => set({ when }),
-  setContent: (content: string) => set({ content }),
+  setCategory: (category: string) => set({ category }),
   setExplanation: (explanation: string) => set({ explanation }),
   setViewCount: (viewCount: number) => set({ viewCount }),
   setLatitude: (latitude: number) => set({ latitude }),
   setLongitude: (longitude: number) => set({ longitude }),
+  clear: () => set({}),
 }));
 
 export default usePickleCreation;

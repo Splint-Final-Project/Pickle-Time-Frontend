@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import useAuth from '@/hooks/zustand/useAuth';
 import KaKaoMap from '@/components/map/KaKaoMap';
@@ -22,23 +22,24 @@ const Button = styled.button`
   border: 1px solid black;
 `;
 
-const temData = {
-  title: '명동 스터디6',
-  capacity: 5,
-  cost: 8000,
-  deadLine: '2024-06-10T23:00:00Z',
-  where: '명동커피',
-  when: {
-    summary: '사흘 간',
-    times: ['2024-06-15T07:00:00Z', '2024-06-16T07:00:00Z', '2024-06-14T07:00:00.000Z', '2024-06-13T07:00:00.000Z'],
-  },
-  content: '스터디',
-  explanation: '그냥 하고싶으신 거 모여서 합니다! 환영해요~.',
-  latitude: 37.5636,
-  longitude: 126.982,
-};
+// const temData = {
+//   title: '명동 스터디6',
+//   capacity: 5,
+//   cost: 8000,
+//   deadLine: '2024-06-10T23:00:00Z',
+//   where: '명동커피',
+//   when: {
+//     summary: '사흘 간',
+//     times: ['2024-06-15T07:00:00Z', '2024-06-16T07:00:00Z', '2024-06-14T07:00:00.000Z', '2024-06-13T07:00:00.000Z'],
+//   },
+//   content: '스터디',
+//   explanation: '그냥 하고싶으신 거 모여서 합니다! 환영해요~.',
+//   latitude: 37.5636,
+//   longitude: 126.982,
+// };
 
 export default function Home() {
+  const navigate = useNavigate();
   const [isModalOpen, setModalOpen] = useState(false);
   const { isHeartClicked, handleHeartClick } = useHeartButtonClick({
     pickleId: '1',
@@ -53,11 +54,11 @@ export default function Home() {
   // console.log(getMe());
 
   // server state
-  const { mutate } = useCreatePickleMutation(temData);
+  // const { mutate } = useCreatePickleMutation(temData);
 
-  const handleMutate = async () => {
-    mutate();
-  };
+  // const handleMutate = async () => {
+  //   mutate();
+  // };
 
   return (
     <MainLayout>
@@ -91,15 +92,15 @@ export default function Home() {
       <br />
       <div style={{ display: 'flex', flexDirection: 'column' }}>
         <Link to={routes.chatList}>Chat List</Link>
+          <Link to={'/pickle/6662941ec1151126a67f6530'}>테스트 피클 보기+신청하기테스트</Link>
+        </div>
+        <Button type="button" onClick={() => navigate('/pickle-create')}>
+          피클 생성 페이지로 이동
+        </Button>
+        <br />
+        <br />
+        <br />
 
-        <Link to={routes.pickle}>테스트 피클 보기+결제하기</Link>
-      </div>
-      <Button type="button" onClick={handleMutate}>
-        생성 테스트 버튼
-      </Button>
-      <br />
-      <br />
-      <br />
       {/* <KaKaoMap /> */}
       {/* <Button type="button" onClick={openModal}>
         모달 테스트 버튼
