@@ -63,9 +63,9 @@ const S = {
     font-style: normal;
     font-weight: 700;
     line-height: 3.5rem;
-    white-space: pre-wrap; /* 공백을 유지하며 요소의 너비를 초과하면 줄바꿈 */
-    word-wrap: break-word; /* 긴 단어가 요소의 너비를 초과하면 줄바꿈 */
-    word-break: break-word; /* 단어가 깨지더라도 줄바꿈 */
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    word-break: break-word;
 
     @media (max-width: 450px) {
       font-size: 2.2rem;
@@ -74,7 +74,6 @@ const S = {
   `,
 
   CarouselSemiContent: styled.span`
-    /* width: ${props => (props.id === '3' ? '16.8rem' : '22.4rem')}; */
     color: #fff;
     text-align: ${props => (props.id === '1' || props.id === '3' ? 'left' : 'center')};
     text-shadow: 0 0 0.55rem rgba(0, 0, 0, 0.7);
@@ -83,9 +82,9 @@ const S = {
     font-style: normal;
     font-weight: 500;
     line-height: 2.3rem;
-    white-space: pre-wrap; /* 공백을 유지하며 요소의 너비를 초과하면 줄바꿈 */
-    word-wrap: break-word; /* 긴 단어가 요소의 너비를 초과하면 줄바꿈 */
-    word-break: break-word; /* 단어가 깨지더라도 줄바꿈 */
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    word-break: break-word;
 
     @media (max-width: 450px) {
       font-size: 1rem;
