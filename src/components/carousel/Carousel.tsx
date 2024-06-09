@@ -3,7 +3,7 @@ import secondStudyImg from '@/assets/images/study-2.jpg';
 import fistExerciseImg from '@/assets/images/exercise-1.jpg';
 
 import CarouselImg from './CarouselImg';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import styled from '@emotion/styled';
 
 const CAROUSEL_IMG_LIST = [
@@ -47,13 +47,17 @@ export default function Carousel() {
         <img src="/icons/leftArrow.svg" alt="Previous" />
       </S.CarouselButton>
 
-      <CarouselImg
-        id={CAROUSEL_IMG_LIST[currentIndex].id}
-        key={CAROUSEL_IMG_LIST[currentIndex].id}
-        img={CAROUSEL_IMG_LIST[currentIndex].img}
-        content={CAROUSEL_IMG_LIST[currentIndex].content}
-        semiContent={CAROUSEL_IMG_LIST[currentIndex].semiContent}
-      />
+      <S.CarouselWrapper currentIndex={currentIndex}>
+        {CAROUSEL_IMG_LIST.map(item => (
+          <CarouselImg
+            id={item.id}
+            key={item.id}
+            img={item.img}
+            content={item.content}
+            semiContent={item.semiContent}
+          />
+        ))}
+      </S.CarouselWrapper>
 
       <S.CarouselButton onClick={handleNext} position="right">
         <img src="/icons/rightArrow.svg" alt="Next" />
@@ -67,9 +71,14 @@ const S = {
     position: relative;
     width: 100%;
     height: 26.8rem;
-    display: flex;
     align-items: center;
     justify-content: center;
+    overflow: hidden;
+  `,
+  CarouselWrapper: styled.div<{ currentIndex: number }>`
+    display: flex;
+    transition: transform 1s ease-in-out;
+    transform: translateX(${props => -props.currentIndex * 100}%);
   `,
   CarouselButton: styled.button<{ position: 'left' | 'right' }>`
     position: absolute;
