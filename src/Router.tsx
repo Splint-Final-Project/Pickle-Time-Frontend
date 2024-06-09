@@ -19,6 +19,7 @@ import NotFoundPage from '@/pages/NotFoundPage';
 import CreatePicklePayment from './pages/pickles/CreatePicklePayment';
 import CreatePickle from './pages/pickles/CreatePickleForm';
 import JoinPicklePayment from './pages/pickles/JoinPicklePayment';
+import PickleCreationRedirector from './redirectors/PickleCreationRedirector';
 
 const privateChildren = [
   {
@@ -91,8 +92,12 @@ const router = createBrowserRouter([
         ],
       },
       {
-        path: routes.mobilePaymentRedirect,
+        path: '/join-redirect',
         element: <PickleJoinRedirector />,
+      },
+      {
+        path: '/create-redirect',
+        element: <PickleCreationRedirector />,
       },
       {
         path: '',

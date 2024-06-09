@@ -1,10 +1,13 @@
 import client from '@/apis/axios';
+import useAuth from '@/hooks/zustand/useAuth';
 import usePickleCreation from '@/hooks/zustand/usePickleCreation';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 export default function CreatePicklePayment() {
   const { IMP } = window;
+  const { getMe } = useAuth();
+  const user = getMe();
   const navigate = useNavigate();
   const [paymentMethod, setPaymentMethod] = useState<string>('kakaopay');
   const { title, capacity, cost, deadLine, where, when, category, explanation, viewCount, latitude, longitude, clear } =
@@ -30,20 +33,9 @@ export default function CreatePicklePayment() {
       pay_method: 'card',
       merchant_uid: `mid_${new Date().getTime()}`, // 해당 피클의 아이디?
       amount: cost,
-      name: '아임포트 결제 데이터 분석',
-      buyer_name: '홍길동',
-      // m_redirect_url: `${window.location.origin.toString()}/payment-redirect?pickle_id=${pickleId}&`,
-    };
-
-    IMP.init('imp88171622');
-
-    IMP.request_pay(data, async (response: any) => {
-      if (!response.success) {
-        return alert(`에러 내용: ${response.error_msg}`);
-      }
-
-      const notified = await client.post('/pickle/create', {
-        imp_uid: response.imp_uid,
+      name: `${title} 생성하기`,
+      buyer_name: user.name,
+      custom_data: {
         title,
         capacity,
         cost,
@@ -55,17 +47,32 @@ export default function CreatePicklePayment() {
         viewCount,
         latitude,
         longitude,
+      },
+      m_redirect_url: `${window.location.origin.toString()}/create-redirect`,
+    };
+
+    IMP.init('imp88171622');
+
+    IMP.request_pay(data, async (response: any) => {
+      if (!response.success) {
+        alert(`결제에 실패했습니다: ${response.error_msg}`);
+        navigate(`/pickle-create`, { replace: true });
+      }
+
+      const notified = await client.post('/pickle/create', {
+        imp_uid: response.imp_uid,
       });
 
       // 결제 성공(피클도 생성됨) 결과에 따라 분기
       console.log(notified);
       if (notified.status === 201) {
         alert('결제 및 피클 생성이 완료되었습니다.');
+        clear();
+        navigate(`/pickle/${notified.data.pickle._id}`, { replace: true });
       } else {
         alert('피클 생성이 실패하여 결제 금액은 환불되었습니다.' + notified.data.message);
+        navigate(`/pickle-create`, { replace: true });
       }
-      clear();
-      navigate(`/pickle/${notified.data.pickle._id}`);
     });
   }
   return (
