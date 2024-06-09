@@ -37,7 +37,7 @@ const globalStyle = css`
   body {
     font-weight: 400;
     font-size: 1.6rem;
-    color: ${theme.color.body};
+    color: ${theme.color.black};
     max-width: 100%;
     min-height: calc(var(--vh, 1vh) * 100);
     overflow-x: hidden;
