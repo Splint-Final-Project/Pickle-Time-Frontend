@@ -19,7 +19,7 @@ export {
 const Container = styled.div`
   width: 100%;
   min-height: 100%;
-  padding: 140px 32px 0;
+  padding: 140px 32px 80px;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -158,6 +158,98 @@ const SubmitButton = styled.button`
   border: none;
   &:disabled {
     color: #8e8e8e;
+  }
+`;
+
+export const AreaSelector = styled.div`
+  width: 100%;
+  height: 268px;
+  display: flex;
+  border-top: 1.2px solid #888d88;
+  border-bottom: 1.2px solid #888d88;
+`;
+
+export const SiSelector = styled.div`
+  width: 20%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  border-right: 1px solid #d0d0d0;
+`;
+
+export const SiElement = styled.div<{ $selected?: boolean }>`
+  width: 100%;
+  height: 46px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 14px;
+  font-style: normal;
+  line-height: normal;
+  text-align: center;
+  background-color: #f5f9f8;
+  color: ${props => (props.$selected ? '#5DC26D' : '#888D88')};
+  font-weight: ${props => (props.$selected ? '600' : '500')};
+  border: ${props => (props.$selected ? '1px solid #5DC26D' : '1px solid #F5F9F8')};
+`;
+
+export const GuSelector = styled.div`
+  width: 40%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  border-right: 1px solid #d0d0d0;
+`;
+
+export const GuElement = styled.div<{ $selected?: boolean }>`
+  width: 100%;
+  height: 46px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 14px;
+  font-style: normal;
+  line-height: normal;
+  text-align: center;
+  font-weight: 500;
+  color: ${props => (props.$selected ? '#5DC26D' : '#888D88')};
+  border-bottom: 0.7px solid #d0d0d0;
+  &:last-child {
+    border-bottom: none;
+  }
+`;
+
+export const DongSelector = styled.div`
+  width: 40%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+`;
+
+export const DongElement = styled.div<{ $selected?: boolean }>`
+  width: 100%;
+  height: 46px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 14px;
+  font-style: normal;
+  line-height: normal;
+  text-align: center;
+  font-weight: 500;
+  color: ${props => (props.$selected ? '#5DC26D' : '#888D88')};
+  border-bottom: 0.7px solid #d0d0d0;
+  &:last-child {
+    border-bottom: none;
   }
 `;
 
