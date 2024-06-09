@@ -22,6 +22,11 @@ const Button = styled.button`
   border: 1px solid black;
 `;
 
+const Logo = styled.img`
+  margin: 2rem 2rem 1.4rem;
+  width: 10rem;
+`;
+
 export default function Home() {
   const navigate = useNavigate();
   const [isModalOpen, setModalOpen] = useState(false);
@@ -38,6 +43,7 @@ export default function Home() {
 
   return (
     <MainLayout>
+      <Logo src="images/logotext.svg" />
       <Carousel />
       <PickleList.Container>
         <PickleList.Header category="popular" />
