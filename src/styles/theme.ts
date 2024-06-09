@@ -14,7 +14,7 @@ const theme = Object.freeze({
   },
 
   typography: {
-    hearder: {
+    header: {
       fontWeight: 600,
       fontSize: '2.4rem',
     },
