@@ -17,14 +17,21 @@ import PickleCardList from '@/components/picklecardlist/PickleCardList';
 import ErrorBoundary from '@/components/common/ErrorBoundary';
 import SkeletonPickleCardList from '@/components/picklecardlist/PickleCardList.Skeleton';
 
+const S = {
+  TopNavBarContainer: styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 4rem;
+  `,
+  Logo: styled.img`
+    margin: 2rem 0rem 1.4rem;
+    width: 10rem;
+  `,
+};
 const Button = styled.button`
   color: hotpink;
   border: 1px solid black;
-`;
-
-const Logo = styled.img`
-  margin: 2rem 2rem 1.4rem;
-  width: 10rem;
 `;
 
 export default function Home() {
@@ -43,7 +50,18 @@ export default function Home() {
 
   return (
     <MainLayout>
-      <Logo src="images/logotext.svg" />
+      <S.TopNavBarContainer>
+        <S.Logo src="images/logotext.svg" />
+        <div>
+          {getMe() ? (
+            <>
+              안녕하세요 {getMe()?.nickname}님 <button onClick={signOut}>로그아웃</button>
+            </>
+          ) : (
+            <Link to={routes.signIn}>Sign In</Link>
+          )}
+        </div>
+      </S.TopNavBarContainer>
       <Carousel />
       <PickleList.Container>
         <PickleList.Header category="popular" />
@@ -61,21 +79,19 @@ export default function Home() {
           </Suspense>
         </ErrorBoundary>
       </PickleList.Container>
-      <div>
-        {getMe() ? (
-          <>
-            안녕하세요 {getMe()?.nickname}님 <button onClick={signOut}>로그아웃</button>
-          </>
-        ) : (
-          <Link to={routes.signIn}>Sign In</Link>
-        )}
-      </div>
+
       <br />
       <br />
       <div style={{ display: 'flex', flexDirection: 'column' }}>
         <Link to={routes.chatList}>Chat List</Link>
+      </div>
+      <br />
+      <br />
+      <div>
         <Link to={'/pickle/6662941ec1151126a67f6530'}>테스트 피클 보기+신청하기테스트</Link>
       </div>
+      <br />
+      <br />
       <Button type="button" onClick={() => navigate('/pickle-create')}>
         피클 생성 페이지로 이동
       </Button>
