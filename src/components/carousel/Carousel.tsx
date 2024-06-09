@@ -25,6 +25,14 @@ const CAROUSEL_IMG_LIST = [
 export default function Carousel() {
   const [currentIndex, setCurrentIndex] = useState(0);
 
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentIndex(prevIndex => (prevIndex === CAROUSEL_IMG_LIST.length - 1 ? 0 : prevIndex + 1));
+    }, 5000);
+
+    return () => clearInterval(interval);
+  }, []);
+
   const handlePrev = () => {
     setCurrentIndex(prevIndex => (prevIndex === 0 ? CAROUSEL_IMG_LIST.length - 1 : prevIndex - 1));
   };
