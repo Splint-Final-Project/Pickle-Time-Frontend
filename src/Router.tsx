@@ -4,7 +4,6 @@ import Home from '@/pages/home/Home';
 import Admin from '@/pages/auth/Admin';
 import SignUp from '@/pages/auth/SignUp';
 import Pickle from '@/pages/pickles/Pickle';
-import PickleList from '@/pages/pickles/PickleList';
 import Conversation from '@/pages/chat/Conversation';
 import ConversationList from '@/pages/chat/ConversationList';
 import MyPage from '@/pages/profile/MyPage';
@@ -18,6 +17,10 @@ import SignIn_Email from './pages/auth/SignIn_Email';
 import MainLayout from '@/layouts/MainLayout';
 import SimpleLayout from '@/layouts/SimpleLayout';
 import NotFoundPage from '@/pages/NotFoundPage';
+import CreatePicklePayment from './pages/pickles/CreatePicklePayment';
+import CreatePickle from './pages/pickles/CreatePickleForm';
+import JoinPicklePayment from './pages/pickles/JoinPicklePayment';
+import PickleCreationRedirector from './redirectors/PickleCreationRedirector';
 
 const privateChildren = [
   {
@@ -49,12 +52,37 @@ const router = createBrowserRouter([
         element: <Home />,
       },
       {
-        path: routes.pickle,
+        path: `pickle/:id`,
         element: <Pickle />,
       },
       {
-        path: `${routes.pickleList}/:pickleId`,
-        element: <PickleList />,
+        path: '/pickle-create',
+        element: <CreatePickle />,
+      },
+      {
+        path: '/pickle-join',
+        element: <JoinPicklePayment />,
+      },
+      {
+        path: '/pickle-create-payment',
+        element: <CreatePicklePayment />,
+      },
+      {
+        path: '/oauth/*',
+        children: [
+          {
+            path: 'success',
+            element: <OAuthSuccessRedirector />,
+          },
+        ],
+      },
+      {
+        path: '/join-redirect',
+        element: <PickleJoinRedirector />,
+      },
+      {
+        path: '/create-redirect',
+        element: <PickleCreationRedirector />,
       },
       {
         path: '',
@@ -65,61 +93,26 @@ const router = createBrowserRouter([
     ],
   },
   {
-    path: routes.signIn,
+    path: '',
     element: <SimpleLayout />,
     children: [
       {
-        path: '',
+        path: routes.signIn,
         element: <SignIn />,
       },
-    ],
-  },
-  {
-    path: routes.signUp,
-    element: <SimpleLayout />,
-    children: [
       {
-        path: '',
+        path: routes.signUp,
         element: <SignUp />,
       },
-    ],
-  },
-  {
-    path: '/sign-in-email',
-    element: <SimpleLayout />,
-    children: [
       {
-        path: '',
+        path: '/sign-in-email',
         element: <SignIn_Email />,
       },
-    ],
-  },
-  {
-    path: routes.signUp2,
-    element: <SimpleLayout />,
-    children: [
       {
-        path: '',
+        path: routes.signUp2,
         element: <SignUp2 />,
       },
     ],
-  },
-  {
-    path: '/oauth/*',
-    children: [
-      {
-        path: 'success',
-        element: <OAuthSuccessRedirector />,
-      },
-      // {
-      //   path: 'pending',
-      //   element: <OAuthPendingRedirector />,
-      // },
-    ],
-  },
-  {
-    path: routes.mobilePaymentRedirect,
-    element: <PickleJoinRedirector />,
   },
 ]);
 
