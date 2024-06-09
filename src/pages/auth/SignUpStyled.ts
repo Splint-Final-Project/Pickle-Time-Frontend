@@ -17,7 +17,9 @@ export {
 };
 
 const Container = styled.div`
-  width: 310px;
+  width: 100%;
+  min-height: 100%;
+  padding: 140px 32px 0;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -25,7 +27,7 @@ const Container = styled.div`
 
 const Title = styled.h1`
   color: var(--Basic, #181f29);
-  font-family: Pretendard;
+
   font-size: 24px;
   font-style: normal;
   font-weight: 600;
@@ -35,7 +37,7 @@ const Title = styled.h1`
 
 const SubTitle = styled.h4`
   color: var(--Sub-Text, var(--Tab-Bar-Color-2, #8b8d94));
-  font-family: Pretendard;
+
   font-size: 16px;
   font-style: normal;
   font-weight: 500;
@@ -96,7 +98,7 @@ const InputField = styled.input`
   height: 25px;
   border-radius: 4px;
   outline: none;
-  font-family: Pretendard;
+
   font-size: 14px;
   font-style: normal;
   font-weight: 400;
@@ -119,7 +121,7 @@ const ErrorMessage = styled.span`
   /* position: absolute; */
   margin-top: 9px;
   color: #d54040;
-  font-family: Pretendard;
+
   font-size: 12px;
   font-style: normal;
   font-weight: 500;
@@ -128,12 +130,19 @@ const ErrorMessage = styled.span`
 
 const Label = styled.label`
   color: var(--Basic, #181f29);
-  font-family: Pretendard;
+
   font-size: 15px;
   font-style: normal;
   font-weight: 600;
   line-height: normal;
   margin-bottom: 15px;
+  span {
+    color: var(--Primary, var(--Main-Color, #5dc26d));
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+  }
 `;
 
 const SubmitButton = styled.button`
@@ -141,7 +150,7 @@ const SubmitButton = styled.button`
   width: 26px;
   height: 18px;
   color: #0ac50a;
-  font-family: Pretendard;
+
   font-size: 15px;
   font-style: normal;
   font-weight: 600;
@@ -159,7 +168,7 @@ const FinishButton = styled.button`
   border-radius: 4px;
   background-color: #5dc26d;
   color: #ffffff;
-  font-family: Pretendard;
+
   font-size: 14px;
   font-style: normal;
   font-weight: 500;

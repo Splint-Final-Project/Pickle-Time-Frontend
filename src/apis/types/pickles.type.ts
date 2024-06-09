@@ -14,7 +14,7 @@ export type CreatePickleData = {
   deadLine: string;
   where: string;
   when: When;
-  content: string;
+  category: string;
   explanation: string;
   latitude: number;
   longitude: number;

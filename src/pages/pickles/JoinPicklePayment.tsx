@@ -1,21 +1,25 @@
 import client from '@/apis/axios';
+import useAuth from '@/hooks/zustand/useAuth';
 import { useState } from 'react';
+import { useNavigate } from 'react-router';
 
+import { useLocation } from 'react-router';
 declare global {
   interface Window {
     IMP: any;
   }
 }
 
-export default function JoinPicklePayment({
-  pickleId,
-  pickleName,
-  pickleCost,
-}: {
-  pickleId: string;
-  pickleName: string;
-  pickleCost: number;
-}) {
+export default function JoinPicklePayment() {
+  const { state } = useLocation();
+  const { getMe } = useAuth();
+  const user = getMe();
+  const navigate = useNavigate();
+  const { pickleId, pickleTitle, pickleCost } = state as any;
+  // console.log(state);
+  // if (!pickleId || !pickleTitle || !pickleCost) {
+  //   return <div>피클 정보가 부족합니다.</div>;
+  // }
   const { IMP } = window;
   const [paymentMethod, setPaymentMethod] = useState<string>('kakaopay');
 
@@ -25,38 +29,38 @@ export default function JoinPicklePayment({
       pay_method: 'card',
       merchant_uid: `mid_${new Date().getTime()}`, // 해당 피클의 아이디?
       amount: pickleCost,
-      name: '아임포트 결제 데이터 분석',
-      buyer_name: '홍길동',
-      m_redirect_url: `${window.location.origin.toString()}/payment-redirect?pickle_id=${pickleId}&`,
+      name: `${pickleTitle} 신청하기`,
+      buyer_name: user.name,
+      m_redirect_url: `${window.location.origin.toString()}/join-redirect?pickle_id=${pickleId}&`,
     };
 
     IMP.init('imp88171622');
 
     IMP.request_pay(data, async (response: any) => {
       if (!response.success) {
-        return alert(`에러 내용: ${response.error_msg}`);
+        alert(`결제에 실패했습니다: ${response.error_msg}`);
+        navigate(`/pickle/${pickleId}`);
       }
 
       const notified = await client.post('/pickle/join', {
         imp_uid: response.imp_uid,
         pickle_id: pickleId,
       });
-
-      const notifiedText = notified.data();
-      //notified http status에 따라 분기.
-      //OK의 경우에는 성공했다고 띄우고 피클 페이지로 이동(신청버튼이 '신청함'으로 바뀌고비활성화됨)
-      //실패의 경우에는 실패했다고 띄우고 다시 그 피클 페이지
-      //같은 작업을 redirect url에서도 해야함
-      alert(notifiedText);
+      if (notified.status === 200) {
+        alert('결제 및 신청이 완료되었습니다.');
+      } else {
+        alert('신청이 실패하여 결제 금액은 환불되었습니다.' + notified.data.message);
+      }
+      navigate(`/pickle/${pickleId}`);
     });
   }
 
   return (
     <div>
       <div style={{ display: 'flex', flexDirection: 'column' }}>
-        <h1>{pickleName}에 신청하기 위한 결제하기</h1>
+        <h1>{pickleTitle}에 신청하기 위한 결제하기</h1>
         <div>총 금액 {pickleCost}원</div>
-        <input type="checkbox" />
+        <input type="checkbox" /> 결제정보에동의
         <span>
           <input
             type="radio"

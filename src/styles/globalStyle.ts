@@ -31,13 +31,12 @@ const globalStyle = css`
 
   html {
     font-size: 62.5%;
-    font-family: Pretendard;
   }
 
   body {
     font-weight: 400;
     font-size: 1.6rem;
-    color: ${theme.color.body};
+    color: ${theme.color.black};
     max-width: 100%;
     min-height: calc(var(--vh, 1vh) * 100);
     overflow-x: hidden;
@@ -59,6 +58,14 @@ const globalStyle = css`
 
   input {
     outline: none;
+  }
+
+  //스크롤바 없애는 이유: 스크롤바가 생겼다가 없어졌다 할 때 레이아웃이 흔들림
+  * {
+    -ms-overflow-style: none;
+  }
+  ::-webkit-scrollbar {
+    display: none;
   }
 `;
 
