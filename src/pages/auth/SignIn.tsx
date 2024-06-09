@@ -6,8 +6,9 @@ export default function SignIn() {
   return (
     <Container>
       <SubTitle>
-        어디서든 나를 위해
-        <br /> 피클 타임하세요!
+        함께 공부하고 싶을 때
+        <br />
+        스터디 생성 플랫폼
       </SubTitle>
       <Logo src="images/logotext.svg" />
       <SocialStartButtons>
@@ -61,7 +62,9 @@ export default function SignIn() {
 }
 
 export const Container = styled.div`
-  width: 310px;
+  width: 100%;
+  min-height: 100%;
+  padding: 140px 32px 0;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -75,7 +78,7 @@ export const Button = styled.button`
   gap: 8px;
   border-radius: 4px;
   outline: none;
-  font-family: Pretendard;
+
   font-size: 14px;
   font-style: normal;
   font-weight: 500;
@@ -98,7 +101,7 @@ export const EmailActionRedirectors = styled.div`
   margin-top: 30px;
   a {
     color: #777;
-    font-family: Pretendard;
+
     font-size: 12px;
     font-style: normal;
     font-weight: 500;
@@ -108,7 +111,7 @@ export const EmailActionRedirectors = styled.div`
 
 export const SubTitle = styled.h2`
   color: #000;
-  font-family: Pretendard;
+
   font-size: 21px;
   font-style: normal;
   font-weight: 500;
@@ -116,7 +119,6 @@ export const SubTitle = styled.h2`
 `;
 
 export const Logo = styled.img`
-  align-self: center;
-  width: 50%;
-  margin: 50px;
+  margin-top: 30px;
+  margin-bottom: 288px;
 `;
