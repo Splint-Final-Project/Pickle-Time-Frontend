@@ -132,10 +132,12 @@ export default function SignIn_Email() {
 import styled from '@emotion/styled';
 
 export const Container = styled.div`
-  width: 310px;
+  width: 100%;
+  min-height: 100%;
+  padding: 140px 32px 0;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
 `;
 
 export const Form = styled.form`
@@ -147,17 +149,17 @@ export const Form = styled.form`
 
 export const Title = styled.h1`
   color: #292929;
-  font-family: Pretendard;
+
   font-size: 24px;
   font-style: normal;
   font-weight: 600;
   line-height: normal;
-  margin: 64px 0;
+  margin-bottom: 64px;
 `;
 
 export const Subtitle = styled.h4`
   color: #989898;
-  font-family: Pretendard;
+
   font-size: 14px;
   font-style: normal;
   font-weight: 500;
@@ -182,7 +184,7 @@ export const Field = styled.div`
 
 export const Label = styled.label`
   color: #2c2c2c;
-  font-family: Pretendard;
+
   font-size: 14px;
   font-style: normal;
   font-weight: 500;
@@ -194,7 +196,7 @@ export const Input = styled.input<{ $error: boolean }>`
   height: 44px;
   padding: 13px;
   color: black;
-  font-family: Pretendard;
+
   font-size: 14px;
   font-style: normal;
   font-weight: 400;
@@ -214,7 +216,7 @@ export const Input = styled.input<{ $error: boolean }>`
 export const ErrorMessage = styled.span`
   /* position: absolute; */
   color: #d54040;
-  font-family: Pretendard;
+
   font-size: 12px;
   font-style: normal;
   font-weight: 500;
@@ -230,7 +232,7 @@ export const Button = styled.button`
   gap: 8px;
   border-radius: 4px;
   outline: none;
-  font-family: Pretendard;
+
   font-size: 14px;
   font-style: normal;
   font-weight: 500;
@@ -244,13 +246,13 @@ export const EmailSignupRedirectorLink = styled.div`
   align-items: center;
   gap: 6px;
   margin: 33px 0 118px;
-  font-family: Pretendard;
+
   font-style: normal;
   font-weight: 400;
   line-height: normal;
   span {
     color: #777;
-    font-family: Pretendard;
+
     font-size: 12px;
     font-style: normal;
     font-weight: 500;
@@ -258,7 +260,7 @@ export const EmailSignupRedirectorLink = styled.div`
   }
   a {
     color: #0ac50a;
-    font-family: Pretendard;
+
     font-size: 14px;
     font-style: normal;
     font-weight: 500;
@@ -278,7 +280,7 @@ export const Or = styled.div`
   gap: 11px;
   span {
     color: #777;
-    font-family: Pretendard;
+
     font-size: 14px;
     font-style: normal;
     font-weight: 600;
@@ -300,7 +302,7 @@ export const SocialCircle = styled.button`
   align-items: center;
   gap: 8px;
   color: #ababab;
-  font-family: Pretendard;
+
   font-size: 10px;
   font-style: normal;
   font-weight: 500;
