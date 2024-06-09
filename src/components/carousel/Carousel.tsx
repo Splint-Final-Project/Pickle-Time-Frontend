@@ -4,6 +4,7 @@ import fistExerciseImg from '@/assets/images/exercise-1.jpg';
 
 import CarouselImg from './CarouselImg';
 import { useState } from 'react';
+import styled from '@emotion/styled';
 
 const CAROUSEL_IMG_LIST = [
   {
@@ -33,10 +34,10 @@ export default function Carousel() {
   };
 
   return (
-    <div className="carousel-container">
-      <button onClick={handlePrev} className="carousel-button">
-        Prev
-      </button>
+    <S.CarouselContainer className="carousel-container">
+      <S.CarouselButton onClick={handlePrev} position="left">
+        <img src="/icons/leftArrow.svg" alt="Previous" />
+      </S.CarouselButton>
 
       <CarouselImg
         id={CAROUSEL_IMG_LIST[currentIndex].id}
@@ -46,9 +47,37 @@ export default function Carousel() {
         semiContent={CAROUSEL_IMG_LIST[currentIndex].semiContent}
       />
 
-      <button onClick={handleNext} className="carousel-button">
-        Next
-      </button>
-    </div>
+      <S.CarouselButton onClick={handleNext} position="right">
+        <img src="/icons/rightArrow.svg" alt="Next" />
+      </S.CarouselButton>
+    </S.CarouselContainer>
   );
 }
+
+const S = {
+  CarouselContainer: styled.div`
+    position: relative;
+    width: 100%;
+    height: 26.8rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  `,
+  CarouselButton: styled.button<{ position: 'left' | 'right' }>`
+    position: absolute;
+    top: 50%;
+    width: 3rem;
+    height: 3rem;
+    transform: translateY(-50%);
+    ${props => (props.position === 'left' ? 'left: 0.5rem;' : 'right: 0.5rem;')}
+    background: none;
+    border: none;
+    cursor: pointer;
+    z-index: 10;
+
+    img {
+      width: 2rem;
+      height: 2rem;
+    }
+  `,
+};
