@@ -33,7 +33,8 @@ const S = {
     display: flex;
     align-items: center;
     justify-content: center;
-    background: url(${props => props.img}) lightgray -0.366px 0px / 110.001% 105.096% no-repeat;
+    background: url(${props => props.img}) lightgray center / 100% no-repeat;
+    background-size: cover;
     position: relative;
     color: white;
     justify-content: ${props => (props.id !== '2' ? 'flex-start' : 'center')};
