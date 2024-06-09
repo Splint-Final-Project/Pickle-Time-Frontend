@@ -4,6 +4,7 @@ import HeartButton from '../common/button/HeartButton';
 import BackImg from '@/assets/images/specialPickleCardBackImg.png';
 import useHeartButtonClick from '@/hooks/useHeartButtonClick';
 import { Link } from 'react-router-dom';
+import routes from '@/constants/routes';
 
 const ONEDAY_MILLISECOND = 1000 * 60 * 60 * 24;
 
@@ -21,7 +22,7 @@ export default function SpecialPickleCard({ pickleData }: { pickleData: any }) {
     isInUserWishList: false,
   });
   return (
-    <S.CardLayer to={'/'}>
+    <S.CardLayer to={`${routes.pickleList}/${pickleData.id}`}>
       <S.Wrap>
         <S.DeadlineBadge>D-{Dday}</S.DeadlineBadge>
         <HeartButton size={22} isActive={isHeartClicked} onClick={handleHeartClick} />
