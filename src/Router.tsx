@@ -20,6 +20,7 @@ import NotFoundPage from '@/pages/NotFoundPage';
 import CreatePicklePayment from './pages/pickles/CreatePicklePayment';
 import CreatePickle from './pages/pickles/CreatePickleForm';
 import JoinPicklePayment from './pages/pickles/JoinPicklePayment';
+import PickleCreationRedirector from './redirectors/PickleCreationRedirector';
 
 const privateChildren = [
   {
@@ -67,6 +68,23 @@ const router = createBrowserRouter([
         element: <CreatePicklePayment />,
       },
       {
+        path: '/oauth/*',
+        children: [
+          {
+            path: 'success',
+            element: <OAuthSuccessRedirector />,
+          },
+        ],
+      },
+      {
+        path: '/join-redirect',
+        element: <PickleJoinRedirector />,
+      },
+      {
+        path: '/create-redirect',
+        element: <PickleCreationRedirector />,
+      },
+      {
         path: '',
         // 로그인 안 되어있을 시 리다이렉트
         element: <LoginRedirector />,
@@ -75,61 +93,26 @@ const router = createBrowserRouter([
     ],
   },
   {
-    path: routes.signIn,
+    path: '',
     element: <SimpleLayout />,
     children: [
       {
-        path: '',
+        path: routes.signIn,
         element: <SignIn />,
       },
-    ],
-  },
-  {
-    path: routes.signUp,
-    element: <SimpleLayout />,
-    children: [
       {
-        path: '',
+        path: routes.signUp,
         element: <SignUp />,
       },
-    ],
-  },
-  {
-    path: '/sign-in-email',
-    element: <SimpleLayout />,
-    children: [
       {
-        path: '',
+        path: '/sign-in-email',
         element: <SignIn_Email />,
       },
-    ],
-  },
-  {
-    path: routes.signUp2,
-    element: <SimpleLayout />,
-    children: [
       {
-        path: '',
+        path: routes.signUp2,
         element: <SignUp2 />,
       },
     ],
-  },
-  {
-    path: '/oauth/*',
-    children: [
-      {
-        path: 'success',
-        element: <OAuthSuccessRedirector />,
-      },
-      // {
-      //   path: 'pending',
-      //   element: <OAuthPendingRedirector />,
-      // },
-    ],
-  },
-  {
-    path: routes.mobilePaymentRedirect,
-    element: <PickleJoinRedirector />,
   },
 ]);
 
