@@ -4,7 +4,7 @@ import usePickleCreation from '@/hooks/zustand/usePickleCreation';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-export default function CreatePicklePayment() {
+export default function CreatePickle4() {
   const { IMP } = window;
   const { getMe } = useAuth();
   const user = getMe();

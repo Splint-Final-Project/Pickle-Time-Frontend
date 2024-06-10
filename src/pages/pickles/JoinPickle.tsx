@@ -10,7 +10,7 @@ declare global {
   }
 }
 
-export default function JoinPicklePayment() {
+export default function JoinPickle() {
   const { state } = useLocation();
   const { getMe } = useAuth();
   const user = getMe();

@@ -17,9 +17,9 @@ import SignIn_Email from './pages/auth/SignIn_Email';
 import MainLayout from '@/layouts/MainLayout';
 import SimpleLayout from '@/layouts/SimpleLayout';
 import NotFoundPage from '@/pages/NotFoundPage';
-import CreatePicklePayment from './pages/pickles/CreatePicklePayment';
-import CreatePickle from './pages/pickles/CreatePickleForm';
-import JoinPicklePayment from './pages/pickles/JoinPicklePayment';
+import CreatePickle4 from './pages/pickles/CreatePickle4';
+import CreatePickle1 from './pages/pickles/CreatePickle1';
+import JoinPickle from './pages/pickles/JoinPickle';
 import PickleCreationRedirector from './redirectors/PickleCreationRedirector';
 
 const privateChildren = [
@@ -57,15 +57,15 @@ const router = createBrowserRouter([
       },
       {
         path: '/pickle-create',
-        element: <CreatePickle />,
+        element: <CreatePickle1 />,
       },
       {
         path: '/pickle-join',
-        element: <JoinPicklePayment />,
+        element: <JoinPickle />,
       },
       {
         path: '/pickle-create-payment',
-        element: <CreatePicklePayment />,
+        element: <CreatePickle4 />,
       },
       {
         path: '/oauth/*',

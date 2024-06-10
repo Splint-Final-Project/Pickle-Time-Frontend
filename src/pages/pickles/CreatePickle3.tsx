@@ -4,7 +4,7 @@ import axios from 'axios';
 import client from '@/apis/axios';
 import { useNavigate } from 'react-router-dom';
 
-export default function CreatePickle() {
+export default function CreatePickle3() {
   const {
     title,
     capacity,

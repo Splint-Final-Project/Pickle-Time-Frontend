@@ -25,8 +25,8 @@ export default function Pickle() {
   // });
   console.log(user._id);
   console.log(pickleDetailData?.participants);
+  //TODO:
   //check if user is participant of the pickle
-
   //check if user is the leader of the pickle
 
   return (
