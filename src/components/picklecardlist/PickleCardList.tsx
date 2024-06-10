@@ -3,7 +3,7 @@ import styled from '@emotion/styled';
 import SpecialPickleCard from '../picklecard/SpecialPickleCard';
 import { useGetSpecialPickles } from '@/hooks/query/pickles';
 
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { css } from '@emotion/react';
 
 interface PickleCardListProps {
@@ -20,6 +20,15 @@ export default function PickleCardList({ category }: PickleCardListProps) {
   const [isMouseIn, setIsMouseIn] = useState(false);
   const ListRef = useRef<HTMLUListElement>(null);
   const ListContainerRef = useRef<HTMLDivElement>(null);
+  const [existData, setExistData] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (!data) {
+      setExistData(false);
+    } else {
+      setExistData(true);
+    }
+  }, []);
 
   const onMouseInEvent = () => {
     setIsMouseIn(true);
@@ -59,10 +68,20 @@ export default function PickleCardList({ category }: PickleCardListProps) {
           </S.List>
         </S.ListInner>
       </S.ListViewBox>
-      <S.SliderControlBtn onClick={handleLeftBtn} $isShow={isMouseIn} $position="left" onMouseOver={onMouseInEvent}>
+      <S.SliderControlBtn
+        onClick={handleLeftBtn}
+        $isShow={isMouseIn && existData}
+        $position="left"
+        onMouseOver={onMouseInEvent}
+      >
         왼쪽
       </S.SliderControlBtn>
-      <S.SliderControlBtn onClick={handleRightBtn} $isShow={isMouseIn} $position="right" onMouseOver={onMouseInEvent}>
+      <S.SliderControlBtn
+        onClick={handleRightBtn}
+        $isShow={isMouseIn && existData}
+        $position="right"
+        onMouseOver={onMouseInEvent}
+      >
         오른쪽
       </S.SliderControlBtn>
     </S.Container>

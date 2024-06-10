@@ -26,16 +26,6 @@ export default function Pickle() {
   console.log(user._id);
   console.log(pickleDetailData?.participants);
   //check if user is participant of the pickle
-  let isLeader = false;
-  const isParticipant = pickleDetailData?.participants.some((participant: any) => {
-    if (participant.user === user._id) {
-      if (participant.isLeader) {
-        isLeader = true;
-      }
-      return true;
-    }
-    return false;
-  });
 
   //check if user is the leader of the pickle
 
@@ -51,27 +41,27 @@ export default function Pickle() {
         </p>
       </div>
       {/* <HeartButton isActive={isHeartClicked} onClick={handleHeartClick} /> */}
-      {isParticipant ? (
+      {/* {isParticipant ? (
         isLeader ? (
           <div>당신이 생성한 피클입니다. [관리하기]</div>
         ) : (
           <div>신청완료된 피클입니다</div>
         )
-      ) : (
-        <button
-          onClick={() =>
-            navigate('/pickle-join', {
-              state: {
-                pickleId,
-                pickleTitle: pickleDetailData?.title,
-                pickleCost: pickleDetailData?.cost,
-              },
-            })
-          }
-        >
-          참여하기
-        </button>
-      )}
+      ) : ( */}
+      <button
+        onClick={() =>
+          navigate('/pickle-join', {
+            state: {
+              pickleId,
+              pickleTitle: pickleDetailData?.title,
+              pickleCost: pickleDetailData?.cost,
+            },
+          })
+        }
+      >
+        참여하기
+      </button>
+      {/* )} */}
     </>
   );
 }

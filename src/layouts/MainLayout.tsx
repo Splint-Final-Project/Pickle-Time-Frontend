@@ -12,8 +12,8 @@ const S = {
     display: flex;
     flex-direction: column;
     min-height: 100dvh;
-    border-left: 0.1px solid #f0f0f0;
-    border-right: 0.1px solid #f0f0f0;
+    border-left: 0.1px solid #e1e1e1;
+    border-right: 0.1px solid #e1e1e1;
     width: 100%;
 
     @media (min-width: ${breakpoints.mobile}) {

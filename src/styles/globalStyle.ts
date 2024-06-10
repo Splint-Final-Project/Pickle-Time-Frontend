@@ -31,7 +31,6 @@ const globalStyle = css`
 
   html {
     font-size: 62.5%;
-    font-family: Pretendard;
   }
 
   body {
@@ -59,6 +58,14 @@ const globalStyle = css`
 
   input {
     outline: none;
+  }
+
+  //스크롤바 없애는 이유: 스크롤바가 생겼다가 없어졌다 할 때 레이아웃이 흔들림
+  * {
+    -ms-overflow-style: none;
+  }
+  ::-webkit-scrollbar {
+    display: none;
   }
 `;
 
