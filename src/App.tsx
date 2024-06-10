@@ -7,6 +7,7 @@ import { Toaster } from 'react-hot-toast';
 import router from './Router';
 import theme from '@/styles/theme';
 import globalStyle from '@/styles/globalStyle';
+import BottomSheetModal from './components/common/modal/BottomSheetModal';
 
 const queryClient = new QueryClient();
 
@@ -15,6 +16,7 @@ export default function App() {
     <QueryClientProvider client={queryClient}>
       <ThemeProvider theme={theme}>
         <Toaster />
+        <BottomSheetModal />
         <Global styles={globalStyle} />
         <RouterProvider router={router} />
       </ThemeProvider>
