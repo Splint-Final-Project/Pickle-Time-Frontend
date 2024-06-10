@@ -5,6 +5,7 @@ import BackImg from '@/assets/images/specialPickleCardBackImg.png';
 // import useHeartButtonClick from '@/hooks/useHeartButtonClick';
 import { useGetLikePickle, useDeletePickleLikeMutation, usePickleLikeMutation } from '@/hooks/query/like';
 import styled from '@emotion/styled';
+import routes from '@/constants/routes';
         
 const ONEDAY_MILLISECOND = 1000 * 60 * 60 * 24;
 
