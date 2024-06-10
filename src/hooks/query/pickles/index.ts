@@ -7,16 +7,20 @@ import toast from 'react-hot-toast';
 export const useGetInfinitePickles = () => {
   return useInfiniteQuery({
     queryKey: ['pickles'],
-
     initialPageParam: 0,
-    queryFn: async ({ pageParam }) => await picklesRequests.getWithPage(),
-
-    getNextPageParam: lastPage => {
-      return lastPage.cursorId;
+    queryFn: async ({ pageParam }) => {
+      const { data } = await picklesRequests.getWithPage(pageParam);
+      return data;
     },
 
-    select: data => {
-      return data;
+    getNextPageParam: lastPage => {
+      const currentPage = lastPage.page;
+      const totalPages = lastPage.pages;
+
+      if (currentPage >= totalPages) {
+        return undefined;
+      }
+      return currentPage + 1;
     },
 
     refetchOnWindowFocus: true, // 포커스 될 때 재요청

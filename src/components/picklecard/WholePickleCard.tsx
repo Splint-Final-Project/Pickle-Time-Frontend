@@ -6,6 +6,8 @@ import { When } from '@/apis/types/pickles.type';
 import { formatCurrency } from '@/utils/formatData';
 import CategoryExercise from '@/assets/images/pickleCategoryImg-exercise.png';
 import CategoryStudy from '@/assets/images/pickleCategoryImg-study.png';
+import HeartButton from '../common/button/HeartButton';
+import { useGetLikePickle, useDeletePickleLikeMutation, usePickleLikeMutation } from '@/hooks/query/like';
 
 interface WholePickleCardProps {
   type: 'study' | 'exercise';
@@ -16,8 +18,24 @@ interface WholePickleCardProps {
 }
 
 export default function WholePickleCard({ id: pickleId, type, title, when, cost }: WholePickleCardProps) {
+  const { data } = useGetLikePickle(pickleId);
+  const { mutate: postLikeMutate } = usePickleLikeMutation(pickleId);
+  const { mutate: deleteLikeMutate } = useDeletePickleLikeMutation(pickleId);
+
+  const handleHeartClick = (event: any) => {
+    event.preventDefault();
+    event.stopPropagation();
+
+    if (data && data.data.length) {
+      deleteLikeMutate();
+    } else if (data && !data.data.length) {
+      postLikeMutate();
+    }
+  }
+
   return (
-    <S.CardLayer to={`${routes.pickleList}/${pickleId}`} $backImgType={type}>
+    <S.CardLayer to={`${routes.pickleList}/${pickleId}`} $backImgType={type} >
+      <HeartButton isActive={data?.data.length} onClick={handleHeartClick}/>
       <S.ProgressDay>{when.summary}</S.ProgressDay>
       <S.Title>{title}</S.Title>
       <S.Price>{formatCurrency(cost)}원</S.Price>

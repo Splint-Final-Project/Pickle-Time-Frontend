@@ -3,7 +3,7 @@ import InfinitePickleCardList from '@/components/picklecard/InfinitePickleCardLi
 
 export default function MyPage() {
   return (
-    <div style={{ width: '76.8rem', padding: '3rem', border: '1px solid black' }}>
+    <div>
       <SortButtons />
       <InfinitePickleCardList />
     </div>

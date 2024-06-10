@@ -4,9 +4,8 @@ import { Coordinates, CreatePickleData } from './types/pickles.type';
 
 export const picklesRequests = Object.freeze({
   // 피클 전체 목록조회
-  getWithPage: async () => {
-    const { data } = await client.get(API.PICKLE);
-    return data;
+  getWithPage: (pageParam: number) => {
+    return client.get(`${API.PICKLE}?page=${pageParam}`);
   },
 
   getPopular: async () => {
@@ -40,13 +39,3 @@ export const picklesRequests = Object.freeze({
     return client.get(API_PICKLE.BY_ID(pickleId));
   },
 });
-
-const likePickle = (pickleId: string) => {
-  return client.put(API_PICKLE.LIKE(pickleId));
-};
-
-const deletePickleLike = (pickleId: string) => {
-  return client.delete(API_PICKLE.LIKE(pickleId));
-};
-
-export default { likePickle, deletePickleLike };
