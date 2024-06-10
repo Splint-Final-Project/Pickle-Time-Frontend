@@ -16,6 +16,8 @@ import PickleList from '@/components/picklecardlist/PickleCardListElement';
 import PickleCardList from '@/components/picklecardlist/PickleCardList';
 import ErrorBoundary from '@/components/common/ErrorBoundary';
 import SkeletonPickleCardList from '@/components/picklecardlist/PickleCardList.Skeleton';
+import ReviewModal from '@/components/my-page/review/ReviewModal';
+import useBottomSheetModal from '@/hooks/zustand/useBottomSheetModal';
 
 const S = {
   TopNavBarContainer: styled.div`
@@ -44,6 +46,8 @@ export default function Home() {
 
   const openModal = () => setModalOpen(true);
   const closeModal = () => setModalOpen(false);
+
+  const { handleOpen } = useBottomSheetModal(state => state);
 
   // 전역 상태
   const { getMe, signOut } = useAuth();
@@ -98,6 +102,8 @@ export default function Home() {
       <br />
       <br />
       <br />
+
+      <button onClick={() => handleOpen({ renderComponent: ReviewModal })}>리뷰작성</button>
 
       {/* <KaKaoMap /> */}
       {/* <Button type="button" onClick={openModal}>

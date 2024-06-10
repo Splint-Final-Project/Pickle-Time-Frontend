@@ -1,15 +1,19 @@
-import useBottomSheetModal from '@/hooks/zustand/useBottomSheetModal';
-import styled from '@emotion/styled';
 import { useEffect } from 'react';
 import { createPortal } from 'react-dom';
+import styled from '@emotion/styled';
+
+import useBottomSheetModal from '@/hooks/zustand/useBottomSheetModal';
+import CloseIcon from '@/assets/icons/CloseIcon';
 
 export default function BottomSheetModal() {
   const { active: modalState, handleClose: closeModal, component: Component } = useBottomSheetModal(state => state);
+
   const handleEsCapeEvent = (e: KeyboardEvent) => {
     if (e.key === 'Escape') {
       closeModal();
     }
   };
+
   useEffect(() => {
     if (modalState && Component) {
       document.body.style.overflow = 'hidden';
@@ -27,6 +31,9 @@ export default function BottomSheetModal() {
     return createPortal(
       <S.BackLayout>
         <S.Container>
+          <S.CloseBtn onClick={closeModal}>
+            <CloseIcon />
+          </S.CloseBtn>
           <Component handleClose={closeModal} />
         </S.Container>
       </S.BackLayout>,
@@ -46,12 +53,13 @@ const S = {
     top: 0;
     left: 0;
   `,
+
   Container: styled.div`
     position: absolute;
     bottom: 0;
     left: 50%;
     transform: translateX(-50%);
-    padding: 1.6rem;
+    padding: 2rem 1.6rem;
     background: #fff;
     border-top-right-radius: 1.6rem;
     border-top-left-radius: 1.6rem;
@@ -68,11 +76,10 @@ const S = {
     }
     animation: open 0.2s forwards;
   `,
+
   CloseBtn: styled.button`
     position: absolute;
-    top: 0.8rem;
-    left: 0.8rem;
-    font-size: 1.6rem;
-    font-weight: bold;
+    top: 2rem;
+    left: 1.6rem;
   `,
 };
