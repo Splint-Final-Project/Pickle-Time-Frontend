@@ -15,10 +15,12 @@ import LoginRedirector from './redirectors/LoginRedirector';
 import SignIn from './pages/auth/SignIn';
 import SignIn_Email from './pages/auth/SignIn_Email';
 import MainLayout from '@/layouts/MainLayout';
+import SimpleLayout from '@/layouts/SimpleLayout';
 import NotFoundPage from '@/pages/NotFoundPage';
 import CreatePicklePayment from './pages/pickles/CreatePicklePayment';
 import CreatePickle from './pages/pickles/CreatePickleForm';
 import JoinPicklePayment from './pages/pickles/JoinPicklePayment';
+import PickleCreationRedirector from './redirectors/PickleCreationRedirector';
 
 const privateChildren = [
   {
@@ -66,22 +68,6 @@ const router = createBrowserRouter([
         element: <CreatePicklePayment />,
       },
       {
-        path: routes.signIn,
-        element: <SignIn />,
-      },
-      {
-        path: '/sign-in-email',
-        element: <SignIn_Email />,
-      },
-      {
-        path: routes.signUp,
-        element: <SignUp />,
-      },
-      {
-        path: routes.signUp2,
-        element: <SignUp2 />,
-      },
-      {
         path: '/oauth/*',
         children: [
           {
@@ -91,14 +77,40 @@ const router = createBrowserRouter([
         ],
       },
       {
-        path: routes.mobilePaymentRedirect,
+        path: '/join-redirect',
         element: <PickleJoinRedirector />,
+      },
+      {
+        path: '/create-redirect',
+        element: <PickleCreationRedirector />,
       },
       {
         path: '',
         // 로그인 안 되어있을 시 리다이렉트
         element: <LoginRedirector />,
         children: [...privateChildren],
+      },
+    ],
+  },
+  {
+    path: '',
+    element: <SimpleLayout />,
+    children: [
+      {
+        path: routes.signIn,
+        element: <SignIn />,
+      },
+      {
+        path: routes.signUp,
+        element: <SignUp />,
+      },
+      {
+        path: '/sign-in-email',
+        element: <SignIn_Email />,
+      },
+      {
+        path: routes.signUp2,
+        element: <SignUp2 />,
       },
     ],
   },

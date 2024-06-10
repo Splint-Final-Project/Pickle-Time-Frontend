@@ -8,9 +8,8 @@ import { WholePickle } from '@/apis/types/pickles.type';
 import { GridTemplate } from '@/styles/commonStyles';
 
 export default function InfinitePickleCardList() {
-  const loaderRef = useRef<HTMLElement>(null);
+  const loaderRef = useRef<HTMLDivElement>(null);
   const { data: infiniteWholePickleData, fetchNextPage, hasNextPage } = useGetInfinitePickles();
-  const isLastPage = infiniteWholePickleData?.pages === infiniteWholePickleData?.pages;
 
   useIntersectionObserver(async () => {
     await fetchNextPage();
@@ -23,13 +22,10 @@ export default function InfinitePickleCardList() {
           page?.data.map((pickle: WholePickle) => <WholePickleCard key={pickle.id} {...pickle} type={'study'} />),
         )}
       </GridTemplate>
+
       <InfinitePickleCardLoader
         loaderRef={loaderRef}
-        style={
-          isLastPage && {
-            display: 'none',
-          }
-        }
+        style={!hasNextPage ? { display: 'none' } : { marginTop: '2rem' }}
       />
     </>
   );

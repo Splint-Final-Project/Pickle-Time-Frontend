@@ -74,7 +74,9 @@ export default function SignUp2() {
         </FormField>
         <span>TODO: 프로필 사진 업로드</span>
         <FormField>
-          <Label>주로 어디에서 활동하세요?</Label>
+          <Label>
+            주로 어디에서 활동하세요? <span>중복 선택 가능</span>
+          </Label>
           <InputContainer $isError={!!errors.area}>
             <InputLabel>지역(선택)</InputLabel>
             <InputField type="text" {...register('area', { required: false })} />
@@ -82,18 +84,6 @@ export default function SignUp2() {
           {/* {errors.area && <ErrorMessage>{errors.area.message?.toString()}</ErrorMessage>} */}
         </FormField>
 
-        <FormField>
-          <Label>매주 출근하시나요? (삭제예정)</Label>
-          <InputContainer $isError={!!errors.company}>
-            <InputLabel>회사명(선택)</InputLabel>
-            <InputField
-              type="text"
-              placeholder="다니고 계신 회사명을 알려 주세요"
-              {...register('company', { required: false })}
-            />
-          </InputContainer>
-          {/* {errors.company && <ErrorMessage>{errors.company.message?.toString()}</ErrorMessage>} */}
-        </FormField>
         <FinishButton type="submit" disabled={!isValid || isSubmitting}>
           회원가입 완료하기
         </FinishButton>

@@ -8,6 +8,7 @@ import { RefObject, useEffect } from 'react';
 
 function useIntersectionObserver(callback: () => void, loaderRef: RefObject<Element>) {
   useEffect(() => {
+    if (!loaderRef.current) return;
     const observer = new IntersectionObserver(
       ([entry]) => {
         // 배열 구조분해로 IntersectionObserverEntry 객체 받음

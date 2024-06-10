@@ -5,7 +5,7 @@ import BackImg from '@/assets/images/specialPickleCardBackImg.png';
 // import useHeartButtonClick from '@/hooks/useHeartButtonClick';
 import { useGetLikePickle, useDeletePickleLikeMutation, usePickleLikeMutation } from '@/hooks/query/like';
 import styled from '@emotion/styled';
-
+        
 const ONEDAY_MILLISECOND = 1000 * 60 * 60 * 24;
 
 //TODO : 데이터 타입 잡기
@@ -32,7 +32,7 @@ export default function SpecialPickleCard({ pickleData }: { pickleData: any }) {
   }
 
   return (
-    <S.CardLayer to={'/'}>
+    <S.CardLayer to={`${routes.pickleList}/${pickleData.id}`}>
       <S.Wrap>
         <S.DeadlineBadge>D-{Dday}</S.DeadlineBadge>
         <HeartButton size={22} isActive={data?.data.length} onClick={handleHeartClick} />

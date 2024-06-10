@@ -5,11 +5,15 @@ import { Link } from 'react-router-dom';
 export default function SignIn() {
   return (
     <Container>
-      <SubTitle>
-        어디서든 나를 위해
-        <br /> 피클 타임하세요!
-      </SubTitle>
-      <Logo src="images/logotext.svg" />
+      <StyledHomeLink to="/">
+        <SubTitle>
+          함께 공부하고 싶을 때
+          <br />
+          스터디 생성 플랫폼
+        </SubTitle>
+
+        <Logo src="images/logotext.svg" />
+      </StyledHomeLink>
       <SocialStartButtons>
         <Button
           style={{
@@ -51,6 +55,7 @@ export default function SignIn() {
       </SocialStartButtons>
       <EmailActionRedirectors>
         <Link to="/sign-in-email">이메일로 로그인</Link>
+
         <svg xmlns="http://www.w3.org/2000/svg" width="2" height="14" viewBox="0 0 2 14" fill="none">
           <path d="M1 14L1 -3.72529e-08" stroke="#D0D0D0" strokeWidth="0.5" />
         </svg>
@@ -61,10 +66,13 @@ export default function SignIn() {
 }
 
 export const Container = styled.div`
-  width: 310px;
+  width: 100%;
+  height: 100dvh;
+  padding: 0 34px;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  justify-content: center;
 `;
 export const Button = styled.button`
   width: 100%;
@@ -109,14 +117,32 @@ export const EmailActionRedirectors = styled.div`
 export const SubTitle = styled.h2`
   color: #000;
   font-family: Pretendard;
-  font-size: 21px;
+  font-size: 25px;
   font-style: normal;
   font-weight: 500;
   line-height: 150%; /* 31.5px */
+  @media (max-width: 630px) {
+    font-size: 21px;
+  }
+  @media (max-width: 450px) {
+    font-size: 17px;
+  }
+`;
+
+export const StyledHomeLink = styled(Link)`
+  display: inline-block;
+  margin-bottom: 28.8rem;
 `;
 
 export const Logo = styled.img`
-  align-self: center;
-  width: 50%;
-  margin: 50px;
+  min-width: 21rem;
+  max-width: 30rem;
+  margin-top: 3rem;
+
+  @media (max-width: 630px) {
+    min-width: 18rem;
+  }
+  @media (max-width: 450px) {
+    min-width: 15rem;
+  }
 `;
