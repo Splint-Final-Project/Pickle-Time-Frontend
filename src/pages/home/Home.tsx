@@ -16,6 +16,8 @@ import PickleList from '@/components/picklecardlist/PickleCardListElement';
 import PickleCardList from '@/components/picklecardlist/PickleCardList';
 import ErrorBoundary from '@/components/common/ErrorBoundary';
 import SkeletonPickleCardList from '@/components/picklecardlist/PickleCardList.Skeleton';
+import SortButtons from '@/components/common/button/SortButtons';
+import InfinitePickleCardList from '@/components/picklecard/InfinitePickleCardList';
 
 const S = {
   TopNavBarContainer: styled.div`
@@ -28,11 +30,10 @@ const S = {
     margin: 2rem 0rem 1.4rem;
     width: 10rem;
   `,
+  PickleCardListContainer: styled.div`
+    border: 1px solid black;
+  `,
 };
-const Button = styled.button`
-  color: hotpink;
-  border: 1px solid black;
-`;
 
 export default function Home() {
   const navigate = useNavigate();
@@ -63,6 +64,7 @@ export default function Home() {
         </div>
       </S.TopNavBarContainer>
       <Carousel />
+      {/* 인기 급상승 피클 */}
       <PickleList.Container>
         <PickleList.Header category="popular" />
         <ErrorBoundary fallback={Error}>
@@ -71,11 +73,23 @@ export default function Home() {
           </Suspense>
         </ErrorBoundary>
       </PickleList.Container>
+      {/* 마감 임박 피클 */}
       <PickleList.Container sectionBg>
         <PickleList.Header category="hotTime" />
         <ErrorBoundary fallback={Error}>
           <Suspense fallback={<SkeletonPickleCardList />}>
             <PickleCardList category="hotTime" />
+          </Suspense>
+        </ErrorBoundary>
+      </PickleList.Container>
+      {/* 전체 피클 */}
+      <PickleList.Container>
+        <PickleList.Header category="total" />
+        <ErrorBoundary fallback={Error}>
+          <Suspense fallback={<SkeletonPickleCardList />}>
+            {/* <PickleCardList category="total" /> */}
+            <SortButtons />
+            <InfinitePickleCardList />
           </Suspense>
         </ErrorBoundary>
       </PickleList.Container>
@@ -92,20 +106,20 @@ export default function Home() {
       </div>
       <br />
       <br />
-      <Button type="button" onClick={() => navigate('/pickle-create')}>
+      <button type="button" onClick={() => navigate('/pickle-create')}>
         피클 생성 페이지로 이동
-      </Button>
+      </button>
       <br />
       <br />
       <br />
 
       {/* <KaKaoMap /> */}
-      {/* <Button type="button" onClick={openModal}>
+      <button type="button" onClick={openModal}>
         모달 테스트 버튼
-      </Button> */}
-      {/* <BackDropModal isOpen={isModalOpen} onClose={closeModal}>
+      </button>
+      <BackDropModal isOpen={isModalOpen} onClose={closeModal}>
         <div>티라노 앙</div>
-      </BackDropModal> */}
+      </BackDropModal>
       {/* <HeartButton isActive={isHeartClicked} onClick={handleHeartClick} /> */}
     </MainLayout>
   );
