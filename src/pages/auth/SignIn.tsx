@@ -67,8 +67,8 @@ export default function SignIn() {
 
 export const Container = styled.div`
   width: 100%;
-  height: 100dvh;
-  padding: 0 34px;
+  min-height: 100%;
+  padding: 140px 32px 80px;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
