@@ -17,7 +17,7 @@ const calculateDday = (deadLine: string) => {
 
 export default function SpecialPickleCard({ pickleData }: { pickleData: any }) {
   const Dday = calculateDday(pickleData.deadLine);
-  
+
   // // server state
   const { data } = useGetLikePickle(pickleData.id);
   const { mutate: postLikeMutate } = usePickleLikeMutation(pickleData.id);
@@ -39,7 +39,7 @@ export default function SpecialPickleCard({ pickleData }: { pickleData: any }) {
       </S.Wrap>
       <S.Title>{pickleData.title}</S.Title>
       <S.ResgisterStatus>
-        {pickleData.capacity}명 중 <span>{pickleData.participants.length}</span>명이 신청하는 중
+        {pickleData?.capacity}명 중 <span>{pickleData?.participants.length}</span>명이 신청하는 중
       </S.ResgisterStatus>
       <S.Price>
         {pickleData.cost.toLocaleString()}
