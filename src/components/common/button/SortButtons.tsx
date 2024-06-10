@@ -62,15 +62,6 @@ export default function SortButtons() {
   );
 }
 
-const slideIn = keyframes`
-  from {
-    transform: scaleX(0);
-  }
-  to {
-    transform: scaleX(1);
-  }
-`;
-
 const S = {
   Container: styled.div`
     display: flex;
