@@ -170,7 +170,7 @@ export const AreaSelector = styled.div`
 `;
 
 export const SiSelector = styled.div`
-  width: 20%;
+  width: 30%;
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -194,10 +194,11 @@ export const SiElement = styled.div<{ $selected?: boolean }>`
   color: ${props => (props.$selected ? '#5DC26D' : '#888D88')};
   font-weight: ${props => (props.$selected ? '600' : '500')};
   border: ${props => (props.$selected ? '1px solid #5DC26D' : '1px solid #F5F9F8')};
+  cursor: pointer;
 `;
 
 export const GuSelector = styled.div`
-  width: 40%;
+  width: 70%;
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -223,33 +224,35 @@ export const GuElement = styled.div<{ $selected?: boolean }>`
   &:last-child {
     border-bottom: none;
   }
+  cursor: pointer;
 `;
 
-export const DongSelector = styled.div`
-  width: 40%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  overflow-y: auto;
-`;
-
-export const DongElement = styled.div<{ $selected?: boolean }>`
+export const SelectedGus = styled.div`
+  margin-top: 24px;
   width: 100%;
-  height: 46px;
-  flex-shrink: 0;
   display: flex;
-  flex-direction: column;
-  justify-content: center;
+  flex-wrap: wrap;
+  gap: 9px 8px;
+`;
+
+export const SelectedGu = styled.div`
+  min-width: 91px;
+  height: 30px;
+  flex-shrink: 0;
+  padding: 8px;
+  display: flex;
   align-items: center;
-  font-size: 14px;
+  justify-content: space-between;
+  gap: 8px;
+  border-radius: 4px;
+  border: 1px solid #5dc26d;
+  color: #5dc26d;
+  font-size: 12px;
   font-style: normal;
-  line-height: normal;
-  text-align: center;
   font-weight: 500;
-  color: ${props => (props.$selected ? '#5DC26D' : '#888D88')};
-  border-bottom: 0.7px solid #d0d0d0;
-  &:last-child {
-    border-bottom: none;
+  line-height: normal;
+  img {
+    cursor: pointer;
   }
 `;
 
