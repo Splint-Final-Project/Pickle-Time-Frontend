@@ -8,7 +8,6 @@ import { Suspense, useEffect, useState } from 'react';
 
 import styled from '@emotion/styled';
 import HeartButton from '@/components/common/button/HeartButton';
-import useHeartButtonClick from '@/hooks/useHeartButtonClick';
 import { useCreatePickleMutation } from '@/hooks/query/pickles';
 import MainLayout from '@/layouts/MainLayout';
 import Carousel from '@/components/carousel/Carousel';
@@ -38,10 +37,6 @@ const S = {
 export default function Home() {
   const navigate = useNavigate();
   const [isModalOpen, setModalOpen] = useState(false);
-  const { isHeartClicked, handleHeartClick } = useHeartButtonClick({
-    pickleId: '1',
-    isInUserWishList: false,
-  });
 
   const openModal = () => setModalOpen(true);
   const closeModal = () => setModalOpen(false);

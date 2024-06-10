@@ -134,7 +134,7 @@ import styled from '@emotion/styled';
 export const Container = styled.div`
   width: 100%;
   min-height: 100%;
-  padding: 140px 32px 0;
+  padding: 140px 32px 80px;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
