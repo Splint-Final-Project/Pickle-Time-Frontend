@@ -2,7 +2,6 @@ import { Link } from 'react-router-dom';
 import SpecialPickleCardArrowIcon from '@/assets/icons/SpecialPickleCardArrowIcon';
 import HeartButton from '../common/button/HeartButton';
 import BackImg from '@/assets/images/specialPickleCardBackImg.png';
-// import useHeartButtonClick from '@/hooks/useHeartButtonClick';
 import { useGetLikePickle, useDeletePickleLikeMutation, usePickleLikeMutation } from '@/hooks/query/like';
 import styled from '@emotion/styled';
 import routes from '@/constants/routes';
