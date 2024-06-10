@@ -22,7 +22,10 @@ export default function WholePickleCard({ id: pickleId, type, title, when, cost 
   const { mutate: postLikeMutate } = usePickleLikeMutation(pickleId);
   const { mutate: deleteLikeMutate } = useDeletePickleLikeMutation(pickleId);
 
-  const handleHeartClick = () => {
+  const handleHeartClick = (event: any) => {
+    event.preventDefault();
+    event.stopPropagation();
+
     if (data && data.data.length) {
       deleteLikeMutate();
     } else if (data && !data.data.length) {
@@ -30,10 +33,9 @@ export default function WholePickleCard({ id: pickleId, type, title, when, cost 
     }
   }
 
-
   return (
-    <S.CardLayer to={`${routes.pickleList}/${pickleId}`} $backImgType={type}>
-      <HeartButton isActive={data?.data.length} onClick={handleHeartClick} />
+    <S.CardLayer to={`${routes.pickleList}/${pickleId}`} $backImgType={type} >
+      <HeartButton isActive={data?.data.length} onClick={handleHeartClick}/>
       <S.ProgressDay>{when.summary}</S.ProgressDay>
       <S.Title>{title}</S.Title>
       <S.Price>{formatCurrency(cost)}원</S.Price>
