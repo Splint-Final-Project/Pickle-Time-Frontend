@@ -6,6 +6,8 @@ import { When } from '@/apis/types/pickles.type';
 import { formatCurrency } from '@/utils/formatData';
 import CategoryExercise from '@/assets/images/pickleCategoryImg-exercise.png';
 import CategoryStudy from '@/assets/images/pickleCategoryImg-study.png';
+import HeartButton from '../common/button/HeartButton';
+import useHeartButtonClick from '@/hooks/useHeartButtonClick';
 
 interface WholePickleCardProps {
   type: 'study' | 'exercise';
@@ -16,8 +18,14 @@ interface WholePickleCardProps {
 }
 
 export default function WholePickleCard({ id: pickleId, type, title, when, cost }: WholePickleCardProps) {
+  const { isHeartClicked, handleHeartClick } = useHeartButtonClick({
+    pickleId,
+    isInUserWishList: false,
+  });
+
   return (
     <S.CardLayer to={`${routes.pickleList}/${pickleId}`} $backImgType={type}>
+      <HeartButton isActive={isHeartClicked} onClick={handleHeartClick} />
       <S.ProgressDay>{when.summary}</S.ProgressDay>
       <S.Title>{title}</S.Title>
       <S.Price>{formatCurrency(cost)}원</S.Price>

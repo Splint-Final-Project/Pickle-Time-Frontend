@@ -4,9 +4,8 @@ import { Coordinates, CreatePickleData } from './types/pickles.type';
 
 export const picklesRequests = Object.freeze({
   // 피클 전체 목록조회
-  getWithPage: async () => {
-    const { data } = await client.get(API.PICKLE);
-    return data;
+  getWithPage: (pageParam: number) => {
+    return client.get(`${API.PICKLE}?page=${pageParam}`);
   },
 
   getPopular: async () => {
