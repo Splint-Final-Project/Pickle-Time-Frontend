@@ -1,14 +1,10 @@
-import useBottomSheetModalState from '@/hooks/zustand/useBottomSheetModalState';
+import useBottomSheetModal from '@/hooks/zustand/useBottomSheetModal';
 import styled from '@emotion/styled';
 import { useEffect } from 'react';
 import { createPortal } from 'react-dom';
 
 export default function BottomSheetModal() {
-  const {
-    active: modalState,
-    handleClose: closeModal,
-    component: Component,
-  } = useBottomSheetModalState(state => state);
+  const { active: modalState, handleClose: closeModal, component: Component } = useBottomSheetModal(state => state);
   const handleEsCapeEvent = (e: KeyboardEvent) => {
     if (e.key === 'Escape') {
       closeModal();
