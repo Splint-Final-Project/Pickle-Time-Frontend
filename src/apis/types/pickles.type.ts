@@ -38,3 +38,8 @@ export interface WholePickle {
   when: When;
   where: string;
 }
+
+export interface CreateReviewData {
+  star: number;
+  reviewText?: string;
+}
