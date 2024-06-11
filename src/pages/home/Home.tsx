@@ -17,6 +17,8 @@ import ErrorBoundary from '@/components/common/ErrorBoundary';
 import SkeletonPickleCardList from '@/components/picklecardlist/PickleCardList.Skeleton';
 import SortButtons from '@/components/common/button/SortButtons';
 import InfinitePickleCardList from '@/components/picklecard/InfinitePickleCardList';
+import Button from '@/components/common/button/Button';
+import { BUTTON_TYPE } from '@/constants/BUTTON';
 
 const S = {
   TopNavBarContainer: styled.div`
@@ -108,14 +110,14 @@ export default function Home() {
       <br />
       <br />
 
-      {/* <KaKaoMap /> */}
-      <button type="button" onClick={openModal}>
+      {/* <KaKaoMap />
+      {/* <button type="button" onClick={openModal}>
         모달 테스트 버튼
       </button>
       <BackDropModal isOpen={isModalOpen} onClose={closeModal}>
         <div>티라노 앙</div>
       </BackDropModal>
-      {/* <HeartButton isActive={isHeartClicked} onClick={handleHeartClick} /> */}
+      <HeartButton isActive={isHeartClicked} onClick={handleHeartClick} />  */}
     </MainLayout>
   );
 }
