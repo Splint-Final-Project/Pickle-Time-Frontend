@@ -1,6 +1,8 @@
-import DatePicker from '@/components/datePicker/DatePicker';
-import usePickleCreation from '@/hooks/zustand/usePickleCreation';
 import { useNavigate } from 'react-router-dom';
+
+import DatePicker from '@/components/inCreatePickleTwo/datePicker/DatePicker';
+import CostSelect from '@/components/inCreatePickleTwo/costSelect/CostSelect';
+import usePickleCreation from '@/hooks/zustand/usePickleCreation';
 import {
   Container,
   InputComponent,
@@ -35,18 +37,18 @@ export default function CreatePickle2() {
           <StepIndicator $selected={false}>3</StepIndicator>
           <StepIndicator $selected={false}>4</StepIndicator>
         </StepIndicatorContainer>
-      </TitleContainer>
+        {/* 카테고리 선택 */}
+        <InputComponent>
 
+        </InputComponent>
+      </TitleContainer>
+      {/* 날짜 선택 */}
       <InputComponent>
         <DatePicker/>
       </InputComponent>
+      {/* 비용 선택 */}
       <InputComponent>
-        <label htmlFor="when">When:</label>
-        {/* <input type="text" id="when" value={when} onChange={e => setWhen(e.target.value)} /> */}
-      </InputComponent>
-      <InputComponent>
-        <label htmlFor="cost">Cost:</label>
-        {/* <input type="text" id="cost" value={cost} onChange={e => setCost(e.target.value)} /> */}
+        <CostSelect/>
       </InputComponent>
       <SubmitButton onClick={() => navigate('/pickle-create-3')}>다음 단계로 넘어가기</SubmitButton>
     </Container>

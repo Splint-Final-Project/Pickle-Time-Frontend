@@ -46,7 +46,7 @@ const usePickleCreation = create<Pickle>(set => ({
   longitude: 0,
   setTitle: (title: string) => set({ title }),
   setCapacity: (capacity: number) => set({ capacity }),
-  setCost: (cost: number) => set({ cost }),
+  setCost: (cost: number | undefined) => set({ cost }),
   setDeadLine: (deadLine: Date) => set({ deadLine }),
   setWhere: (where: string) => set({ where }),
   setWhen: (when: { summary: string; times: Date[] }) => set({ when }),
