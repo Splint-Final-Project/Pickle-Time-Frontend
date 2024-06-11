@@ -3,6 +3,12 @@ import styled from '@emotion/styled';
 import StarRating, { Rating } from '@/components/my-page/review/StarRating';
 import PLACEHOLDER from '@/constants/PLACEHOLDER';
 
+/**
+ * 리뷰작성 모달
+ * - 1)별점 선택 2)텍스트 리뷰
+ * - 별점 선택 시 선택한 별점과 리뷰작성할 수 있는 텍스트창 렌더(여기에서도 별점 수정가능)
+ */
+
 interface Props {
   handleClose: () => void;
 }
