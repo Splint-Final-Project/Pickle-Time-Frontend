@@ -1,3 +1,4 @@
+import { useOutsideClick, useEscapePress } from '@/hooks/useModalHook';
 import useBottomSheetModal from '@/hooks/zustand/useBottomSheetModal';
 import styled from '@emotion/styled';
 import { useEffect } from 'react';
@@ -5,28 +6,27 @@ import { createPortal } from 'react-dom';
 
 export default function BottomSheetModal() {
   const { active: modalState, handleClose: closeModal, component: Component } = useBottomSheetModal(state => state);
-  const handleEsCapeEvent = (e: KeyboardEvent) => {
-    if (e.key === 'Escape') {
-      closeModal();
-    }
-  };
+
+  const potal = document.getElementById('modal-root') || document.createElement('div');
+  const ref = useOutsideClick<HTMLDivElement>({ callback: closeModal, modalState });
+  useEscapePress({ callback: closeModal, modalState });
+
   useEffect(() => {
-    if (modalState && Component) {
+    if (modalState) {
       document.body.style.overflow = 'hidden';
-      window.addEventListener('keydown', handleEsCapeEvent);
-    } else {
-      document.body.style.overflow = 'auto';
     }
     return () => {
-      window.removeEventListener('keydown', handleEsCapeEvent);
+      document.body.style.overflow = 'auto';
     };
   }, [modalState]);
 
-  const potal = document.getElementById('modal-root') || document.createElement('div');
   if (modalState && Component) {
     return createPortal(
       <S.BackLayout>
-        <S.Container>
+        <S.Container ref={ref}>
+          <S.DragBarWrap>
+            <S.DragBar />
+          </S.DragBarWrap>
           <Component handleClose={closeModal} />
         </S.Container>
       </S.BackLayout>,
@@ -74,5 +74,17 @@ const S = {
     left: 0.8rem;
     font-size: 1.6rem;
     font-weight: bold;
+  `,
+  DragBarWrap: styled.div`
+    display: flex;
+    justify-content: center;
+    margin-bottom: 0.8rem;
+  `,
+  DragBar: styled.span`
+    display: inline-block;
+    width: 3rem;
+    height: 1rem;
+    background: #c5c5c5;
+    border-radius: 20px;
   `,
 };
