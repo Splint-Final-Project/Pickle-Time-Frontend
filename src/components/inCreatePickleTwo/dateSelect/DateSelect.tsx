@@ -1,6 +1,6 @@
-import Timer from './inDatePicker/Timer';
-import Dater from './inDatePicker/Dater';
-import DateButtonList from './inDatePicker/DateButtonList';
+import Timer from './inDateSelect/Timer';
+import Dater from './inDateSelect/Dater';
+import DateButtonList from './inDateSelect/DateButtonList';
 import styled from '@emotion/styled';
 
 export default function DatePicker() {

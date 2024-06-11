@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 
-import DatePicker from '@/components/inCreatePickleTwo/datePicker/DatePicker';
+import DateSelect from '@/components/inCreatePickleTwo/dateSelect/DateSelect';
 import CostSelect from '@/components/inCreatePickleTwo/costSelect/CostSelect';
 import usePickleCreation from '@/hooks/zustand/usePickleCreation';
 import {
@@ -12,6 +12,7 @@ import {
   Title,
   TitleContainer,
 } from './CreatePickleStyled';
+import CategorySelect from '@/components/inCreatePickleTwo/costSelect/categorySelect.tsx/CategorySelect';
 
 export default function CreatePickle2() {
   const {
@@ -39,12 +40,12 @@ export default function CreatePickle2() {
         </StepIndicatorContainer>
         {/* 카테고리 선택 */}
         <InputComponent>
-
+          <CategorySelect/>
         </InputComponent>
       </TitleContainer>
       {/* 날짜 선택 */}
       <InputComponent>
-        <DatePicker/>
+        <DateSelect/>
       </InputComponent>
       {/* 비용 선택 */}
       <InputComponent>
