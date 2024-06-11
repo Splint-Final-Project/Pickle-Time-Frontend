@@ -12,7 +12,7 @@ import {
   Title,
   TitleContainer,
 } from './CreatePickleStyled';
-import CategorySelect from '@/components/inCreatePickleTwo/costSelect/categorySelect.tsx/CategorySelect';
+import CategorySelect from '@/components/inCreatePickleTwo/categorySelect/CategorySelect';
 
 export default function CreatePickle2() {
   const {
@@ -39,9 +39,7 @@ export default function CreatePickle2() {
           <StepIndicator $selected={false}>4</StepIndicator>
         </StepIndicatorContainer>
         {/* 카테고리 선택 */}
-        <InputComponent>
-          <CategorySelect/>
-        </InputComponent>
+        <CategorySelect/>
       </TitleContainer>
       {/* 날짜 선택 */}
       <InputComponent>
