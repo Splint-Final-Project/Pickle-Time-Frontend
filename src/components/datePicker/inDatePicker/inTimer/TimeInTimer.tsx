@@ -22,6 +22,7 @@ export default function TimeInTimer({minTime, maxTime}: TimeTextProps) {
 
 const S = {
   Container: styled.div`
+    flex: 1 1 auto;
     overflow: hidden;
     height: 6rem;
     display: flex;

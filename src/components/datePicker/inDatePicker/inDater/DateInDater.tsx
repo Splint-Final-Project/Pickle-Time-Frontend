@@ -24,6 +24,7 @@ export default function DateInDater({minTime, maxTime, children }: TimeTextProps
 
 const S = {
   Container: styled.div`
+    flex: 1 1 auto;
     overflow: hidden;
     height: 6rem;
     display: flex;

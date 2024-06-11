@@ -8,6 +8,7 @@ export default function Timer({ children }: PropsWithChildren) {
     <S.Container>
       <S.TimerText>{children}</S.TimerText>
       <S.TimerContainer>
+        <S.TimeText/>
         <TimeInTimer minTime={1} maxTime={12} />
         <S.TimeText>:</S.TimeText>
         <TimeInTimer minTime={0} maxTime={59} />
@@ -21,15 +22,14 @@ const S = {
   Container: styled.div`
     display: flex;
     flex-direction: column;
-    width: 30.4rem;
+    width: 100%;
     gap: 0.8rem;
   `,
 
   TimerContainer: styled.div`
     display: flex;
-    justify-content: center;
     align-items: center;
-    gap: 4rem;
+    /* gap: 4rem; */
     height: 6.2rem;
     flex-shrink: 0;
     border-radius: 0.4rem;
@@ -48,6 +48,7 @@ const S = {
   TimeText: styled.span`
     color: #000;
     /* Header */
+    flex: 1 1 auto;
     font-family: Pretendard;
     font-size: 2.4rem;
     font-weight: 600;

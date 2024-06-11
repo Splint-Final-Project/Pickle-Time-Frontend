@@ -18,7 +18,8 @@ export default function DateButton({ children, dayId, isClicked, onClick }: Butt
 
 const S = {
   Button: styled.button<{onClick: MouseEventHandler, isClicked: boolean}>`
-    width: 3.8rem;
+    /* width: 3.8rem; */
+    flex: 1 1 auto;
     height: 3.0rem;
     flex-shrink: 0;
     border-radius: 0.4rem;

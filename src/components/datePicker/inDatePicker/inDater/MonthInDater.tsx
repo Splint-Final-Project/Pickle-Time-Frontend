@@ -22,6 +22,7 @@ export default function MonthInDater({ children, getAdjacentTime, containerRef}:
 
 const S = {
   Container: styled.div`
+    flex: 1 1 auto;
     overflow: hidden;
     height: 6rem;
     display: flex;

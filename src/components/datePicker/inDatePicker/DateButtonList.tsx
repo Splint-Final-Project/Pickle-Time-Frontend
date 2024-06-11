@@ -54,7 +54,8 @@ const S = {
   Container: styled.div`
     display: flex;
     flex-direction: column;
-    width: 30.4rem;
+    /* width: 30.4rem; */
+    width: 100%;
     gap: 0.8rem;
   `,
 

@@ -14,6 +14,7 @@ export default function Dater({ children }: PropsWithChildren) {
     <S.Container>
       <S.TimerText>{children}</S.TimerText>
       <S.TimerContainer>
+        <S.TimeText/>
         <MonthInDater getAdjacentTime={getAdjacentTime} containerRef={containerRef}>월</MonthInDater>
         <S.TimeText/>
         <DateInDater minTime={1} maxTime={maxDays}>일</DateInDater>
@@ -26,15 +27,14 @@ const S = {
   Container: styled.div`
     display: flex;
     flex-direction: column;
-    width: 30.4rem;
+    /* width: 30.4rem; */
+    width: 100%;
     gap: 0.8rem;
   `,
 
   TimerContainer: styled.div`
     display: flex;
-    justify-content: center;
     align-items: center;
-    gap: 4rem;
     height: 6.2rem;
     flex-shrink: 0;
     border-radius: 0.4rem;
@@ -51,6 +51,7 @@ const S = {
   `,
 
   TimeText: styled.span`
+    flex: 1 1 auto;
     color: #000;
     /* Header */
     font-family: Pretendard;

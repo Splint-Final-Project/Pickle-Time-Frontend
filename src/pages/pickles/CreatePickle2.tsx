@@ -38,8 +38,7 @@ export default function CreatePickle2() {
       </TitleContainer>
 
       <InputComponent>
-        <label htmlFor="category">카테고리:</label>
-        <input type="text" id="category" value={category} onChange={e => setCategory(e.target.value)} />
+        <DatePicker/>
       </InputComponent>
       <InputComponent>
         <label htmlFor="when">When:</label>
