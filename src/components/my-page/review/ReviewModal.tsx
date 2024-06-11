@@ -2,6 +2,7 @@ import { useState } from 'react';
 import styled from '@emotion/styled';
 import StarRating, { Rating } from '@/components/my-page/review/StarRating';
 import PLACEHOLDER from '@/constants/PLACEHOLDER';
+import { useCreateReviewMutation } from '@/hooks/query/pickles';
 
 /**
  * 리뷰작성 모달
@@ -13,10 +14,14 @@ interface Props {
   handleClose: () => void;
 }
 
+const pickleId = '6666b9fdf5c3e2e975e0be57'; //임시
+
 export default function ReviewModal({ handleClose }: Props) {
   const [selectedRating, setSelectedRating] = useState(0);
   const [isRatingSelected, setIsRatingSelected] = useState(false);
   const [reviewText, setReviewText] = useState('');
+
+  const { mutate: postReviewMutate } = useCreateReviewMutation(pickleId, () => handleClose());
 
   const handleStarHover = (rating: Rating) => {
     if (!isRatingSelected) {
@@ -30,12 +35,10 @@ export default function ReviewModal({ handleClose }: Props) {
   };
 
   const handleReviewSubmit = () => {
-    //ToDo 서버로 보내는 mutation로직 추가
-    console.log({ rating: selectedRating, text: reviewText });
+    postReviewMutate({ star: selectedRating, reviewText });
     setSelectedRating(0);
     setIsRatingSelected(false);
     setReviewText('');
-    handleClose();
   };
 
   return (
