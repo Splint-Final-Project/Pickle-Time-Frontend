@@ -3,6 +3,15 @@ import React from 'react';
 import axios from 'axios';
 import client from '@/apis/axios';
 import { useNavigate } from 'react-router-dom';
+import {
+  Container,
+  InputComponent,
+  StepIndicator,
+  StepIndicatorContainer,
+  SubmitButton,
+  Title,
+  TitleContainer,
+} from './CreatePickleStyled';
 
 export default function CreatePickle2() {
   const {
@@ -32,18 +41,33 @@ export default function CreatePickle2() {
   const navigate = useNavigate();
 
   return (
-    <div>
-      <form onSubmit={() => navigate('/pickle-create-3')}>
-        <label htmlFor="category">Category:</label>
-        <textarea id="category" value={category} onChange={e => setCategory(e.target.value)} />
+    <Container>
+      <TitleContainer>
+        <Title>
+          <img src="icons/back.svg" alt="back" onClick={() => navigate('/pickle-create-1')} />
+          <div>피클 생성</div>
+        </Title>
+        <StepIndicatorContainer>
+          <StepIndicator $selected={false}>1</StepIndicator>
+          <StepIndicator $selected={true}>2</StepIndicator>
+          <StepIndicator $selected={false}>3</StepIndicator>
+          <StepIndicator $selected={false}>4</StepIndicator>
+        </StepIndicatorContainer>
+      </TitleContainer>
 
-        <span>TODO: 일정 입력 ()</span>
-
+      <InputComponent>
+        <label htmlFor="category">카테고리:</label>
+        <input type="text" id="category" value={category} onChange={e => setCategory(e.target.value)} />
+      </InputComponent>
+      <InputComponent>
+        <label htmlFor="when">When:</label>
+        {/* <input type="text" id="when" value={when} onChange={e => setWhen(e.target.value)} /> */}
+      </InputComponent>
+      <InputComponent>
         <label htmlFor="cost">Cost:</label>
-        <input type="number" id="cost" value={cost} onChange={e => setCost(Number(e.target.value))} />
-
-        <button type="submit">다음 단계로 넘어가기</button>
-      </form>
-    </div>
+        {/* <input type="text" id="cost" value={cost} onChange={e => setCost(e.target.value)} /> */}
+      </InputComponent>
+      <SubmitButton onClick={() => navigate('/pickle-create-3')}>다음 단계로 넘어가기</SubmitButton>
+    </Container>
   );
 }

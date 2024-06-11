@@ -1,4 +1,4 @@
-import { createBrowserRouter } from 'react-router-dom';
+import { createBrowserRouter, redirect } from 'react-router-dom';
 
 import Home from '@/pages/home/Home';
 import Admin from '@/pages/auth/Admin';
@@ -60,6 +60,11 @@ const router = createBrowserRouter([
       {
         path: '/pickle-join',
         element: <JoinPickle />,
+      },
+      {
+        path: '/pickle-create',
+        //TODO: 피클 생성 하다만 기록이 있으면 있으면 그 단계에 맞춰서 리다이렉트
+        loader: async () => redirect('/pickle-create-1'),
       },
       {
         path: '/pickle-create-1',
