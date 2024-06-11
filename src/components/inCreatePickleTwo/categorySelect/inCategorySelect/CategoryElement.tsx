@@ -35,6 +35,7 @@ const S = {
   `,
 
   Wrapper: styled.div`
+    cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: space-between;

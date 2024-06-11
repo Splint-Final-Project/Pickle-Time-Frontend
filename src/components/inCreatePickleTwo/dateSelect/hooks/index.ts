@@ -31,7 +31,7 @@ export const useHandleTimeWithWheel = (minTime: number, maxTime: number) => {
           return newTime;
         });
         setOffset(0); 
-      }, 150); // 애니메이션 시간 (300ms)
+      }, 120); // 애니메이션 시간 (300ms)
 
       return () => clearTimeout(timeout);
     }
