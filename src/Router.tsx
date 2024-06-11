@@ -1,4 +1,4 @@
-import { createBrowserRouter } from 'react-router-dom';
+import { createBrowserRouter, redirect } from 'react-router-dom';
 
 import Home from '@/pages/home/Home';
 import Admin from '@/pages/auth/Admin';
@@ -22,6 +22,7 @@ import CreatePickle1 from './pages/pickles/CreatePickle1';
 import JoinPickle from './pages/pickles/JoinPickle';
 import PickleCreationRedirector from './redirectors/PickleCreationRedirector';
 import CreatePickle2 from './pages/pickles/CreatePickle2';
+import CreatePickle3 from './pages/pickles/CreatePickle3';
 
 const privateChildren = [
   {
@@ -57,7 +58,16 @@ const router = createBrowserRouter([
         element: <Pickle />,
       },
       {
+        path: '/pickle-join',
+        element: <JoinPickle />,
+      },
+      {
         path: '/pickle-create',
+        //TODO: 피클 생성 하다만 기록이 있으면 있으면 그 단계에 맞춰서 리다이렉트
+        loader: async () => redirect('/pickle-create-1'),
+      },
+      {
+        path: '/pickle-create-1',
         element: <CreatePickle1 />,
       },
       {
@@ -65,11 +75,11 @@ const router = createBrowserRouter([
         element: <CreatePickle2 />,
       },
       {
-        path: '/pickle-join',
-        element: <JoinPickle />,
+        path: '/pickle-create-3',
+        element: <CreatePickle3 />,
       },
       {
-        path: '/pickle-create-payment',
+        path: '/pickle-create-4',
         element: <CreatePickle4 />,
       },
       {

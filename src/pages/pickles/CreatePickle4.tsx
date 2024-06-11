@@ -3,6 +3,15 @@ import useAuth from '@/hooks/zustand/useAuth';
 import usePickleCreation from '@/hooks/zustand/usePickleCreation';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import {
+  Container,
+  InputComponent,
+  StepIndicator,
+  StepIndicatorContainer,
+  SubmitButton,
+  Title,
+  TitleContainer,
+} from './CreatePickleStyled';
 
 export default function CreatePickle4() {
   const { IMP } = window;
@@ -17,13 +26,13 @@ export default function CreatePickle4() {
     !capacity ||
     !cost ||
     // !deadLine ||
-    !where ||
+    // !where ||
     // !when ||
     !category ||
-    !explanation ||
+    !explanation
     // !viewCount ||
-    !latitude ||
-    !longitude
+    // !latitude ||
+    // !longitude
   ) {
     return <div>피클 정보가 부족합니다.</div>;
   }
@@ -76,11 +85,22 @@ export default function CreatePickle4() {
     });
   }
   return (
-    <div>
-      <div style={{ display: 'flex', flexDirection: 'column' }}>
-        <h1>{title}를 생성하기 위한 결제하기</h1>
-        <div>총 금액 {cost}원</div>
-        <input type="checkbox" />
+    <Container>
+      <TitleContainer>
+        <Title>
+          <img src="icons/back.svg" alt="back" onClick={() => navigate('/pickle-create-1')} />
+          <div>피클 생성</div>
+        </Title>
+        <StepIndicatorContainer>
+          <StepIndicator $selected={false}>1</StepIndicator>
+          <StepIndicator $selected={false}>2</StepIndicator>
+          <StepIndicator $selected={false}>3</StepIndicator>
+          <StepIndicator $selected={true}>4</StepIndicator>
+        </StepIndicatorContainer>
+      </TitleContainer>
+
+      <InputComponent>
+        {' '}
         <span>
           <input
             type="radio"
@@ -100,9 +120,12 @@ export default function CreatePickle4() {
             onChange={e => setPaymentMethod(e.target.value)}
           />
           <label htmlFor="toss">토스페이</label>
-        </span>
-        <button onClick={onClickPayment}> 결제하기</button>
-      </div>
-    </div>
+        </span>{' '}
+      </InputComponent>
+      <InputComponent></InputComponent>
+      <InputComponent></InputComponent>
+      <InputComponent></InputComponent>
+      <SubmitButton onClick={onClickPayment}>{cost}원 결제하기</SubmitButton>
+    </Container>
   );
 }
