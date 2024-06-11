@@ -1,22 +1,35 @@
 import { useState } from 'react';
 import styled from '@emotion/styled';
-import StarIcon from '@/assets/icons/StarIcon';
+import StarRating, { Rating } from '@/components/my-page/review/StarRating';
+import PLACEHOLDER from '@/constants/PLACEHOLDER';
 
-type Rating = number;
+interface Props {
+  handleClose: () => void;
+}
 
-export default function ReviewModal() {
+export default function ReviewModal({ handleClose }: Props) {
   const [selectedRating, setSelectedRating] = useState(0);
   const [isRatingSelected, setIsRatingSelected] = useState(false);
+  const [reviewText, setReviewText] = useState('');
 
-  // 호버시 별 차도록
   const handleStarHover = (rating: Rating) => {
-    setSelectedRating(rating);
+    if (!isRatingSelected) {
+      setSelectedRating(rating);
+    }
   };
 
   const handleStarClick = (rating: Rating) => {
     setSelectedRating(rating);
     setIsRatingSelected(true);
-    console.log('별점은', rating);
+  };
+
+  const handleReviewSubmit = () => {
+    //ToDo 서버로 보내는 mutation로직 추가
+    console.log({ rating: selectedRating, text: reviewText });
+    setSelectedRating(0);
+    setIsRatingSelected(false);
+    setReviewText('');
+    handleClose();
   };
 
   return (
@@ -26,18 +39,14 @@ export default function ReviewModal() {
           <S.Title>리뷰쓰기</S.Title>
           <S.TopSection>
             <h3>🏃🏻‍♀️위워크 러닝크루</h3>
-            <S.Rating>
-              {[1, 2, 3, 4, 5].map(rating => (
-                <StarIcon
-                  key={rating}
-                  filled={rating <= selectedRating}
-                  onMouseEnter={() => handleStarHover(rating)}
-                  onClick={() => handleStarClick(rating)}
-                />
-              ))}
-            </S.Rating>
+            <StarRating selectedRating={selectedRating} onStarHover={handleStarHover} onStarClick={handleStarClick} />
           </S.TopSection>
-          <S.TextArea placeholder="리뷰를 작성해주세요..." />
+          <S.TextArea
+            placeholder={PLACEHOLDER.REVIEW.WRITE}
+            value={reviewText}
+            onChange={e => setReviewText(e.target.value)}
+          />
+          <S.Button onClick={handleReviewSubmit}>작성완료</S.Button>
         </>
       ) : (
         <>
@@ -47,22 +56,14 @@ export default function ReviewModal() {
             <h3>🏃🏻‍♀️위워크 러닝크루</h3>
             <span>대신 파이낸셜 지하 1층 헬스장</span>
           </S.TextBox>
-          <S.Rating>
-            {[1, 2, 3, 4, 5].map(rating => (
-              <StarIcon
-                key={rating}
-                filled={rating <= selectedRating}
-                onMouseEnter={() => handleStarHover(rating)}
-                onClick={() => handleStarClick(rating)}
-              />
-            ))}
-          </S.Rating>
+          <StarRating selectedRating={selectedRating} onStarHover={handleStarHover} onStarClick={handleStarClick} />
         </>
       )}
     </S.ContentContainer>
   );
 }
 
+//Todo 디자인 나오면 세세한 스타일 수정예정
 const S = {
   ContentContainer: styled.div`
     display: flex;
@@ -85,6 +86,8 @@ const S = {
     flex-direction: column;
     align-items: center;
     gap: 1rem;
+
+    margin-top: 1rem;
 
     h3 {
       ${({ theme }) => theme.typography.subTitle1}
@@ -110,14 +113,28 @@ const S = {
       ${({ theme }) => theme.typography.body2}
     }
   `,
+
   TextArea: styled.textarea`
-    width: 80%;
-    height: 10rem;
+    width: 90%;
+    height: 18rem;
     padding: 1rem;
-    font-size: 1rem;
     border: 1px solid #ccc;
-    border-radius: 0.5rem;
+    border-radius: 0.4rem;
+    overflow-y: auto; //스크롤이 왜 안보일까요?
+    font-size: 1.6rem;
+
+    ::placeholder {
+      ${({ theme }) => theme.typography.body1}
+    }
   `,
 
-  Rating: styled.div``,
+  Button: styled.button`
+    width: 90%;
+    border: 1px solid #ccc;
+    border-radius: 0.8rem;
+    padding: 1.5rem;
+    background-color: ${({ theme }) => theme.color.primary};
+    color: ${({ theme }) => theme.color.white};
+    ${({ theme }) => theme.typography.body1};
+  `,
 };
