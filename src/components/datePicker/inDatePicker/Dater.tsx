@@ -7,7 +7,7 @@ import MonthInDater from './inDater/MonthInDater';
 const THIS_YEAR = new Date().getFullYear();
 
 export default function Dater({ children }: PropsWithChildren) {
-  const { getAdjacentTime, containerRef, time } = useHandleTimeWithWheel(12);
+  const { getAdjacentTime, containerRef, time } = useHandleTimeWithWheel(1, 12);
   const maxDays = useMaxDaysInMonth(time, THIS_YEAR);
   
   return (
@@ -16,7 +16,7 @@ export default function Dater({ children }: PropsWithChildren) {
       <S.TimerContainer>
         <MonthInDater getAdjacentTime={getAdjacentTime} containerRef={containerRef}>월</MonthInDater>
         <S.TimeText/>
-        <DateInDater maxTime={maxDays}>일</DateInDater>
+        <DateInDater minTime={1} maxTime={maxDays}>일</DateInDater>
       </S.TimerContainer>
     </S.Container>
   );

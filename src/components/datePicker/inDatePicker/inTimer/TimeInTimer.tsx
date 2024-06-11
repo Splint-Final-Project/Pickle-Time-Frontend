@@ -2,11 +2,12 @@ import styled from "@emotion/styled"
 import { useHandleTimeWithWheel } from "../../hooks";
 
 interface TimeTextProps {
+  minTime: number;
   maxTime: number;
 }
 
-export default function TimeInTimer({maxTime}: TimeTextProps) {
-  const { getAdjacentTime, containerRef } = useHandleTimeWithWheel(maxTime);
+export default function TimeInTimer({minTime, maxTime}: TimeTextProps) {
+  const { getAdjacentTime, containerRef } = useHandleTimeWithWheel(minTime, maxTime);
 
   return (
     <S.Container ref={containerRef}>

@@ -3,12 +3,13 @@ import styled from "@emotion/styled"
 import { useHandleTimeWithWheel } from "../../hooks";
 
 interface TimeTextProps {
+  minTime: number;
   maxTime: number;
   children: ReactNode;
 }
 
-export default function DateInDater({maxTime, children }: TimeTextProps) {
-  const { getAdjacentTime, containerRef } = useHandleTimeWithWheel(maxTime);
+export default function DateInDater({minTime, maxTime, children }: TimeTextProps) {
+  const { getAdjacentTime, containerRef, time } = useHandleTimeWithWheel(minTime, maxTime);
 
   return (
     <S.Container ref={containerRef}>

@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 
-export const useHandleTimeWithWheel = (maxTime: number) => {
-  const [time, setTime] = useState<number>(1);
+export const useHandleTimeWithWheel = (minTime: number, maxTime: number) => {
+  const [time, setTime] = useState<number>(minTime);
   const [offset, setOffset] = useState<number>(0);
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -26,8 +26,8 @@ export const useHandleTimeWithWheel = (maxTime: number) => {
       const timeout = setTimeout(() => {
         setTime((prevTime) => {
           let newTime = prevTime + offset;
-          if (newTime > maxTime) newTime = 1;
-          if (newTime < 1) newTime = maxTime;
+          if (newTime > maxTime) newTime = minTime;
+          if (newTime < minTime) newTime = maxTime;
           return newTime;
         });
         setOffset(0); 
@@ -39,8 +39,8 @@ export const useHandleTimeWithWheel = (maxTime: number) => {
 
   const getAdjacentTime = (offset: number) => {
     let newTime = time + offset;
-    if (newTime > maxTime) newTime = 1;
-    if (newTime < 1) newTime = maxTime;
+    if (newTime > maxTime) newTime = minTime;
+    if (newTime < minTime) newTime = maxTime;
     return newTime.toString().padStart(2, '0');
   };
 

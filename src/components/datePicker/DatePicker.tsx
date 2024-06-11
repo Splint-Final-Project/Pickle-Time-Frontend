@@ -6,9 +6,9 @@ import styled from '@emotion/styled';
 export default function DatePicker() {
   return (
     <S.Container>
-      <DateButtonList>요일</DateButtonList>
       <Dater>시작 날짜</Dater>
       <Dater>종료 날짜</Dater>
+      <DateButtonList>요일</DateButtonList>
       <Timer>시작 시간</Timer>
       <Timer>종료 시간</Timer>
     </S.Container>

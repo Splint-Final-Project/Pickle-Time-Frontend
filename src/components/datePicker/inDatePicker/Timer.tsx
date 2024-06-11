@@ -8,9 +8,9 @@ export default function Timer({ children }: PropsWithChildren) {
     <S.Container>
       <S.TimerText>{children}</S.TimerText>
       <S.TimerContainer>
-        <TimeInTimer maxTime={12} />
+        <TimeInTimer minTime={1} maxTime={12} />
         <S.TimeText>:</S.TimeText>
-        <TimeInTimer maxTime={60} />
+        <TimeInTimer minTime={0} maxTime={59} />
         <DayTimeInTimer />
       </S.TimerContainer>
     </S.Container>
