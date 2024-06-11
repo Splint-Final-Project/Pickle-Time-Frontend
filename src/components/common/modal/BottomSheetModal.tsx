@@ -45,32 +45,35 @@ export default function BottomSheetModal() {
 
 const S = {
   BackLayout: styled.div`
-    width: 100%;
-    height: 100vh;
-    background: rgba(0, 0, 0, 0.3);
-    z-index: 100000;
+    display: flex;
+    justify-content: center;
+
     position: fixed;
     top: 0;
     left: 0;
+    z-index: 100000;
+
+    width: 100%;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.3);
   `,
 
   Container: styled.div`
     position: absolute;
     bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
     padding: 2rem 1.6rem;
-    background: #fff;
-    border-top-right-radius: 1.6rem;
-    border-top-left-radius: 1.6rem;
+    width: 100%;
+    max-width: 60rem;
+    background: ${({ theme }) => theme.color.white};
+    border-radius: 1.6rem 1.6rem 0 0;
 
     @keyframes open {
       0% {
-        height: 0;
+        transform: translateY(100vh);
         opacity: 0;
       }
       100% {
-        height: 50rem;
+        transform: translateY(0);
         opacity: 1;
       }
     }
