@@ -17,13 +17,13 @@ export default function CreatePickle4() {
     !capacity ||
     !cost ||
     // !deadLine ||
-    !where ||
+    // !where ||
     // !when ||
     !category ||
-    !explanation ||
+    !explanation
     // !viewCount ||
-    !latitude ||
-    !longitude
+    // !latitude ||
+    // !longitude
   ) {
     return <div>피클 정보가 부족합니다.</div>;
   }

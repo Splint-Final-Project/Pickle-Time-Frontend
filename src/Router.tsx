@@ -21,6 +21,8 @@ import CreatePickle4 from './pages/pickles/CreatePickle4';
 import CreatePickle1 from './pages/pickles/CreatePickle1';
 import JoinPickle from './pages/pickles/JoinPickle';
 import PickleCreationRedirector from './redirectors/PickleCreationRedirector';
+import CreatePickle2 from './pages/pickles/CreatePickle2';
+import CreatePickle3 from './pages/pickles/CreatePickle3';
 
 const privateChildren = [
   {
@@ -56,15 +58,23 @@ const router = createBrowserRouter([
         element: <Pickle />,
       },
       {
-        path: '/pickle-create',
-        element: <CreatePickle1 />,
-      },
-      {
         path: '/pickle-join',
         element: <JoinPickle />,
       },
       {
-        path: '/pickle-create-payment',
+        path: '/pickle-create-1',
+        element: <CreatePickle1 />,
+      },
+      {
+        path: '/pickle-create-2',
+        element: <CreatePickle2 />,
+      },
+      {
+        path: '/pickle-create-3',
+        element: <CreatePickle3 />,
+      },
+      {
+        path: '/pickle-create-4',
         element: <CreatePickle4 />,
       },
       {

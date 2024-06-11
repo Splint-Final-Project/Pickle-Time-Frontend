@@ -33,40 +33,14 @@ export default function CreatePickle1() {
 
   return (
     <div>
-      <form onSubmit={() => navigate('/pickle-create-payment')}>
+      <form onSubmit={() => navigate('/pickle-create-2')}>
         <label htmlFor="title">Title:</label>
         <input type="text" id="title" value={title} onChange={e => setTitle(e.target.value)} />
-
-        <label htmlFor="capacity">Capacity:</label>
-        <input type="number" id="capacity" value={capacity} onChange={e => setCapacity(Number(e.target.value))} />
-
-        <label htmlFor="cost">Cost:</label>
-        <input type="number" id="cost" value={cost} onChange={e => setCost(Number(e.target.value))} />
-        {/* <label htmlFor="deadline">Deadline:</label>
-      <input type="date" id="deadline" value={deadLine} onChange={(e) => setDeadLine(e.target.value)} /> */}
 
         <label htmlFor="where">Where:</label>
         <input type="text" id="where" value={where} onChange={e => setWhere(e.target.value)} />
 
-        {/* <label htmlFor="when">When:</label>
-      <input type="datetime-local" id="when" value={when} onChange={(e) => setWhen(e.target.value)} /> */}
-
-        <label htmlFor="category">Category:</label>
-        <textarea id="category" value={category} onChange={e => setCategory(e.target.value)} />
-
-        <label htmlFor="explanation">Explanation:</label>
-        <textarea id="explanation" value={explanation} onChange={e => setExplanation(e.target.value)} />
-
-        {/* <label htmlFor="viewCount">View Count:</label>
-        <input type="number" id="viewCount" value={viewCount} onChange={e => setViewCount(Number(e.target.value))} /> */}
-
-        <label htmlFor="latitude">Latitude:</label>
-        <input type="number" id="latitude" value={latitude} onChange={e => setLatitude(Number(e.target.value))} />
-
-        <label htmlFor="longitude">Longitude:</label>
-        <input type="number" id="longitude" value={longitude} onChange={e => setLongitude(Number(e.target.value))} />
-
-        <button type="submit">Create Pickle</button>
+        <button type="submit">장소 등록후 다음 단계로 넘어가기</button>
       </form>
     </div>
   );
