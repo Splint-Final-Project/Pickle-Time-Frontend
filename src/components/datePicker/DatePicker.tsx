@@ -1,10 +1,12 @@
 import Timer from './inDatePicker/Timer';
 import Dater from './inDatePicker/Dater';
+import DateButtonList from './inDatePicker/DateButtonList';
 import styled from '@emotion/styled';
 
 export default function DatePicker() {
   return (
     <S.Container>
+      <DateButtonList>요일</DateButtonList>
       <Dater>시작 날짜</Dater>
       <Dater>종료 날짜</Dater>
       <Timer>시작 시간</Timer>
