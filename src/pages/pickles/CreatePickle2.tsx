@@ -18,10 +18,8 @@ export default function CreatePickle2() {
   const {
     deadLine,
     when,
-    category,
     setDeadLine,
     setWhen,
-    setCategory,
   } = usePickleCreation();
   const navigate = useNavigate();
 

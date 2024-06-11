@@ -1,14 +1,11 @@
-import { ReactNode } from "react";
 import styled from "@emotion/styled"
-import { useHandleTimeWithWheel } from "../../hooks";
 
 interface TimeTextProps {
-  children: ReactNode;
   getAdjacentTime: any;
   containerRef: any;
 }
 
-export default function MonthInDater({ children, getAdjacentTime, containerRef}: TimeTextProps) {
+export default function MonthInDater({ getAdjacentTime, containerRef}: TimeTextProps) {
   return (
     <S.Container ref={containerRef}>
       <S.TimeText>

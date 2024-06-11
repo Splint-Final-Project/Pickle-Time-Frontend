@@ -1,18 +1,27 @@
-import { PropsWithChildren } from 'react';
-import styled from '@emotion/styled';
+import { ReactNode } from 'react';
 import TimeInTimer from './inTimer/TimeInTimer';
+import HourInTimer from './inTimer/HourInTimer';
+import MinuteInTimer from './inTimer/MinuteInTimer';
 import DayTimeInTimer from './inTimer/DayTimeInTimer';
+import { TimeTypeInInterface } from '@/hooks/zustand/useDateSelect';
+import styled from '@emotion/styled';
 
-export default function Timer({ children }: PropsWithChildren) {
+interface TimerInterface {
+  children: ReactNode,
+  time: TimeTypeInInterface,
+  setTime: (newTime: TimeTypeInInterface) => void;
+}
+
+export default function Timer({ children, time, setTime }: TimerInterface) {
   return (
     <S.Container>
       <S.TimerText>{children}</S.TimerText>
       <S.TimerContainer>
         <S.TimeText/>
-        <TimeInTimer minTime={1} maxTime={12} />
+        <HourInTimer minTime={1} maxTime={12} time={time} setTime={setTime}/>
         <S.TimeText>:</S.TimeText>
-        <TimeInTimer minTime={0} maxTime={59} />
-        <DayTimeInTimer />
+        <MinuteInTimer minTime={0} maxTime={59} time={time} setTime={setTime}/>
+        <DayTimeInTimer time={time} setTime={setTime}/>
       </S.TimerContainer>
     </S.Container>
   );

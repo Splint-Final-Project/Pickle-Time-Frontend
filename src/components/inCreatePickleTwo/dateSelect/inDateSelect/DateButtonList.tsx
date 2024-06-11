@@ -1,30 +1,19 @@
-import { MouseEventHandler, PropsWithChildren, useState } from "react";
+import { ReactNode } from "react";
 import DateButton from "./DateButton";
+import { useDateSelect } from "@/hooks/zustand/useDateSelect";
 import styled from "@emotion/styled";
 
-const DAY_OF_WEEK = [
-  { day: "일", id: 0 , isClicked: false},
-  { day: "월", id: 1 , isClicked: false},
-  { day: "화", id: 2 , isClicked: false},
-  { day: "수", id: 3 , isClicked: false},
-  { day: "목", id: 4 , isClicked: false},
-  { day: "금", id: 5 , isClicked: false},
-  { day: "토", id: 6 , isClicked: false},
-];
-
-interface Day {
-  day: string;
-  id: number;
-  isClicked: boolean;
+interface ButtonListProps {
+  children: ReactNode,
 }
 
-export default function DateButtonList({ children }: PropsWithChildren) {
-  const [days, setDays] = useState<Day[]>(DAY_OF_WEEK);
+export default function DateButtonList({ children }: ButtonListProps) {
+  const { weekend, setWeekend } = useDateSelect();
 
   const handleClick = (e: React.MouseEvent<HTMLButtonElement>, clickedDayId: number) => {
     e.preventDefault();
     e.stopPropagation();
-    setDays(days.map(day =>
+    setWeekend(weekend.map(day =>
       day.id === clickedDayId
         ? { ...day, isClicked: !day.isClicked }
         : day
@@ -35,7 +24,7 @@ export default function DateButtonList({ children }: PropsWithChildren) {
     <S.Container>
       <S.TimerText>{children}</S.TimerText>
       <S.ButtonContainer>
-        {days.map(dayOfWeek => 
+        {weekend.map(dayOfWeek => 
           <DateButton 
             key={dayOfWeek.id}
             dayId={dayOfWeek.id} 

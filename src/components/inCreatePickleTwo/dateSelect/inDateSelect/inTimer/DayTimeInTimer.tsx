@@ -1,9 +1,15 @@
 import { useState, useEffect, useRef } from "react";
+import { TimeTypeInInterface } from '@/hooks/zustand/useDateSelect';
 import styled from "@emotion/styled"
 
 const DAY_TIME = ["AM", "PM"];
 
-export default function DayTimeInTimer() {
+interface TimeTextProps {
+  time: TimeTypeInInterface,
+  setTime: (newTime: TimeTypeInInterface) => void;
+}
+
+export default function DayTimeInTimer({ time, setTime }: TimeTextProps) {
   const [currentIndex, setCurrentIndex] = useState<number>(0);
   const [offset, setOffset] = useState<number>(0);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -39,6 +45,10 @@ export default function DayTimeInTimer() {
       return () => clearTimeout(timeout);
     }
   }, [offset, DAY_TIME.length]);
+
+  useEffect(() => {
+    setTime({...time, dayTime: DAY_TIME[currentIndex]});
+  }, [currentIndex]);
 
   const getAdjacentIndex = (offset: number) => {
     let newIndex = currentIndex + offset;

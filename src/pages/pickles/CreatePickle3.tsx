@@ -44,7 +44,7 @@ export default function CreatePickle3() {
     <Container>
       <TitleContainer>
         <Title>
-          <img src="icons/back.svg" alt="back" onClick={() => navigate('/pickle-create-1')} />
+          <img src="icons/back.svg" alt="back" onClick={() => navigate('/pickle-create-2')} />
           <div>피클 생성</div>
         </Title>
         <StepIndicatorContainer>

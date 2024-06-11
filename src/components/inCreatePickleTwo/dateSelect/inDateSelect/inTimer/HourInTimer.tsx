@@ -1,29 +1,28 @@
-import { ReactNode, useEffect } from "react";
+import { useEffect } from "react";
 import { useHandleTimeWithWheel } from "../../hooks";
-import { DateTypeInInterface } from '@/hooks/zustand/useDateSelect';
+import { TimeTypeInInterface } from '@/hooks/zustand/useDateSelect';
 import styled from "@emotion/styled"
 
-interface DateInDaterProps {
+interface TimeTextProps {
   minTime: number;
   maxTime: number;
-  children: ReactNode;
-  date: DateTypeInInterface,
-  setDate: (newStartDate: DateTypeInInterface) => void;
+  time: TimeTypeInInterface,
+  setTime: (newTime: TimeTypeInInterface) => void;
 }
 
-export default function DateInDater({minTime, maxTime, children, date, setDate }: DateInDaterProps) {
-  const { getAdjacentTime, containerRef, time } = useHandleTimeWithWheel(minTime, maxTime);
+export default function HourInTimer({ minTime, maxTime, time, setTime }: TimeTextProps) {
+  const { getAdjacentTime, containerRef, time: localScopeTime } = useHandleTimeWithWheel(minTime, maxTime);
 
   useEffect(() => {
-    setDate({ ...date, day: time});
-  }, [time])
+    setTime({ ...time, hour: localScopeTime});
+  }, [localScopeTime]);
 
   return (
     <S.Container ref={containerRef}>
       <S.TimeText>
-        <S.TimeItem isCurrent={false}>{getAdjacentTime(-1)}{children}</S.TimeItem>
-        <S.TimeItem isCurrent={true}>{getAdjacentTime(0)}{children}</S.TimeItem>
-        <S.TimeItem isCurrent={false}>{getAdjacentTime(1)}{children}</S.TimeItem>
+        <S.TimeItem isCurrent={false}>{getAdjacentTime(-1)}</S.TimeItem>
+        <S.TimeItem isCurrent={true}>{getAdjacentTime(0)}</S.TimeItem>
+        <S.TimeItem isCurrent={false}>{getAdjacentTime(1)}</S.TimeItem>
       </S.TimeText>
     </S.Container>
   );

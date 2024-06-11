@@ -1,23 +1,34 @@
-import { PropsWithChildren, useState } from 'react';
-import styled from '@emotion/styled';
+import { ReactNode, useEffect } from 'react';
 import DateInDater from './inDater/DateInDater';
 import { useMaxDaysInMonth, useHandleTimeWithWheel } from '../hooks';
 import MonthInDater from './inDater/MonthInDater';
+import { DateTypeInInterface } from '@/hooks/zustand/useDateSelect';
+import styled from '@emotion/styled';
+
+interface DaterInterface {
+  children: ReactNode,
+  date: DateTypeInInterface,
+  setDate: (newDate: DateTypeInInterface) => void;
+}
 
 const THIS_YEAR = new Date().getFullYear();
 
-export default function Dater({ children }: PropsWithChildren) {
+export default function Dater({ children, date, setDate }: DaterInterface) {
   const { getAdjacentTime, containerRef, time } = useHandleTimeWithWheel(1, 12);
   const maxDays = useMaxDaysInMonth(time, THIS_YEAR);
   
+  useEffect(() => {
+    setDate({ ...date, month: time});
+  }, [time])
+
   return (
     <S.Container>
       <S.TimerText>{children}</S.TimerText>
       <S.TimerContainer>
         <S.TimeText/>
-        <MonthInDater getAdjacentTime={getAdjacentTime} containerRef={containerRef}>월</MonthInDater>
+        <MonthInDater getAdjacentTime={getAdjacentTime} containerRef={containerRef}/>
         <S.TimeText/>
-        <DateInDater minTime={1} maxTime={maxDays}>일</DateInDater>
+        <DateInDater date={date} setDate={setDate} minTime={1} maxTime={maxDays}>일</DateInDater>
       </S.TimerContainer>
     </S.Container>
   );

@@ -2,16 +2,28 @@ import Timer from './inDateSelect/Timer';
 import Dater from './inDateSelect/Dater';
 import DateButtonList from './inDateSelect/DateButtonList';
 import styled from '@emotion/styled';
+import { useDateSelect } from '@/hooks/zustand/useDateSelect';
 
-export default function DatePicker() {
+export default function DateSelect() {
+  const {
+    startDate,
+    finishDate,
+    startTime,
+    finishTime,
+    setStartDate,
+    setFinishDate,
+    setStartTime,
+    setFinishTime
+  } = useDateSelect();
+
   return (
     <S.Container>
       <S.Text>일정을 선택해 주세요</S.Text>
-      <Dater>시작 날짜</Dater>
-      <Dater>종료 날짜</Dater>
+      <Dater date={startDate} setDate={setStartDate}>시작 날짜</Dater>
+      <Dater date={finishDate} setDate={setFinishDate}>종료 날짜</Dater>
       <DateButtonList>요일</DateButtonList>
-      <Timer>시작 시간</Timer>
-      <Timer>종료 시간</Timer>
+      <Timer time={startTime} setTime={setStartTime}>시작 시간</Timer>
+      <Timer time={finishTime} setTime={setFinishTime}>종료 시간</Timer>
     </S.Container>
   );
 }
