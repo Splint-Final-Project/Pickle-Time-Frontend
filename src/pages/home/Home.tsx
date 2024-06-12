@@ -89,7 +89,7 @@ export default function Home() {
         <div>
           {getMe() ? (
             <>
-              안녕하세요 {getMe()?.nickname}님 <button onClick={signOut}>로그아웃</button>
+              {getMe()?.nickname}님&nbsp;&nbsp;<button onClick={signOut}>로그아웃</button>
             </>
           ) : (
             <Link to={routes.signIn}>Sign In</Link>
@@ -120,7 +120,6 @@ export default function Home() {
         <PickleList.Header category="total" />
         <ErrorBoundary fallback={Error}>
           <Suspense fallback={<SkeletonPickleCardList />}>
-            {/* <PickleCardList category="total" /> */}
             <SortButtons />
             <InfinitePickleCardList />
           </Suspense>
@@ -148,14 +147,12 @@ export default function Home() {
 
       <button onClick={() => handleOpen({ renderComponent: ReviewModal })}>리뷰작성</button>
 
-      {/* <KaKaoMap /> */}
       <button type="button" onClick={openModal}>
         모달 테스트 버튼
       </button>
       <BackDropModal isOpen={isModalOpen} onClose={closeModal}>
         <div>티라노 앙</div>
       </BackDropModal>
-      {/* <HeartButton isActive={isHeartClicked} onClick={handleHeartClick} /> */}
     </MainLayout>
   );
 }
