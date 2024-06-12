@@ -12,6 +12,7 @@ import {
   Title,
   TitleContainer,
 } from './CreatePickleStyled';
+import CapacitySelect from '@/components/inCreatePickleThree/capacitySelect/\bCapacitySelect';
 
 export default function CreatePickle3() {
   const {
@@ -53,19 +54,16 @@ export default function CreatePickle3() {
           <StepIndicator $selected={true}>3</StepIndicator>
           <StepIndicator $selected={false}>4</StepIndicator>
         </StepIndicatorContainer>
+        <label htmlFor="category">대표이미지:</label>
       </TitleContainer>
 
-      <InputComponent>
-        <label htmlFor="category">대표이미지:</label>
-        {/* <input type="text" id="category" value={category} onChange={e => setCategory(e.target.value)} /> */}
-      </InputComponent>
       <InputComponent>
         <label htmlFor="when">설명:</label>
         {/* <input type="text" id="when" value={when} onChange={e => setWhen(e.target.value)} /> */}
       </InputComponent>
+      {/* 참여 인원 */}
       <InputComponent>
-        <label htmlFor="cost">참여인원:</label>
-        {/* <input type="text" id="cost" value={cost} onChange={e => setCost(e.target.value)} /> */}
+        <CapacitySelect/>
       </InputComponent>
       <InputComponent>
         <label htmlFor="cost">목표:</label>
