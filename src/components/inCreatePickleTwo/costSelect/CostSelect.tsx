@@ -49,6 +49,7 @@ const S = {
     display: flex;
     align-items: center;
     justify-content: center;
+    padding-bottom: 1.5rem;
   `,
 
   InputLabel: styled.label`

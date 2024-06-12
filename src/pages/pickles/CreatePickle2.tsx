@@ -80,13 +80,16 @@ export default function CreatePickle2() {
           <StepIndicator $selected={false}>3</StepIndicator>
           <StepIndicator $selected={false}>4</StepIndicator>
         </StepIndicatorContainer>
+
         {/* 카테고리 선택 */}
         <CategorySelect/>
       </TitleContainer>
+
       {/* 날짜 선택 */}
       <InputComponent>
         <DateSelect/>
       </InputComponent>
+      
       {/* 비용 선택 */}
       <InputComponent>
         <CostSelect/>

@@ -1,34 +1,21 @@
 import usePickleCreation from "@/hooks/zustand/usePickleCreation"
 import styled from '@emotion/styled';
 
-const MAX_CAPACITY = 6;
-
-const limitMaxCapacity = (capacity: number) => {
-  if (capacity > MAX_CAPACITY) {
-    return MAX_CAPACITY;
-  }
-
-  return capacity;
-}
-
-export default function CapacitySelect() {
-  const { capacity, setCapacity } = usePickleCreation();
+export default function WriteDetail() {
+  const { explanation, setExplanation } = usePickleCreation();
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const inputNewCapacity = e.target.value;
-    const newCapacity = parseFloat(inputNewCapacity);
-    setCapacity(limitMaxCapacity(newCapacity));
+    const newExplanation = e.target.value;
+    setExplanation(newExplanation);
   };
 
   return (
     <S.Container>
-      <S.Text>참여 인원을 설정해 주세요</S.Text>
-      <S.InputWrapper>
+      <S.Text>피클을 소개하는 글을 작성해 주세요</S.Text>
         <S.InputLabel>
-          <S.Input placeholder="00" onChange={handleInputChange} value={isNaN(capacity) || capacity === 0 ? '' : capacity}/>
+          <S.Input placeholder="지향하는 분위기, 주의사항 등 자유롭게 피클을 소개하는 내용을 입력해 주세요." onChange={handleInputChange} value={explanation}/>
         </S.InputLabel>
-        <S.CapacityText>명</S.CapacityText>
-      </S.InputWrapper>
+      <S.SubText>200자 이내로 입력해 주세요</S.SubText>
     </S.Container>
   )
 }
@@ -51,28 +38,23 @@ const S = {
     line-height: normal;
   `,
 
-  InputWrapper: styled.div`
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 1.5rem;
-  `,
-
   InputLabel: styled.label`
-    width: 5rem;
+    width: 100%;
+    /* height: 20rem; */
   `,
    
   Input: styled.input`
-    width: 5rem;
+    width: 100%;
+    height: 20rem;
+    line-height: 20rem;
     border: none;
     border-bottom: 0.2rem solid #ddd;
     font-family: Pretendard;
-    text-align: right;
-    font-size: 2.4rem;
+    font-size: 1.4rem;
     font-weight: 600;
+    resize: none;
     font-style: normal;
     line-height: normal;
-    outline: none;
 
     &:focus {
       border-bottom-color: #333; // Focus 시 밑줄 색상 변경
@@ -83,6 +65,15 @@ const S = {
     color: #181F29;
     font-family: Pretendard;
     font-size: 2.4rem;
+    font-weight: 600;
+    font-style: normal;
+    line-height: normal;
+  `,
+
+  SubText: styled.span`
+    color: #8B8D94;
+    font-family: Pretendard;
+    font-size: 1.5rem;
     font-weight: 600;
     font-style: normal;
     line-height: normal;

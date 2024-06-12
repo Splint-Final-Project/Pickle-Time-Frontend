@@ -13,6 +13,7 @@ import {
   TitleContainer,
 } from './CreatePickleStyled';
 import CapacitySelect from '@/components/inCreatePickleThree/capacitySelect/\bCapacitySelect';
+import WriteDetail from '@/components/inCreatePickleThree/writeDetail/WriteDetail';
 
 export default function CreatePickle3() {
   const {
@@ -58,13 +59,14 @@ export default function CreatePickle3() {
       </TitleContainer>
 
       <InputComponent>
-        <label htmlFor="when">설명:</label>
-        {/* <input type="text" id="when" value={when} onChange={e => setWhen(e.target.value)} /> */}
+        <WriteDetail/>
       </InputComponent>
+
       {/* 참여 인원 */}
       <InputComponent>
         <CapacitySelect/>
       </InputComponent>
+      
       <InputComponent>
         <label htmlFor="cost">목표:</label>
         {/* <input type="text" id="cost" value={cost} onChange={e => setCost(e.target.value)} /> */}
