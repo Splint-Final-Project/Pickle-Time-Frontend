@@ -19,6 +19,8 @@ import { useDateSelect } from '@/hooks/zustand/useDateSelect';
 
 export default function CreatePickle2() {
   const {
+    cost,
+    category,
     deadLine,
     when,
     setDeadLine,
@@ -35,6 +37,14 @@ export default function CreatePickle2() {
   
   const handleClick = async () => {
     try {
+      if (!category) {
+        throw new Error('피클 타임의 카테고리를 선택해 주세요.')
+      };
+
+      if (!cost) {
+        throw new Error('피클 타임 비용을 입력해 주세요.')
+      };
+
       // deadline
       const newDeadLine = deadlineCalculate();
       setDeadLine(newDeadLine);
@@ -49,7 +59,9 @@ export default function CreatePickle2() {
         deadline: newDeadLine
       });
       setWhen({ times: times, summary: summary });
-      console.log(when)
+
+      // navigate
+      navigate('/pickle-create-3');
     } catch (error) {
       console.log(error);
     }
@@ -79,8 +91,7 @@ export default function CreatePickle2() {
       <InputComponent>
         <CostSelect/>
       </InputComponent>
-      <button onClick={handleClick}>hi</button>
-      <SubmitButton onClick={() => navigate('/pickle-create-3')}>다음 단계로 넘어가기</SubmitButton>
+      <SubmitButton onClick={handleClick}>다음 단계로 넘어가기</SubmitButton>
     </Container>
   );
 }
