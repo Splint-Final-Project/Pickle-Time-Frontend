@@ -1,10 +1,13 @@
 import styled from '@emotion/styled';
+import { useEffect, useRef, useState } from 'react';
+import { css } from '@emotion/react';
 
 import SpecialPickleCard from '../picklecard/SpecialPickleCard';
 import { useGetSpecialPickles } from '@/hooks/query/pickles';
 
-import { useEffect, useRef, useState } from 'react';
-import { css } from '@emotion/react';
+import leftArrow from '/icons/leftBlackArrow.svg';
+import rightArrow from '/icons/rightBlackArrow.svg';
+import PickleCardMockData from '@/mocks/pickleCardData';
 
 interface PickleCardListProps {
   category: 'hotTime' | 'popular';
@@ -17,7 +20,8 @@ export default function PickleCardList({ category }: PickleCardListProps) {
   const { data } = useGetSpecialPickles(category);
 
   const [moveSliderValue, setMoveSliderValue] = useState(0);
-  const [isMouseIn, setIsMouseIn] = useState(false);
+  const [isMouseInLeft, setIsMouseInLeft] = useState(false);
+  const [isMouseInRight, setIsMouseInRight] = useState(false);
   const ListRef = useRef<HTMLUListElement>(null);
   const ListContainerRef = useRef<HTMLDivElement>(null);
   const [existData, setExistData] = useState<boolean>(false);
@@ -28,14 +32,8 @@ export default function PickleCardList({ category }: PickleCardListProps) {
     } else {
       setExistData(true);
     }
-  }, []);
+  }, [data]);
 
-  const onMouseInEvent = () => {
-    setIsMouseIn(true);
-  };
-  const onMouseLeaveEvent = () => {
-    setIsMouseIn(false);
-  };
   const handleLeftBtn = () => {
     if (moveSliderValue === 0) {
       return;
@@ -45,7 +43,7 @@ export default function PickleCardList({ category }: PickleCardListProps) {
   const handleRightBtn = () => {
     if (!ListRef.current || !ListContainerRef.current) return;
 
-    if (moveSliderValue * SLIDER_MOVE_VALUE > ListRef?.current.offsetWidth - ListContainerRef?.current.offsetWidth) {
+    if (moveSliderValue * SLIDER_MOVE_VALUE > ListRef.current.offsetWidth - ListContainerRef.current.offsetWidth) {
       return;
     }
     setMoveSliderValue(prev => prev + 1);
@@ -54,9 +52,10 @@ export default function PickleCardList({ category }: PickleCardListProps) {
   return (
     <S.Container ref={ListContainerRef}>
       <S.ListViewBox>
-        <S.ListInner onMouseOver={onMouseInEvent} onMouseLeave={onMouseLeaveEvent}>
+        <S.ListInner>
           <S.List $transLateX={moveSliderValue} ref={ListRef}>
-            {data?.length ? (
+            {/* 데이터 사용 시 아래 조건문 주석 제거 */}
+            {/* {data?.length ? (
               data.map((pickle: any) => (
                 <li key={pickle.id}>
                   <SpecialPickleCard pickleData={pickle} />
@@ -64,26 +63,22 @@ export default function PickleCardList({ category }: PickleCardListProps) {
               ))
             ) : (
               <h1>피클이 없네요 ㅠㅠ</h1>
-            )}
+            )} */}
+            {/* 목데이터 */}
+            <PickleCardMockData />
           </S.List>
         </S.ListInner>
       </S.ListViewBox>
-      <S.SliderControlBtn
-        onClick={handleLeftBtn}
-        $isShow={isMouseIn && existData}
-        $position="left"
-        onMouseOver={onMouseInEvent}
-      >
-        왼쪽
-      </S.SliderControlBtn>
-      <S.SliderControlBtn
-        onClick={handleRightBtn}
-        $isShow={isMouseIn && existData}
-        $position="right"
-        onMouseOver={onMouseInEvent}
-      >
-        오른쪽
-      </S.SliderControlBtn>
+      <S.HoverAreaLeft onMouseEnter={() => setIsMouseInLeft(true)} onMouseLeave={() => setIsMouseInLeft(false)}>
+        <S.SliderControlBtn onClick={handleLeftBtn} $isShow={isMouseInLeft && existData}>
+          <img src={leftArrow} alt="Left Arrow" />
+        </S.SliderControlBtn>
+      </S.HoverAreaLeft>
+      <S.HoverAreaRight onMouseEnter={() => setIsMouseInRight(true)} onMouseLeave={() => setIsMouseInRight(false)}>
+        <S.SliderControlBtn onClick={handleRightBtn} $isShow={isMouseInRight && existData}>
+          <img src={rightArrow} alt="Right Arrow" />
+        </S.SliderControlBtn>
+      </S.HoverAreaRight>
     </S.Container>
   );
 }
@@ -109,27 +104,38 @@ const S = {
     transition: 0.5s;
     transform: ${({ $transLateX }) => `translateX(-${$transLateX * SLIDER_MOVE_VALUE}px)`};
   `,
-  SliderControlBtn: styled.button<{ $position: 'right' | 'left'; $isShow: boolean }>`
+  HoverAreaLeft: styled.div`
+    position: absolute;
+    top: 0;
+    left: -3.5rem;
+    bottom: 0;
+    width: 5rem;
+    background-color: transparent;
+  `,
+  HoverAreaRight: styled.div`
+    position: absolute;
+    top: 0;
+    right: -3.5rem;
+    bottom: 0;
+    width: 5rem;
+    background-color: transparent;
+  `,
+  SliderControlBtn: styled.button<{ $isShow: boolean }>`
     display: ${({ $isShow }) => ($isShow ? 'inline-block' : 'none')};
     width: 5rem;
     height: 5rem;
-    background-color: #d9d9d9;
     z-index: 500;
-    border-radius: 50%;
+
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    ${({ $position }) => {
-      if ($position === 'right') {
-        return css`
-          right: -2.5rem;
-        `;
-      } else {
-        return css`
-          left: -2.5rem;
-        `;
-      }
-    }}
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    img {
+      width: 2rem;
+      height: 2rem;
+    }
   `,
   Container: styled.div`
     position: relative;
