@@ -126,11 +126,10 @@ export default function Home() {
         </ErrorBoundary>
       </PickleList.Container>
 
-      <br />
-      <br />
-      <div style={{ display: 'flex', flexDirection: 'column' }}>
-        <Link to={routes.chatList}>Chat List</Link>
-      </div>
+      <S.FloatingButton type="button" onClick={() => navigate('/pickle-create')}>
+        <S.CreatePickleIcon src="/icons/createPickle.svg" alt="" />
+      </S.FloatingButton>
+
       <br />
       <br />
       <div>
@@ -138,9 +137,7 @@ export default function Home() {
       </div>
       <br />
       <br />
-      <S.FloatingButton type="button" onClick={() => navigate('/pickle-create')}>
-        <S.CreatePickleIcon src="/icons/createPickle.svg" alt="" />
-      </S.FloatingButton>
+
       <br />
       <br />
       <br />
