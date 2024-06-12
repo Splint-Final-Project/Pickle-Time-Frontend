@@ -19,6 +19,8 @@ import { useDateSelect } from '@/hooks/zustand/useDateSelect';
 
 export default function CreatePickle2() {
   const {
+    cost,
+    category,
     deadLine,
     when,
     setDeadLine,
@@ -34,19 +36,35 @@ export default function CreatePickle2() {
   } = useDateSelect();
   
   const handleClick = async () => {
-    const newDeadLine = deadlineCalculate();
-    const request = await picklesRequests.test(newDeadLine);
-    setDeadLine(newDeadLine);
-    console.log(newDeadLine)
+    try {
+      if (!category) {
+        throw new Error('피클 타임의 카테고리를 선택해 주세요.')
+      };
 
-    const newMeetingTimes = totalMeetingTimesCalculate({ 
-      startDate, 
-      finishDate,
-      weekend,
-      startTime,
-      finishTime 
-    });
-    console.log(newMeetingTimes);
+      if (!cost) {
+        throw new Error('피클 타임 비용을 입력해 주세요.')
+      };
+
+      // deadline
+      const newDeadLine = deadlineCalculate();
+      setDeadLine(newDeadLine);
+
+      // when
+      const { times, summary } = await totalMeetingTimesCalculate({ 
+        startDate, 
+        finishDate,
+        weekend,
+        startTime,
+        finishTime,
+        deadline: newDeadLine
+      });
+      setWhen({ times: times, summary: summary });
+
+      // navigate
+      navigate('/pickle-create-3');
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   return (
@@ -73,8 +91,7 @@ export default function CreatePickle2() {
       <InputComponent>
         <CostSelect/>
       </InputComponent>
-      <button onClick={handleClick}>hi</button>
-      <SubmitButton onClick={() => navigate('/pickle-create-3')}>다음 단계로 넘어가기</SubmitButton>
+      <SubmitButton onClick={handleClick}>다음 단계로 넘어가기</SubmitButton>
     </Container>
   );
 }
