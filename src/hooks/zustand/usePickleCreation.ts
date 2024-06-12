@@ -53,7 +53,7 @@ const usePickleCreation = create<{
   viewCount: 0,
   setTitle: (title: string) => set({ title }),
   setCapacity: (capacity: number) => set({ capacity }),
-  setCost: (cost: number) => set({ cost }),
+  setCost: (cost: number | undefined) => set({ cost }),
   setDeadLine: (deadLine: Date) => set({ deadLine }),
   setPlace: (place: string) => set({ place }),
   setAddress: (address: string) => set({ address }),

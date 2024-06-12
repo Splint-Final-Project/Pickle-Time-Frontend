@@ -8,7 +8,7 @@ interface SectionProps {
 }
 
 interface SectionHeaderProps {
-  category: 'hotTime' | 'popular';
+  category: 'hotTime' | 'popular' | 'total';
 }
 
 const HEADER_CATEGORY_TEXT = {
@@ -20,6 +20,11 @@ const HEADER_CATEGORY_TEXT = {
   popular: {
     title: '인기 급상승 피클',
     summary: '참여하고 싶어지는 급상승 피클!',
+    totalLink: '/',
+  },
+  total: {
+    title: '전체 피클',
+    summary: '모든 피클을 한 눈에!',
     totalLink: '/',
   },
 };

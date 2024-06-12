@@ -1,8 +1,8 @@
-import usePickleCreation from '@/hooks/zustand/usePickleCreation';
-import React from 'react';
-import axios from 'axios';
-import client from '@/apis/axios';
 import { useNavigate } from 'react-router-dom';
+
+import DateSelect from '@/components/inCreatePickleTwo/dateSelect/DateSelect';
+import CostSelect from '@/components/inCreatePickleTwo/costSelect/CostSelect';
+import usePickleCreation from '@/hooks/zustand/usePickleCreation';
 import {
   Container,
   InputComponent,
@@ -12,33 +12,42 @@ import {
   Title,
   TitleContainer,
 } from './CreatePickleStyled';
+import CategorySelect from '@/components/inCreatePickleTwo/categorySelect/CategorySelect';
+import { deadlineCalculate, totalMeetingTimesCalculate } from '@/utils/dateCalculate';
+import { picklesRequests } from '@/apis/pickle.api';
+import { useDateSelect } from '@/hooks/zustand/useDateSelect';
 
 export default function CreatePickle2() {
   const {
-    title,
-    capacity,
-    cost,
     deadLine,
-    where,
     when,
-    category,
-    explanation,
-    viewCount,
-    latitude,
-    longitude,
-    setTitle,
-    setCapacity,
-    setCost,
     setDeadLine,
-    setWhere,
     setWhen,
-    setCategory,
-    setExplanation,
-    setViewCount,
-    setLatitude,
-    setLongitude,
   } = usePickleCreation();
   const navigate = useNavigate();
+  const { 
+    startDate,
+    finishDate,
+    weekend,
+    startTime,
+    finishTime 
+  } = useDateSelect();
+  
+  const handleClick = async () => {
+    const newDeadLine = deadlineCalculate();
+    const request = await picklesRequests.test(newDeadLine);
+    setDeadLine(newDeadLine);
+    console.log(newDeadLine)
+
+    const newMeetingTimes = totalMeetingTimesCalculate({ 
+      startDate, 
+      finishDate,
+      weekend,
+      startTime,
+      finishTime 
+    });
+    console.log(newMeetingTimes);
+  }
 
   return (
     <Container>
@@ -53,20 +62,18 @@ export default function CreatePickle2() {
           <StepIndicator $selected={false}>3</StepIndicator>
           <StepIndicator $selected={false}>4</StepIndicator>
         </StepIndicatorContainer>
+        {/* 카테고리 선택 */}
+        <CategorySelect/>
       </TitleContainer>
-
+      {/* 날짜 선택 */}
       <InputComponent>
-        <label htmlFor="category">카테고리:</label>
-        <input type="text" id="category" value={category} onChange={e => setCategory(e.target.value)} />
+        <DateSelect/>
       </InputComponent>
+      {/* 비용 선택 */}
       <InputComponent>
-        <label htmlFor="when">When:</label>
-        {/* <input type="text" id="when" value={when} onChange={e => setWhen(e.target.value)} /> */}
+        <CostSelect/>
       </InputComponent>
-      <InputComponent>
-        <label htmlFor="cost">Cost:</label>
-        {/* <input type="text" id="cost" value={cost} onChange={e => setCost(e.target.value)} /> */}
-      </InputComponent>
+      <button onClick={handleClick}>hi</button>
       <SubmitButton onClick={() => navigate('/pickle-create-3')}>다음 단계로 넘어가기</SubmitButton>
     </Container>
   );
