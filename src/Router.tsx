@@ -56,15 +56,15 @@ const router = createBrowserRouter([
         element: <Pickle />,
       },
       {
-        path: '/pickle-create',
+        path: routes.pickleCreate,
         element: <CreatePickle />,
       },
       {
-        path: '/pickle-join',
+        path: routes.pickleJoin,
         element: <JoinPicklePayment />,
       },
       {
-        path: '/pickle-create-payment',
+        path: routes.pickleCreatePayment,
         element: <CreatePicklePayment />,
       },
       {
@@ -77,11 +77,11 @@ const router = createBrowserRouter([
         ],
       },
       {
-        path: '/join-redirect',
+        path: routes.pickleJoinRedirect,
         element: <PickleJoinRedirector />,
       },
       {
-        path: '/create-redirect',
+        path: routes.pickleCreateRedirect,
         element: <PickleCreationRedirector />,
       },
       {
@@ -105,7 +105,7 @@ const router = createBrowserRouter([
         element: <SignUp />,
       },
       {
-        path: '/sign-in-email',
+        path: routes.signInEmail,
         element: <SignIn_Email />,
       },
       {
