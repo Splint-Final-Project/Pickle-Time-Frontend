@@ -13,6 +13,9 @@ import {
   TitleContainer,
 } from './CreatePickleStyled';
 import CategorySelect from '@/components/inCreatePickleTwo/categorySelect/CategorySelect';
+import { deadlineCalculate, totalMeetingTimesCalculate } from '@/utils/dateCalculate';
+import { picklesRequests } from '@/apis/pickle.api';
+import { useDateSelect } from '@/hooks/zustand/useDateSelect';
 
 export default function CreatePickle2() {
   const {
@@ -22,6 +25,29 @@ export default function CreatePickle2() {
     setWhen,
   } = usePickleCreation();
   const navigate = useNavigate();
+  const { 
+    startDate,
+    finishDate,
+    weekend,
+    startTime,
+    finishTime 
+  } = useDateSelect();
+  
+  const handleClick = async () => {
+    const newDeadLine = deadlineCalculate();
+    const request = await picklesRequests.test(newDeadLine);
+    setDeadLine(newDeadLine);
+    console.log(newDeadLine)
+
+    const newMeetingTimes = totalMeetingTimesCalculate({ 
+      startDate, 
+      finishDate,
+      weekend,
+      startTime,
+      finishTime 
+    });
+    console.log(newMeetingTimes);
+  }
 
   return (
     <Container>
@@ -47,6 +73,7 @@ export default function CreatePickle2() {
       <InputComponent>
         <CostSelect/>
       </InputComponent>
+      <button onClick={handleClick}>hi</button>
       <SubmitButton onClick={() => navigate('/pickle-create-3')}>다음 단계로 넘어가기</SubmitButton>
     </Container>
   );
