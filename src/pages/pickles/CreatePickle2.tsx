@@ -34,19 +34,25 @@ export default function CreatePickle2() {
   } = useDateSelect();
   
   const handleClick = async () => {
-    const newDeadLine = deadlineCalculate();
-    const request = await picklesRequests.test(newDeadLine);
-    setDeadLine(newDeadLine);
-    console.log(newDeadLine)
+    try {
+      // deadline
+      const newDeadLine = deadlineCalculate();
+      setDeadLine(newDeadLine);
 
-    const newMeetingTimes = totalMeetingTimesCalculate({ 
-      startDate, 
-      finishDate,
-      weekend,
-      startTime,
-      finishTime 
-    });
-    console.log(newMeetingTimes);
+      // when
+      const { times, summary } = await totalMeetingTimesCalculate({ 
+        startDate, 
+        finishDate,
+        weekend,
+        startTime,
+        finishTime,
+        deadline: newDeadLine
+      });
+      setWhen({ times: times, summary: summary });
+      console.log(when)
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   return (
