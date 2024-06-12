@@ -11,7 +11,8 @@ type color =
   | 'inputBox'
   | 'inputText'
   | 'card'
-  | 'error';
+  | 'error'
+  | 'background';
 
 type typography =
   | 'header'

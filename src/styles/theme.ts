@@ -11,6 +11,7 @@ const theme = Object.freeze({
     inputText: '#BABABA',
     card: '#F3F4F6',
     error: '#D54040',
+    background: '#F6F6F6',
   },
 
   typography: {
