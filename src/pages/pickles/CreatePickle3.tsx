@@ -14,6 +14,7 @@ import {
 } from './CreatePickleStyled';
 import CapacitySelect from '@/components/inCreatePickleThree/capacitySelect/\bCapacitySelect';
 import WriteDetail from '@/components/inCreatePickleThree/writeDetail/WriteDetail';
+import GoalSelect from '@/components/inCreatePickleThree/goalSelect/GoalSelect';
 
 export default function CreatePickle3() {
   const {
@@ -66,10 +67,9 @@ export default function CreatePickle3() {
       <InputComponent>
         <CapacitySelect/>
       </InputComponent>
-      
+
       <InputComponent>
-        <label htmlFor="cost">목표:</label>
-        {/* <input type="text" id="cost" value={cost} onChange={e => setCost(e.target.value)} /> */}
+        <GoalSelect/>
       </InputComponent>
       <SubmitButton onClick={() => navigate('/pickle-create-4')}>다음 단계로 넘어가기</SubmitButton>
     </Container>

@@ -45,8 +45,7 @@ const S = {
    
   Input: styled.input`
     width: 100%;
-    height: 20rem;
-    line-height: 20rem;
+    padding-bottom: 20rem;
     border: none;
     border-bottom: 0.2rem solid #ddd;
     font-family: Pretendard;
