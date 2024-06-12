@@ -2,10 +2,10 @@ import theme from '@/styles/theme';
 
 export const buttonStyleByType = {
   PRIMARY: `
-    background-color: #a0d911;
+    background-color: ${theme.color.primary};
     color: ${theme.color.white};
     &:hover {
-      background-color: #99cc18;
+      background-color: #47c15b
     }
   `,
 
