@@ -1,12 +1,9 @@
-import { Link, useNavigate } from 'react-router-dom';
-
-import useAuth from '@/hooks/zustand/useAuth';
-import KaKaoMap from '@/components/map/KaKaoMap';
-import routes from '@/constants/routes';
-import BackDropModal from '@/components/common/modal/BackDropModal';
 import { Suspense, useEffect, useState } from 'react';
-
+import { Link, useNavigate } from 'react-router-dom';
 import styled from '@emotion/styled';
+
+import KaKaoMap from '@/components/map/KaKaoMap';
+import BackDropModal from '@/components/common/modal/BackDropModal';
 import HeartButton from '@/components/common/button/HeartButton';
 import { useCreatePickleMutation } from '@/hooks/query/pickles';
 import MainLayout from '@/layouts/MainLayout';
@@ -15,8 +12,14 @@ import PickleList from '@/components/picklecardlist/PickleCardListElement';
 import PickleCardList from '@/components/picklecardlist/PickleCardList';
 import ErrorBoundary from '@/components/common/ErrorBoundary';
 import SkeletonPickleCardList from '@/components/picklecardlist/PickleCardList.Skeleton';
+import ReviewModal from '@/components/my-page/review/ReviewModal';
 import SortButtons from '@/components/common/button/SortButtons';
 import InfinitePickleCardList from '@/components/picklecard/InfinitePickleCardList';
+
+import routes from '@/constants/routes';
+import useAuth from '@/hooks/zustand/useAuth';
+import useBottomSheetModal from '@/hooks/zustand/useBottomSheetModal';
+
 
 const S = {
   TopNavBarContainer: styled.div`
@@ -40,6 +43,8 @@ export default function Home() {
 
   const openModal = () => setModalOpen(true);
   const closeModal = () => setModalOpen(false);
+
+  const { handleOpen } = useBottomSheetModal(state => state);
 
   // 전역 상태
   const { getMe, signOut } = useAuth();
@@ -107,6 +112,8 @@ export default function Home() {
       <br />
       <br />
       <br />
+
+      <button onClick={() => handleOpen({ renderComponent: ReviewModal })}>리뷰작성</button>
 
       {/* <KaKaoMap /> */}
       <button type="button" onClick={openModal}>

@@ -1,6 +1,6 @@
 import client from '@/apis/axios';
 import { API, API_PICKLE } from '@/constants/API';
-import { Coordinates, CreatePickleData } from './types/pickles.type';
+import { Coordinates, CreatePickleData, CreateReviewData } from './types/pickles.type';
 
 export const picklesRequests = Object.freeze({
   // 피클 전체 목록조회
@@ -37,5 +37,12 @@ export const picklesRequests = Object.freeze({
   // 피클 상세조회
   getPickleDetail: (pickleId: string) => {
     return client.get(API_PICKLE.BY_ID(pickleId));
+  },
+
+  // 리뷰 작성
+  createReview: (pickleId: string, reviewData: CreateReviewData) => {
+    return client.post(API_PICKLE.REVIEW(pickleId), {
+      data: reviewData,
+    });
   },
 });
