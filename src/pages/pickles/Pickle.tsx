@@ -37,7 +37,7 @@ export default function Pickle() {
         <p>{pickleDetailData?.capacity}명 모집할거고</p>
         <p>참가비는 {formatCurrency(pickleDetailData?.cost)}원이고</p>
         <p>
-          총 {pickleDetailData?.when.summary}, {pickleDetailData?.where}에서 진행해
+          총 {pickleDetailData?.when?.summary}, {pickleDetailData?.where}에서 진행해
         </p>
       </div>
       {/* <HeartButton isActive={isHeartClicked} onClick={handleHeartClick} /> */}
