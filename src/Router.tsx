@@ -52,7 +52,7 @@ const router = createBrowserRouter([
         element: <Home />,
       },
       {
-        path: `pickle/:id`,
+        path: `${routes.pickle}/:pickleId`,
         element: <Pickle />,
       },
       {
