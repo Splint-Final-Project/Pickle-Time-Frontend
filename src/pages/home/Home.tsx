@@ -31,6 +31,17 @@ const S = {
     margin: 2rem 0rem 1.4rem;
     width: 10rem;
   `,
+  Profile: styled.div`
+    color: ${({ theme }) => theme.color.black};
+    font-weight: bold;
+  `,
+  Logout: styled.button`
+    border: 1px solid ${({ theme }) => theme.color.secondary};
+    padding: 0.5rem 1rem;
+    background-color: ${({ theme }) => theme.color.secondary};
+    color: ${({ theme }) => theme.color.white};
+    border-radius: 0.8rem;
+  `,
   PickleCardListContainer: styled.div`
     border: 1px solid black;
   `,
@@ -86,15 +97,15 @@ export default function Home() {
     <MainLayout>
       <S.TopNavBarContainer>
         <S.Logo src="images/logotext.svg" />
-        <div>
+        <S.Profile>
           {getMe() ? (
             <>
-              {getMe()?.nickname}님&nbsp;&nbsp;<button onClick={signOut}>로그아웃</button>
+              {getMe()?.nickname}님&nbsp;&nbsp;<S.Logout onClick={signOut}>로그아웃</S.Logout>
             </>
           ) : (
             <Link to={routes.signIn}>Sign In</Link>
           )}
-        </div>
+        </S.Profile>
       </S.TopNavBarContainer>
       <Carousel />
       {/* 인기 급상승 피클 */}
