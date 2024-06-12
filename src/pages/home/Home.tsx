@@ -20,7 +20,6 @@ import routes from '@/constants/routes';
 import useAuth from '@/hooks/zustand/useAuth';
 import useBottomSheetModal from '@/hooks/zustand/useBottomSheetModal';
 
-
 const S = {
   TopNavBarContainer: styled.div`
     display: flex;
@@ -34,6 +33,40 @@ const S = {
   `,
   PickleCardListContainer: styled.div`
     border: 1px solid black;
+  `,
+  FloatingButton: styled.button`
+    position: fixed;
+    left: 50%;
+    transform: translateX(30rem);
+    bottom: 10rem;
+
+    width: 5.7rem;
+    height: 5.7rem;
+
+    background-color: ${({ theme }) => theme.color.primary};
+    border-radius: 50%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+
+    &:hover {
+      background-color: ${({ theme }) => theme.color.secondary};
+    }
+    @media (max-width: 767px) {
+      left: 85%;
+      transform: translateX(0);
+    }
+    @media (max-width: 460px) {
+      left: 80%;
+      transform: translateX(0);
+    }
+  `,
+  CreatePickleIcon: styled.img`
+    width: 2.9rem;
+    height: 2.8rem;
   `,
 };
 
@@ -106,9 +139,9 @@ export default function Home() {
       </div>
       <br />
       <br />
-      <button type="button" onClick={() => navigate('/pickle-create')}>
-        피클 생성 페이지로 이동
-      </button>
+      <S.FloatingButton type="button" onClick={() => navigate('/pickle-create')}>
+        <S.CreatePickleIcon src="/icons/createPickle.svg" alt="" />
+      </S.FloatingButton>
       <br />
       <br />
       <br />
