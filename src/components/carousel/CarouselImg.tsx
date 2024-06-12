@@ -10,7 +10,7 @@ interface CarouselType {
 export default function CarouselImg({ id, img, content, semiContent }: CarouselType) {
   return (
     <S.CarouselImg img={img} id={id}>
-      {id === '1' ? (
+      {id === '1' || id === '4' ? (
         <S.ContentContainer id={id}>
           <S.CarouselContent id={id}>{content}</S.CarouselContent>
           <S.CarouselSemiContent id={id}>{semiContent}</S.CarouselSemiContent>
@@ -45,18 +45,18 @@ const S = {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    padding: ${props => (props.id === '1' ? '3rem 4rem' : '4.0rem')};
-    height: ${props => (props.id === '1' ? '100%' : '')};
+    padding: ${props => (props.id === '1' || props.id === '4' ? '3rem 4rem' : '4.0rem')};
+    height: ${props => (props.id === '1' || props.id === '4' ? '100%' : '')};
 
     @media (max-width: 450px) {
-      padding: ${props => (props.id === '1' ? '3.0rem 4rem' : '4.0rem')};
+      padding: ${props => (props.id === '1' || props.id === '4' ? '3.0rem 4rem' : '4.0rem')};
     }
   `,
 
   CarouselContent: styled.span`
     width: 22.4rem;
     color: #fff;
-    text-align: ${props => (props.id === '1' || props.id === '3' ? 'left' : 'center')};
+    text-align: ${props => (props.id === '1' || props.id === '3' || props.id === '4' ? 'left' : 'center')};
     text-shadow: 0.3rem 0.3rem 0.9rem #000;
 
     font-size: 2.8rem;
@@ -75,7 +75,7 @@ const S = {
 
   CarouselSemiContent: styled.span`
     color: #fff;
-    text-align: ${props => (props.id === '1' || props.id === '3' ? 'left' : 'center')};
+    text-align: ${props => (props.id === '1' || props.id === '3' || props.id === '4' ? 'left' : 'center')};
     text-shadow: 0 0 0.55rem rgba(0, 0, 0, 0.7);
 
     font-size: 1.8rem;
