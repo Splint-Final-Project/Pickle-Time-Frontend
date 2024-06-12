@@ -35,6 +35,7 @@ const theme = Object.freeze({
     subTitle3: {
       fontSize: '1.6rem',
       fontWeight: 500,
+      lineHeight: '1.9rem',
     },
     subTitle4: {
       fontSize: '1.4rem',

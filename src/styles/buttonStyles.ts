@@ -10,10 +10,8 @@ export const buttonStyleByType = {
   `,
 
   SECONDARY: `
-    border: 1px solid #a0d911;
+    border: 1px solid ${theme.color.primary};
     background-color: ${theme.color.white};
-    &:hover {
-      background-color: #f1f5e5;
-    }
+    color: ${theme.color.primary};
   `,
 };
