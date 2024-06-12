@@ -14,7 +14,7 @@ import {
 } from './CreatePickleStyled';
 import CategorySelect from '@/components/inCreatePickleTwo/categorySelect/CategorySelect';
 import { deadlineCalculate, totalMeetingTimesCalculate } from '@/utils/dateCalculate';
-import { picklesRequests } from '@/apis/pickle.api';
+// import { picklesRequests } from '@/apis/pickle.api';
 import { useDateSelect } from '@/hooks/zustand/useDateSelect';
 
 export default function CreatePickle2() {
