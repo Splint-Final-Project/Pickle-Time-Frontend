@@ -15,7 +15,6 @@ export type SignUpFormValues = {
 
 export type SignUpFormValues2 = {
   nickname: string;
-  profilePic: string;
-  area?: string;
-  company?: string;
+  // profilePic: string;
+  areaCodes: number[];
 };

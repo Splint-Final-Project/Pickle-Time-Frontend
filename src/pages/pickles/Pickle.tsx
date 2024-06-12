@@ -2,7 +2,6 @@ import { useNavigate, useParams } from 'react-router-dom';
 
 import HeartButton from '@/components/common/button/HeartButton';
 import { useGetPickelDetail } from '@/hooks/query/pickles';
-import useHeartButtonClick from '@/hooks/useHeartButtonClick';
 import routes from '@/constants/routes';
 import { formatCurrency } from '@/utils/formatData';
 import useAuth from '@/hooks/zustand/useAuth';
@@ -20,11 +19,12 @@ export default function Pickle() {
   const { data } = useGetPickelDetail(pickleId);
   const pickleDetailData = data?.data;
 
-  const { isHeartClicked, handleHeartClick } = useHeartButtonClick({
-    pickleId,
-    isInUserWishList: false,
-  });
-
+  // const { isHeartClicked, handleHeartClick } = useHeartButtonClick({
+  //   pickleId,
+  //   isInUserWishList: false,
+  // });
+  console.log(user._id);
+  console.log(pickleDetailData?.participants);
   //check if user is participant of the pickle
 
   //check if user is the leader of the pickle
@@ -40,7 +40,7 @@ export default function Pickle() {
           총 {pickleDetailData?.when.summary}, {pickleDetailData?.where}에서 진행해
         </p>
       </div>
-      <HeartButton isActive={isHeartClicked} onClick={handleHeartClick} />
+      {/* <HeartButton isActive={isHeartClicked} onClick={handleHeartClick} /> */}
       {/* {isParticipant ? (
         isLeader ? (
           <div>당신이 생성한 피클입니다. [관리하기]</div>
