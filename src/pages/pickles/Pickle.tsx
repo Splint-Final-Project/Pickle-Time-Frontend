@@ -8,6 +8,7 @@ import Button from '@/components/common/button/Button';
 import { useGetPickelDetail } from '@/hooks/query/pickles';
 import useAuth from '@/hooks/zustand/useAuth';
 import routes from '@/constants/routes';
+import LikeCount from '@/components/pickle-detail/LikeCount';
 
 /**
  * 피클 상세 페이지
@@ -23,6 +24,9 @@ export default function Pickle() {
   const { data } = useGetPickelDetail(pickleId);
   const pickleDetailData = data?.data;
 
+  //임시 좋아요 수
+  const likeCount = 324;
+
   return (
     <S.Container>
       <S.TopSection>
@@ -36,7 +40,10 @@ export default function Pickle() {
 
         <S.Information>
           <span className="applicant">{pickleDetailData?.participantNumber}명이 신청했어요!</span>
-          <h1 className="pickle-title">{pickleDetailData?.title}긴 제목이면어떨까어떨까가ㅏ가가가ㅏ</h1>
+          <S.TitleAndLike>
+            <h1 className="pickle-title">{pickleDetailData?.title}긴 제목이면어떨까어떨까가ㅏ가가가ㅏ</h1>
+            <LikeCount pickleId={pickleId} likeCount={likeCount} />
+          </S.TitleAndLike>
           <div className="pickle-img">이미지자리</div>
           <PickleTextInfo
             when={pickleDetailData?.when}
@@ -113,14 +120,22 @@ const S = {
       color: ${({ theme }) => theme.color.primary};
       ${({ theme }) => theme.typography.body1};
     }
-    & .pickle-title {
-      margin: 0.6rem 0 1.4rem;
-      ${({ theme }) => theme.typography.header};
-    }
     & .pickle-img {
       height: 12.3rem;
       margin-bottom: 2rem;
       background-color: #ccc;
+    }
+  `,
+
+  TitleAndLike: styled.div`
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1.5rem;
+    margin: 0.6rem 0 1.4rem;
+
+    & .pickle-title {
+      ${({ theme }) => theme.typography.header};
     }
   `,
 
