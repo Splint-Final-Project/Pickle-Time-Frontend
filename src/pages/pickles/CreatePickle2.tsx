@@ -18,45 +18,32 @@ import { picklesRequests } from '@/apis/pickle.api';
 import { useDateSelect } from '@/hooks/zustand/useDateSelect';
 
 export default function CreatePickle2() {
-  const {
-    cost,
-    category,
-    deadLine,
-    when,
-    setDeadLine,
-    setWhen,
-  } = usePickleCreation();
+  const { cost, category, deadLine, when, setDeadLine, setWhen } = usePickleCreation();
   const navigate = useNavigate();
-  const { 
-    startDate,
-    finishDate,
-    weekend,
-    startTime,
-    finishTime 
-  } = useDateSelect();
-  
+  const { startDate, finishDate, weekend, startTime, finishTime } = useDateSelect();
+
   const handleClick = async () => {
     try {
       if (!category) {
-        throw new Error('피클 타임의 카테고리를 선택해 주세요.')
-      };
+        throw new Error('피클 타임의 카테고리를 선택해 주세요.');
+      }
 
       if (!cost) {
-        throw new Error('피클 타임 비용을 입력해 주세요.')
-      };
+        throw new Error('피클 타임 비용을 입력해 주세요.');
+      }
 
       // deadline
       const newDeadLine = deadlineCalculate();
       setDeadLine(newDeadLine);
 
       // when
-      const { times, summary } = await totalMeetingTimesCalculate({ 
-        startDate, 
+      const { times, summary } = await totalMeetingTimesCalculate({
+        startDate,
         finishDate,
         weekend,
         startTime,
         finishTime,
-        deadline: newDeadLine
+        deadline: newDeadLine,
       });
       setWhen({ times: times, summary: summary });
 
@@ -65,7 +52,7 @@ export default function CreatePickle2() {
     } catch (error) {
       console.log(error);
     }
-  }
+  };
 
   return (
     <Container>
@@ -81,15 +68,15 @@ export default function CreatePickle2() {
           <StepIndicator $selected={false}>4</StepIndicator>
         </StepIndicatorContainer>
         {/* 카테고리 선택 */}
-        <CategorySelect/>
+        <CategorySelect />
       </TitleContainer>
       {/* 날짜 선택 */}
       <InputComponent>
-        <DateSelect/>
+        <DateSelect />
       </InputComponent>
       {/* 비용 선택 */}
       <InputComponent>
-        <CostSelect/>
+        <CostSelect />
       </InputComponent>
       <SubmitButton onClick={handleClick}>다음 단계로 넘어가기</SubmitButton>
     </Container>

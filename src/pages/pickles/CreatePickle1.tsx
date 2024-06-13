@@ -34,7 +34,6 @@ export default function CreatePickle1() {
     setDetailedAddress,
   } = usePickleCreation();
   const navigate = useNavigate();
-
   const [jusoSearch, setJusoSearch] = useState('');
   const [jusoList, setJusoList] = useState<any[] | null>(null);
   const [selectedJuso, setSelectedJuso] = useState<any | null>(null);

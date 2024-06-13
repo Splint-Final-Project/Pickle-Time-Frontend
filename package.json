@@ -20,6 +20,7 @@
     "kakao.maps.d.ts": "^0.1.39",
     "msw": "^2.3.0",
     "only-allow": "^1.2.1",
+    "openai": "^4.51.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.51.5",
