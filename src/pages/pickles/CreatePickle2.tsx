@@ -16,8 +16,16 @@ import CategorySelect from '@/components/inCreatePickleTwo/categorySelect/Catego
 import { deadlineCalculate, totalMeetingTimesCalculate } from '@/utils/dateCalculate';
 import { picklesRequests } from '@/apis/pickle.api';
 import { useDateSelect } from '@/hooks/zustand/useDateSelect';
+import '@wojtekmaj/react-daterange-picker/dist/DateRangePicker.css';
+import 'react-calendar/dist/Calendar.css';
 
+import DateRangePicker from '@wojtekmaj/react-daterange-picker';
+import { useState } from 'react';
+type ValuePiece = Date | null;
+
+type Value = ValuePiece | [ValuePiece, ValuePiece];
 export default function CreatePickle2() {
+  const [value, onChange] = useState<Value>([new Date(), new Date()]);
   const { cost, category, deadLine, when, setDeadLine, setWhen } = usePickleCreation();
   const navigate = useNavigate();
   const { startDate, finishDate, weekend, startTime, finishTime } = useDateSelect();
@@ -71,7 +79,9 @@ export default function CreatePickle2() {
         <CategorySelect />
       </TitleContainer>
       {/* 날짜 선택 */}
+
       <InputComponent>
+        <DateRangePicker onChange={onChange} value={value} />
         <DateSelect />
       </InputComponent>
       {/* 비용 선택 */}
