@@ -60,6 +60,11 @@ const globalStyle = css`
     outline: none;
   }
 
+  textarea {
+    outline: none;
+    resize: none;
+  }
+
   //스크롤바 없애는 이유: 스크롤바가 생겼다가 없어졌다 할 때 레이아웃이 흔들림
   * {
     -ms-overflow-style: none;

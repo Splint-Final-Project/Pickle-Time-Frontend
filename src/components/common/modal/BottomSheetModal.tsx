@@ -1,32 +1,37 @@
-import useBottomSheetModal from '@/hooks/zustand/useBottomSheetModal';
-import styled from '@emotion/styled';
 import { useEffect } from 'react';
 import { createPortal } from 'react-dom';
+import styled from '@emotion/styled';
+
+import { useOutsideClick, useEscapePress } from '@/hooks/useModalHook';
+import useBottomSheetModal from '@/hooks/zustand/useBottomSheetModal';
+import CloseIcon from '@/assets/icons/CloseIcon';
 
 export default function BottomSheetModal() {
   const { active: modalState, handleClose: closeModal, component: Component } = useBottomSheetModal(state => state);
-  const handleEsCapeEvent = (e: KeyboardEvent) => {
-    if (e.key === 'Escape') {
-      closeModal();
-    }
-  };
+
+  const potal = document.getElementById('modal-root') || document.createElement('div');
+  const ref = useOutsideClick<HTMLDivElement>({ callback: closeModal, modalState });
+  useEscapePress({ callback: closeModal, modalState });
+
   useEffect(() => {
-    if (modalState && Component) {
+    if (modalState) {
       document.body.style.overflow = 'hidden';
-      window.addEventListener('keydown', handleEsCapeEvent);
-    } else {
-      document.body.style.overflow = 'auto';
     }
     return () => {
-      window.removeEventListener('keydown', handleEsCapeEvent);
+      document.body.style.overflow = 'auto';
     };
   }, [modalState]);
 
-  const potal = document.getElementById('modal-root') || document.createElement('div');
   if (modalState && Component) {
     return createPortal(
       <S.BackLayout>
-        <S.Container>
+        <S.Container ref={ref}>
+          <S.CloseBtn onClick={closeModal}>
+            <CloseIcon />
+          </S.CloseBtn>
+          <S.DragBarWrap>
+            <S.DragBar />
+          </S.DragBarWrap>
           <Component handleClose={closeModal} />
         </S.Container>
       </S.BackLayout>,
@@ -38,41 +43,56 @@ export default function BottomSheetModal() {
 
 const S = {
   BackLayout: styled.div`
-    width: 100%;
-    height: 100vh;
-    background: rgba(0, 0, 0, 0.3);
-    z-index: 100000;
+    display: flex;
+    justify-content: center;
+
     position: fixed;
     top: 0;
     left: 0;
+    z-index: 100000;
+
+    width: 100%;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.3);
   `,
+
   Container: styled.div`
     position: absolute;
     bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    padding: 1.6rem;
-    background: #fff;
-    border-top-right-radius: 1.6rem;
-    border-top-left-radius: 1.6rem;
+    padding: 2rem 1.6rem;
+    width: 100%;
+    max-width: 60rem;
+    background: ${({ theme }) => theme.color.white};
+    border-radius: 1.6rem 1.6rem 0 0;
 
     @keyframes open {
       0% {
-        height: 0;
+        transform: translateY(100vh);
         opacity: 0;
       }
       100% {
-        height: 50rem;
+        transform: translateY(0);
         opacity: 1;
       }
     }
     animation: open 0.2s forwards;
   `,
+
   CloseBtn: styled.button`
     position: absolute;
-    top: 0.8rem;
-    left: 0.8rem;
-    font-size: 1.6rem;
-    font-weight: bold;
+    top: 2rem;
+    left: 1.6rem;
+  `,
+  DragBarWrap: styled.div`
+    display: flex;
+    justify-content: center;
+    margin-bottom: 0.8rem;
+  `,
+  DragBar: styled.span`
+    display: inline-block;
+    width: 3rem;
+    height: 1rem;
+    background: #c5c5c5;
+    border-radius: 20px;
   `,
 };
