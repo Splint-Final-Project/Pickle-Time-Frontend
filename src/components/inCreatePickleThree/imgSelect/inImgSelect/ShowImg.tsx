@@ -4,7 +4,6 @@ import styled from '@emotion/styled';
 
 export default function ShowImg() {
   const imageInput = useRef(null);
-  // const [selectedImage, setSelectedImage] = useState<string>('');
   const { imgUrl, setImgUrl } = usePickleCreation();
   
   const handleClick = (imageInput: any) => {
@@ -18,10 +17,6 @@ export default function ShowImg() {
       setImgUrl(URL.createObjectURL(file)); // 이미지 URL 생성
     }
   };
-
-  useEffect(() => {
-    console.log(imgUrl)
-  },[imgUrl]);
 
   return (
     <>

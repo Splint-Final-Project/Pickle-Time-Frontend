@@ -4,7 +4,7 @@ import SelectInLibraryIcon from "/icons/selectInLibrary.svg";
 import styled from '@emotion/styled';
 
 export default function SelectInLibrary() {
-  const { imgUrl, setImgUrl } = usePickleCreation();
+  const { setImgUrl } = usePickleCreation();
   const imageInput = useRef(null);
   
   const handleClick = (imageInput: any) => {
