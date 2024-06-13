@@ -18,8 +18,6 @@ const usePickleCreation = create<{
   category: string;
   explanation: string;
   viewCount: number; // 초기 viewCount 설정
-  latitude: number;
-  longitude: number;
   goals: string[],
   imgUrl: string;
   setTitle: (title: string) => void;
@@ -36,8 +34,6 @@ const usePickleCreation = create<{
   setCategory: (category: string) => void;
   setExplanation: (explanation: string) => void;
   setViewCount: (viewCount: number) => void;
-  setLatitude: (latitude: number) => void;
-  setLongitude: (longitude: number) => void;
   setAddGoals: (newGoals: string) => void;
   setRemoveGoals: (goals: string[]) => void;
   setImgUrl: (imgUrl: string) => void;
@@ -61,8 +57,6 @@ const usePickleCreation = create<{
   category: '',
   explanation: '',
   viewCount: 0,
-  latitude: 0,
-  longitude: 0,
   goals: [],
   imgUrl: '',
   setTitle: (title: string) => set({ title }),
@@ -79,8 +73,6 @@ const usePickleCreation = create<{
   setCategory: (category: string) => set({ category }),
   setExplanation: (explanation: string) => set({ explanation }),
   setViewCount: (viewCount: number) => set({ viewCount }),
-  setLatitude: (latitude: number) => set({ latitude }),
-  setLongitude: (longitude: number) => set({ longitude }),
   setAddGoals: (newGoals: string) => set(state => ({ goals: [...state.goals, newGoals] })),
   setRemoveGoals: (goals: string[]) => set({goals}),
   setImgUrl: (imgUrl: string) => set({ imgUrl }),
