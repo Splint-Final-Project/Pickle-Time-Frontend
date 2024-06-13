@@ -4,7 +4,7 @@ import HobbyCategoryImg from '@/assets/images/categoryElement-Hobby.svg';
 import StudyCategoryImg from '@/assets/images/categoryElement-Study.svg';
 import usePickleCreation from '@/hooks/zustand/usePickleCreation';
 import styled from '@emotion/styled';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 const CATEGORY_LIST = [
   { id: 1, title: '운동', content: '러닝, 자전거 등', src: ExerciseCategoryImg },
@@ -20,6 +20,13 @@ export default function CategorySelect() {
     SetSelectedId(clickedId);
     setCategory(CATEGORY_LIST[clickedId - 1].title);
   };
+
+  useEffect(() => {
+    if (category) {
+      const selectedCategory = CATEGORY_LIST.find(item => item.title === category);
+      SetSelectedId(selectedCategory?.id || null);
+    }
+  }, []);
 
   return (
     <S.Container>
