@@ -61,6 +61,9 @@ const S = {
     object-fit: cover;
   `,
   Figcaption: styled.figcaption`
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     flex: 1;
     color: #292929;
     font-weight: 500;
@@ -68,16 +71,16 @@ const S = {
   FigureContent: styled.p`
     &:first-child {
       font-size: 1.8rem;
-      margin-bottom: 0.8rem;
     }
     &:nth-child(2) {
       font-size: 1.4rem;
-      margin-bottom: 0.6rem;
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
     }
 
     &:nth-child(3) {
       font-size: 1.4rem;
-      margin-bottom: 0.6rem;
     }
     strong {
       font-size: 1.8rem;
@@ -86,8 +89,7 @@ const S = {
     span {
       color: #8b8d94;
       font-size: 1.3rem;
-      margin-bottom: 0.4rem;
-      margin-left: 0.8rem;
+      line-height: 1.4rem;
     }
   `,
 };
