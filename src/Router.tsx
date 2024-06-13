@@ -9,7 +9,7 @@ import ConversationList from '@/pages/chat/ConversationList';
 import MyPage from '@/pages/profile/MyPage';
 import routes from '@/constants/routes';
 import PickleJoinRedirector from './redirectors/PickleJoinRedirector';
-import SignUp2 from './pages/auth/SingUp2';
+import SignUp2 from './pages/auth/SignUp2';
 import OAuthSuccessRedirector from './redirectors/OAuthSuccessRedirector';
 import LoginRedirector from './redirectors/LoginRedirector';
 import SignIn from './pages/auth/SignIn';
@@ -56,16 +56,16 @@ const router = createBrowserRouter([
         element: <Pickle />,
       },
       {
-        path: '/pickle-create',
+        path: routes.pickleCreate,
         element: <CreatePickle />,
       },
       {
-        path: '/pickle-join',
-        element: <JoinPicklePayment />,
+        path: routes.pickleCreatePayment,
+        element: <CreatePicklePayment />,
       },
       {
-        path: '/pickle-create-payment',
-        element: <CreatePicklePayment />,
+        path: routes.chatList,
+        element: <ConversationList />,
       },
       {
         path: '/oauth/*',
@@ -77,11 +77,11 @@ const router = createBrowserRouter([
         ],
       },
       {
-        path: '/join-redirect',
+        path: routes.pickleJoinRedirect,
         element: <PickleJoinRedirector />,
       },
       {
-        path: '/create-redirect',
+        path: routes.pickleCreateRedirect,
         element: <PickleCreationRedirector />,
       },
       {
@@ -105,12 +105,24 @@ const router = createBrowserRouter([
         element: <SignUp />,
       },
       {
-        path: '/sign-in-email',
+        path: routes.signInEmail,
         element: <SignIn_Email />,
       },
       {
         path: routes.signUp2,
         element: <SignUp2 />,
+      },
+      {
+        path: routes.chat,
+        element: <Conversation />,
+      },
+      {
+        path: routes.mypage,
+        element: <MyPage />,
+      },
+      {
+        path: routes.pickleJoin,
+        element: <JoinPicklePayment />,
       },
     ],
   },
