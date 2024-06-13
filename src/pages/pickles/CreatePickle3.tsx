@@ -1,7 +1,4 @@
 import usePickleCreation from '@/hooks/zustand/usePickleCreation';
-import React from 'react';
-import axios from 'axios';
-import client from '@/apis/axios';
 import { useNavigate } from 'react-router-dom';
 import {
   Container,
@@ -15,31 +12,13 @@ import {
 import CapacitySelect from '@/components/inCreatePickleThree/capacitySelect/\bCapacitySelect';
 import WriteDetail from '@/components/inCreatePickleThree/writeDetail/WriteDetail';
 import GoalSelect from '@/components/inCreatePickleThree/goalSelect/GoalSelect';
+import ImgSelect from '@/components/inCreatePickleThree/imgSelect/ImgSelect';
 
 export default function CreatePickle3() {
   const {
-    title,
     capacity,
-    cost,
-    deadLine,
-    where,
-    when,
-    category,
     explanation,
-    viewCount,
-    latitude,
-    longitude,
-    setTitle,
-    setCapacity,
-    setCost,
-    setDeadLine,
-    setWhere,
-    setWhen,
-    setCategory,
-    setExplanation,
-    setViewCount,
-    setLatitude,
-    setLongitude,
+    goals,
   } = usePickleCreation();
   const navigate = useNavigate();
 
@@ -56,9 +35,10 @@ export default function CreatePickle3() {
           <StepIndicator $selected={true}>3</StepIndicator>
           <StepIndicator $selected={false}>4</StepIndicator>
         </StepIndicatorContainer>
-        <label htmlFor="category">대표이미지:</label>
+        <ImgSelect/>
       </TitleContainer>
 
+      {/* 상세 설명 */}
       <InputComponent>
         <WriteDetail/>
       </InputComponent>
@@ -68,6 +48,7 @@ export default function CreatePickle3() {
         <CapacitySelect/>
       </InputComponent>
 
+      {/* 목표 설정 */}
       <InputComponent>
         <GoalSelect/>
       </InputComponent>

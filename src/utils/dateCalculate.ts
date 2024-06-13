@@ -11,8 +11,8 @@ export interface MeetingTimesInterface {
 
 export const deadlineCalculate = (): Date => {
   const now = new Date();
-  const twoWeeksLater = new Date(now.getTime() + 14 * 24 * 60 * 60 * 1000); // 14일을 밀리초로 변환하여 더함
-  return twoWeeksLater;
+  const oneWeeksLater = new Date(now.getTime() + 7 * 24 * 60 * 60 * 1000); // 14일을 밀리초로 변환하여 더함
+  return oneWeeksLater;
 };
 
 export const totalMeetingTimesCalculate = async ({ 
