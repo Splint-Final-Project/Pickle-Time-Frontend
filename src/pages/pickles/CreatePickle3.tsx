@@ -1,7 +1,4 @@
 import usePickleCreation from '@/hooks/zustand/usePickleCreation';
-import React from 'react';
-import axios from 'axios';
-import client from '@/apis/axios';
 import { useNavigate } from 'react-router-dom';
 import {
   Container,
@@ -12,29 +9,17 @@ import {
   Title,
   TitleContainer,
 } from './CreatePickleStyled';
+import CapacitySelect from '@/components/inCreatePickleThree/capacitySelect/CapacitySelect';
+import WriteDetail from '@/components/inCreatePickleThree/writeDetail/WriteDetail';
+import GoalSelect from '@/components/inCreatePickleThree/goalSelect/GoalSelect';
+import ImgSelect from '@/components/inCreatePickleThree/imgSelect/ImgSelect';
 import OpenAI from 'openai';
 
 export default function CreatePickle3() {
   const {
-    title,
     capacity,
-    cost,
-    deadLine,
-    when,
-    category,
     explanation,
-    viewCount,
-    latitude,
-    longitude,
-    setTitle,
-    setCapacity,
-    setCost,
-    setDeadLine,
-    setWhen,
-    setCategory,
-    setExplanation,
-    setLatitude,
-    setLongitude,
+    goals,
   } = usePickleCreation();
   const navigate = useNavigate();
 
@@ -97,23 +82,22 @@ export default function CreatePickle3() {
           <StepIndicator $selected={true}>3</StepIndicator>
           <StepIndicator $selected={false}>4</StepIndicator>
         </StepIndicatorContainer>
+        <ImgSelect/>
       </TitleContainer>
 
+      {/* 상세 설명 */}
       <InputComponent>
-        <label htmlFor="category">대표이미지:</label>
-        {/* <input type="text" id="category" value={category} onChange={e => setCategory(e.target.value)} /> */}
+        <WriteDetail/>
       </InputComponent>
+
+      {/* 참여 인원 */}
       <InputComponent>
-        <label htmlFor="when">설명:</label>
-        {/* <input type="text" id="when" value={when} onChange={e => setWhen(e.target.value)} /> */}
+        <CapacitySelect/>
       </InputComponent>
+
+      {/* 목표 설정 */}
       <InputComponent>
-        <label htmlFor="cost">참여인원:</label>
-        {/* <input type="text" id="cost" value={cost} onChange={e => setCost(e.target.value)} /> */}
-      </InputComponent>
-      <InputComponent>
-        <label htmlFor="cost">목표:</label>
-        {/* <input type="text" id="cost" value={cost} onChange={e => setCost(e.target.value)} /> */}
+        <GoalSelect/>
       </InputComponent>
       <SubmitButton onClick={() => navigate('/pickle-create-4')}>다음 단계로 넘어가기</SubmitButton>
     </Container>

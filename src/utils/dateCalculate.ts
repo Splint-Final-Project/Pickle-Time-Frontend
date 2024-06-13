@@ -11,8 +11,8 @@ export interface MeetingTimesInterface {
 
 export const deadlineCalculate = (): Date => {
   const now = new Date();
-  const twoWeeksLater = new Date(now.getTime() + 14 * 24 * 60 * 60 * 1000); // 14일을 밀리초로 변환하여 더함
-  return twoWeeksLater;
+  const oneWeeksLater = new Date(now.getTime() + 7 * 24 * 60 * 60 * 1000); // 14일을 밀리초로 변환하여 더함
+  return oneWeeksLater;
 };
 
 export const totalMeetingTimesCalculate = async ({ 
@@ -28,11 +28,11 @@ export const totalMeetingTimesCalculate = async ({
     const finishConverted = convertTo24HourFormat(finishTime);
 
     const start = new Date(new Date().getFullYear(), startDate.month - 1, startDate.day, startConverted.hour, startConverted.minute);
-    const finish = new Date(new Date().getFullYear(), finishDate.month - 1, finishDate.day, finishConverted.hour, finishConverted.minute);
+    let finish = new Date(new Date().getFullYear(), finishDate.month - 1, finishDate.day, startConverted.hour, startConverted.minute);
 
-    // 1. StartDate가 finishDate보다 큰 경우 에러 발생
+    // 1. StartDate가 finishDate보다 큰 경우 : 1년 추가
     if (start > finish) {
-      return reject(new Error('종료 날짜가 시작 날짜 이전입니다.'));
+      finish = new Date(new Date().getFullYear() + 1, finishDate.month - 1, finishDate.day, startConverted.hour, startConverted.minute);
     }
 
     // 2. StartTime이 finishTime보다 큰 경우 에러 발생

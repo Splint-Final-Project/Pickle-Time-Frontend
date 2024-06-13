@@ -75,11 +75,13 @@ const S = {
     justify-content: center;
     overflow: hidden;
   `,
+
   CarouselWrapper: styled.div<{ currentIndex: number }>`
     display: flex;
     transition: transform 1s ease-in-out;
     transform: translateX(${props => -props.currentIndex * 100}%);
   `,
+  
   CarouselButton: styled.button<{ position: 'left' | 'right' }>`
     position: absolute;
     top: 50%;
