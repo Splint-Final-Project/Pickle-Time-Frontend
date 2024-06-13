@@ -1,11 +1,17 @@
 import { ComponentType } from 'react';
 import { create } from 'zustand';
 
+interface ModalComponentsProps {
+  handleClose: () => void;
+  callback: (() => void) | null;
+}
+
 interface ModalState {
   active: boolean;
-  handleOpen: ({ renderComponent }: { renderComponent: ComponentType<any> }) => void;
+  handleOpen: ({ renderComponent, callback }: { renderComponent: ComponentType<any>; callback?: () => void }) => void;
   handleClose: () => void;
-  component: ComponentType<any> | null;
+  component: ComponentType<ModalComponentsProps> | null;
+  callback: (() => void) | null;
 }
 /**
  *
@@ -42,9 +48,10 @@ interface ModalState {
 */
 const useBottomSheetModal = create<ModalState>()(set => ({
   active: false,
-  handleOpen: ({ renderComponent }) => set(() => ({ active: true, component: renderComponent })),
-  handleClose: () => set(() => ({ active: false, component: null })),
+  handleOpen: ({ renderComponent, callback }) => set(() => ({ active: true, component: renderComponent, callback })),
+  handleClose: () => set(() => ({ active: false, component: null, callback: null })),
   component: null,
+  callback: null,
 }));
 
 export default useBottomSheetModal;
