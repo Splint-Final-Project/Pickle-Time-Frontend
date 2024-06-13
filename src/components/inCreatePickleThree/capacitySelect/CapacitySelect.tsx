@@ -39,7 +39,7 @@ const S = {
     flex-direction: column;
     width: 100%;
     padding: 3rem 0;
-    gap: 2.3rem;
+    gap: 5rem;
   `,
   
   Text: styled.span`
@@ -55,7 +55,7 @@ const S = {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding-bottom: 2rem;
+    padding-bottom: 3.5rem;
   `,
 
   InputLabel: styled.label`
