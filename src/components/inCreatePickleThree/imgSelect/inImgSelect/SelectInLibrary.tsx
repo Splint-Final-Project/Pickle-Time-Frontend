@@ -1,17 +1,16 @@
-import { useEffect, useRef, useState } from 'react';
+import { useRef } from "react";
 import usePickleCreation from "@/hooks/zustand/usePickleCreation"
+import SelectInLibraryIcon from "/icons/selectInLibrary.svg";
 import styled from '@emotion/styled';
 
-export default function ShowImg() {
-  const imageInput = useRef(null);
-  // const [selectedImage, setSelectedImage] = useState<string>('');
+export default function SelectInLibrary() {
   const { imgUrl, setImgUrl } = usePickleCreation();
+  const imageInput = useRef(null);
   
   const handleClick = (imageInput: any) => {
     imageInput.current.click();
   }
 
-  // 로컬 이미지 선택
   const handleFileChange = (event: any) => {
     const file = event.target.files[0];
     if (file) {
@@ -19,51 +18,36 @@ export default function ShowImg() {
     }
   };
 
-  useEffect(() => {
-    console.log(imgUrl)
-  },[imgUrl]);
-
   return (
     <>
       <input type="file" accept="image/*" ref={imageInput} style={{ display: 'none' }} onChange={handleFileChange}/>
       <S.Container onClick={() => handleClick(imageInput)}>
-        {imgUrl ? (
-          <S.Img src={imgUrl} />
-        ) : (
-          <S.Text>
-          피클을 잘 나타내는
-          <br /> 이미지를 선택해 주세요!
-        </S.Text>
-        )}
+        <img src={SelectInLibraryIcon}/>
+        <S.Text>라이브러리에서 선택</S.Text>
       </S.Container>
     </>
-  );
+  )
 }
 
 const S = {
-  Container: styled.div`
-    cursor: pointer;
+  Container: styled.button`
     display: flex;
     justify-content: center;
     align-items: center;
     width: 100%;
-    height: 12.3rem;
+    height: 4.5rem;
     flex-shrink: 0;
     border-radius: 0.4rem;
-    background: #d9d9d9;
+    background: #F3F4F6;
+    gap: 1rem;
   `,
 
   Text: styled.span`
-    color: #fff;
-    text-align: center;
+    color: #8B8D94;
     font-family: Pretendard;
-    font-size: 1.4rem;
-    font-weight: 500;
+    font-size: 14px;
     font-style: normal;
-  `,
-
-  Img: styled.img`
-    width: 100%;
-    height: 100%;
+    font-weight: 500;
+    line-height: normal;
   `
-};
+}

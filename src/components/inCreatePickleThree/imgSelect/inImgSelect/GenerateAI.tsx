@@ -1,18 +1,15 @@
-import { ReactNode } from "react";
+import GenerateAIICon from "/icons/generateAI.svg";
 import styled from '@emotion/styled';
 
-interface howToSelectInterface {
-  children: ReactNode,
-  src: string | undefined,
-  handler: () => void,
-}
+export default function GenerateAI() {
 
-export default function HowToSelectImg({ children, src, handler } : howToSelectInterface) {
+  const handleClick = () => {
+  }
 
   return (
-    <S.Container onClick={handler}>
-      <img src={src}/>
-      <S.Text>{children}</S.Text>
+    <S.Container onClick={handleClick}>
+      <img src={GenerateAIICon}/>
+      <S.Text>라이브러리에서 선택</S.Text>
     </S.Container>
   )
 }

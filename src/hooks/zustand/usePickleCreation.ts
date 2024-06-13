@@ -16,6 +16,7 @@ type Pickle = {
   latitude: number;
   longitude: number;
   goals: string[],
+  imgUrl: string;
   setTitle: (title: string) => void;
   setCapacity: (capacity: number) => void;
   setCost: (cost: number) => void;
@@ -29,6 +30,7 @@ type Pickle = {
   setLongitude: (longitude: number) => void;
   setAddGoals: (newGoals: string) => void;
   setRemoveGoals: (goals: string[]) => void;
+  setImgUrl: (imgUrl: string) => void;
   clear: () => void;
 };
 
@@ -48,6 +50,7 @@ const usePickleCreation = create<Pickle>(set => ({
   latitude: 0,
   longitude: 0,
   goals: [],
+  imgUrl: '',
   setTitle: (title: string) => set({ title }),
   setCapacity: (capacity: number) => set({ capacity }),
   setCost: (cost: number | undefined) => set({ cost }),
@@ -61,6 +64,7 @@ const usePickleCreation = create<Pickle>(set => ({
   setLongitude: (longitude: number) => set({ longitude }),
   setAddGoals: (newGoals: string) => set(state => ({ goals: [...state.goals, newGoals] })),
   setRemoveGoals: (goals: string[]) => set({goals}),
+  setImgUrl: (imgUrl: string) => set({ imgUrl }),
   clear: () => set({}),
 }));
 
