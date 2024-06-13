@@ -18,6 +18,7 @@ const theme = Object.freeze({
     header: {
       fontWeight: 600,
       fontSize: '2.4rem',
+      lineHeight: 'normal',
     },
     title: {
       fontWeight: 700,
@@ -32,11 +33,12 @@ const theme = Object.freeze({
     subTitle2: {
       fontSize: '1.5rem',
       fontWeight: 600,
+      lineHeight: 'normal',
     },
     subTitle3: {
       fontSize: '1.6rem',
       fontWeight: 500,
-      lineHeight: '1.9rem',
+      lineHeight: 'normal',
     },
     subTitle4: {
       fontSize: '1.4rem',
@@ -47,6 +49,7 @@ const theme = Object.freeze({
     body1: {
       fontSize: '1.4rem',
       fontWeight: 500,
+      lineHeight: 'normal',
     },
     body2: {
       fontSize: '1.2rem',
@@ -60,6 +63,7 @@ const theme = Object.freeze({
     detail: {
       fontSize: '1.3rem',
       fontWeight: 500,
+      lineHeight: '1.55rem',
     },
     price: {
       fontSize: '2rem',
