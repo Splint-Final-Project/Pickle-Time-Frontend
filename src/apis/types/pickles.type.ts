@@ -4,7 +4,6 @@ export interface Coordinates {
 }
 
 export interface When {
-  summary: string;
   times: string[];
 }
 

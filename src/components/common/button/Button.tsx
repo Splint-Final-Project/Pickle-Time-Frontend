@@ -26,10 +26,10 @@ const Styled = {
   Button: styled.button<{
     $styleType: ButtonType;
   }>`
-    padding: 2rem 4rem;
+    width: 100%;
+    padding: 1.3rem 0;
     border-radius: 0.4rem;
-    font-size: 1.6rem;
-    font-weight: 500;
+    ${({ theme }) => theme.typography.body1}
     white-space: nowrap;
     ${({ $styleType }) => buttonStyleByType[$styleType]}
   `,
