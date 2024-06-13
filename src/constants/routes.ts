@@ -9,6 +9,8 @@ const routes = {
   chatList: '/chat-list',
   pickle: '/pickle',
   pickleList: '/pickle-list',
+  picklePopularList: '/pickle-popular-list',
+  pickleHotTimeList: '/pickle-hot-time-list',
   pickleCreate: '/pickle-create',
   pickleJoin: '/pickle-join',
   pickleEdit: '/pickle-edit',
