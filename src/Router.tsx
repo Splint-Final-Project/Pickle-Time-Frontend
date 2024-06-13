@@ -1,4 +1,4 @@
-import { createBrowserRouter } from 'react-router-dom';
+import { createBrowserRouter, redirect } from 'react-router-dom';
 
 import Home from '@/pages/home/Home';
 import Admin from '@/pages/auth/Admin';
@@ -17,10 +17,12 @@ import SignIn_Email from './pages/auth/SignIn_Email';
 import MainLayout from '@/layouts/MainLayout';
 import SimpleLayout from '@/layouts/SimpleLayout';
 import NotFoundPage from '@/pages/NotFoundPage';
-import CreatePicklePayment from './pages/pickles/CreatePicklePayment';
-import CreatePickle from './pages/pickles/CreatePickleForm';
-import JoinPicklePayment from './pages/pickles/JoinPicklePayment';
+import CreatePickle4 from './pages/pickles/CreatePickle4';
+import CreatePickle1 from './pages/pickles/CreatePickle1';
+import JoinPickle from './pages/pickles/JoinPickle';
 import PickleCreationRedirector from './redirectors/PickleCreationRedirector';
+import CreatePickle2 from './pages/pickles/CreatePickle2';
+import CreatePickle3 from './pages/pickles/CreatePickle3';
 
 const privateChildren = [
   {
@@ -56,13 +58,36 @@ const router = createBrowserRouter([
         element: <Pickle />,
       },
       {
-        path: routes.pickleCreate,
-        element: <CreatePickle />,
+        path: '/pickle-join',
+        element: <JoinPickle />,
       },
       {
-        path: routes.pickleCreatePayment,
-        element: <CreatePicklePayment />,
+        path: '/pickle-create',
+        //TODO: 피클 생성 하다만 기록이 있으면 있으면 그 단계에 맞춰서 리다이렉트
+        loader: async () => redirect('/pickle-create-1'),
       },
+      {
+        path: '/pickle-create-1',
+        element: <CreatePickle1 />,
+      },
+      {
+        path: '/pickle-create-2',
+        element: <CreatePickle2 />,
+      },
+      {
+        path: '/pickle-create-3',
+        element: <CreatePickle3 />,
+      },
+      {
+        path: '/pickle-create-4',
+        element: <CreatePickle4 />,
+        // path: routes.pickleCreate,
+        // element: <CreatePickle />,
+      },
+      // {
+      //   path: routes.pickleCreatePayment,
+      //   element: <CreatePicklePayment />,
+      // },
       {
         path: routes.chatList,
         element: <ConversationList />,
@@ -120,10 +145,10 @@ const router = createBrowserRouter([
         path: routes.mypage,
         element: <MyPage />,
       },
-      {
-        path: routes.pickleJoin,
-        element: <JoinPicklePayment />,
-      },
+      // {
+      //   path: routes.pickleJoin,
+      //   element: <JoinPicklePayment />,
+      // },
     ],
   },
 ]);

@@ -39,6 +39,11 @@ export const picklesRequests = Object.freeze({
     return client.get(API_PICKLE.BY_ID(pickleId));
   },
 
+  // test: async (deadline: any) => {
+  //   const { data } = await client.post("/pickle/test", {deadline});
+  //   return data;
+  // }
+
   // 리뷰 작성
   createReview: (pickleId: string, reviewData: CreateReviewData) => {
     return client.post(API_PICKLE.REVIEW(pickleId), {

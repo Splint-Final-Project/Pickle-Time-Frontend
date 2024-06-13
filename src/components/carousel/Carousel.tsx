@@ -105,7 +105,7 @@ const S = {
     justify-content: center;
     overflow: hidden;
   `,
-  CarouselWrapper: styled.div<{ currentIndex: number; isInitialize: boolean }>`
+  CarouselWrapper: styled.div<{ currentIndex: number, isInitialize: boolean }>`
     display: flex;
     ${({ currentIndex, isInitialize }) =>
       isInitialize
@@ -117,6 +117,7 @@ const S = {
             transform: translateX(${-currentIndex * 100}%);
           `}
   `,
+  
   CarouselButton: styled.button<{ position: 'left' | 'right' }>`
     position: absolute;
     top: 50%;
