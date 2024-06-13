@@ -9,7 +9,7 @@ import {
   Title,
   TitleContainer,
 } from './CreatePickleStyled';
-import CapacitySelect from '@/components/inCreatePickleThree/capacitySelect/\bCapacitySelect';
+import CapacitySelect from '@/components/inCreatePickleThree/capacitySelect/CapacitySelect';
 import WriteDetail from '@/components/inCreatePickleThree/writeDetail/WriteDetail';
 import GoalSelect from '@/components/inCreatePickleThree/goalSelect/GoalSelect';
 import ImgSelect from '@/components/inCreatePickleThree/imgSelect/ImgSelect';
