@@ -12,15 +12,17 @@ import PickleJoinRedirector from './redirectors/PickleJoinRedirector';
 import SignUp2 from './pages/auth/SignUp2';
 import OAuthSuccessRedirector from './redirectors/OAuthSuccessRedirector';
 import LoginRedirector from './redirectors/LoginRedirector';
-import SignIn from './pages/auth/SignIn';
-import SignIn_Email from './pages/auth/SignIn_Email';
+import SignIn from '@/pages/auth/SignIn';
+import SignIn_Email from '@/pages/auth/SignIn_Email';
 import MainLayout from '@/layouts/MainLayout';
 import SimpleLayout from '@/layouts/SimpleLayout';
 import NotFoundPage from '@/pages/NotFoundPage';
-import CreatePicklePayment from './pages/pickles/CreatePicklePayment';
-import CreatePickle from './pages/pickles/CreatePickleForm';
-import JoinPicklePayment from './pages/pickles/JoinPicklePayment';
+import CreatePicklePayment from '@/pages/pickles/CreatePicklePayment';
+import CreatePickle from '@/pages/pickles/CreatePickleForm';
+import JoinPicklePayment from '@/pages/pickles/JoinPicklePayment';
 import PickleCreationRedirector from './redirectors/PickleCreationRedirector';
+import PopularPickleList from '@/pages/pickles/PopularPickleList';
+import HotTimePickleList from '@/pages/pickles/HotTimePickleList';
 
 const privateChildren = [
   {
@@ -123,6 +125,14 @@ const router = createBrowserRouter([
       {
         path: routes.pickleJoin,
         element: <JoinPicklePayment />,
+      },
+      {
+        path: routes.picklePopularList,
+        element: <PopularPickleList />,
+      },
+      {
+        path: routes.pickleHotTimeList,
+        element: <HotTimePickleList />,
       },
     ],
   },
