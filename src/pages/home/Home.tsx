@@ -94,7 +94,7 @@ export default function Home() {
   const { getMe, signOut } = useAuth();
 
   return (
-    <MainLayout>
+    <div>
       <S.TopNavBarContainer>
         <S.Logo src="images/logotext.svg" />
         <S.Profile>
@@ -161,7 +161,7 @@ export default function Home() {
       <BackDropModal isOpen={isModalOpen} onClose={closeModal}>
         <div>티라노 앙</div>
       </BackDropModal>
-    </MainLayout>
+    </div>
   );
 }
 
