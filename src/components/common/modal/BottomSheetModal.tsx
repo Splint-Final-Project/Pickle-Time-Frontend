@@ -7,7 +7,12 @@ import useBottomSheetModal from '@/hooks/zustand/useBottomSheetModal';
 import CloseIcon from '@/assets/icons/CloseIcon';
 
 export default function BottomSheetModal() {
-  const { active: modalState, handleClose: closeModal, component: Component } = useBottomSheetModal(state => state);
+  const {
+    active: modalState,
+    handleClose: closeModal,
+    component: Component,
+    callback,
+  } = useBottomSheetModal(state => state);
 
   const potal = document.getElementById('modal-root') || document.createElement('div');
   const ref = useOutsideClick<HTMLDivElement>({ callback: closeModal, modalState });
@@ -32,7 +37,7 @@ export default function BottomSheetModal() {
           <S.DragBarWrap>
             <S.DragBar />
           </S.DragBarWrap>
-          <Component handleClose={closeModal} />
+          <Component handleClose={closeModal} callback={callback} />
         </S.Container>
       </S.BackLayout>,
       potal,

@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
 import CheckIcon from '@/assets/icons/checkIcon.svg';
 import useBottomSheetModal from '@/hooks/zustand/useBottomSheetModal';
+import { useCallback, useRef } from 'react';
 
 interface PaymentTermsProps {
   setState: React.Dispatch<React.SetStateAction<boolean>>;
@@ -8,27 +9,41 @@ interface PaymentTermsProps {
 
 interface TermsContentProps {
   handleClose: () => void;
+  callback: () => void;
 }
 
 export default function PaymentTerms({ setState }: PaymentTermsProps) {
   const openBSModal = useBottomSheetModal(state => state.handleOpen);
+  const ref = useRef<HTMLInputElement>(null);
+  const handleModalBtnEvent = useCallback(() => {
+    if (ref.current) {
+      ref.current.checked = true;
+      setState(true);
+    }
+  }, [setState]);
   return (
     <>
       <S.Title>주문 내용 확인 및 결제 동의</S.Title>
       <S.Wrap>
         <S.Inner>
-          <S.Input id="terms-checkbox" type="checkbox" onChange={e => setState(e.target.checked)} />
+          <S.Input id="terms-checkbox" type="checkbox" onChange={e => setState(e.target.checked)} ref={ref} />
           <S.Label htmlFor="terms-checkbox" className="agree1">
             <span>[필수] 개인정보 수집 이용 동의</span>
           </S.Label>
         </S.Inner>
-        <S.ModalBtn onClick={() => openBSModal({ renderComponent: TermsContent })}>내용보기</S.ModalBtn>
+        <S.ModalBtn onClick={() => openBSModal({ renderComponent: TermsContent, callback: handleModalBtnEvent })}>
+          내용보기
+        </S.ModalBtn>
       </S.Wrap>
     </>
   );
 }
 
-function TermsContent({ handleClose }: TermsContentProps) {
+function TermsContent({ handleClose, callback }: TermsContentProps) {
+  const handleCheck = () => {
+    callback();
+    handleClose();
+  };
   return (
     <S.Container>
       <S.TermsTitle>개인정보 수입 및 이용</S.TermsTitle>
@@ -76,7 +91,7 @@ function TermsContent({ handleClose }: TermsContentProps) {
           개인정보 제공에 동의하지 않으실 수 있으며, 동의하지 않으실 경우 서비스 이용이 제한될 수 있습니다.
         </S.TermsDescription>
       </S.TableContainer>
-      <S.CheckBtn type="button" onClick={handleClose}>
+      <S.CheckBtn type="button" onClick={handleCheck}>
         확인하기
       </S.CheckBtn>
     </S.Container>
@@ -133,8 +148,7 @@ const S = {
     text-align: center;
   `,
   Container: styled.div`
-    min-width: 37.5rem;
-    width: 30vw;
+    width: 100%;
     display: flex;
     flex-direction: column;
     gap: 1.6rem;
