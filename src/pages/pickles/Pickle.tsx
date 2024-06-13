@@ -4,11 +4,12 @@ import styled from '@emotion/styled';
 import BackButton from '@/components/common/button/BackButton';
 import Category from '@/components/pickle-detail/Category';
 import PickleTextInfo from '@/components/pickle-detail/PickleTextInfo';
+import LikeCount from '@/components/pickle-detail/LikeCount';
 import Button from '@/components/common/button/Button';
 import { useGetPickelDetail } from '@/hooks/query/pickles';
 import useAuth from '@/hooks/zustand/useAuth';
 import routes from '@/constants/routes';
-import LikeCount from '@/components/pickle-detail/LikeCount';
+
 
 /**
  * 피클 상세 페이지
