@@ -1,7 +1,6 @@
 // @ts-nocheck
 
 import Timer from './inDateSelect/Timer';
-// import Dater from './inDateSelect/Dater';
 import DateButtonList from './inDateSelect/DateButtonList';
 import styled from '@emotion/styled';
 import { useDateSelect } from '@/hooks/zustand/useDateSelect';
@@ -23,13 +22,21 @@ export default function DateSelect() {
   return (
     <S.Container>
       <S.Text>일정을 선택해 주세요</S.Text>
-      <S.SubText onClick={() => setIsCalanderOpen(true)}>
-        시작일
-        <S.DateField>{startDate.year + '/' + startDate.month + '/' + startDate.day}</S.DateField>
-      </S.SubText>
-      <S.SubText onClick={() => setIsCalanderOpen(true)}>
-        종료일
-        <S.DateField>{finishDate.year + '/' + finishDate.month + '/' + finishDate.day}</S.DateField>
+      <S.SubText onClick={() => setIsCalanderOpen(prev => !prev)}>
+        기간
+        <S.DateField>
+          {startDate.year +
+            '/' +
+            startDate.month +
+            '/' +
+            startDate.day +
+            ' - ' +
+            finishDate.year +
+            '/' +
+            finishDate.month +
+            '/' +
+            finishDate.day}
+        </S.DateField>
       </S.SubText>
       {isCalanderOpen && (
         <DateRange
@@ -40,7 +47,6 @@ export default function DateSelect() {
           editableDateInputs={false}
           showDateDisplay={false}
           moveRangeOnFirstSelection={false}
-          direction="horizontal"
           dateDisplayFormat="yyyy.MM.dd"
           displayMode="dateRange"
           scroll={{
@@ -49,6 +55,7 @@ export default function DateSelect() {
           showMonthAndYearPickers={false}
           showMonthArrow={false}
           months={window.innerWidth <= 767 ? 1 : 2}
+          direction={window.innerWidth <= 767 ? 'vertical' : 'horizontal'}
           minDate={new Date(year, month, day + 7)}
           ranges={[
             {
