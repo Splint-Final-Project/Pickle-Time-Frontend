@@ -115,6 +115,7 @@ export default function PopularPickleList() {
     setActiveTab(tabName);
   };
 
+  // Todo: header 부분 공통으로 빼기, 카드 스타일 반응형으로 움직이게 바꾸기
   return (
     <S.Container>
       <S.Wrapper>

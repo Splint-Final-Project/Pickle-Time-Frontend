@@ -156,6 +156,8 @@ export default function Home() {
       <br />
 
       <button onClick={() => handleOpen({ renderComponent: ReviewModal })}>리뷰작성</button>
+      <br />
+      <br />
 
       <button type="button" onClick={openModal}>
         모달 테스트 버튼
