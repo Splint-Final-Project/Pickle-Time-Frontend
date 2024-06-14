@@ -8,16 +8,25 @@ import { ROUND_BUTTON_COLOR } from '@/constants/BUTTON';
 
 interface ModalProps {
   handleClose: () => void;
+  callback: () => void;
+  message?: string;
 }
-export default function CancelConfirmationModal({ handleClose }: ModalProps) {
+export default function CancelConfirmationModal({ handleClose, callback, message }: ModalProps) {
+  const handleConfirmClick = () => {
+    callback();
+    handleClose();
+  };
+
   return (
     <S.Container>
-      <S.Message>신청을 취소하고 나가실 건가요?</S.Message>
+      <S.Message>{message}</S.Message>
       <S.Buttons>
         <RoundButton onClick={handleClose} color={ROUND_BUTTON_COLOR.GRAY}>
           취소
         </RoundButton>
-        <RoundButton color={ROUND_BUTTON_COLOR.BLACK}>확인</RoundButton>
+        <RoundButton onClick={handleConfirmClick} color={ROUND_BUTTON_COLOR.BLACK}>
+          확인
+        </RoundButton>
       </S.Buttons>
     </S.Container>
   );
