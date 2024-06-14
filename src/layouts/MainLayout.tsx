@@ -26,7 +26,6 @@ const S = {
     flex: 1;
     display: flex;
     flex-direction: row;
-    padding-bottom: 8.5rem;
   `,
   MainContent: styled.div`
     flex: 1;
