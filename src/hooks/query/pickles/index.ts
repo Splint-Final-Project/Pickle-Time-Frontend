@@ -78,7 +78,8 @@ export const useGetPickelDetail = (pickleId: string) => {
   return useQuery({
     queryKey: ['pickles', pickleId],
     queryFn: async () => {
-      return await picklesRequests.getPickleDetail(pickleId);
+      const { data } = await picklesRequests.getPickleDetail(pickleId);
+      return data;
     },
   });
 };

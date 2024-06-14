@@ -1,11 +1,12 @@
 import { Link } from 'react-router-dom';
-import SpecialPickleCardArrowIcon from '@/assets/icons/SpecialPickleCardArrowIcon';
-import HeartButton from '../common/button/HeartButton';
-import BackImg from '@/assets/images/specialPickleCardBackImg.png';
-import { useGetLikePickle, useDeletePickleLikeMutation, usePickleLikeMutation } from '@/hooks/query/like';
 import styled from '@emotion/styled';
+
+import HeartButton from '@/components/common/button/HeartButton';
+import useHeartButtonClick from '@/hooks/useHeartButtonClick';
+import BackImg from '@/assets/images/specialPickleCardBackImg.png';
+import SpecialPickleCardArrowIcon from '@/assets/icons/SpecialPickleCardArrowIcon';
 import routes from '@/constants/routes';
-        
+
 const ONEDAY_MILLISECOND = 1000 * 60 * 60 * 24;
 
 //TODO : 데이터 타입 잡기
@@ -17,28 +18,15 @@ const calculateDday = (deadLine: string) => {
 
 export default function SpecialPickleCard({ pickleData }: { pickleData: any }) {
   const Dday = calculateDday(pickleData.deadLine);
-  console.log(pickleData)
+  console.log(pickleData);
   // // server state
-  const { data } = useGetLikePickle(pickleData.id);
-  const { mutate: postLikeMutate } = usePickleLikeMutation(pickleData.id);
-  const { mutate: deleteLikeMutate } = useDeletePickleLikeMutation(pickleData.id);
-
-  const handleHeartClick = (event: any) => {
-    event.preventDefault();
-    event.stopPropagation();
-
-    if (data && data.data.length) {
-      deleteLikeMutate();
-    } else if (data && !data.data.length) {
-      postLikeMutate();
-    }
-  }
+  const { isLiked, handleHeartClick } = useHeartButtonClick(pickleData.id);
 
   return (
     <S.CardLayer to={`${routes.pickleList}/${pickleData.id}`}>
       <S.Wrap>
         <S.DeadlineBadge>D-{Dday}</S.DeadlineBadge>
-        <HeartButton size={22} isActive={data?.data.length} onClick={handleHeartClick} />
+        <HeartButton size={22} isActive={isLiked} onClick={handleHeartClick} />
       </S.Wrap>
       <S.Title>{pickleData.title}</S.Title>
       <S.ResgisterStatus>
