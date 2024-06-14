@@ -12,7 +12,7 @@ export default function BottomSheetModal() {
     handleClose: closeModal,
     component: Component,
     callback,
-    message,
+    props,
   } = useBottomSheetModal(state => state);
 
   const potal = document.getElementById('modal-root') || document.createElement('div');
@@ -38,7 +38,7 @@ export default function BottomSheetModal() {
           {/* <S.DragBarWrap>
             <S.DragBar />
           </S.DragBarWrap> */}
-          <Component handleClose={closeModal} callback={callback} message={message} />
+          <Component handleClose={closeModal} callback={callback} {...props} />
         </S.Container>
       </S.BackLayout>,
       potal,
