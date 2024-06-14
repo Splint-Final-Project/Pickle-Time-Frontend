@@ -1,14 +1,14 @@
 import { useEffect, useRef, useState } from 'react';
-import usePickleCreation from "@/hooks/zustand/usePickleCreation"
+import usePickleCreation from '@/hooks/zustand/usePickleCreation';
 import styled from '@emotion/styled';
 
 export default function ShowImg() {
   const imageInput = useRef(null);
   const { imgUrl, setImgUrl } = usePickleCreation();
-  
+
   const handleClick = (imageInput: any) => {
     imageInput.current.click();
-  }
+  };
 
   // 로컬 이미지 선택
   const handleFileChange = (event: any) => {
@@ -20,24 +20,24 @@ export default function ShowImg() {
 
   return (
     <>
-      <input type="file" accept="image/*" ref={imageInput} style={{ display: 'none' }} onChange={handleFileChange}/>
-      <S.Container onClick={() => handleClick(imageInput)}>
+      <input type="file" accept="image/*" ref={imageInput} style={{ display: 'none' }} onChange={handleFileChange} />
+      <S.ImgContainer>
         {imgUrl ? (
           <S.Img src={imgUrl} />
         ) : (
-          <S.Text>
-          피클을 잘 나타내는
-          <br /> 이미지를 선택해 주세요!
-        </S.Text>
+          <S.ImgText>
+            피클을 잘 나타내는
+            <br /> 이미지를 선택해 주세요!
+          </S.ImgText>
         )}
-      </S.Container>
+      </S.ImgContainer>
     </>
   );
 }
 
 const S = {
-  Container: styled.div`
-    cursor: pointer;
+  ImgContainer: styled.div`
+    /* cursor: pointer; */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -48,7 +48,7 @@ const S = {
     background: #d9d9d9;
   `,
 
-  Text: styled.span`
+  ImgText: styled.span`
     color: #fff;
     text-align: center;
     font-family: Pretendard;
@@ -58,7 +58,8 @@ const S = {
   `,
 
   Img: styled.img`
+    object-fit: cover;
     width: 100%;
     height: 100%;
-  `
+  `,
 };
