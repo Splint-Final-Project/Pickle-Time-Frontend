@@ -19,7 +19,7 @@ export default function CreatePickle4() {
   const user = getMe();
   const navigate = useNavigate();
   const [paymentMethod, setPaymentMethod] = useState<string>('kakaopay');
-  const { title, capacity, cost, deadLine, where, when, category, explanation, viewCount, latitude, longitude, clear } =
+  const { title, capacity, cost, deadLine, when, category, explanation, viewCount, latitude, longitude, clear } =
     usePickleCreation();
   if (
     !title ||
@@ -49,7 +49,6 @@ export default function CreatePickle4() {
         capacity,
         cost,
         deadLine,
-        where,
         when,
         category,
         explanation,
