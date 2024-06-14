@@ -1,9 +1,23 @@
 import styled from '@emotion/styled';
-import RoundButton from '../button/RoundButton';
+import RoundButton from '@/components/common/button/RoundButton';
 import { ROUND_BUTTON_COLOR } from '@/constants/BUTTON';
 
 /**
  * 재 확인용 모달
+ * - 확인버튼 누를 시 동작할 callback을 받습니다.
+ * - 여러 확인용 알림에 사용할 것을 대비해 사용자에게 묻는 문구는 message로 받습니다.
+ * <사용 예>
+ *  <Button
+        onClick={() =>
+          handleOpen({
+            renderComponent: CancelConfirmationModal,
+            callback: handleConfirmAction,
+            message: '신청을 취소하고 나가실 건가요?',
+          })
+        }
+      >
+        취소확인모달
+      </Button>
  */
 
 interface ModalProps {
@@ -11,6 +25,7 @@ interface ModalProps {
   callback: () => void;
   message?: string;
 }
+
 export default function CancelConfirmationModal({ handleClose, callback, message }: ModalProps) {
   const handleConfirmClick = () => {
     callback();
