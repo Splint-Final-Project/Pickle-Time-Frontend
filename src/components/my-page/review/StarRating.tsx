@@ -1,5 +1,5 @@
-import StarIcon from '@/assets/icons/StarIcon';
 import styled from '@emotion/styled';
+import StarIcon from '@/assets/icons/StarIcon';
 
 /**
  * 별점 선택 컴포넌트
