@@ -101,7 +101,7 @@ export default function Home() {
   const { getMe, signOut } = useAuth();
 
   return (
-    <div>
+    <div style={{ paddingBottom: '8.5rem' }}>
       <S.TopNavBarContainer>
         <S.Logo src="images/logotext.svg" />
         <S.Profile>
