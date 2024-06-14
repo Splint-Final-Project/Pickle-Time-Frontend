@@ -2,18 +2,16 @@ import theme from '@/styles/theme';
 
 export const buttonStyleByType = {
   PRIMARY: `
-    background-color: #a0d911;
+    background-color: ${theme.color.primary};
     color: ${theme.color.white};
     &:hover {
-      background-color: #99cc18;
+      background-color: #47c15b
     }
   `,
 
   SECONDARY: `
-    border: 1px solid #a0d911;
+    border: 1px solid ${theme.color.primary};
     background-color: ${theme.color.white};
-    &:hover {
-      background-color: #f1f5e5;
-    }
+    color: ${theme.color.primary};
   `,
 };

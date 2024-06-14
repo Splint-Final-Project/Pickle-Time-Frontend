@@ -15,6 +15,8 @@ import SkeletonPickleCardList from '@/components/picklecardlist/PickleCardList.S
 import ReviewModal from '@/components/my-page/review/ReviewModal';
 import SortButtons from '@/components/common/button/SortButtons';
 import InfinitePickleCardList from '@/components/picklecard/InfinitePickleCardList';
+import Button from '@/components/common/button/Button';
+import { BUTTON_TYPE } from '@/constants/BUTTON';
 
 import routes from '@/constants/routes';
 import useAuth from '@/hooks/zustand/useAuth';
