@@ -18,36 +18,6 @@ export default function CreatePickle3() {
   const { capacity, explanation, goals } = usePickleCreation();
   const navigate = useNavigate();
 
-  // async function generateExplanation() {
-  //   const completion = await openai.chat.completions.create({
-  //     messages: [
-  //       { role: 'system', content: 'You are a helpful and creative writer that only speaks Korean.' },
-  //       {
-  //         role: 'user',
-  //         content: `"${title}"라는 제목으로 스터디 모임을 만들고 싶은데, 재미있고 창의적인 소개글을 써 줘. 지향하는 분위기와 주의사항 등을 포함해야 해. 공백포함 200자를 넘어선 안 돼.`,
-  //       },
-  //     ],
-  //     model: 'gpt-4o',
-  //   });
-
-  //   console.log(completion.choices[0].message.content);
-  // }
-
-  // async function generateGoals() {
-  //   const completion = await openai.chat.completions.create({
-  //     messages: [
-  //       { role: 'system', content: 'You are a helpful and creative writer that only speaks Korean.' },
-  //       {
-  //         role: 'user',
-  //         content: `"${title}"라는 제목으로 스터디 모임을 만들고 싶은데, 숫자로 표현 가능한 목표를 다섯 가지 정도 추천해 줘. 단어 다섯 개를 comma로 구분해서 답변해 줘.`,
-  //       },
-  //     ],
-  //     model: 'gpt-4o',
-  //   });
-
-  //   console.log(completion);
-  // }
-
   return (
     <Container>
       <TitleContainer>

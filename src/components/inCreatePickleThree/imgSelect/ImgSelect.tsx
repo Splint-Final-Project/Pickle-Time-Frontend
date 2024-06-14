@@ -1,22 +1,15 @@
 import usePickleCreation from '@/hooks/zustand/usePickleCreation';
-
-import ShowImg from './inImgSelect/ShowImg';
-import OpenAI from 'openai';
 import { useRef, useState } from 'react';
 import SelectInLibraryIcon from '/icons/selectInLibrary.svg';
 import GenerateAIICon from '/icons/generateAI.svg';
-
 import styled from '@emotion/styled';
 import Spinner from '@/components/common/Spinner';
+import openai from '@/apis/openai';
 
 export default function ImgSelect() {
   const { title, imgUrl, setImgUrl } = usePickleCreation();
   const [isLoading, setIsLoading] = useState(false);
   const imageInput = useRef(null);
-  const openai = new OpenAI({
-    apiKey: import.meta.env.VITE_OPENAI_API_KEY as string,
-    dangerouslyAllowBrowser: true,
-  });
 
   async function generateImage() {
     const response = await openai.images.generate({

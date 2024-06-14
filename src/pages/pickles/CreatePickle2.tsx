@@ -24,28 +24,28 @@ export default function CreatePickle2() {
 
   const handleClick = async () => {
     try {
-      if (!category) {
-        throw new Error('피클 타임의 카테고리를 선택해 주세요.');
-      }
+      // if (!category) {
+      //   throw new Error('피클 타임의 카테고리를 선택해 주세요.');
+      // }
 
-      if (!cost) {
-        throw new Error('피클 타임 비용을 입력해 주세요.');
-      }
+      // if (!cost) {
+      //   throw new Error('피클 타임 비용을 입력해 주세요.');
+      // }
 
       // deadline
       const newDeadLine = deadlineCalculate();
       setDeadLine(newDeadLine);
 
       // when
-      const { times, summary } = await totalMeetingTimesCalculate({
-        startDate,
-        finishDate,
-        weekend,
-        startTime,
-        finishTime,
-        deadline: newDeadLine,
-      });
-      setWhen({ times: times, summary: summary });
+      // const { times, summary } = await totalMeetingTimesCalculate({
+      //   startDate,
+      //   finishDate,
+      //   weekend,
+      //   startTime,
+      //   finishTime,
+      //   deadline: newDeadLine,
+      // });
+      // setWhen({ times: times, summary: summary });
 
       // navigate
       navigate('/pickle-create-3');
@@ -77,7 +77,7 @@ export default function CreatePickle2() {
       <InputComponent>
         <DateSelect />
       </InputComponent>
-      
+
       {/* 비용 선택 */}
       <InputComponent>
         <CostSelect />
