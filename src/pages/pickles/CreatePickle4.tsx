@@ -19,8 +19,9 @@ export default function CreatePickle4() {
   const user = getMe();
   const navigate = useNavigate();
   const [paymentMethod, setPaymentMethod] = useState<string>('kakaopay');
-  const { title, capacity, cost, deadLine, where, when, category, explanation, viewCount, latitude, longitude, clear } =
+  const { title, capacity, cost, deadLine, when, place, category, explanation, viewCount, latitude, longitude, imgUrl, clear } =
     usePickleCreation();
+
   if (
     !title ||
     !capacity ||
@@ -49,7 +50,7 @@ export default function CreatePickle4() {
         capacity,
         cost,
         deadLine,
-        where,
+        place,
         when,
         category,
         explanation,
@@ -68,9 +69,11 @@ export default function CreatePickle4() {
         navigate(`/pickle-create`, { replace: true });
       }
 
-      const notified = await client.post('/pickle/create', {
-        imp_uid: response.imp_uid,
-      });
+      const formData = new FormData();
+      formData.append('image', imgUrl);
+      formData.append('imp_uid', response.imp_uid);
+
+      const notified = await client.post('/pickle/create', formData);
 
       // 결제 성공(피클도 생성됨) 결과에 따라 분기
       console.log(notified);

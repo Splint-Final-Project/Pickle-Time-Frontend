@@ -58,7 +58,7 @@ export const totalMeetingTimesCalculate = async ({
 
     // 피클 모집 마감 일자 보다 시작 시간이 앞서면, 에러 발생
     if (result[0] < deadline) {
-      return reject(new Error('피클 타임 시작은 모집 마감일 이후인 2주 뒤에 가능합니다.'));
+      return reject(new Error('피클 타임 시작은 모집 마감일 이후인 1주 뒤에 가능합니다.'));
     }
     const days = weekend.filter(day => day.isClicked).map(day => day.day).join(', ');
     const startDateFormatted = `${startDate.month.toString().padStart(2, '0')}월 ${startDate.day.toString().padStart(2, '0')}일`;

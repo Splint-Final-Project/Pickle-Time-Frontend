@@ -16,11 +16,10 @@ import CategorySelect from '@/components/inCreatePickleTwo/categorySelect/Catego
 import { deadlineCalculate, totalMeetingTimesCalculate } from '@/utils/dateCalculate';
 // import { picklesRequests } from '@/apis/pickle.api';
 import { useDateSelect } from '@/hooks/zustand/useDateSelect';
-import { useState } from 'react';
 export default function CreatePickle2() {
   const { cost, category, deadLine, when, setDeadLine, setWhen } = usePickleCreation();
-  const navigate = useNavigate();
   const { startDate, finishDate, weekend, startTime, finishTime } = useDateSelect();
+  const navigate = useNavigate();
 
   const handleClick = async () => {
     try {
