@@ -1,5 +1,6 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import styled from '@emotion/styled';
+import { keyframes } from '@emotion/react';
 import StarRating, { Rating } from '@/components/my-page/review/StarRating';
 import PLACEHOLDER from '@/constants/PLACEHOLDER';
 import { useCreateReviewMutation } from '@/hooks/query/pickles';
@@ -14,12 +15,13 @@ interface Props {
   handleClose: () => void;
 }
 
-const pickleId = '6666b9fdf5c3e2e975e0be57'; //임시
+const pickleId = '6666b9fdf5c3e2e975e0be57'; // 임시
 
 export default function ReviewModal({ handleClose }: Props) {
   const [selectedRating, setSelectedRating] = useState(0);
   const [isRatingSelected, setIsRatingSelected] = useState(false);
   const [reviewText, setReviewText] = useState('');
+  const [showTextBox, setShowTextBox] = useState(false);
 
   const { mutate: postReviewMutate } = useCreateReviewMutation(pickleId, () => handleClose());
 
@@ -41,10 +43,43 @@ export default function ReviewModal({ handleClose }: Props) {
     setReviewText('');
   };
 
+  useEffect(() => {
+    if (isRatingSelected) {
+      const timer = setTimeout(() => {
+        setShowTextBox(true);
+      }, 400); // fadeOut 애니메이션 시간
+      return () => clearTimeout(timer);
+    }
+  }, [isRatingSelected]);
+
   return (
     <S.ContentContainer className="pickle">
-      {isRatingSelected ? (
+      {!isRatingSelected && (
         <>
+          <img src="/icons/tmpRating.png" width="80" />
+          <S.TextBox>
+            <h2>이 피클은 어떠셨나요?</h2>
+            <h3>🏃🏻‍♀️위워크 러닝크루</h3>
+            <span>대신 파이낸셜 지하 1층 헬스장</span>
+          </S.TextBox>
+          <StarRating selectedRating={selectedRating} onStarHover={handleStarHover} onStarClick={handleStarClick} />
+        </>
+      )}
+
+      {isRatingSelected && !showTextBox && (
+        <S.FadeOutContainer>
+          <img src="/icons/tmpRating.png" width="80" />
+          <S.TextBox>
+            <h2>이 피클은 어떠셨나요?</h2>
+            <h3>🏃🏻‍♀️위워크 러닝크루</h3>
+            <span>대신 파이낸셜 지하 1층 헬스장</span>
+          </S.TextBox>
+          <StarRating selectedRating={selectedRating} onStarHover={handleStarHover} onStarClick={handleStarClick} />
+        </S.FadeOutContainer>
+      )}
+
+      {isRatingSelected && showTextBox && (
+        <S.FadeInContainer>
           <S.Title>리뷰쓰기</S.Title>
           <S.TopSection>
             <h3>🏃🏻‍♀️위워크 러닝크루</h3>
@@ -56,23 +91,34 @@ export default function ReviewModal({ handleClose }: Props) {
             onChange={e => setReviewText(e.target.value)}
           />
           <S.Button onClick={handleReviewSubmit}>작성완료</S.Button>
-        </>
-      ) : (
-        <>
-          <img src="/icons/tmpRating.png" width="80" />
-          <S.TextBox>
-            <h2>이 피클은 어떠셨나요?</h2>
-            <h3>🏃🏻‍♀️위워크 러닝크루</h3>
-            <span>대신 파이낸셜 지하 1층 헬스장</span>
-          </S.TextBox>
-          <StarRating selectedRating={selectedRating} onStarHover={handleStarHover} onStarClick={handleStarClick} />
-        </>
+        </S.FadeInContainer>
       )}
     </S.ContentContainer>
   );
 }
 
-//Todo 디자인 나오면 세세한 스타일 수정예정
+const fadeIn = keyframes`
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+`;
+
+const fadeOut = keyframes`
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+`;
+
 const S = {
   ContentContainer: styled.div`
     display: flex;
@@ -81,8 +127,26 @@ const S = {
     justify-content: center;
     gap: 2.5rem;
 
-    min-height: 40rem;
+    min-height: 46rem;
     padding: 2rem 0;
+  `,
+
+  FadeInContainer: styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    gap: 2.5rem;
+    animation: ${fadeIn} 0.4s ease-in-out;
+  `,
+
+  FadeOutContainer: styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    gap: 2.5rem;
+    animation: ${fadeOut} 0.4s ease-in-out;
   `,
 
   Title: styled.h2`
@@ -95,7 +159,6 @@ const S = {
     flex-direction: column;
     align-items: center;
     gap: 1rem;
-
     margin-top: 1rem;
 
     h3 {
