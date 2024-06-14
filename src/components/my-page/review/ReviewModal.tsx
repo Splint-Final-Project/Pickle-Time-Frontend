@@ -54,7 +54,7 @@ export default function ReviewModal({ handleClose }: Props) {
             value={reviewText}
             onChange={e => setReviewText(e.target.value)}
           />
-          <Button onClick={handleReviewSubmit}>작성완료</Button>
+          <Button onClick={handleReviewSubmit}>작성 완료하기</Button>
         </S.ReviewInputSection>
       ) : (
         <S.RatingChoiceSection>
