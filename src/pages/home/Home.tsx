@@ -22,6 +22,7 @@ import routes from '@/constants/routes';
 import useAuth from '@/hooks/zustand/useAuth';
 import useBottomSheetModal from '@/hooks/zustand/useBottomSheetModal';
 import CancelConfirmationModal from '@/components/common/modal/CancelConfirmationModal';
+import ShareModal from '@/components/common/modal/ShareModal';
 
 const S = {
   TopNavBarContainer: styled.div`
@@ -176,6 +177,16 @@ export default function Home() {
         style={{ width: '10rem', marginRight: '1rem' }}
       >
         취소확인모달
+      </Button>
+      <Button
+        onClick={() =>
+          handleOpen({
+            renderComponent: ShareModal,
+          })
+        }
+        style={{ width: '10rem', marginRight: '1rem' }}
+      >
+        공유하기
       </Button>
 
       <Button
