@@ -9,7 +9,8 @@ import Button from '@/components/common/button/Button';
 import { useGetPickelDetail } from '@/hooks/query/pickles';
 import useAuth from '@/hooks/zustand/useAuth';
 import routes from '@/constants/routes';
-
+import ShareModal from '@/components/common/modal/ShareModal';
+import useBottomSheetModal from '@/hooks/zustand/useBottomSheetModal';
 
 /**
  * 피클 상세 페이지
@@ -27,6 +28,7 @@ export default function Pickle() {
 
   //임시 좋아요 수
   const likeCount = 324;
+  const { handleOpen } = useBottomSheetModal(state => state);
 
   return (
     <S.Container>
@@ -77,6 +79,16 @@ export default function Pickle() {
             }
           >
             피클 신청하기
+          </Button>
+          <Button
+            onClick={() =>
+              handleOpen({
+                renderComponent: ShareModal,
+                data: pickleDetailData,
+              })
+            }
+          >
+            공유하기
           </Button>
         </S.GoalAndBtn>
       </S.BottomSection>
