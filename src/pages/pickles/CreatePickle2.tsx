@@ -20,7 +20,7 @@ import { useState } from 'react';
 export default function CreatePickle2() {
   const { cost, category, deadLine, when, setDeadLine, setWhen } = usePickleCreation();
   const navigate = useNavigate();
-  const { startDate, finishDate, weekend, startTime, finishTime } = useDateSelect();
+  const { startDate, finishDate, selectedDays, startTime, finishTime } = useDateSelect();
 
   const handleClick = async () => {
     try {
@@ -37,15 +37,15 @@ export default function CreatePickle2() {
       setDeadLine(newDeadLine);
 
       // when
-      // const { times, summary } = await totalMeetingTimesCalculate({
-      //   startDate,
-      //   finishDate,
-      //   weekend,
-      //   startTime,
-      //   finishTime,
-      //   deadline: newDeadLine,
-      // });
-      // setWhen({ times: times, summary: summary });
+      const { times, summary } = await totalMeetingTimesCalculate({
+        startDate,
+        finishDate,
+        selectedDays,
+        startTime,
+        finishTime,
+        deadline: newDeadLine,
+      });
+      setWhen({ times: times, summary: summary });
 
       // navigate
       navigate('/pickle-create-3');
@@ -67,10 +67,12 @@ export default function CreatePickle2() {
           <StepIndicator $selected={false}>3</StepIndicator>
           <StepIndicator $selected={false}>4</StepIndicator>
         </StepIndicatorContainer>
-
-        {/* 카테고리 선택 */}
-        <CategorySelect />
       </TitleContainer>
+
+      {/* 카테고리 선택 */}
+      <InputComponent>
+        <CategorySelect />
+      </InputComponent>
 
       {/* 날짜 선택 */}
 

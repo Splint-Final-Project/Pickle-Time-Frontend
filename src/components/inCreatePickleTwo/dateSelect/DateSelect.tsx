@@ -1,12 +1,15 @@
+// @ts-nocheck
+
 import Timer from './inDateSelect/Timer';
 // import Dater from './inDateSelect/Dater';
 import DateButtonList from './inDateSelect/DateButtonList';
 import styled from '@emotion/styled';
 import { useDateSelect } from '@/hooks/zustand/useDateSelect';
-import DateRangePicker from '@wojtekmaj/react-daterange-picker';
-import '@wojtekmaj/react-daterange-picker/dist/DateRangePicker.css';
-import 'react-calendar/dist/Calendar.css';
 import { useState } from 'react';
+import { DateRange } from 'react-date-range';
+import * as locales from 'react-date-range/dist/locale';
+import 'react-date-range/dist/styles.css'; // main css file
+import 'react-date-range/dist/theme/default.css'; // theme css file
 
 export default function DateSelect() {
   const { startDate, finishDate, startTime, finishTime, setStartDate, setFinishDate, setStartTime, setFinishTime } =
@@ -19,38 +22,47 @@ export default function DateSelect() {
   return (
     <S.Container>
       <S.Text>일정을 선택해 주세요</S.Text>
-      {/* <Dater date={startDate} setDate={setStartDate}>시작 날짜</Dater>
-      <Dater date={finishDate} setDate={setFinishDate}>종료 날짜</Dater> */}
-
-      <DateRangePicker
-        onChange={(e: any) => {
+      <DateRange
+        color="#000000"
+        date={new Date()}
+        locale={locales.ko.ko}
+        rangeColors={['#5DC26D', '#000000']}
+        editableDateInputs={false}
+        showDateDisplay={false}
+        moveRangeOnFirstSelection={false}
+        direction="horizontal"
+        dateDisplayFormat="yyyy.MM.dd"
+        displayMode="dateRange"
+        // showMonthAndYearPickers={false}
+        // showMonthArrow={false}
+        months={window.innerWidth <= 767 ? 1 : 2}
+        minDate={new Date(year, month, day + 7)}
+        ranges={[
+          {
+            startDate: startDate.year ? new Date(startDate.year, startDate.month - 1, startDate.day) : null,
+            endDate: finishDate.year ? new Date(finishDate.year, finishDate.month - 1, finishDate.day) : null,
+            key: 'selection',
+          },
+        ]}
+        onChange={(item: any) => {
           setStartDate({
-            year: e[0].getFullYear(),
-            month: e[0].getMonth() + 1,
-            day: e[0].getDate(),
+            year: item.selection.startDate.getFullYear(),
+            month: item.selection.startDate.getMonth() + 1,
+            day: item.selection.startDate.getDate(),
           });
           setFinishDate({
-            year: e[1].getFullYear(),
-            month: e[1].getMonth() + 1,
-            day: e[1].getDate(),
+            year: item.selection.endDate.getFullYear(),
+            month: item.selection.endDate.getMonth() + 1,
+            day: item.selection.endDate.getDate(),
           });
-        }}
-        value={[
-          new Date(startDate.year, startDate.month - 1, startDate.day),
-          new Date(finishDate.year, finishDate.month - 1, finishDate.day),
-        ]}
-        calendarProps={{
-          // activeStartDate: new Date(year, month, day + 7),
-          // defaultActiveStartDate: new Date(year, month, day + 7),
-          minDate: new Date(year, month, day + 7),
         }}
       />
       <DateButtonList>요일</DateButtonList>
       <Timer time={startTime} setTime={setStartTime}>
-        시작 시간
+        시작 시각
       </Timer>
       <Timer time={finishTime} setTime={setFinishTime}>
-        종료 시간
+        종료 시각
       </Timer>
     </S.Container>
   );

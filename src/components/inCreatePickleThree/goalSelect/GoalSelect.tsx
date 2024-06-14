@@ -4,15 +4,9 @@ import styled from '@emotion/styled';
 import Tag from '@/components/common/tag/Tag';
 import openai from '@/apis/openai';
 
-const PLACEHOLDER = {
-  first: '토익 850점!, 총 100km 러닝하기 등 (입력 후 Enter)',
-  others: '입력 후 Enter',
-};
-
 export default function GoalSelect() {
   const { title, goals, setGoals } = usePickleCreation();
   const [aiGeneratedGoals, setAIGeneratedGoals] = useState<string[]>([]);
-  let prevTargetValue: string;
 
   async function generateGoals() {
     const completion = await openai.chat.completions.create({

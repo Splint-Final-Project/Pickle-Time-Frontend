@@ -1,42 +1,43 @@
-import { ReactNode } from "react";
-import DateButton from "./DateButton";
-import { useDateSelect } from "@/hooks/zustand/useDateSelect";
-import styled from "@emotion/styled";
+import { ReactNode } from 'react';
+import DateButton from './DateButton';
+import { useDateSelect } from '@/hooks/zustand/useDateSelect';
+import styled from '@emotion/styled';
 
 interface ButtonListProps {
-  children: ReactNode,
+  children: ReactNode;
 }
 
 export default function DateButtonList({ children }: ButtonListProps) {
-  const { weekend, setWeekend } = useDateSelect();
+  const { selectedDays, setSelectedDays } = useDateSelect();
+  const yoils = ['일', '월', '화', '수', '목', '금', '토'];
 
   const handleClick = (e: React.MouseEvent<HTMLButtonElement>, clickedDayId: number) => {
     e.preventDefault();
     e.stopPropagation();
-    setWeekend(weekend.map(day =>
-      day.id === clickedDayId
-        ? { ...day, isClicked: !day.isClicked }
-        : day
-    ));
-  }
+    if (selectedDays.includes(clickedDayId)) {
+      setSelectedDays(selectedDays.filter(dayId => dayId !== clickedDayId));
+    } else {
+      setSelectedDays([...selectedDays, clickedDayId]);
+    }
+  };
 
   return (
     <S.Container>
       <S.TimerText>{children}</S.TimerText>
       <S.ButtonContainer>
-        {weekend.map(dayOfWeek => 
-          <DateButton 
-            key={dayOfWeek.id}
-            dayId={dayOfWeek.id} 
-            onClick={handleClick} 
-            isClicked={dayOfWeek.isClicked}
+        {[0, 1, 2, 3, 4, 5, 6].map(dayIndex => (
+          <DateButton
+            key={dayIndex}
+            dayId={dayIndex}
+            onClick={handleClick}
+            isSelected={selectedDays.includes(dayIndex)}
           >
-            {dayOfWeek.day}
+            {yoils[dayIndex]}
           </DateButton>
-        )}
+        ))}
       </S.ButtonContainer>
     </S.Container>
-  )
+  );
 }
 
 const S = {
