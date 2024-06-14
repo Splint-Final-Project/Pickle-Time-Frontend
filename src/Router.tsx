@@ -1,31 +1,38 @@
 import { createBrowserRouter, redirect } from 'react-router-dom';
 
 import Home from '@/pages/home/Home';
-import Admin from '@/pages/auth/Admin';
-import SignUp from '@/pages/auth/SignUp';
-import Pickle from '@/pages/pickles/Pickle';
 import Conversation from '@/pages/chat/Conversation';
 import ConversationList from '@/pages/chat/ConversationList';
 import MyPage from '@/pages/profile/MyPage';
-import routes from '@/constants/routes';
-import PickleJoinRedirector from './redirectors/PickleJoinRedirector';
+
+import Admin from '@/pages/auth/Admin';
+import SignUp from '@/pages/auth/SignUp';
 import SignUp2 from './pages/auth/SignUp2';
+
+import Pickle from '@/pages/pickles/Pickle';
+import JoinPickle from '@/pages/pickles/JoinPickle';
+import CreatePickle1 from '@/pages/pickles/CreatePickle1';
+import CreatePickle2 from '@/pages/pickles/CreatePickle2';
+import CreatePickle3 from '@/pages/pickles/CreatePickle3';
+import CreatePickle4 from '@/pages/pickles/CreatePickle4';
+
+import AroundMe from '@/pages/around/AroundMe';
+
 import OAuthSuccessRedirector from './redirectors/OAuthSuccessRedirector';
 import LoginRedirector from './redirectors/LoginRedirector';
+
 import SignIn from '@/pages/auth/SignIn';
 import SignIn_Email from '@/pages/auth/SignIn_Email';
 import MainLayout from '@/layouts/MainLayout';
 import SimpleLayout from '@/layouts/SimpleLayout';
 import NotFoundPage from '@/pages/NotFoundPage';
 
-import CreatePickle4 from './pages/pickles/CreatePickle4';
-import CreatePickle1 from './pages/pickles/CreatePickle1';
-import JoinPickle from './pages/pickles/JoinPickle';
-import PickleCreationRedirector from './redirectors/PickleCreationRedirector';
-import CreatePickle2 from './pages/pickles/CreatePickle2';
-import CreatePickle3 from './pages/pickles/CreatePickle3';
 import PopularPickleList from '@/pages/pickles/PopularPickleList';
 import HotTimePickleList from '@/pages/pickles/HotTimePickleList';
+import PickleJoinRedirector from './redirectors/PickleJoinRedirector';
+import PickleCreationRedirector from './redirectors/PickleCreationRedirector';
+
+import routes from '@/constants/routes';
 
 const privateChildren = [
   {
@@ -95,6 +102,11 @@ const router = createBrowserRouter([
         path: routes.chatList,
         element: <ConversationList />,
       },
+      {
+        path: routes.around,
+        element: <AroundMe />,
+      },
+
       {
         path: '/oauth/*',
         children: [

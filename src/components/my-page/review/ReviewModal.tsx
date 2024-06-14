@@ -1,7 +1,7 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import styled from '@emotion/styled';
-import { keyframes } from '@emotion/react';
 import StarRating, { Rating } from '@/components/my-page/review/StarRating';
+import Button from '@/components/common/button/Button';
 import PLACEHOLDER from '@/constants/PLACEHOLDER';
 import { useCreateReviewMutation } from '@/hooks/query/pickles';
 
@@ -15,13 +15,12 @@ interface Props {
   handleClose: () => void;
 }
 
-const pickleId = '6666b9fdf5c3e2e975e0be57'; // 임시
+const pickleId = '6666b9fdf5c3e2e975e0be57'; //임시
 
 export default function ReviewModal({ handleClose }: Props) {
   const [selectedRating, setSelectedRating] = useState(0);
   const [isRatingSelected, setIsRatingSelected] = useState(false);
   const [reviewText, setReviewText] = useState('');
-  const [showTextBox, setShowTextBox] = useState(false);
 
   const { mutate: postReviewMutate } = useCreateReviewMutation(pickleId, () => handleClose());
 
@@ -43,170 +42,85 @@ export default function ReviewModal({ handleClose }: Props) {
     setReviewText('');
   };
 
-  useEffect(() => {
-    if (isRatingSelected) {
-      const timer = setTimeout(() => {
-        setShowTextBox(true);
-      }, 400); // fadeOut 애니메이션 시간
-      return () => clearTimeout(timer);
-    }
-  }, [isRatingSelected]);
-
   return (
-    <S.ContentContainer className="pickle">
-      {!isRatingSelected && (
-        <>
-          <img src="/icons/tmpRating.png" width="80" />
-          <S.TextBox>
-            <h2>이 피클은 어떠셨나요?</h2>
-            <h3>🏃🏻‍♀️위워크 러닝크루</h3>
-            <span>대신 파이낸셜 지하 1층 헬스장</span>
-          </S.TextBox>
-          <StarRating selectedRating={selectedRating} onStarHover={handleStarHover} onStarClick={handleStarClick} />
-        </>
-      )}
-
-      {isRatingSelected && !showTextBox && (
-        <S.FadeOutContainer>
-          <img src="/icons/tmpRating.png" width="80" />
-          <S.TextBox>
-            <h2>이 피클은 어떠셨나요?</h2>
-            <h3>🏃🏻‍♀️위워크 러닝크루</h3>
-            <span>대신 파이낸셜 지하 1층 헬스장</span>
-          </S.TextBox>
-          <StarRating selectedRating={selectedRating} onStarHover={handleStarHover} onStarClick={handleStarClick} />
-        </S.FadeOutContainer>
-      )}
-
-      {isRatingSelected && showTextBox && (
-        <S.FadeInContainer>
+    <S.Container>
+      {isRatingSelected ? (
+        <S.ReviewInputSection>
           <S.Title>리뷰쓰기</S.Title>
-          <S.TopSection>
-            <h3>🏃🏻‍♀️위워크 러닝크루</h3>
-            <StarRating selectedRating={selectedRating} onStarHover={handleStarHover} onStarClick={handleStarClick} />
-          </S.TopSection>
+          <S.PickleName className="input-section">토익 850 목표 스터디</S.PickleName>
+          <StarRating selectedRating={selectedRating} onStarHover={handleStarHover} onStarClick={handleStarClick} />
           <S.TextArea
             placeholder={PLACEHOLDER.REVIEW.WRITE}
             value={reviewText}
             onChange={e => setReviewText(e.target.value)}
           />
-          <S.Button onClick={handleReviewSubmit}>작성완료</S.Button>
-        </S.FadeInContainer>
+          <Button onClick={handleReviewSubmit}>작성 완료하기</Button>
+        </S.ReviewInputSection>
+      ) : (
+        <S.RatingChoiceSection>
+          <S.Title>이 피클은 어떠셨나요?</S.Title>
+          <S.PickleName className="rating-section">토익 850 목표 스터디</S.PickleName>
+          <StarRating selectedRating={selectedRating} onStarHover={handleStarHover} onStarClick={handleStarClick} />
+        </S.RatingChoiceSection>
       )}
-    </S.ContentContainer>
+    </S.Container>
   );
 }
 
-const fadeIn = keyframes`
-  from {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-`;
-
-const fadeOut = keyframes`
-  from {
-    opacity: 1;
-    transform: translateY(0);
-  }
-  to {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-`;
-
 const S = {
-  ContentContainer: styled.div`
+  Container: styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-    gap: 2.5rem;
-
-    min-height: 46rem;
-    padding: 2rem 0;
+    text-align: center;
   `,
 
-  FadeInContainer: styled.div`
+  ReviewInputSection: styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
+
     width: 100%;
-    gap: 2.5rem;
-    animation: ${fadeIn} 0.4s ease-in-out;
+    padding: 0.5rem 0 1.4rem;
+
+    & .input-section {
+      margin: 3.3rem 0 1.8rem;
+    }
   `,
 
-  FadeOutContainer: styled.div`
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-    gap: 2.5rem;
-    animation: ${fadeOut} 0.4s ease-in-out;
+  RatingChoiceSection: styled.div`
+    padding: 13rem 0;
+
+    & .rating-section {
+      margin: 0.5rem 0 4.5rem;
+    }
   `,
 
   Title: styled.h2`
-    ${({ theme }) => theme.typography.header}
-    font-weight: 700;
+    color: ${({ theme }) => theme.color.basic};
+    ${({ theme }) => theme.typography.subTitle1};
   `,
 
-  TopSection: styled.div`
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 1rem;
-    margin-top: 1rem;
-
-    h3 {
-      ${({ theme }) => theme.typography.subTitle1}
-    }
-  `,
-
-  TextBox: styled.div`
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 1rem;
-
-    h2 {
-      ${({ theme }) => theme.typography.header}
-      font-weight: 700;
-    }
-
-    h3 {
-      ${({ theme }) => theme.typography.subTitle1}
-    }
-
-    span {
-      ${({ theme }) => theme.typography.body2}
-    }
+  PickleName: styled.div`
+    color: ${({ theme }) => theme.color.sub};
+    ${({ theme }) => theme.typography.subTitle3};
   `,
 
   TextArea: styled.textarea`
-    width: 90%;
+    width: 100%;
     height: 18rem;
-    padding: 1rem;
-    border: 1px solid #ccc;
-    border-radius: 0.4rem;
+    padding: 1.8rem 0;
+    margin: 2.8rem 0;
+    border: none;
+    border-top: ${({ theme }) => theme.border};
+    border-bottom: ${({ theme }) => theme.border};
+
     overflow-y: auto; //스크롤이 왜 안보일까요?
     font-size: 1.6rem;
 
     ::placeholder {
+      color: ${({ theme }) => theme.color.inputText};
       ${({ theme }) => theme.typography.body1}
     }
-  `,
-
-  Button: styled.button`
-    width: 90%;
-    border: 1px solid #ccc;
-    border-radius: 0.8rem;
-    padding: 1.5rem;
-    background-color: ${({ theme }) => theme.color.primary};
-    color: ${({ theme }) => theme.color.white};
-    ${({ theme }) => theme.typography.body1};
   `,
 };
