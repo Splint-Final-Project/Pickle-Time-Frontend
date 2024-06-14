@@ -16,10 +16,13 @@ export default function PointDisCount({ totalPoint, setUsePoint }: PointDisCount
     const point = parseInt(value, 10);
     if (point > availablePoint) {
       setError('사용 가능한 포인트를 초과하였습니다.');
+      setUsePoint(0);
     } else if (point % 10 !== 0) {
       setError('포인트는 10단위로 입력해야합니다.');
+      setUsePoint(0);
     } else if (point < 100 && point !== 0) {
       setError('포인트는 100P부터 사용가능합니다.');
+      setUsePoint(0);
     } else {
       setError('');
       setUsePoint(point);

@@ -16,7 +16,6 @@ export default function PaymentMeans({ setState }: PaymentMeansProps) {
           value="tosspay"
           type="radio"
           name="paymentMethod"
-          checked
           onChange={e => setState(e.target.value)}
         />
         <S.Label htmlFor="tosspay">

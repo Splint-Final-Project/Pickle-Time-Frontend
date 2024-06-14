@@ -6,24 +6,31 @@ interface PicklePreviewCardProps {
     imgUrl: string;
     title: string;
     price: number;
+    capacity: number;
+    duration: string;
+    time: string;
+    day: string[];
   };
   type: 'create' | 'application';
 }
 export default function PicklePreviewCard({ data, type }: PicklePreviewCardProps) {
+  const day = data.day.join(',');
   return (
     <>
       <S.Title>{type === 'create' ? '생성할 피클을 확인해주세요.' : '신청할 피클을 확인해주세요.'}</S.Title>
       <S.Category>{data.category}</S.Category>
       <S.Figure>
         <S.FigureImgWrap>
-          <S.FigureImg src={data.imgUrl} />
+          <S.FigureImg src={data.imgUrl} alt="피클 이미지" />
         </S.FigureImgWrap>
         <S.Figcaption>
           <S.FigureContent>{data.title}</S.FigureContent>
           <S.FigureContent>
-            06/01 - 09/01 <span>01 : 00pm ~ 05 : 00pm</span>
+            {data.duration} <span>{data.time}</span>
           </S.FigureContent>
-          <S.FigureContent>8명 | 월, 목</S.FigureContent>
+          <S.FigureContent>
+            {data.capacity}명 | {day}
+          </S.FigureContent>
           <S.FigureContent>
             <strong>{data.price.toLocaleString()}</strong>원
           </S.FigureContent>
