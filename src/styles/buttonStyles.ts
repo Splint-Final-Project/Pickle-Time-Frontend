@@ -15,3 +15,15 @@ export const buttonStyleByType = {
     color: ${theme.color.primary};
   `,
 };
+
+export const roundButtonStyle = {
+  GRAY: `
+    background-color: ${theme.color.background};
+    color: ${theme.color.sub};
+  `,
+
+  BLACK: `
+    background-color: ${theme.color.basic};
+    color: ${theme.color.white};
+  `,
+};
