@@ -92,6 +92,9 @@ export default function Home() {
   const closeModal = () => setModalOpen(false);
 
   const { handleOpen } = useBottomSheetModal(state => state);
+  const handleConfirmAction = () => {
+    console.log('확인을 누르셨어요');
+  };
 
   // 전역 상태
   const { getMe, signOut } = useAuth();
@@ -163,7 +166,13 @@ export default function Home() {
         리뷰작성
       </Button>
       <Button
-        onClick={() => handleOpen({ renderComponent: CancelConfirmationModal })}
+        onClick={() =>
+          handleOpen({
+            renderComponent: CancelConfirmationModal,
+            callback: handleConfirmAction,
+            message: '신청을 취소하고 나가실 건가요?',
+          })
+        }
         style={{ width: '10rem', marginRight: '1rem' }}
       >
         취소확인모달
