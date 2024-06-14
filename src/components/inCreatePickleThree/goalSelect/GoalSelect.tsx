@@ -1,18 +1,18 @@
-import { KeyboardEventHandler } from "react";
-import usePickleCreation from "@/hooks/zustand/usePickleCreation"
+import { KeyboardEventHandler } from 'react';
+import usePickleCreation from '@/hooks/zustand/usePickleCreation';
 import styled from '@emotion/styled';
-import Tag from "@/components/common/tag/Tag";
+import Tag from '@/components/common/tag/Tag';
 
 const PLACEHOLDER = {
-  first: "토익 850점!, 총 100km 러닝하기 등 (입력 후 Enter)",
-  others: "입력 후 Enter"
-}
+  first: '토익 850점!, 총 100km 러닝하기 등 (입력 후 Enter)',
+  others: '입력 후 Enter',
+};
 
 export default function GoalSelect() {
   const { goals, setAddGoals, setRemoveGoals } = usePickleCreation();
   let prevTargetValue: string;
 
-  const handleKeyDown: KeyboardEventHandler = (e) => {
+  const handleKeyDown: KeyboardEventHandler = e => {
     e.preventDefault();
 
     if (prevTargetValue === '' && e.key === 'Backspace') {
@@ -46,24 +46,26 @@ export default function GoalSelect() {
   const handleRemove = (removedName: string) => {
     const updatedGoals = goals.filter(goal => goal !== removedName);
     setRemoveGoals(updatedGoals);
-  }
+  };
 
   return (
     <S.Container>
       <S.Text>피클의 목표를 설정해 주세요</S.Text>
-        <S.InputLabel>
-          <S.InputWithType>
-            <S.Input placeholder="토익 850점!, 총 100km 러닝하기 등 (입력 후 Enter)" onKeyUp={handleKeyDown}/>
-            <S.SubText>최대 5개까지 입력 가능하며 각 15자 이내로 작성해 주세요</S.SubText>
-          </S.InputWithType>
-          <S.GoalContainer>
-            {goals?.map((goal) => (
-              <Tag key={goal} handleRemove={()=>handleRemove(goal)} hasHandler={true}>{goal}</Tag>
-            ))}
-          </S.GoalContainer>
-        </S.InputLabel>
+      <S.InputLabel>
+        <S.InputWithType>
+          <S.Input placeholder="토익 850점!, 총 100km 러닝하기 등 (입력 후 Enter)" onKeyUp={handleKeyDown} />
+          <S.SubText>15자 이내로 최대 5개까지 입력 가능합니다.</S.SubText>
+        </S.InputWithType>
+        <S.GoalContainer>
+          {goals?.map(goal => (
+            <Tag key={goal} handleRemove={() => handleRemove(goal)} hasHandler={true}>
+              {goal}
+            </Tag>
+          ))}
+        </S.GoalContainer>
+      </S.InputLabel>
     </S.Container>
-  )
+  );
 }
 
 const S = {
@@ -74,7 +76,7 @@ const S = {
     padding: 3rem 0;
     gap: 2.3rem;
   `,
-  
+
   Text: styled.span`
     color: #292929;
     font-family: Pretendard;
@@ -120,7 +122,7 @@ const S = {
   `,
 
   CapacityText: styled.span`
-    color: #181F29;
+    color: #181f29;
     font-family: Pretendard;
     font-size: 2.4rem;
     font-weight: 600;
@@ -129,11 +131,11 @@ const S = {
   `,
 
   SubText: styled.span`
-    color: #8B8D94;
+    color: #8b8d94;
     font-family: Pretendard;
     font-size: 1.5rem;
     font-weight: 600;
     font-style: normal;
     line-height: normal;
-  `
+  `,
 };

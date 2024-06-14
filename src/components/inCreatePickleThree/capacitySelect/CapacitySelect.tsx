@@ -1,4 +1,4 @@
-import usePickleCreation from "@/hooks/zustand/usePickleCreation"
+import usePickleCreation from '@/hooks/zustand/usePickleCreation';
 import styled from '@emotion/styled';
 
 const MAX_CAPACITY = 6;
@@ -9,7 +9,7 @@ const limitMaxCapacity = (capacity: number) => {
   }
 
   return capacity;
-}
+};
 
 export default function CapacitySelect() {
   const { capacity, setCapacity } = usePickleCreation();
@@ -22,15 +22,19 @@ export default function CapacitySelect() {
 
   return (
     <S.Container>
-      <S.Text>참여 인원을 설정해 주세요</S.Text>
+      <S.Text>참여 인원을 설정해 주세요 (2~6명)</S.Text>
       <S.InputWrapper>
         <S.InputLabel>
-          <S.Input placeholder="00" onChange={handleInputChange} value={isNaN(capacity) || capacity === 0 ? '' : capacity}/>
+          <S.Input
+            placeholder="00"
+            onChange={handleInputChange}
+            value={isNaN(capacity) || capacity === 0 ? '' : capacity}
+          />
         </S.InputLabel>
         <S.CapacityText>명</S.CapacityText>
       </S.InputWrapper>
     </S.Container>
-  )
+  );
 }
 
 const S = {
@@ -41,7 +45,7 @@ const S = {
     padding: 3rem 0;
     gap: 5rem;
   `,
-  
+
   Text: styled.span`
     color: #292929;
     font-family: Pretendard;
@@ -61,18 +65,21 @@ const S = {
   InputLabel: styled.label`
     width: 5rem;
   `,
-   
+
   Input: styled.input`
     width: 5rem;
     border: none;
     border-bottom: 0.2rem solid #ddd;
     font-family: Pretendard;
-    text-align: right;
+    text-align: center;
     font-size: 2.4rem;
     font-weight: 600;
     font-style: normal;
     line-height: normal;
     outline: none;
+    ::placeholder {
+      color: #bababa;
+    }
 
     &:focus {
       border-bottom-color: #333; // Focus 시 밑줄 색상 변경
@@ -80,11 +87,11 @@ const S = {
   `,
 
   CapacityText: styled.span`
-    color: #181F29;
+    color: #181f29;
     font-family: Pretendard;
     font-size: 2.4rem;
     font-weight: 600;
     font-style: normal;
     line-height: normal;
-  `
+  `,
 };
