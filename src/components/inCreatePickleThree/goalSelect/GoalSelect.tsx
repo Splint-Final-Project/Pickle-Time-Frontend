@@ -1,7 +1,8 @@
-import { KeyboardEventHandler } from 'react';
+import { KeyboardEventHandler, useEffect, useState } from 'react';
 import usePickleCreation from '@/hooks/zustand/usePickleCreation';
 import styled from '@emotion/styled';
 import Tag from '@/components/common/tag/Tag';
+import openai from '@/apis/openai';
 
 const PLACEHOLDER = {
   first: '토익 850점!, 총 100km 러닝하기 등 (입력 후 Enter)',
@@ -9,21 +10,42 @@ const PLACEHOLDER = {
 };
 
 export default function GoalSelect() {
-  const { goals, setAddGoals, setRemoveGoals } = usePickleCreation();
+  const { title, goals, setGoals } = usePickleCreation();
+  const [aiGeneratedGoals, setAIGeneratedGoals] = useState<string[]>([]);
   let prevTargetValue: string;
 
-  const handleKeyDown: KeyboardEventHandler = e => {
-    e.preventDefault();
+  async function generateGoals() {
+    const completion = await openai.chat.completions.create({
+      messages: [
+        { role: 'system', content: 'You are a helpful and creative writer that only speaks Korean.' },
+        {
+          role: 'user',
+          content: `"${title}"라는 제목으로 스터디 모임을 만들고 싶은데, 수치로 확인할 수 있는 목표들을 세 가지 추천해 줘. 예컨데 토익 850점, 총 100km 러닝 등. 순서 구분 없이 comma로 구분해서 답변해 줘. 목표 하나당 15자를 넘어서는 안 돼.`,
+        },
+      ],
+      model: 'gpt-4o',
+    });
+    setAIGeneratedGoals(completion.choices[0].message.content?.split(',') || []);
+  }
 
-    if (prevTargetValue === '' && e.key === 'Backspace') {
+  const handleKeyDown: KeyboardEventHandler = e => {
+    const target = e.target as HTMLInputElement;
+
+    if (target.value === '' && e.key === 'Backspace') {
+      e.preventDefault();
       const updatedGoals = goals.slice(0, -1);
-      setRemoveGoals(updatedGoals);
+      setGoals(updatedGoals);
       return;
     }
 
-    const target = e.target as HTMLInputElement;
-    prevTargetValue = target.value;
-    if (e.key !== 'Enter' && e.key !== 'Backspace') return;
+    if (e.key === 'Tab') {
+      e.preventDefault();
+      if (aiGeneratedGoals) {
+        target.value = aiGeneratedGoals[0];
+        aiGeneratedGoals.shift();
+      }
+      return;
+    }
 
     if (e.key === 'Enter') {
       e.preventDefault();
@@ -35,8 +57,8 @@ export default function GoalSelect() {
         return;
       }
 
-      const addGoal = target.value;
-      setAddGoals(addGoal);
+      const newGoals = [...goals, target.value];
+      setGoals(newGoals);
       target.value = '';
 
       return;
@@ -45,15 +67,22 @@ export default function GoalSelect() {
 
   const handleRemove = (removedName: string) => {
     const updatedGoals = goals.filter(goal => goal !== removedName);
-    setRemoveGoals(updatedGoals);
+    setGoals(updatedGoals);
   };
+
+  useEffect(() => {
+    generateGoals();
+  }, []);
 
   return (
     <S.Container>
-      <S.Text>피클의 목표를 설정해 주세요</S.Text>
+      <S.Text>
+        피클의 목표를 설정해 주세요{' '}
+        <span>{aiGeneratedGoals.length !== 0 ? 'Tab으로 자동완성, 입력 후 Enter' : '입력 후 Enter'}</span>
+      </S.Text>
       <S.InputLabel>
         <S.InputWithType>
-          <S.Input placeholder="토익 850점!, 총 100km 러닝하기 등 (입력 후 Enter)" onKeyUp={handleKeyDown} />
+          <S.Input placeholder={aiGeneratedGoals.length !== 0 ? aiGeneratedGoals[0] : ''} onKeyDown={handleKeyDown} />
           <S.SubText>15자 이내로 최대 5개까지 입력 가능합니다.</S.SubText>
         </S.InputWithType>
         <S.GoalContainer>
@@ -84,6 +113,14 @@ const S = {
     font-weight: 600;
     font-style: normal;
     line-height: normal;
+    span {
+      color: var(--Sub-Text, var(--Tab-Bar-Color-2, #8b8d94));
+      font-size: 13px;
+      font-style: normal;
+      font-weight: 500;
+      line-height: 0%; /* 0px */
+      vertical-align: baseline;
+    }
   `,
 
   InputLabel: styled.label`

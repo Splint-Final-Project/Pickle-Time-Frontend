@@ -22,7 +22,9 @@ export default function CapacitySelect() {
 
   return (
     <S.Container>
-      <S.Text>참여 인원을 설정해 주세요 (2~6명)</S.Text>
+      <S.Text>
+        참여 인원을 설정해 주세요 <span>(2~6명)</span>
+      </S.Text>
       <S.InputWrapper>
         <S.InputLabel>
           <S.Input
@@ -53,6 +55,14 @@ const S = {
     font-weight: 600;
     font-style: normal;
     line-height: normal;
+    span {
+      color: var(--Sub-Text, var(--Tab-Bar-Color-2, #8b8d94));
+      font-size: 13px;
+      font-style: normal;
+      font-weight: 500;
+      line-height: 0%; /* 0px */
+      vertical-align: baseline;
+    }
   `,
 
   InputWrapper: styled.div`

@@ -29,11 +29,13 @@ export default function WriteDetail() {
     let result = await generateExplanation();
     if (result) {
       setPlaceholder(result);
+      setIsAIready(true);
     }
   }
 
   const handleInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const newExplanation = e.target.value;
+    if (newExplanation.length > 200) return;
     setExplanation(newExplanation);
   };
 
@@ -43,15 +45,13 @@ export default function WriteDetail() {
 
   return (
     <S.Container>
-      <S.Text>
-        피클을 소개하는 글을 작성해 주세요 <span>tab 키를 눌러 자동완성</span>
-      </S.Text>
+      <S.Text>피클을 소개하는 글을 작성해 주세요 {isAIready && <span>Tab으로 자동완성</span>}</S.Text>
       <S.InputLabel>
         <S.Input
           placeholder={placeholder}
           onChange={handleInputChange}
           onKeyDown={e => {
-            if (e.key === 'Tab') {
+            if (isAIready && e.key === 'Tab') {
               e.preventDefault();
               setExplanation(placeholder);
             }
@@ -59,7 +59,7 @@ export default function WriteDetail() {
           value={explanation}
         />
       </S.InputLabel>
-      <S.SubText>({explanation.length}/200)</S.SubText>
+      <S.SubText $over={explanation.length >= 200}>({explanation.length}/200)</S.SubText>
     </S.Container>
   );
 }
@@ -125,7 +125,7 @@ const S = {
     line-height: normal;
   `,
 
-  SubText: styled.span`
+  SubText: styled.span<{ $over: boolean }>`
     color: #8b8d94;
     font-family: Pretendard;
     font-size: 1.5rem;
@@ -133,5 +133,10 @@ const S = {
     font-style: normal;
     line-height: normal;
     text-align: right;
+    ${props =>
+      props.$over &&
+      `
+        color: red;
+      `}
   `,
 };
