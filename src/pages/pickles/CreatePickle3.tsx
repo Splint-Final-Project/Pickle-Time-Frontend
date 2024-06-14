@@ -14,12 +14,15 @@ import WriteDetail from '@/components/inCreatePickleThree/writeDetail/WriteDetai
 import GoalSelect from '@/components/inCreatePickleThree/goalSelect/GoalSelect';
 import ImgSelect from '@/components/inCreatePickleThree/imgSelect/ImgSelect';
 import OpenAI from 'openai';
+import client from '@/apis/axios';
 
 export default function CreatePickle3() {
   const {
+    file,
     capacity,
     explanation,
     goals,
+    setImgUrl
   } = usePickleCreation();
   const navigate = useNavigate();
 
@@ -69,6 +72,25 @@ export default function CreatePickle3() {
     console.log(completion);
   }
 
+  const postImg = async () => {
+    try {
+      const formData = new FormData();
+
+      if (file) {
+        formData.append('file', file);
+        const post = await client.post('/pickle/test', formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data'
+          }
+        });
+        console.log(post.data.file);
+        setImgUrl(`http://localhost:8080/${post.data.file}`)
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  }
+
   return (
     <Container>
       <TitleContainer>
@@ -83,6 +105,7 @@ export default function CreatePickle3() {
           <StepIndicator $selected={false}>4</StepIndicator>
         </StepIndicatorContainer>
         <ImgSelect/>
+        <button onClick={postImg}>post</button>
       </TitleContainer>
 
       {/* 상세 설명 */}

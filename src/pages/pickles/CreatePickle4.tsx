@@ -19,7 +19,7 @@ export default function CreatePickle4() {
   const user = getMe();
   const navigate = useNavigate();
   const [paymentMethod, setPaymentMethod] = useState<string>('kakaopay');
-  const { title, capacity, cost, deadLine, when, place, category, explanation, viewCount, latitude, longitude, imgUrl, clear } =
+  const { title, capacity, cost, deadLine, when, place, category, explanation, viewCount, latitude, longitude, file, imgUrl, clear } =
     usePickleCreation();
 
   if (
@@ -57,6 +57,7 @@ export default function CreatePickle4() {
         viewCount,
         latitude,
         longitude,
+        imgUrl,
       },
       m_redirect_url: `${window.location.origin.toString()}/create-redirect`,
     };
@@ -69,11 +70,30 @@ export default function CreatePickle4() {
         navigate(`/pickle-create`, { replace: true });
       }
 
-      const formData = new FormData();
-      formData.append('image', imgUrl);
-      formData.append('imp_uid', response.imp_uid);
+      if (file) {
+        const formData = new FormData();
+        formData.append('image', file);
+        formData.append('imp_uid', response.imp_uid);
 
-      const notified = await client.post('/pickle/create', formData);
+        const notified = await client.post('/pickle/create', formData);
+
+        console.log(notified);
+
+        if (notified.status === 201) {
+          alert('결제 및 피클 생성이 완료되었습니다.');
+          clear();
+          navigate(`/pickle/${notified.data.pickle._id}`, { replace: true });
+        } else {
+          alert('피클 생성이 실패하여 결제 금액은 환불되었습니다.' + notified.data.message);
+          navigate(`/pickle-create`, { replace: true });
+        }
+
+        return;
+      }
+
+      const notified = await client.post('/pickle/create', {
+        imp_uid: response.imp_uid
+      });
 
       // 결제 성공(피클도 생성됨) 결과에 따라 분기
       console.log(notified);
