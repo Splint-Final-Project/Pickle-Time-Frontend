@@ -21,6 +21,8 @@ import { BUTTON_TYPE } from '@/constants/BUTTON';
 import routes from '@/constants/routes';
 import useAuth from '@/hooks/zustand/useAuth';
 import useBottomSheetModal from '@/hooks/zustand/useBottomSheetModal';
+import CancelConfirmationModal from '@/components/common/modal/CancelConfirmationModal';
+import ShareModal from '@/components/common/modal/ShareModal';
 
 const S = {
   TopNavBarContainer: styled.div`
@@ -91,6 +93,9 @@ export default function Home() {
   const closeModal = () => setModalOpen(false);
 
   const { handleOpen } = useBottomSheetModal(state => state);
+  const handleConfirmAction = () => {
+    console.log('확인을 누르셨어요');
+  };
 
   // 전역 상태
   const { getMe, signOut } = useAuth();
@@ -155,11 +160,43 @@ export default function Home() {
       <br />
       <br />
 
-      <button onClick={() => handleOpen({ renderComponent: ReviewModal })}>리뷰작성</button>
+      <Button
+        onClick={() => handleOpen({ renderComponent: ReviewModal })}
+        style={{ width: '10rem', marginRight: '1rem' }}
+      >
+        리뷰작성
+      </Button>
+      <Button
+        onClick={() =>
+          handleOpen({
+            renderComponent: CancelConfirmationModal,
+            callback: handleConfirmAction,
+            message: '신청을 취소하고 나가실 건가요?',
+          })
+        }
+        style={{ width: '10rem', marginRight: '1rem' }}
+      >
+        취소확인모달
+      </Button>
+      <Button
+        onClick={() =>
+          handleOpen({
+            renderComponent: ShareModal,
+          })
+        }
+        style={{ width: '10rem', marginRight: '1rem' }}
+      >
+        공유하기
+      </Button>
 
-      <button type="button" onClick={openModal}>
+      <Button
+        type="button"
+        onClick={openModal}
+        styleType={BUTTON_TYPE.SECONDARY}
+        style={{ width: '10rem', marginRight: '1rem' }}
+      >
         모달 테스트 버튼
-      </button>
+      </Button>
       <BackDropModal isOpen={isModalOpen} onClose={closeModal}>
         <div>티라노 앙</div>
       </BackDropModal>

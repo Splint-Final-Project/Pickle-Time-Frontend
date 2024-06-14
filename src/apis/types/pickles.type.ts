@@ -38,6 +38,25 @@ export interface WholePickle {
   where: string;
 }
 
+export interface DetailPickle {
+  capacity: number;
+  category: string;
+  cost: number;
+  createdAt: string;
+  updatedAt: string;
+  deadLine: string;
+  explanation: string;
+  isCancelled: boolean;
+  latitude: number;
+  longtitude: number;
+  participantNumber: number;
+  title: string;
+  viewCount: number;
+  when: When;
+  where: string;
+  id: string;
+}
+
 export interface CreateReviewData {
   star: number;
   reviewText?: string;
