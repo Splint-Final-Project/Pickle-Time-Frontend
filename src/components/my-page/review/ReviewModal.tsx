@@ -126,7 +126,7 @@ const S = {
     flex-direction: column;
     align-items: center;
     width: 100%;
-    padding: 0.5rem 0 1.4rem;
+    padding: 2rem 0 1.4rem;
 
     & .input-section {
       margin: 3.3rem 0 1.8rem;
