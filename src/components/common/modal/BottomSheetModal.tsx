@@ -34,9 +34,9 @@ export default function BottomSheetModal() {
           <S.CloseBtn onClick={closeModal}>
             <CloseIcon />
           </S.CloseBtn>
-          <S.DragBarWrap>
+          {/* <S.DragBarWrap>
             <S.DragBar />
-          </S.DragBarWrap>
+          </S.DragBarWrap> */}
           <Component handleClose={closeModal} callback={callback} />
         </S.Container>
       </S.BackLayout>,
@@ -64,7 +64,7 @@ const S = {
   Container: styled.div`
     position: absolute;
     bottom: 0;
-    padding: 2rem 1.6rem;
+    padding: 2rem 3.4rem;
     width: 100%;
     max-width: 60rem;
     background: ${({ theme }) => theme.color.white};

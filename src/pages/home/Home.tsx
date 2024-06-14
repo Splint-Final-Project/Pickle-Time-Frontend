@@ -21,6 +21,7 @@ import { BUTTON_TYPE } from '@/constants/BUTTON';
 import routes from '@/constants/routes';
 import useAuth from '@/hooks/zustand/useAuth';
 import useBottomSheetModal from '@/hooks/zustand/useBottomSheetModal';
+import CancelConfirmationModal from '@/components/common/modal/CancelConfirmationModal';
 
 const S = {
   TopNavBarContainer: styled.div`
@@ -155,11 +156,27 @@ export default function Home() {
       <br />
       <br />
 
-      <button onClick={() => handleOpen({ renderComponent: ReviewModal })}>리뷰작성</button>
+      <Button
+        onClick={() => handleOpen({ renderComponent: ReviewModal })}
+        style={{ width: '10rem', marginRight: '1rem' }}
+      >
+        리뷰작성
+      </Button>
+      <Button
+        onClick={() => handleOpen({ renderComponent: CancelConfirmationModal })}
+        style={{ width: '10rem', marginRight: '1rem' }}
+      >
+        취소확인모달
+      </Button>
 
-      <button type="button" onClick={openModal}>
+      <Button
+        type="button"
+        onClick={openModal}
+        styleType={BUTTON_TYPE.SECONDARY}
+        style={{ width: '10rem', marginRight: '1rem' }}
+      >
         모달 테스트 버튼
-      </button>
+      </Button>
       <BackDropModal isOpen={isModalOpen} onClose={closeModal}>
         <div>티라노 앙</div>
       </BackDropModal>
