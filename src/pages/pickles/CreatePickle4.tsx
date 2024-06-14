@@ -15,21 +15,29 @@ export default function CreatePickle4() {
   const [paymentMethod, setPaymentMethod] = useState<string>('');
   const [usePointValue, setUsePointValue] = useState(0);
   const [isAgree, setIsAgree] = useState(false);
-  const { title, capacity, cost, category, explanation, clear, imgUrl } = usePickleCreation();
+  const { title, capacity, cost, when, category, explanation, clear, imgUrl, place, deadLine, latitude, longitude } =
+    usePickleCreation();
   const { startDate, finishDate, weekend, startTime, finishTime } = useDateSelect();
   const paymentData: PaymentDataType = useMemo(
     () => ({
       pg: `${paymentMethod === 'kakaopay' ? 'kakaopay.TC0ONETIME' : 'tosspay.tosstest'}`,
       pay_method: 'card',
       merchant_uid: `mid_${new Date().getTime()}`,
-      amount: 500,
+      amount: cost - usePointValue,
       name: `${title} 생성하기`,
       buyer_name: user.nickname,
       custom_data: {
         title,
         capacity,
+        cost,
+        deadLine,
+        place,
+        latitude,
+        longitude,
+        when,
         category,
         explanation,
+        imgUrl,
       },
       m_redirect_url: `${window.location.origin.toString()}/create-redirect`,
     }),
