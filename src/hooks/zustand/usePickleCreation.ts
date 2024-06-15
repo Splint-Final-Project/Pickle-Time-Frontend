@@ -17,7 +17,7 @@ const usePickleCreation = create<{
   };
   category: string;
   explanation: string;
-  viewCount: number; // 초기 viewCount 설정
+  viewCount: number; // 초기 viewCount 
   goals: string[];
   imgUrl: string;
   setTitle: (title: string) => void;

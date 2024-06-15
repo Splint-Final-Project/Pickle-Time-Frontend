@@ -1,7 +1,7 @@
 import { useQuery, useInfiniteQuery, useMutation, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
 
 import { picklesRequests } from '@/apis/pickle.api';
-import { Coordinates, CreatePickleData } from '@/apis/types/pickles.type';
+import { Coordinates, CreatePickleData, CreateReviewData } from '@/apis/types/pickles.type';
 import toast from 'react-hot-toast';
 
 export const useGetInfinitePickles = () => {
@@ -78,7 +78,28 @@ export const useGetPickelDetail = (pickleId: string) => {
   return useQuery({
     queryKey: ['pickles', pickleId],
     queryFn: async () => {
-      return await picklesRequests.getPickleDetail(pickleId);
+      const { data } = await picklesRequests.getPickleDetail(pickleId);
+      return data;
+    },
+  });
+};
+
+export const useCreateReviewMutation = (pickleId: string, handleSuccess: () => void) => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async (reviewData: CreateReviewData) => {
+      console.log('리뷰데이터', reviewData);
+      return picklesRequests.createReview(pickleId, reviewData);
+    },
+    onSuccess: () => {
+      toast('리뷰 작성이 완료되었어요!');
+      handleSuccess();
+      queryClient.invalidateQueries({ queryKey: ['reviews'] });
+    }, //쿼리키를 어떻게 할까요~
+    onError: error => {
+      console.error(error);
+      toast.error('리뷰 작성에 실패했습니다.');
     },
   });
 };

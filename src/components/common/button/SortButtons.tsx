@@ -74,8 +74,7 @@ const S = {
   `,
 
   Tab: styled.button`
-    font-size: 1.4rem;
-    /* background: black; */
+    font-size: 1.5rem;
     border: none;
     padding: 0 2.8rem 1.5rem;
     cursor: pointer;
@@ -88,6 +87,7 @@ const S = {
 
     @media (max-width: 500px) {
       font-size: 1.2rem;
+      padding: 0 1rem 1.5rem;
     }
   `,
 

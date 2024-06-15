@@ -1,3 +1,4 @@
+import routes from '@/constants/routes';
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import React, { useRef, useState } from 'react';
@@ -15,12 +16,12 @@ const HEADER_CATEGORY_TEXT = {
   hotTime: {
     title: '마감 임박 피클🔥',
     summary: '신청 시간이 얼마 남지 않았어요!',
-    totalLink: '/',
+    totalLink: routes.pickleHotTimeList,
   },
   popular: {
     title: '인기 급상승 피클',
     summary: '참여하고 싶어지는 급상승 피클!',
-    totalLink: '/',
+    totalLink: routes.picklePopularList,
   },
   total: {
     title: '전체 피클',

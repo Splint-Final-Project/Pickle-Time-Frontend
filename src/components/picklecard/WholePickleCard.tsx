@@ -31,11 +31,11 @@ export default function WholePickleCard({ id: pickleId, type, title, when, cost 
     } else if (data && !data.data.length) {
       postLikeMutate();
     }
-  }
+  };
 
   return (
-    <S.CardLayer to={`${routes.pickleList}/${pickleId}`} $backImgType={type} >
-      <HeartButton isActive={data?.data.length} onClick={handleHeartClick}/>
+    <S.CardLayer to={`${routes.pickle}/${pickleId}`} $backImgType={type}>
+      <HeartButton isActive={data?.data.length} onClick={handleHeartClick} />
       <S.ProgressDay>{when.summary}</S.ProgressDay>
       <S.Title>{title}</S.Title>
       <S.Price>{formatCurrency(cost)}원</S.Price>
