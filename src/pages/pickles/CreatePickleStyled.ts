@@ -70,7 +70,7 @@ export const InputComponent = styled.div`
 `;
 
 export const SubmitButton = styled.button<{ disabled?: boolean }>`
-  margin: 1rem 3.5rem 9rem;
+  margin: 1rem 3.5rem 13rem;
   height: 42px;
   border-radius: 4px;
   background: ${({ disabled }) => (disabled ? '#A9A9A9' : 'var(--Main-Color, #5dc26d)')};
