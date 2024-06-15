@@ -9,7 +9,7 @@ interface HeaderProps {
   children?: ReactNode;
 }
 
-export default function Header({ title, summary, children }: HeaderProps) {
+export default function PickleListHeader({ title, summary, children }: HeaderProps) {
   return (
     <S.Wrapper>
       <S.Section>
@@ -42,9 +42,7 @@ export default function Header({ title, summary, children }: HeaderProps) {
 const S = {
   Wrapper: styled.div`
     position: relative;
-    margin-bottom: 2rem;
-    padding: 10rem 2.9rem 1.8rem;
-    height: 30rem;
+    padding: 10rem 2.9rem 3rem;
   `,
   Section: styled.section``,
   BackButtonWrapper: styled.div`
