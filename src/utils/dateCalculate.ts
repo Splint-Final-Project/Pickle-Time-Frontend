@@ -23,39 +23,26 @@ export const totalMeetingTimesCalculate = ({
   startTime,
   finishTime,
 }: MeetingTimesInterface): { times: Date[]; summary: string } => {
-  const startConverted = convertTo24HourFormat(startTime);
-  const finishConverted = convertTo24HourFormat(finishTime);
 
   const start = new Date(
     new Date().getFullYear(),
     startDate.month - 1,
     startDate.day,
-    startConverted.hour,
-    startConverted.minute,
+    startTime.hour,
+    startTime.minute,
   );
   let finish = new Date(
     new Date().getFullYear(),
     finishDate.month - 1,
     finishDate.day,
-    startConverted.hour,
-    startConverted.minute,
+    startTime.hour,
+    startTime.minute,
   );
-
-  // 1. StartDate가 finishDate보다 큰 경우 : 1년 추가 => 이거 date range picker 사용해서 필요 없어요.
-  // if (start > finish) {
-  //   finish = new Date(
-  //     new Date().getFullYear() + 1,
-  //     finishDate.month - 1,
-  //     finishDate.day,
-  //     startConverted.hour,
-  //     startConverted.minute,
-  //   );
-  // }
 
   // 2. StartTime이 finishTime보다 큰 경우 에러 발생
   if (
-    startConverted.hour > finishConverted.hour ||
-    (startConverted.hour === finishConverted.hour && startConverted.minute > finishConverted.minute)
+    startTime.hour > finishTime.hour ||
+    (startTime.hour === finishTime.hour && startTime.minute > finishTime.minute)
   ) {
     console.log('StartTime이 finishTime보다 큰 경우 에러 발생');
     return { times: [], summary: '' };
@@ -70,13 +57,6 @@ export const totalMeetingTimesCalculate = ({
       result.push(new Date(d));
     }
   }
-
-  console.log(result);
-
-  // 3. 적합한 날짜가 없어서 빈 배열을 반환할 경우 에러 발생 => 그냥 빈 배열을 반환하도록 하고 when.times 배열이 빈배열이면 못 넘어가도록 설계
-  // if (result.length === 0) {
-  //   return reject(new Error('선택한 날짜에 맞는 요일이 없습니다.'));
-  // }
 
   // 피클 모집 마감 일자 보다 시작 시간이 앞서면, 에러 발생 => 이거도 사실 필요 없어요
   if (result[0] < deadline) {
@@ -106,22 +86,13 @@ export const totalMeetingTimesCalculate = ({
 
 export const meetingTimesSummary = () => {};
 
-const convertTo24HourFormat = (time: {
-  hour: number;
-  minute: number;
-  dayTime: string;
-}): { hour: number; minute: number } => {
-  let hour = time.hour;
-  if (time.dayTime === 'PM' && hour < 12) {
-    hour += 12;
-  } else if (time.dayTime === 'AM' && hour === 12) {
-    hour = 0;
-  }
-  return { hour, minute: time.minute };
-};
+const formatTime = (time: { hour: number; minute: number }): string => {
+  const period = time.hour < 12 ? '오전' : '오후';
 
-const formatTime = (time: { hour: number; minute: number; dayTime: string }): string => {
-  const hour = time.hour % 12 === 0 ? 12 : time.hour % 12;
+  let newHour = time.hour;
+  if (time.hour > 12) {
+    newHour = newHour - 12;
+  }
   const minute = time.minute.toString().padStart(2, '0');
-  return `${time.dayTime} ${hour.toString().padStart(2, '0')}시 ${minute}분`;
+  return `${period} ${newHour}시 ${minute}분`;
 };

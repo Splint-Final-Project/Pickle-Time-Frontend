@@ -6,7 +6,7 @@ interface ParsedSchedule {
 
 export default function summaryParse(schedule: string): ParsedSchedule {
   const dayPattern = /(월|화|수|목|금|토|일)(?![^,])/g;
-  const timePattern = /(AM|PM) \d{2}시 \d{2}분/g;
+  const timePattern = /(오전|오후) \d{2}시 \d{2}분/g;
   const datePattern = /\d{2}월 \d{2}일 부터 ~ \d{2}월 \d{2}일 까지/;
 
   const days = schedule.match(dayPattern);
@@ -18,7 +18,7 @@ export default function summaryParse(schedule: string): ParsedSchedule {
   }
 
   const formattedTimes = times.map(time => {
-    return time.replace(/(AM|PM) (\d{2})시 (\d{2})분/, '$2:$3$1').toLowerCase();
+    return time.replace(/(오전|오후) (\d{2})시 (\d{2})분/, '$1 $2:$3').toLowerCase();
   });
 
   const formattedDateRange = dateRange[0].replace(
