@@ -5,7 +5,6 @@ import { useNavigate } from 'react-router-dom';
 import { Container, StepIndicator, StepIndicatorContainer, Title, TitleContainer } from './CreatePickleStyled';
 import PaymentWindow from '@/components/picklePayment/PaymentComponent';
 import styled from '@emotion/styled';
-import { useDateSelect } from '@/hooks/zustand/useDateSelect';
 import paymentCall, { PaymentDataType } from '@/utils/paymentCall';
 
 export default function CreatePickle4() {
@@ -17,7 +16,7 @@ export default function CreatePickle4() {
   const [isAgree, setIsAgree] = useState(false);
   const { title, capacity, cost, when, category, explanation, clear, imgUrl, place, deadLine, latitude, longitude } =
     usePickleCreation();
-  const { startDate, finishDate, weekend, startTime, finishTime } = useDateSelect();
+
   const paymentData: PaymentDataType = useMemo(
     () => ({
       pg: `${paymentMethod === 'kakaopay' ? 'kakaopay.TC0ONETIME' : 'tosspay.tosstest'}`,
@@ -50,11 +49,9 @@ export default function CreatePickle4() {
       category,
       imgUrl,
       title,
-      price: cost,
-      day: weekend.filter(day => day.isClicked).map(day => day.day),
+      cost,
       capacity,
-      duration: `${startDate.month}/${startDate.day} - ${finishDate.month}/${finishDate.day}`,
-      time: `${startTime.hour} : ${startTime.minute}${startTime.dayTime === 'AM' ? 'am' : 'pm'} ~ ${finishTime.hour} : ${finishTime.minute}${finishTime.dayTime === 'AM' ? 'am' : 'pm'} `,
+      summary: when.summary,
     }),
     [],
   );
