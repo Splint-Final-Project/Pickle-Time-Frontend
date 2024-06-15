@@ -1,4 +1,4 @@
-import { DateTypeInInterface, TimeTypeInInterface } from '@/hooks/zustand/useDateSelect';
+import { DateTypeInInterface, TimeTypeInInterface } from '@/hooks/zustand/usePickleCreation';
 
 export interface MeetingTimesInterface {
   startDate: DateTypeInInterface;

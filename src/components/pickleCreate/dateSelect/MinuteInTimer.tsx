@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { TimeTypeInInterface } from '@/hooks/zustand/useDateSelect';
+import { TimeTypeInInterface } from '@/hooks/zustand/usePickleCreation';
 import { useHandleTimeWithWheel } from '.';
 import styled from '@emotion/styled';
 

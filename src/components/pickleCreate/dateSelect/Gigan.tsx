@@ -1,6 +1,5 @@
 // @ts-nocheck
-
-import { useDateSelect } from '@/hooks/zustand/useDateSelect';
+import usePickleCreation from '@/hooks/zustand/usePickleCreation';
 import styled from '@emotion/styled';
 import { useState } from 'react';
 import { DateRange } from 'react-date-range';
@@ -14,7 +13,7 @@ export default function Gigan() {
   const month = d.getMonth(); // 월
   const day = d.getDate(); // 일
   const [isCalanderOpen, setIsCalanderOpen] = useState(false);
-  const { startDate, finishDate, setStartDate, setFinishDate } = useDateSelect();
+  const { startDate, finishDate, setStartDate, setFinishDate } = usePickleCreation();
   return (
     <>
       <S.SubText onClick={() => setIsCalanderOpen(prev => !prev)}>

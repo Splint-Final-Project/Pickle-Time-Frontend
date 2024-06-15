@@ -171,7 +171,7 @@ export default function Home() {
           handleOpen({
             renderComponent: CancelConfirmationModal,
             callback: handleConfirmAction,
-            message: '신청을 취소하고 나가실 건가요?',
+            message: '신청을 취소하시겠습니까?',
           })
         }
         style={{ width: '10rem', marginRight: '1rem' }}
