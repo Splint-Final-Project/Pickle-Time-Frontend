@@ -34,7 +34,7 @@ export default function CreatePickle() {
             src="icons/back.svg"
             alt="back"
             onClick={() => {
-              if (step === 1) {
+              if (step === 1 || step === 0) {
                 navigate('/');
               } else {
                 setStep((step - 1) as 1 | 2 | 3 | 4);
@@ -44,7 +44,7 @@ export default function CreatePickle() {
           <div>피클 생성</div>
         </Title>
         <StepIndicatorContainer>
-          <StepIndicator $selected={step === 1}>1</StepIndicator>
+          <StepIndicator $selected={step === 1 || step === 0}>1</StepIndicator>
           <StepIndicator $selected={step === 2}>2</StepIndicator>
           <StepIndicator $selected={step === 3}>3</StepIndicator>
           <StepIndicator $selected={step === 4}>4</StepIndicator>

@@ -23,6 +23,8 @@ import useAuth from '@/hooks/zustand/useAuth';
 import useBottomSheetModal from '@/hooks/zustand/useBottomSheetModal';
 import CancelConfirmationModal from '@/components/common/modal/CancelConfirmationModal';
 import ShareModal from '@/components/common/modal/ShareModal';
+import KeepCreatingModal from '@/components/common/modal/KeepCreatingModal';
+import usePickleCreation from '@/hooks/zustand/usePickleCreation';
 
 const S = {
   TopNavBarContainer: styled.div`
@@ -89,6 +91,8 @@ export default function Home() {
   const navigate = useNavigate();
   const [isModalOpen, setModalOpen] = useState(false);
 
+  const { step } = usePickleCreation();
+
   const openModal = () => setModalOpen(true);
   const closeModal = () => setModalOpen(false);
 
@@ -144,7 +148,21 @@ export default function Home() {
         </ErrorBoundary>
       </PickleList.Container>
 
-      <S.FloatingButton type="button" onClick={() => navigate('/pickle-create')}>
+      <S.FloatingButton
+        type="button"
+        onClick={() => {
+          if (step === 0) {
+            navigate('/pickle-create');
+          } else {
+            handleOpen({
+              renderComponent: KeepCreatingModal,
+              callback: () => {
+                navigate('/pickle-create');
+              },
+            });
+          }
+        }}
+      >
         <S.CreatePickleIcon src="/icons/createPickle.svg" alt="" />
       </S.FloatingButton>
 
@@ -178,6 +196,7 @@ export default function Home() {
       >
         취소확인모달
       </Button>
+
       <Button
         onClick={() =>
           handleOpen({

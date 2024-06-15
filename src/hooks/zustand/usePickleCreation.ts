@@ -47,7 +47,7 @@ const usePickleCreation = create(
     selectedDays: number[];
     startTime: TimeTypeInInterface;
     finishTime: TimeTypeInInterface;
-    setStep: (step: 1 | 2 | 3 | 4) => void;
+    setStep: (step: 0 | 1 | 2 | 3 | 4) => void;
     setStartDate: (newStartDate: DateTypeInInterface) => void;
     setFinishDate: (newFinishDate: DateTypeInInterface) => void;
     setSelectedDays: (newSelectedDays: number[]) => void;
@@ -95,7 +95,7 @@ const usePickleCreation = create(
       goals: [],
       imgUrl: '',
       isImgLoading: false,
-      setStep: (step: 1 | 2 | 3 | 4) => set({ step }),
+      setStep: (step: 0 | 1 | 2 | 3 | 4) => set({ step }),
       setTitle: (title: string) => set({ title }),
       setCapacity: (capacity: number) => set({ capacity }),
       setCost: (cost: number | undefined) => set({ cost }),
@@ -112,7 +112,33 @@ const usePickleCreation = create(
       setViewCount: (viewCount: number) => set({ viewCount }),
       setGoals: (goals: string[]) => set({ goals }),
       setImgUrl: (imgUrl: string) => set({ imgUrl }),
-      clear: () => set({}),
+      clear: () =>
+        set(
+          {
+            step: 0,
+            title: '',
+            capacity: 0,
+            cost: 0,
+            deadLine: new Date(),
+            place: '',
+            address: '',
+            detailedAddress: '',
+            areaCode: 0,
+            latitude: 0,
+            longitude: 0,
+            when: {
+              summary: '',
+              times: [],
+            },
+            category: '',
+            explanation: '',
+            viewCount: 0,
+            goals: [],
+            imgUrl: '',
+            isImgLoading: false,
+          },
+          true,
+        ),
       setIsImgLoading: (isImgLoading: boolean) => set({ isImgLoading }),
 
       startDate: { year, month: month + 1, day: day + 8 },
