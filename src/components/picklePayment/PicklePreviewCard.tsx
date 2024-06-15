@@ -1,3 +1,4 @@
+import summaryParse from '@/utils/summaryParse';
 import styled from '@emotion/styled';
 
 interface PicklePreviewCardProps {
@@ -5,16 +6,14 @@ interface PicklePreviewCardProps {
     category: string;
     imgUrl: string;
     title: string;
-    price: number;
+    cost: number;
     capacity: number;
-    duration: string;
-    time: string;
-    day: string[];
+    summary: string;
   };
   type: 'create' | 'application';
 }
 export default function PicklePreviewCard({ data, type }: PicklePreviewCardProps) {
-  const day = data.day.join(',');
+  const { day, time, date } = summaryParse(data.summary);
   return (
     <>
       <S.Title>{type === 'create' ? '생성할 피클을 확인해주세요.' : '신청할 피클을 확인해주세요.'}</S.Title>
@@ -26,13 +25,11 @@ export default function PicklePreviewCard({ data, type }: PicklePreviewCardProps
         <S.Figcaption>
           <S.FigureContent>{data.title}</S.FigureContent>
           <S.FigureContent>
-            {data.duration} <span>{data.time}</span>
+            {date} <span>{time}</span>
           </S.FigureContent>
+          <S.FigureContent>{type === 'create' ? `${data.capacity}명 | ${day}` : `${day}`}</S.FigureContent>
           <S.FigureContent>
-            {data.capacity}명 | {day}
-          </S.FigureContent>
-          <S.FigureContent>
-            <strong>{data.price.toLocaleString()}</strong>원
+            <strong>{data.cost.toLocaleString()}</strong>원
           </S.FigureContent>
         </S.Figcaption>
       </S.Figure>
