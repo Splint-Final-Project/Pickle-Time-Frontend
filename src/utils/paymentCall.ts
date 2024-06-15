@@ -1,11 +1,6 @@
 import client from '@/apis/axios';
 
-interface CustomDataType {
-  title: string;
-  capacity: number;
-  category: string;
-  explanation: string;
-}
+interface CustomDataType {}
 
 export type PaymentDataType = {
   pg: 'kakaopay.TC0ONETIME' | 'tosspay.tosstest';
@@ -32,15 +27,18 @@ export default function paymentCall({ paymentData, successCallback, errorCallbac
     if (!response.success) {
       errorCallback(response.error_msg);
     }
-
-    const notified = await client.post('/pickle/create', {
-      imp_uid: response.imp_uid,
-    });
-
-    if (notified.status === 201) {
-      successCallback();
-    } else {
-      errorCallback(notified.data.message);
+    try {
+      const notified = await client.post('/pickle/create', {
+        imp_uid: response.imp_uid,
+      });
+      console.log(notified);
+      if (notified.status === 201) {
+        successCallback();
+      } else {
+        errorCallback(notified.data.message);
+      }
+    } catch (err) {
+      console.log(err);
     }
   });
 }

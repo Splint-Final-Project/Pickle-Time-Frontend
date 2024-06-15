@@ -5,7 +5,6 @@ import { useNavigate } from 'react-router-dom';
 import { Container, StepIndicator, StepIndicatorContainer, Title, TitleContainer } from './CreatePickleStyled';
 import PaymentWindow from '@/components/picklePayment/PaymentComponent';
 import styled from '@emotion/styled';
-import { useDateSelect } from '@/hooks/zustand/useDateSelect';
 import paymentCall, { PaymentDataType } from '@/utils/paymentCall';
 
 export default function CreatePickle4() {
@@ -15,21 +14,29 @@ export default function CreatePickle4() {
   const [paymentMethod, setPaymentMethod] = useState<string>('');
   const [usePointValue, setUsePointValue] = useState(0);
   const [isAgree, setIsAgree] = useState(false);
-  const { title, capacity, cost, category, explanation, clear, imgUrl } = usePickleCreation();
-  const { startDate, finishDate, weekend, startTime, finishTime } = useDateSelect();
+  const { title, capacity, cost, when, category, explanation, clear, imgUrl, place, deadLine, latitude, longitude } =
+    usePickleCreation();
+
   const paymentData: PaymentDataType = useMemo(
     () => ({
       pg: `${paymentMethod === 'kakaopay' ? 'kakaopay.TC0ONETIME' : 'tosspay.tosstest'}`,
       pay_method: 'card',
       merchant_uid: `mid_${new Date().getTime()}`,
-      amount: 500,
+      amount: cost - usePointValue,
       name: `${title} 생성하기`,
       buyer_name: user.nickname,
       custom_data: {
         title,
         capacity,
+        cost,
+        deadLine,
+        place,
+        latitude,
+        longitude,
+        when,
         category,
         explanation,
+        imgUrl,
       },
       m_redirect_url: `${window.location.origin.toString()}/create-redirect`,
     }),
@@ -42,11 +49,9 @@ export default function CreatePickle4() {
       category,
       imgUrl,
       title,
-      price: cost,
-      day: weekend.filter(day => day.isClicked).map(day => day.day),
+      cost,
       capacity,
-      duration: `${startDate.month}/${startDate.day} - ${finishDate.month}/${finishDate.day}`,
-      time: `${startTime.hour} : ${startTime.minute}${startTime.dayTime === 'AM' ? 'am' : 'pm'} ~ ${finishTime.hour} : ${finishTime.minute}${finishTime.dayTime === 'AM' ? 'am' : 'pm'} `,
+      summary: when.summary,
     }),
     [],
   );
