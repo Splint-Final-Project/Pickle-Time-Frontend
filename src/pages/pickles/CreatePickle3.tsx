@@ -9,13 +9,11 @@ import {
   Title,
   TitleContainer,
 } from './CreatePickleStyled';
-import CapacitySelect from '@/components/inCreatePickleThree/capacitySelect/CapacitySelect';
-import WriteDetail from '@/components/inCreatePickleThree/writeDetail/WriteDetail';
-import GoalSelect from '@/components/inCreatePickleThree/goalSelect/GoalSelect';
-import ImgSelect from '@/components/inCreatePickleThree/imgSelect/ImgSelect';
-
+import AreaInput from '@/components/pickleCreate/AreaInput';
+import DateSelect from '@/components/pickleCreate/dateSelect/DateSelect';
 export default function CreatePickle3() {
-  const { capacity, explanation, goals } = usePickleCreation();
+  const { place, address, detailedAddress, areaCode, when } = usePickleCreation();
+  console.log(place, address, detailedAddress, areaCode, when);
   const navigate = useNavigate();
 
   return (
@@ -33,27 +31,20 @@ export default function CreatePickle3() {
         </StepIndicatorContainer>
       </TitleContainer>
 
-      {/* 대표 이미지 */}
       <InputComponent>
-        <ImgSelect />
+        <AreaInput />
       </InputComponent>
 
-      {/* 상세 설명 */}
       <InputComponent>
-        <WriteDetail />
+        <DateSelect />
       </InputComponent>
 
-      {/* 참여 인원 */}
-      <InputComponent>
-        <CapacitySelect />
-      </InputComponent>
-
-      {/* 목표 설정 */}
-      <InputComponent>
-        <GoalSelect />
-      </InputComponent>
-
-      <SubmitButton onClick={() => navigate('/pickle-create-4')}>다음 단계로 넘어가기</SubmitButton>
+      <SubmitButton
+        disabled={!place || !address || !detailedAddress || !areaCode || when.times.length === 0}
+        onClick={() => navigate('/pickle-create-4')}
+      >
+        다음 단계로 넘어가기
+      </SubmitButton>
     </Container>
   );
 }

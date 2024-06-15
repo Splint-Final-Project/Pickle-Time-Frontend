@@ -98,16 +98,16 @@ export default function Home() {
   };
 
   // 전역 상태
-  const { getMe, signOut } = useAuth();
+  const { user, signOut } = useAuth();
 
   return (
     <div style={{ paddingBottom: '8.5rem' }}>
       <S.TopNavBarContainer>
         <S.Logo src="images/logotext.svg" />
         <S.Profile>
-          {getMe() ? (
+          {user ? (
             <>
-              {getMe()?.nickname}님&nbsp;&nbsp;<S.Logout onClick={signOut}>로그아웃</S.Logout>
+              {user?.nickname}님&nbsp;&nbsp;<S.Logout onClick={signOut}>로그아웃</S.Logout>
             </>
           ) : (
             <Link to={routes.signIn}>Sign In</Link>

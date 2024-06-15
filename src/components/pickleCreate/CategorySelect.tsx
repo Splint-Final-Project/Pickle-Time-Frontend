@@ -1,4 +1,4 @@
-import CategoryElement from './inCategorySelect/CategoryElement';
+import CategoryElement from './CategoryElement';
 import ExerciseCategoryImg from '@/assets/images/categoryElement-Exercise.svg';
 import HobbyCategoryImg from '@/assets/images/categoryElement-Hobby.svg';
 import StudyCategoryImg from '@/assets/images/categoryElement-Study.svg';
@@ -30,7 +30,7 @@ export default function CategorySelect() {
 
   return (
     <S.Container>
-      <S.Text>원하는 피클 타임의 카테고리를 선택해 주세요</S.Text>
+      <S.Text>피클의 카테고리를 선택해 주세요</S.Text>
       {CATEGORY_LIST.map(category => (
         <CategoryElement
           key={category.id}
@@ -51,7 +51,7 @@ const S = {
     display: flex;
     flex-direction: column;
     width: 100%;
-    padding: 3rem 0;
+    /*  */
     gap: 2.3rem;
   `,
 

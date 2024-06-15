@@ -1,7 +1,4 @@
 import { useNavigate } from 'react-router-dom';
-
-import DateSelect from '@/components/inCreatePickleTwo/dateSelect/DateSelect';
-import CostSelect from '@/components/inCreatePickleTwo/costSelect/CostSelect';
 import usePickleCreation from '@/hooks/zustand/usePickleCreation';
 import {
   Container,
@@ -12,47 +9,14 @@ import {
   Title,
   TitleContainer,
 } from './CreatePickleStyled';
-import CategorySelect from '@/components/inCreatePickleTwo/categorySelect/CategorySelect';
-import { deadlineCalculate, totalMeetingTimesCalculate } from '@/utils/dateCalculate';
-// import { picklesRequests } from '@/apis/pickle.api';
 import { useDateSelect } from '@/hooks/zustand/useDateSelect';
+import CostSelect from '@/components/pickleCreate/CostSelect';
+import ImgSelect from '@/components/pickleCreate/ImgSelect';
+import WriteDetail from '@/components/pickleCreate/WriteDetail';
+import GoalSelect from '@/components/pickleCreate/GoalSelect';
 export default function CreatePickle2() {
-  const { cost, category, deadLine, when, setDeadLine, setWhen } = usePickleCreation();
-  const { startDate, finishDate, selectedDays, startTime, finishTime } = useDateSelect();
+  const { imgUrl, explanation, goals, cost, isImgLoading } = usePickleCreation();
   const navigate = useNavigate();
-
-  const handleClick = async () => {
-    try {
-      // if (!category) {
-      //   throw new Error('피클 타임의 카테고리를 선택해 주세요.');
-      // }
-
-      // if (!cost) {
-      //   throw new Error('피클 타임 비용을 입력해 주세요.');
-      // }
-
-      // deadline
-      const newDeadLine = deadlineCalculate();
-      setDeadLine(newDeadLine);
-
-      // when
-      const { times, summary } = await totalMeetingTimesCalculate({
-        startDate,
-        finishDate,
-        selectedDays,
-        startTime,
-        finishTime,
-        deadline: newDeadLine,
-      });
-      setWhen({ times: times, summary: summary });
-
-      // navigate
-      navigate('/pickle-create-3');
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   return (
     <Container>
       <TitleContainer>
@@ -68,22 +32,31 @@ export default function CreatePickle2() {
         </StepIndicatorContainer>
       </TitleContainer>
 
-      {/* 카테고리 선택 */}
+      {/* 대표 이미지 */}
       <InputComponent>
-        <CategorySelect />
+        <ImgSelect />
       </InputComponent>
 
-      {/* 날짜 선택 */}
-
+      {/* 상세 설명 */}
       <InputComponent>
-        <DateSelect />
+        <WriteDetail />
+      </InputComponent>
+
+      {/* 목표 설정 */}
+      <InputComponent>
+        <GoalSelect />
       </InputComponent>
 
       {/* 비용 선택 */}
       <InputComponent>
         <CostSelect />
       </InputComponent>
-      <SubmitButton onClick={handleClick}>다음 단계로 넘어가기</SubmitButton>
+      <SubmitButton
+        disabled={!imgUrl || !explanation || goals.length === 0 || !cost || isImgLoading}
+        onClick={() => navigate('/pickle-create-3')}
+      >
+        다음 단계로 넘어가기
+      </SubmitButton>
     </Container>
   );
 }

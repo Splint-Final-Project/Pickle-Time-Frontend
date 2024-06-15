@@ -5,7 +5,7 @@ import useAuth from '@/hooks/zustand/useAuth';
 
 export default function LoginRedirector() {
   const navigate = useNavigate();
-  const { getMe, signOut } = useAuth();
+  const { user, signOut } = useAuth();
 
   useEffect(() => {
     const responseInterceptor = client.interceptors.response.use(
@@ -29,7 +29,7 @@ export default function LoginRedirector() {
       client.interceptors.response.eject(responseInterceptor);
     };
   }, [navigate]);
-  if (!getMe()) {
+  if (!user) {
     return <Navigate to="/sign-in" />;
   }
 

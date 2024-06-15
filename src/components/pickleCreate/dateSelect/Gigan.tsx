@@ -1,27 +1,22 @@
 // @ts-nocheck
 
-import Timer from './inDateSelect/Timer';
-import DateButtonList from './inDateSelect/DateButtonList';
-import styled from '@emotion/styled';
 import { useDateSelect } from '@/hooks/zustand/useDateSelect';
+import styled from '@emotion/styled';
 import { useState } from 'react';
 import { DateRange } from 'react-date-range';
 import * as locales from 'react-date-range/dist/locale';
 import 'react-date-range/dist/styles.css'; // main css file
 import 'react-date-range/dist/theme/default.css'; // theme css file
 
-export default function DateSelect() {
-  const { startDate, finishDate, startTime, finishTime, setStartDate, setFinishDate, setStartTime, setFinishTime } =
-    useDateSelect();
-  const [isCalanderOpen, setIsCalanderOpen] = useState(false);
+export default function Gigan() {
   const d = new Date();
   const year = d.getFullYear(); // 년
   const month = d.getMonth(); // 월
   const day = d.getDate(); // 일
-
+  const [isCalanderOpen, setIsCalanderOpen] = useState(false);
+  const { startDate, finishDate, setStartDate, setFinishDate } = useDateSelect();
   return (
-    <S.Container>
-      <S.Text>일정을 선택해 주세요</S.Text>
+    <>
       <S.SubText onClick={() => setIsCalanderOpen(prev => !prev)}>
         기간
         <S.DateField>
@@ -56,7 +51,7 @@ export default function DateSelect() {
           showMonthArrow={false}
           months={window.innerWidth <= 767 ? 1 : 2}
           direction={window.innerWidth <= 767 ? 'vertical' : 'horizontal'}
-          minDate={new Date(year, month, day + 7)}
+          minDate={new Date(year, month, day + 8)}
           ranges={[
             {
               startDate: startDate.year ? new Date(startDate.year, startDate.month - 1, startDate.day) : null,
@@ -81,48 +76,11 @@ export default function DateSelect() {
           }}
         />
       )}
-      <DateButtonList>요일</DateButtonList>
-      <Timer time={startTime} setTime={setStartTime}>
-        시작 시각
-      </Timer>
-      <Timer time={finishTime} setTime={setFinishTime}>
-        종료 시각
-      </Timer>
-    </S.Container>
+    </>
   );
 }
 
 const S = {
-  Container: styled.div`
-    display: flex;
-    flex-direction: column;
-    align-content: center;
-    width: 100%;
-    padding: 3rem 0;
-    gap: 2.3rem;
-    .rdrCalendarWrapper {
-      width: 100%;
-      display: flex;
-      flex-direction: column;
-      align-items: space-between;
-    }
-    .rdrMonthAndYearWrapper {
-      display: none !important;
-    }
-    .rdrMonth {
-      padding: 0;
-      padding-right: 10px;
-    }
-  `,
-
-  Text: styled.span`
-    color: #292929;
-    font-family: Pretendard;
-    font-size: 1.5rem;
-    font-weight: 600;
-    font-style: normal;
-    line-height: normal;
-  `,
   SubText: styled.span`
     cursor: pointer;
     color: var(--Sub-Text, var(--Tab-Bar-Color-2, #8b8d94));

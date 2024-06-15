@@ -8,16 +8,20 @@ export default function PickleCreationRedirector() {
   const { clear } = usePickleCreation();
   const navigate = useNavigate();
   async function handlePayment() {
-    const notified = await client.post('/pickle/create', {
-      imp_uid: searchParams.get('imp_uid'),
-    });
-    if (notified.status === 201) {
-      alert('결제 및 피클 생성이 완료되었습니다.');
-      clear();
-      navigate(`/pickle/${notified.data.pickle._id}`, { replace: true });
-    } else {
-      alert('피클 생성이 실패하여 결제 금액은 환불되었습니다.' + notified.data.message);
-      navigate(`/pickle-create`, { replace: true });
+    try {
+      const notified = await client.post('/pickle/create', {
+        imp_uid: searchParams.get('imp_uid'),
+      });
+      if (notified.status === 201) {
+        alert('결제 및 피클 생성이 완료되었습니다.');
+        clear();
+        navigate(`/pickle/${notified.data.pickle._id}`, { replace: true });
+      } else {
+        alert('피클 생성이 실패하여 결제 금액은 환불되었습니다.' + notified.data.message);
+        navigate(`/pickle-create-1`, { replace: true });
+      }
+    } catch (err) {
+      console.log(err);
     }
   }
   useEffect(() => {

@@ -8,7 +8,7 @@ interface ButtonInterface {
   onClick: (e: React.MouseEvent<HTMLButtonElement>, dayId: number) => void;
 }
 
-export default function DateButton({ children, dayId, isSelected: isSelected, onClick }: ButtonInterface) {
+export default function DayButton({ children, dayId, isSelected: isSelected, onClick }: ButtonInterface) {
   return (
     <S.Button onClick={(e: React.MouseEvent<HTMLButtonElement>) => onClick(e, dayId)} isSelected={isSelected}>
       <S.ButtonText isClicked={isSelected}>{children}</S.ButtonText>

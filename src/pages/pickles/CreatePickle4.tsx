@@ -5,20 +5,37 @@ import { useNavigate } from 'react-router-dom';
 import { Container, StepIndicator, StepIndicatorContainer, Title, TitleContainer } from './CreatePickleStyled';
 import PaymentWindow from '@/components/picklePayment/PaymentComponent';
 import styled from '@emotion/styled';
-import paymentCall, { PaymentDataType } from '@/utils/paymentCall';
+import client from '@/apis/axios';
 
 export default function CreatePickle4() {
-  const { getMe } = useAuth();
-  const user = getMe();
+  const { user } = useAuth();
   const navigate = useNavigate();
-  const { title, capacity, cost, deadLine, when, category, explanation, viewCount, latitude, longitude, clear } =
-    usePickleCreation();
+  const {
+    title,
+    category,
+    capacity,
+    imgUrl,
+    explanation,
+    goals,
+    cost,
+    place,
+    address,
+    detailedAddress,
+    areaCode,
+    latitude,
+    longitude,
+    when,
+    deadLine,
+    clear,
+  } = usePickleCreation();
   const [paymentMethod, setPaymentMethod] = useState<string>('');
   const [usePointValue, setUsePointValue] = useState(0);
   const [isAgree, setIsAgree] = useState(false);
 
-  const paymentData: PaymentDataType = useMemo(
-    () => ({
+  const { IMP } = window;
+
+  function onClickPayment() {
+    const data = {
       pg: `${paymentMethod === 'kakaopay' ? 'kakaopay.TC0ONETIME' : 'tosspay.tosstest'}`,
       pay_method: 'card',
       merchant_uid: `mid_${new Date().getTime()}`,
@@ -27,43 +44,46 @@ export default function CreatePickle4() {
       buyer_name: user.nickname,
       custom_data: {
         title,
+        category,
         capacity,
+        imgUrl,
+        explanation,
+        goals,
         cost,
-        deadLine,
-        // place,
+        place,
+        address,
+        detailedAddress,
+        areaCode,
         latitude,
         longitude,
         when,
-        category,
-        explanation,
-        // imgUrl,
+        deadLine,
       },
       m_redirect_url: `${window.location.origin.toString()}/create-redirect`,
-    }),
-
-    [paymentMethod, usePointValue],
-  );
-
-  const pickleData = useMemo(
-    () => ({
-      category,
-      // imgUrl,
-      title,
-      cost,
-      capacity,
-      summary: when.summary,
-    }),
-    [],
-  );
-
-  const successPayment = () => {
-    alert('성공');
-    clear();
-  };
-
-  const errorPayment = (message: string) => {
-    alert(message);
-  };
+    };
+    IMP.init('imp88171622');
+    IMP.request_pay(data, async (response: any) => {
+      if (!response.success) {
+        alert(`결제에 실패했습니다: ${response.error_msg}`);
+        navigate(`/pickle-create`, { replace: true });
+      }
+      try {
+        const notified = await client.post('/pickle/create', {
+          imp_uid: response.imp_uid,
+        });
+        if (notified.status === 201) {
+          alert('결제 및 피클 생성이 완료되었습니다.');
+          clear();
+          navigate(`/pickle/${notified.data.pickle._id}`, { replace: true });
+        } else {
+          alert('피클 생성이 실패하여 결제 금액은 환불되었습니다.' + notified.data.message);
+          navigate(`/pickle-create-1`, { replace: true });
+        }
+      } catch (err) {
+        console.log(err);
+      }
+    });
+  }
 
   return (
     <Container>
@@ -81,7 +101,17 @@ export default function CreatePickle4() {
       </TitleContainer>
       <PaymentWindow.Section>
         <></>
-        {/* <PaymentWindow.PreviewPickle data={pickleData} type="create" /> */}
+        <PaymentWindow.PreviewPickle
+          data={{
+            category,
+            imgUrl,
+            title,
+            cost,
+            capacity,
+            summary: when.summary,
+          }}
+          type="create"
+        />
       </PaymentWindow.Section>
       <PaymentWindow.Section>
         {/* TODO :포인트 api연결하기 */}
@@ -103,12 +133,7 @@ export default function CreatePickle4() {
         <S.Notice>* 2주 이내 모집이 완료되지 않으면 피클은 사라집니다.</S.Notice>
         <S.Notice>* 사라진 피클은 입금 계좌로 영업일 2~3일 이내 환불됩니다.</S.Notice>
       </S.Wrap>
-      <S.PaymentButton
-        onClick={() =>
-          paymentCall({ paymentData: paymentData, successCallback: successPayment, errorCallback: errorPayment })
-        }
-        disabled={!paymentMethod || !isAgree}
-      >
+      <S.PaymentButton onClick={onClickPayment} disabled={!paymentMethod || !isAgree}>
         {cost - usePointValue}원 결제하기
       </S.PaymentButton>
     </Container>
@@ -136,7 +161,7 @@ const S = {
 
     &:disabled {
       background: #d0d0d0;
-      cursor: auto;
+      cursor: not-allowed;
     }
   `,
 };

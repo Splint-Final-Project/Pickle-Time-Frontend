@@ -69,7 +69,7 @@ const S = {
     display: flex;
     flex-direction: column;
     width: 100%;
-    padding: 3rem 0;
+
     gap: 2.3rem;
   `,
 
@@ -102,7 +102,7 @@ const S = {
     border-bottom: 0.2rem solid #ddd;
     font-family: Pretendard;
     font-size: 1.4rem;
-    font-weight: 600;
+    font-weight: 500;
     resize: none;
     font-style: normal;
     line-height: 120%;
