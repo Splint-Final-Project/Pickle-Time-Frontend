@@ -12,9 +12,10 @@ export default function CreatePickle4() {
   const user = getMe();
   const navigate = useNavigate();
   const { title, capacity, cost, deadLine, when, category, explanation, viewCount, latitude, longitude, clear } =
+  usePickleCreation();
   const [paymentMethod, setPaymentMethod] = useState<string>('');
   const [usePointValue, setUsePointValue] = useState(0);
-  const [isAgree, setIsAgree] = useState(false
+  const [isAgree, setIsAgree] = useState(false);
 
   const paymentData: PaymentDataType = useMemo(
     () => ({
