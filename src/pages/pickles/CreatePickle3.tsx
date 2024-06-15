@@ -13,7 +13,6 @@ import AreaInput from '@/components/pickleCreate/AreaInput';
 import DateSelect from '@/components/pickleCreate/dateSelect/DateSelect';
 export default function CreatePickle3() {
   const { place, address, detailedAddress, areaCode, when } = usePickleCreation();
-  console.log(place, address, detailedAddress, areaCode, when);
   const navigate = useNavigate();
 
   return (

@@ -15,7 +15,7 @@ export default function MinuteInTimer({ minTime, maxTime, time, setTime }: TimeT
     getAdjacentTime,
     containerRef,
     time: localScopeTime,
-  } = useHandleTimeWithWheel(minTime, maxTime, time.minute);
+  } = useHandleTimeWithWheel(minTime, maxTime, time.minute, true);
 
   useEffect(() => {
     setTime({ ...time, minute: localScopeTime });

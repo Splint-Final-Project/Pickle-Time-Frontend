@@ -58,8 +58,6 @@ export const totalMeetingTimesCalculate = ({
     }
   }
 
-  console.log(result);
-
   // 피클 모집 마감 일자 보다 시작 시간이 앞서면, 에러 발생 => 이거도 사실 필요 없어요
   if (result[0] < deadline) {
     console.log('피클 모집 마감 일자 보다 시작 시간이 앞서면, 에러 발생');
