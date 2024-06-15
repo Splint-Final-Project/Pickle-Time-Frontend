@@ -18,8 +18,7 @@ declare global {
 
 export default function JoinPickle() {
   const navigate = useNavigate();
-  const { getMe } = useAuth();
-  const user = getMe();
+  const { user } = useAuth();
   const location = useLocation();
   const { pickleId } = location.state;
   const { data } = useGetPickelDetail(pickleId);

@@ -11,10 +11,10 @@ export const authRequests = Object.freeze({
   },
 
   // not used
-  getMe: async () => {
-    const { data } = await client.get(API_AUTH.ME);
-    return data;
-  },
+  // getMe: async () => {
+  //   const { data } = await client.get(API_AUTH.ME);
+  //   return data;
+  // },
 
   signUp: async (body: SignUpFormValues) => {
     console.log(body);

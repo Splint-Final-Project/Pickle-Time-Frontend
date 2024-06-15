@@ -8,8 +8,7 @@ import styled from '@emotion/styled';
 import client from '@/apis/axios';
 
 export default function CreatePickle4() {
-  const { getMe } = useAuth();
-  const user = getMe();
+  const { user } = useAuth();
   const navigate = useNavigate();
   const {
     title,
