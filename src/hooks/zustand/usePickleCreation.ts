@@ -15,7 +15,6 @@ export type DateTypeInInterface = {
 export type TimeTypeInInterface = {
   hour: number;
   minute: number;
-  dayTime: string;
 };
 
 const usePickleCreation = create(
@@ -153,9 +152,9 @@ const usePickleCreation = create(
       setFinishDate: (newFinishDate: { year: number; month: number; day: number }) =>
         set(state => ({ ...state, finishDate: newFinishDate })),
       setSelectedDays: (newSelectedDays: any[]) => set(state => ({ ...state, selectedDays: newSelectedDays })),
-      setStartTime: (newStartTime: { hour: number; minute: number; dayTime: string }) =>
+      setStartTime: (newStartTime: { hour: number; minute: number; }) =>
         set(state => ({ ...state, startTime: newStartTime })),
-      setFinishTime: (newFinishTime: { hour: number; minute: number; dayTime: string }) =>
+      setFinishTime: (newFinishTime: { hour: number; minute: number; }) =>
         set(state => ({ ...state, finishTime: newFinishTime })),
     }),
     {
