@@ -50,7 +50,6 @@ function Header({ category }: SectionHeaderProps) {
 
 const S = {
   Section: styled.section<{ $isBackcolor?: boolean }>`
-    padding: 3rem 0;
     ${({ $isBackcolor }) =>
       $isBackcolor &&
       css`

@@ -24,8 +24,7 @@ export default function Pickle() {
   const navigate = useNavigate();
   const { pickleId = '' } = useParams();
 
-  const { getMe } = useAuth();
-  const user = getMe();
+  const { user } = useAuth();
 
   const { data } = useGetPickelDetail(pickleId);
   const pickleDetailData = data?.data;

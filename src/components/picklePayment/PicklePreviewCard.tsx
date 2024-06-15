@@ -10,14 +10,14 @@ interface PicklePreviewCardProps {
     capacity: number;
     summary: string;
   };
-  type: 'create' | 'application';
+  type: 'create' | 'join';
 }
 export default function PicklePreviewCard({ data, type }: PicklePreviewCardProps) {
   const { day, time, date } = summaryParse(data.summary);
   return (
     <>
       <S.Title>{type === 'create' ? '생성할 피클을 확인해주세요.' : '신청할 피클을 확인해주세요.'}</S.Title>
-      <S.Category>{data.category}</S.Category>
+      {/* <S.Category>{data.category}</S.Category> */}
       <S.Figure>
         <S.FigureImgWrap>
           <S.FigureImg src={data.imgUrl} alt="피클 이미지" />
