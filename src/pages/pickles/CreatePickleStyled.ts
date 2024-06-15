@@ -69,16 +69,22 @@ export const InputComponent = styled.div`
   background-color: white;
 `;
 
-export const SubmitButton = styled.button`
-  margin: 0 35px;
+export const SubmitButton = styled.button<{ disabled?: boolean }>`
+  margin: 1rem 3.5rem 9rem;
   height: 42px;
   border-radius: 4px;
-  background: var(--Main-Color, #5dc26d);
+  background: ${({ disabled }) => (disabled ? '#A9A9A9' : 'var(--Main-Color, #5dc26d)')};
   color: white;
   font-size: 14px;
   font-style: normal;
   font-weight: 500;
   line-height: normal;
+  cursor: ${({ disabled }) => (disabled ? 'not-allowed' : 'pointer')};
+  transition: background-color 0.3s;
+
+  &:hover {
+    background: ${({ disabled }) => (disabled ? '#A9A9A9' : '#4aa657')};
+  }
 `;
 
 export const LabelText = styled.label`

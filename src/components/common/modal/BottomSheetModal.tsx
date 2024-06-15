@@ -81,7 +81,7 @@ const S = {
         opacity: 1;
       }
     }
-    animation: open 0.2s forwards;
+    animation: open 0.4s forwards;
   `,
 
   CloseBtn: styled.button`

@@ -8,8 +8,6 @@ import MyPage from '@/pages/profile/MyPage';
 import Admin from '@/pages/auth/Admin';
 import SignUp from '@/pages/auth/SignUp';
 import SignUp2 from './pages/auth/SignUp2';
-import SignIn from './pages/auth/SignIn';
-import SignIn_Email from '@/pages/auth/SignIn_Email';
 
 import Pickle from '@/pages/pickles/Pickle';
 import JoinPickle from '@/pages/pickles/JoinPickle';
@@ -22,12 +20,18 @@ import AroundMe from '@/pages/around/AroundMe';
 
 import OAuthSuccessRedirector from './redirectors/OAuthSuccessRedirector';
 import LoginRedirector from './redirectors/LoginRedirector';
+
+import SignIn from '@/pages/auth/SignIn';
+import SignIn_Email from '@/pages/auth/SignIn_Email';
+import MainLayout from '@/layouts/MainLayout';
+import SimpleLayout from '@/layouts/SimpleLayout';
+import NotFoundPage from '@/pages/NotFoundPage';
+
+import PopularPickleList from '@/pages/pickles/PopularPickleList';
+import HotTimePickleList from '@/pages/pickles/HotTimePickleList';
 import PickleJoinRedirector from './redirectors/PickleJoinRedirector';
 import PickleCreationRedirector from './redirectors/PickleCreationRedirector';
 
-import NotFoundPage from '@/pages/NotFoundPage';
-import MainLayout from '@/layouts/MainLayout';
-import SimpleLayout from '@/layouts/SimpleLayout';
 import routes from '@/constants/routes';
 
 const privateChildren = [
@@ -160,6 +164,14 @@ const router = createBrowserRouter([
       //   path: routes.pickleJoin,
       //   element: <JoinPicklePayment />,
       // },
+      {
+        path: routes.picklePopularList,
+        element: <PopularPickleList />,
+      },
+      {
+        path: routes.pickleHotTimeList,
+        element: <HotTimePickleList />,
+      },
     ],
   },
 ]);

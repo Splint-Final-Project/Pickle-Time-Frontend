@@ -109,7 +109,7 @@ export default function SignUp() {
               })}
             />
             <InputButton
-              src={revealPw ? '/icons/reveal.svg' : '/icons/reveal.svg'}
+              src={revealPw ? '/icons/unreveal.svg' : '/icons/reveal.svg'}
               alt={revealPw ? 'reveal' : 'reveal'}
               onClick={e => {
                 e.stopPropagation();
@@ -141,7 +141,7 @@ export default function SignUp() {
               })}
             />
             <InputButton
-              src={revealConfirmPw ? '/icons/reveal.svg' : '/icons/reveal.svg'}
+              src={revealConfirmPw ? '/icons/unreveal.svg' : '/icons/reveal.svg'}
               alt={revealConfirmPw ? 'reveal' : 'reveal'}
               onClick={e => {
                 e.stopPropagation();

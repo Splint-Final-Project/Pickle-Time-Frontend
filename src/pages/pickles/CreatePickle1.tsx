@@ -41,6 +41,7 @@ export default function CreatePickle1() {
   const geocoder = new kakao.maps.services.Geocoder();
   const ps = new kakao.maps.services.Places();
   const [center, setCenter] = useState({ lat: 0, lng: 0 });
+  const [isFormValid, setIsFormValid] = useState(false);
 
   async function handleJusoSearch() {
     setNoResult(false);
@@ -94,6 +95,14 @@ export default function CreatePickle1() {
       });
     }
   }, []);
+
+  useEffect(() => {
+    if (title && place && address && detailedAddress) {
+      setIsFormValid(true);
+    } else {
+      setIsFormValid(false);
+    }
+  }, [title, place, address, detailedAddress]);
 
   return (
     <Container>
@@ -204,7 +213,9 @@ export default function CreatePickle1() {
           </>
         )}
       </InputComponent>
-      <SubmitButton onClick={() => navigate('/pickle-create-2')}>다음 단계로 넘어가기</SubmitButton>
+      <SubmitButton disabled={!isFormValid} onClick={() => navigate('/pickle-create-2')}>
+        다음 단계로 넘어가기
+      </SubmitButton>
     </Container>
   );
 }

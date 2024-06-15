@@ -15,6 +15,7 @@ const S = {
     border-left: 0.1px solid #e1e1e1;
     border-right: 0.1px solid #e1e1e1;
     width: 100%;
+    margin: 0 auto;
 
     @media (min-width: ${breakpoints.mobile}) {
       max-width: 767px;
@@ -25,7 +26,6 @@ const S = {
     flex: 1;
     display: flex;
     flex-direction: row;
-    padding-bottom: 8.5rem;
   `,
   MainContent: styled.div`
     flex: 1;
