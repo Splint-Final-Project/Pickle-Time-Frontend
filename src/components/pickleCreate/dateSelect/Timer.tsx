@@ -12,21 +12,19 @@ export default function Timer() {
       <S.Timer>
         <S.TimerText>From</S.TimerText>
         <S.TimerContainer>
-          <S.TimeText />
-          <HourInTimer minTime={1} maxTime={12} time={startTime} setTime={setStartTime} />
+          {/* <S.TimeText /> */}
+          <HourInTimer minTime={1} maxTime={24} time={startTime} setTime={setStartTime} />
           <S.TimeText>:</S.TimeText>
           <MinuteInTimer minTime={0} maxTime={59} time={startTime} setTime={setStartTime} />
-          <DayTimeInTimer time={startTime} setTime={setStartTime} />
         </S.TimerContainer>
       </S.Timer>
       <S.Timer>
         <S.TimerText>To</S.TimerText>
         <S.TimerContainer>
-          <S.TimeText />
-          <HourInTimer minTime={1} maxTime={12} time={finishTime} setTime={setFinishTime} />
+          {/* <S.TimeText /> */}
+          <HourInTimer minTime={1} maxTime={24} time={finishTime} setTime={setFinishTime} />
           <S.TimeText>:</S.TimeText>
           <MinuteInTimer minTime={0} maxTime={59} time={finishTime} setTime={setFinishTime} />
-          <DayTimeInTimer time={finishTime} setTime={setFinishTime} />
         </S.TimerContainer>
       </S.Timer>
     </S.Container>
@@ -40,6 +38,7 @@ const S = {
     width: 100%;
     gap: 2rem;
   `,
+  
   Timer: styled.div`
     display: flex;
     gap: 8px;
@@ -52,6 +51,7 @@ const S = {
     width: 100%;
     display: flex;
     align-items: center;
+    justify-content: center;
     gap: 4rem;
     height: 6.2rem;
     flex-shrink: 0;
@@ -71,7 +71,7 @@ const S = {
   TimeText: styled.span`
     color: #000;
     /* Header */
-    flex: 1 1 auto;
+    /* flex: 1 1 auto; */
     font-family: Pretendard;
     font-size: 2.4rem;
     font-weight: 600;

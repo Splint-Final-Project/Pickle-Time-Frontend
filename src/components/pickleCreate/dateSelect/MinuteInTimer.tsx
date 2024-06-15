@@ -34,7 +34,7 @@ export default function MinuteInTimer({ minTime, maxTime, time, setTime }: TimeT
 
 const S = {
   Container: styled.div`
-    flex: 1 1 auto;
+    /* flex: 1 1 auto; */
     overflow: hidden;
     height: 6rem;
     display: flex;
