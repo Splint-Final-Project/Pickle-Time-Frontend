@@ -1,11 +1,12 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
-import { SignInFormValues, SignUpFormValues, SignUpFormValues2, UserInfoType } from '@/apis/types/auth.type';
+import { SignInFormValues, SignUpFormValues, SignUpFormValues2 } from '@/apis/types/auth.type';
 import { authRequests } from '@/apis/auth.api';
 
 interface State {
   user: any | null;
   signIn: (data: SignInFormValues) => any;
+  setMe: (data: any) => any;
   signUp: (data: SignUpFormValues) => any;
   signUp2: (data: SignUpFormValues2) => any;
   signOut: () => any;
@@ -25,6 +26,10 @@ const useAuth = create(
           throw new Error();
         }
       },
+      setMe: (data: any) => {
+        set({ user: data });
+      },
+
       signUp: async (data: SignUpFormValues) => {
         try {
           const res = await authRequests.signUp(data);
