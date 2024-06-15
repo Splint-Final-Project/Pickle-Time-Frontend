@@ -21,7 +21,7 @@ import { BUTTON_TYPE } from '@/constants/BUTTON';
 import routes from '@/constants/routes';
 import useAuth from '@/hooks/zustand/useAuth';
 import useBottomSheetModal from '@/hooks/zustand/useBottomSheetModal';
-import CancelConfirmationModal from '@/components/common/modal/CancelConfirmationModal';
+import ConfirmationModal from '@/components/common/modal/ConfirmationModal';
 import ShareModal from '@/components/common/modal/ShareModal';
 import KeepCreatingModal from '@/components/common/modal/KeepCreatingModal';
 import usePickleCreation from '@/hooks/zustand/usePickleCreation';
@@ -91,7 +91,7 @@ export default function Home() {
   const navigate = useNavigate();
   const [isModalOpen, setModalOpen] = useState(false);
 
-  const { step } = usePickleCreation();
+  const { inProgress } = usePickleCreation();
 
   const openModal = () => setModalOpen(true);
   const closeModal = () => setModalOpen(false);
@@ -151,15 +151,15 @@ export default function Home() {
       <S.FloatingButton
         type="button"
         onClick={() => {
-          if (step === 0) {
-            navigate('/pickle-create');
-          } else {
+          if (inProgress) {
             handleOpen({
               renderComponent: KeepCreatingModal,
               callback: () => {
                 navigate('/pickle-create');
               },
             });
+          } else {
+            navigate('/pickle-create');
           }
         }}
       >
@@ -187,9 +187,12 @@ export default function Home() {
       <Button
         onClick={() =>
           handleOpen({
-            renderComponent: CancelConfirmationModal,
-            callback: handleConfirmAction,
+            renderComponent: ConfirmationModal,
+            nocallback: () => {},
+            yescallback: handleConfirmAction,
             message: '신청을 취소하시겠습니까?',
+            yesText: '확인',
+            noText: '취소',
           })
         }
         style={{ width: '10rem', marginRight: '1rem' }}

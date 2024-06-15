@@ -20,7 +20,8 @@ export type TimeTypeInInterface = {
 
 const usePickleCreation = create(
   persist<{
-    step: 0 | 1 | 2 | 3 | 4;
+    step: 1 | 2 | 3 | 4;
+    inProgress: boolean;
     title: string;
     capacity: number;
     cost: number;
@@ -47,7 +48,8 @@ const usePickleCreation = create(
     selectedDays: number[];
     startTime: TimeTypeInInterface;
     finishTime: TimeTypeInInterface;
-    setStep: (step: 0 | 1 | 2 | 3 | 4) => void;
+    setStep: (step: 1 | 2 | 3 | 4) => void;
+    setInProgress: (inProgress: boolean) => void;
     setStartDate: (newStartDate: DateTypeInInterface) => void;
     setFinishDate: (newFinishDate: DateTypeInInterface) => void;
     setSelectedDays: (newSelectedDays: number[]) => void;
@@ -74,7 +76,8 @@ const usePickleCreation = create(
     clear: () => void;
   }>(
     set => ({
-      step: 0,
+      step: 1,
+      inProgress: false,
       title: '',
       capacity: 0,
       cost: 0,
@@ -95,7 +98,8 @@ const usePickleCreation = create(
       goals: [],
       imgUrl: '',
       isImgLoading: false,
-      setStep: (step: 0 | 1 | 2 | 3 | 4) => set({ step }),
+      setStep: (step: 1 | 2 | 3 | 4) => set({ step }),
+      setInProgress: (inProgress: boolean) => set({ inProgress }),
       setTitle: (title: string) => set({ title }),
       setCapacity: (capacity: number) => set({ capacity }),
       setCost: (cost: number | undefined) => set({ cost }),
@@ -113,32 +117,30 @@ const usePickleCreation = create(
       setGoals: (goals: string[]) => set({ goals }),
       setImgUrl: (imgUrl: string) => set({ imgUrl }),
       clear: () =>
-        set(
-          {
-            step: 0,
-            title: '',
-            capacity: 0,
-            cost: 0,
-            deadLine: new Date(),
-            place: '',
-            address: '',
-            detailedAddress: '',
-            areaCode: 0,
-            latitude: 0,
-            longitude: 0,
-            when: {
-              summary: '',
-              times: [],
-            },
-            category: '',
-            explanation: '',
-            viewCount: 0,
-            goals: [],
-            imgUrl: '',
-            isImgLoading: false,
+        set({
+          step: 1,
+          inProgress: false,
+          title: '',
+          capacity: 0,
+          cost: 0,
+          deadLine: new Date(),
+          place: '',
+          address: '',
+          detailedAddress: '',
+          areaCode: 0,
+          latitude: 0,
+          longitude: 0,
+          when: {
+            summary: '',
+            times: [],
           },
-          true,
-        ),
+          category: '',
+          explanation: '',
+          viewCount: 0,
+          goals: [],
+          imgUrl: '',
+          isImgLoading: false,
+        }),
       setIsImgLoading: (isImgLoading: boolean) => set({ isImgLoading }),
 
       startDate: { year, month: month + 1, day: day + 8 },
