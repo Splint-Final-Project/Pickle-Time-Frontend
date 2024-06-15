@@ -7,8 +7,7 @@ import Spinner from '@/components/common/Spinner';
 import openai from '@/apis/openai';
 
 export default function ImgSelect() {
-  const { title, imgUrl, setImgUrl } = usePickleCreation();
-  const [isLoading, setIsLoading] = useState(false);
+  const { title, imgUrl, setImgUrl, isImgLoading, setIsImgLoading } = usePickleCreation();
   const imageInput = useRef(null);
 
   async function generateImage() {
@@ -24,14 +23,14 @@ export default function ImgSelect() {
 
   const handleClickAI = async () => {
     try {
-      setIsLoading(true);
+      setIsImgLoading(true);
       const image_url = await generateImage();
       if (image_url) setImgUrl(image_url);
       else throw new Error('이미지 생성 실패');
     } catch (e) {
       console.log(e);
     } finally {
-      setIsLoading(false);
+      setIsImgLoading(false);
     }
   };
 
@@ -50,7 +49,7 @@ export default function ImgSelect() {
       <S.Text>대표 이미지를 설정해 주세요</S.Text>
       <S.ImgSelectContainer>
         <S.ImgContainer>
-          {isLoading ? (
+          {isImgLoading ? (
             <Spinner />
           ) : imgUrl ? (
             <S.Img src={imgUrl} />
@@ -62,13 +61,13 @@ export default function ImgSelect() {
           )}
         </S.ImgContainer>
         <input type="file" accept="image/*" ref={imageInput} style={{ display: 'none' }} onChange={handleFileChange} />
-        <S.SelectContainer disabled={isLoading} onClick={() => handleClickSelect(imageInput)}>
+        <S.SelectContainer disabled={isImgLoading} onClick={() => handleClickSelect(imageInput)}>
           <img src={SelectInLibraryIcon} />
           <S.SelectText>라이브러리에서 선택</S.SelectText>
         </S.SelectContainer>
-        <S.SelectContainer disabled={isLoading} onClick={handleClickAI}>
+        <S.SelectContainer disabled={isImgLoading} onClick={handleClickAI}>
           <img src={GenerateAIICon} />
-          <S.SelectText>{isLoading ? 'AI로 생성 중...' : 'AI로 생성하기'}</S.SelectText>
+          <S.SelectText>{isImgLoading ? 'AI로 생성 중...' : 'AI로 생성하기'}</S.SelectText>
         </S.SelectContainer>
       </S.ImgSelectContainer>
     </S.Container>
@@ -80,7 +79,7 @@ const S = {
     display: flex;
     flex-direction: column;
     width: 100%;
-    padding: 3rem 0;
+
     gap: 2rem;
   `,
 

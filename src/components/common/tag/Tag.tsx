@@ -1,5 +1,5 @@
 import { ReactNode } from 'react';
-import TagDeleteIcon from '/public/icons/TagDelete.svg';
+import TagDeleteIcon from '/icons/TagDelete.svg';
 import styled from '@emotion/styled';
 
 interface TagInterface {

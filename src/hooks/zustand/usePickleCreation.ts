@@ -17,9 +17,10 @@ const usePickleCreation = create<{
   };
   category: string;
   explanation: string;
-  viewCount: number; // 초기 viewCount 
+  viewCount: number; // 초기 viewCount
   goals: string[];
   imgUrl: string;
+  isImgLoading: boolean;
   setTitle: (title: string) => void;
   setCapacity: (capacity: number) => void;
   setCost: (cost: number) => void;
@@ -36,6 +37,7 @@ const usePickleCreation = create<{
   setViewCount: (viewCount: number) => void;
   setGoals: (goals: string[]) => void;
   setImgUrl: (imgUrl: string) => void;
+  setIsImgLoading: (isImgLoading: boolean) => void;
   clear: () => void;
 }>(set => ({
   title: '',
@@ -58,6 +60,7 @@ const usePickleCreation = create<{
   viewCount: 0,
   goals: [],
   imgUrl: '',
+  isImgLoading: false,
   setTitle: (title: string) => set({ title }),
   setCapacity: (capacity: number) => set({ capacity }),
   setCost: (cost: number | undefined) => set({ cost }),
@@ -75,6 +78,7 @@ const usePickleCreation = create<{
   setGoals: (goals: string[]) => set({ goals }),
   setImgUrl: (imgUrl: string) => set({ imgUrl }),
   clear: () => set({}),
+  setIsImgLoading: (isImgLoading: boolean) => set({ isImgLoading }),
 }));
 
 export default usePickleCreation;

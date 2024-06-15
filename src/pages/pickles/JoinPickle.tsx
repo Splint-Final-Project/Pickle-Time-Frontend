@@ -52,7 +52,7 @@ export default function JoinPickle() {
         </S.Inner>
       </S.Wrapper>
       <PaymentWindow.Section>
-        <PaymentWindow.PreviewPickle data={pickleData} type="application" />
+        <PaymentWindow.PreviewPickle data={pickleData} type="join" />
       </PaymentWindow.Section>
       <PaymentWindow.Section>
         <PaymentWindow.Point totalPoint={1505} setUsePoint={setUsePointValue} />

@@ -37,8 +37,8 @@ export interface DateInterface {
 }
 
 export const useDateSelect = create<DateInterface>(set => ({
-  startDate: { year, month: month + 1, day: day + 7 },
-  finishDate: { year, month: month + 1, day: day + 7 },
+  startDate: { year, month: month + 1, day: day + 8 },
+  finishDate: { year, month: month + 1, day: day + 8 },
   selectedDays: [],
   startTime: { hour: 9, minute: 0, dayTime: 'AM' },
   finishTime: { hour: 10, minute: 0, dayTime: 'AM' },
