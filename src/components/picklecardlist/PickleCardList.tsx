@@ -7,7 +7,7 @@ import { useGetSpecialPickles } from '@/hooks/query/pickles';
 
 import leftArrow from '/icons/leftBlackArrow.svg';
 import rightArrow from '/icons/rightBlackArrow.svg';
-import PickleCardMockData from '@/mocks/pickleCardData';
+import PickleCardMockData from '@/mocks/pickleCardMockData';
 
 interface PickleCardListProps {
   category: 'hotTime' | 'popular';
