@@ -14,6 +14,8 @@ interface PicklePreviewCardProps {
 }
 export default function PicklePreviewCard({ data, type }: PicklePreviewCardProps) {
   const { day, time, date } = summaryParse(data.summary);
+  console.log(time);
+  
   return (
     <>
       <S.Title>{type === 'create' ? '생성할 피클을 확인해주세요.' : '신청할 피클을 확인해주세요.'}</S.Title>
