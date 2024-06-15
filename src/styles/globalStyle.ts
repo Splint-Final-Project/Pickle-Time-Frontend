@@ -72,6 +72,11 @@ const globalStyle = css`
   ::-webkit-scrollbar {
     display: none;
   }
+
+  [disabled] {
+    cursor: not-allowed;
+    opacity: 0.4;
+  }
 `;
 
 export default globalStyle;

@@ -17,8 +17,8 @@ const usePickleCreation = create<{
   };
   category: string;
   explanation: string;
-  viewCount: number; // 초기 viewCount 설정
-  goals: string[],
+  viewCount: number; // 초기 viewCount 
+  goals: string[];
   imgUrl: string;
   file: File | undefined;
   setTitle: (title: string) => void;
@@ -35,8 +35,7 @@ const usePickleCreation = create<{
   setCategory: (category: string) => void;
   setExplanation: (explanation: string) => void;
   setViewCount: (viewCount: number) => void;
-  setAddGoals: (newGoals: string) => void;
-  setRemoveGoals: (goals: string[]) => void;
+  setGoals: (goals: string[]) => void;
   setImgUrl: (imgUrl: string) => void;
   setFile: (file: File) => void;
   clear: () => void;
@@ -76,8 +75,7 @@ const usePickleCreation = create<{
   setCategory: (category: string) => set({ category }),
   setExplanation: (explanation: string) => set({ explanation }),
   setViewCount: (viewCount: number) => set({ viewCount }),
-  setAddGoals: (newGoals: string) => set(state => ({ goals: [...state.goals, newGoals] })),
-  setRemoveGoals: (goals: string[]) => set({goals}),
+  setGoals: (goals: string[]) => set({ goals }),
   setImgUrl: (imgUrl: string) => set({ imgUrl }),
   setFile: (file: File) => set({ file }),
   clear: () => set({}),

@@ -55,7 +55,7 @@ export default function PickleCardList({ category }: PickleCardListProps) {
         <S.ListInner>
           <S.List $transLateX={moveSliderValue} ref={ListRef}>
             {/* 데이터 사용 시 아래 조건문 주석 제거 */}
-            {/* {data?.length ? (
+            {data?.length ? (
               data.map((pickle: any) => (
                 <li key={pickle.id}>
                   <SpecialPickleCard pickleData={pickle} />
@@ -63,9 +63,9 @@ export default function PickleCardList({ category }: PickleCardListProps) {
               ))
             ) : (
               <h1>피클이 없네요 ㅠㅠ</h1>
-            )} */}
+            )}
             {/* 목데이터 */}
-            <PickleCardMockData />
+            {/* <PickleCardMockData /> */}
           </S.List>
         </S.ListInner>
       </S.ListViewBox>

@@ -118,8 +118,8 @@ const InputButton = styled.img`
 `;
 
 const ErrorMessage = styled.span`
-  /* position: absolute; */
-  margin-top: 9px;
+  position: absolute;
+  margin-top: 102px;
   color: #d54040;
 
   font-size: 12px;

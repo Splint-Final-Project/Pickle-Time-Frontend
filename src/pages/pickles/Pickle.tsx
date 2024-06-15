@@ -6,14 +6,19 @@ import Category from '@/components/pickle-detail/Category';
 import PickleTextInfo from '@/components/pickle-detail/PickleTextInfo';
 import LikeCount from '@/components/pickle-detail/LikeCount';
 import Button from '@/components/common/button/Button';
+import ShareModal from '@/components/common/modal/ShareModal';
 import { useGetPickelDetail } from '@/hooks/query/pickles';
 import useAuth from '@/hooks/zustand/useAuth';
 import routes from '@/constants/routes';
-
+import useBottomSheetModal from '@/hooks/zustand/useBottomSheetModal';
+import Tag from '@/components/common/tag/Tag';
 
 /**
  * 피클 상세 페이지
  */
+//Todo : 확정된 데이터 나오면 마지막 보완예정
+
+const goals = ['프로젝트 성공', '플젝존버단', '은수님 치킨', '민준님 죠쓰', '현우님 따봉', '주언님 맥주'];
 
 export default function Pickle() {
   const navigate = useNavigate();
@@ -27,6 +32,7 @@ export default function Pickle() {
 
   //임시 좋아요 수
   const likeCount = 324;
+  const { handleOpen } = useBottomSheetModal(state => state);
 
   return (
     <S.Container>
@@ -42,13 +48,13 @@ export default function Pickle() {
         <S.Information>
           <span className="applicant">{pickleDetailData?.participantNumber}명이 신청했어요!</span>
           <S.TitleAndLike>
-            <h1 className="pickle-title">{pickleDetailData?.title}긴 제목이면어떨까어떨까가ㅏ가가가ㅏ</h1>
+            <h1 className="pickle-title">{pickleDetailData?.title}</h1>
             <LikeCount pickleId={pickleId} likeCount={likeCount} />
           </S.TitleAndLike>
-          <div className="pickle-img">이미지자리</div>
+          <S.Thumbnail src="https://avatars.githubusercontent.com/u/124874266?v=4" alt="피클 이미지" />
           <PickleTextInfo
             when={pickleDetailData?.when}
-            location={pickleDetailData?.where}
+            location={pickleDetailData?.place}
             capacity={pickleDetailData?.capacity}
             cost={pickleDetailData?.cost}
           />
@@ -63,7 +69,13 @@ export default function Pickle() {
 
         <S.GoalAndBtn>
           <h3>피클의 목표에요!</h3>
-          <div>목표뱃지들</div>
+          <S.GoalContainer>
+            {goals.map(goal => (
+              <Tag key={goal} hasHandler={false}>
+                {goal}
+              </Tag>
+            ))}
+          </S.GoalContainer>
           <Button
             className="apply-btn"
             onClick={() =>
@@ -77,6 +89,16 @@ export default function Pickle() {
             }
           >
             피클 신청하기
+          </Button>
+          <Button
+            onClick={() =>
+              handleOpen({
+                renderComponent: ShareModal,
+                data: pickleDetailData,
+              })
+            }
+          >
+            <img src="/icons/share.svg" />
           </Button>
         </S.GoalAndBtn>
       </S.BottomSection>
@@ -121,11 +143,6 @@ const S = {
       color: ${({ theme }) => theme.color.primary};
       ${({ theme }) => theme.typography.body1};
     }
-    & .pickle-img {
-      height: 12.3rem;
-      margin-bottom: 2rem;
-      background-color: #ccc;
-    }
   `,
 
   TitleAndLike: styled.div`
@@ -138,6 +155,14 @@ const S = {
     & .pickle-title {
       ${({ theme }) => theme.typography.header};
     }
+  `,
+
+  Thumbnail: styled.img`
+    width: 100%;
+    height: 15rem;
+    margin-bottom: 2rem;
+    object-fit: cover;
+    border-radius: 0.4rem;
   `,
 
   BottomSection: styled.div`
@@ -154,7 +179,7 @@ const S = {
     border-bottom: ${({ theme }) => theme.border};
 
     p {
-      color: ${({ theme }) => theme.color.inputText};
+      color: ${({ theme }) => theme.color.sub};
       ${({ theme }) => theme.typography.body1};
     }
   `,
@@ -166,4 +191,12 @@ const S = {
       margin-top: 5rem;
     }
   `,
+
+  GoalContainer: styled.div`
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem; /* 아이템 간의 간격 설정 */
+  `,
+
+  ShareButton: styled.button``,
 };

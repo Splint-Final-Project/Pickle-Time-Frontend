@@ -18,18 +18,18 @@ import { deadlineCalculate, totalMeetingTimesCalculate } from '@/utils/dateCalcu
 import { useDateSelect } from '@/hooks/zustand/useDateSelect';
 export default function CreatePickle2() {
   const { cost, category, deadLine, when, setDeadLine, setWhen } = usePickleCreation();
-  const { startDate, finishDate, weekend, startTime, finishTime } = useDateSelect();
+  const { startDate, finishDate, selectedDays, startTime, finishTime } = useDateSelect();
   const navigate = useNavigate();
 
   const handleClick = async () => {
     try {
-      if (!category) {
-        throw new Error('피클 타임의 카테고리를 선택해 주세요.');
-      }
+      // if (!category) {
+      //   throw new Error('피클 타임의 카테고리를 선택해 주세요.');
+      // }
 
-      if (!cost) {
-        throw new Error('피클 타임 비용을 입력해 주세요.');
-      }
+      // if (!cost) {
+      //   throw new Error('피클 타임 비용을 입력해 주세요.');
+      // }
 
       // deadline
       const newDeadLine = deadlineCalculate();
@@ -39,7 +39,7 @@ export default function CreatePickle2() {
       const { times, summary } = await totalMeetingTimesCalculate({
         startDate,
         finishDate,
-        weekend,
+        selectedDays,
         startTime,
         finishTime,
         deadline: newDeadLine,
@@ -66,17 +66,19 @@ export default function CreatePickle2() {
           <StepIndicator $selected={false}>3</StepIndicator>
           <StepIndicator $selected={false}>4</StepIndicator>
         </StepIndicatorContainer>
-
-        {/* 카테고리 선택 */}
-        <CategorySelect />
       </TitleContainer>
+
+      {/* 카테고리 선택 */}
+      <InputComponent>
+        <CategorySelect />
+      </InputComponent>
 
       {/* 날짜 선택 */}
 
       <InputComponent>
         <DateSelect />
       </InputComponent>
-      
+
       {/* 비용 선택 */}
       <InputComponent>
         <CostSelect />

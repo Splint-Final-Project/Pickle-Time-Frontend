@@ -12,6 +12,7 @@ export default function BottomSheetModal() {
     handleClose: closeModal,
     component: Component,
     callback,
+    props,
   } = useBottomSheetModal(state => state);
 
   const potal = document.getElementById('modal-root') || document.createElement('div');
@@ -34,10 +35,10 @@ export default function BottomSheetModal() {
           <S.CloseBtn onClick={closeModal}>
             <CloseIcon />
           </S.CloseBtn>
-          <S.DragBarWrap>
+          {/* <S.DragBarWrap>
             <S.DragBar />
-          </S.DragBarWrap>
-          <Component handleClose={closeModal} callback={callback} />
+          </S.DragBarWrap> */}
+          <Component handleClose={closeModal} callback={callback} {...props} />
         </S.Container>
       </S.BackLayout>,
       potal,
@@ -64,7 +65,7 @@ const S = {
   Container: styled.div`
     position: absolute;
     bottom: 0;
-    padding: 2rem 1.6rem;
+    padding: 2rem 3.4rem;
     width: 100%;
     max-width: 60rem;
     background: ${({ theme }) => theme.color.white};
@@ -80,7 +81,7 @@ const S = {
         opacity: 1;
       }
     }
-    animation: open 0.2s forwards;
+    animation: open 0.4s forwards;
   `,
 
   CloseBtn: styled.button`
