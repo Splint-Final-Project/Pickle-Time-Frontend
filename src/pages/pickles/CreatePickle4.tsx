@@ -12,7 +12,7 @@ export default function CreatePickle4() {
   const user = getMe();
   const navigate = useNavigate();
   const { title, capacity, cost, deadLine, when, category, explanation, viewCount, latitude, longitude, clear } =
-  usePickleCreation();
+    usePickleCreation();
   const [paymentMethod, setPaymentMethod] = useState<string>('');
   const [usePointValue, setUsePointValue] = useState(0);
   const [isAgree, setIsAgree] = useState(false);
@@ -30,13 +30,13 @@ export default function CreatePickle4() {
         capacity,
         cost,
         deadLine,
-        place,
+        // place,
         latitude,
         longitude,
         when,
         category,
         explanation,
-        imgUrl,
+        // imgUrl,
       },
       m_redirect_url: `${window.location.origin.toString()}/create-redirect`,
     }),
@@ -47,7 +47,7 @@ export default function CreatePickle4() {
   const pickleData = useMemo(
     () => ({
       category,
-      imgUrl,
+      // imgUrl,
       title,
       cost,
       capacity,
@@ -80,7 +80,8 @@ export default function CreatePickle4() {
         </StepIndicatorContainer>
       </TitleContainer>
       <PaymentWindow.Section>
-        <PaymentWindow.PreviewPickle data={pickleData} type="create" />
+        <></>
+        {/* <PaymentWindow.PreviewPickle data={pickleData} type="create" /> */}
       </PaymentWindow.Section>
       <PaymentWindow.Section>
         {/* TODO :포인트 api연결하기 */}
