@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
-import { TimeTypeInInterface } from '@/hooks/zustand/useDateSelect';
 import { useHandleTimeWithWheel } from './hooks';
+import { TimeTypeInInterface } from '@/hooks/zustand/usePickleCreation';
 import styled from '@emotion/styled';
 
 interface TimeTextProps {

@@ -1,7 +1,6 @@
 import Timer from './Timer';
 import DayButtonList from './DayButtonList';
 import styled from '@emotion/styled';
-import { useDateSelect } from '@/hooks/zustand/useDateSelect';
 import { oneWeekCalculate, totalMeetingTimesCalculate } from '@/utils/dateCalculate';
 import { useEffect, useState } from 'react';
 import Gigan from './Gigan';
@@ -9,7 +8,7 @@ import usePickleCreation from '@/hooks/zustand/usePickleCreation';
 
 export default function DateSelect() {
   const { setWhen, setDeadLine } = usePickleCreation();
-  const { startDate, finishDate, startTime, finishTime, selectedDays } = useDateSelect();
+  const { startDate, finishDate, startTime, finishTime, selectedDays } = usePickleCreation();
 
   const handleWhenCalculate = async () => {
     // deadline

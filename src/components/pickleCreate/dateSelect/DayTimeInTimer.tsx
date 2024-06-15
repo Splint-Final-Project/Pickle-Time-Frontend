@@ -1,11 +1,11 @@
-import { useState, useEffect, useRef } from "react";
-import { TimeTypeInInterface } from '@/hooks/zustand/useDateSelect';
-import styled from "@emotion/styled"
+import { useState, useEffect, useRef } from 'react';
+import { TimeTypeInInterface } from '@/hooks/zustand/usePickleCreation';
+import styled from '@emotion/styled';
 
-const DAY_TIME = ["AM", "PM"];
+const DAY_TIME = ['AM', 'PM'];
 
 interface TimeTextProps {
-  time: TimeTypeInInterface,
+  time: TimeTypeInInterface;
   setTime: (newTime: TimeTypeInInterface) => void;
 }
 
@@ -17,7 +17,7 @@ export default function DayTimeInTimer({ time, setTime }: TimeTextProps) {
   const handleWheel = (event: WheelEvent) => {
     event.preventDefault();
 
-    setOffset(event.deltaY < 0 ? -1 : 1); 
+    setOffset(event.deltaY < 0 ? -1 : 1);
   };
 
   useEffect(() => {
@@ -33,7 +33,7 @@ export default function DayTimeInTimer({ time, setTime }: TimeTextProps) {
   useEffect(() => {
     if (offset !== 0) {
       const timeout = setTimeout(() => {
-        setCurrentIndex((prevIndex) => {
+        setCurrentIndex(prevIndex => {
           let newIndex = prevIndex + offset;
           if (newIndex >= DAY_TIME.length) newIndex = 0;
           if (newIndex < 0) newIndex = DAY_TIME.length - 1;
@@ -47,7 +47,7 @@ export default function DayTimeInTimer({ time, setTime }: TimeTextProps) {
   }, [offset, DAY_TIME.length]);
 
   useEffect(() => {
-    setTime({...time, dayTime: DAY_TIME[currentIndex]});
+    setTime({ ...time, dayTime: DAY_TIME[currentIndex] });
   }, [currentIndex]);
 
   const getAdjacentIndex = (offset: number) => {
@@ -76,19 +76,19 @@ const S = {
     display: flex;
     align-items: center;
   `,
-  
+
   TimeText: styled.div`
     display: flex;
     flex-direction: column;
     gap: 1.2rem;
   `,
 
-  TimeItem: styled.span<{ isCurrent: boolean}>`
+  TimeItem: styled.span<{ isCurrent: boolean }>`
     color: ${({ isCurrent }) => (isCurrent ? '#000' : '#BABABA')};
     font-family: Pretendard;
     font-size: 1.5rem;
     font-weight: 600;
     font-style: normal;
     line-height: normal;
-`,
-}
+  `,
+};

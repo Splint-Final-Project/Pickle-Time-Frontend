@@ -1,10 +1,10 @@
 import { ReactNode } from 'react';
 import DayButton from './DayButton';
-import { useDateSelect } from '@/hooks/zustand/useDateSelect';
 import styled from '@emotion/styled';
+import usePickleCreation from '@/hooks/zustand/usePickleCreation';
 
 export default function DayButtonList() {
-  const { selectedDays, setSelectedDays } = useDateSelect();
+  const { selectedDays, setSelectedDays } = usePickleCreation();
   const yoils = ['일', '월', '화', '수', '목', '금', '토'];
 
   const handleClick = (e: React.MouseEvent<HTMLButtonElement>, clickedDayId: number) => {

@@ -1,11 +1,11 @@
 import HourInTimer from './HourInTimer';
 import MinuteInTimer from './MinuteInTimer';
 import DayTimeInTimer from './DayTimeInTimer';
-import { TimeTypeInInterface, useDateSelect } from '@/hooks/zustand/useDateSelect';
+import usePickleCreation, { TimeTypeInInterface } from '@/hooks/zustand/usePickleCreation';
 import styled from '@emotion/styled';
 
 export default function Timer() {
-  const { startTime, finishTime, setStartTime, setFinishTime } = useDateSelect();
+  const { startTime, finishTime, setStartTime, setFinishTime } = usePickleCreation();
 
   return (
     <S.Container>

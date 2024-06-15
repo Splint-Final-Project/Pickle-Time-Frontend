@@ -12,7 +12,7 @@ import { ROUND_BUTTON_COLOR } from '@/constants/BUTTON';
           handleOpen({
             renderComponent: CancelConfirmationModal,
             callback: handleConfirmAction,
-            message: '신청을 취소하고 나가실 건가요?',
+            message: '신청을 취소하시겠습니까?',
           })
         }
       >
@@ -22,13 +22,28 @@ import { ROUND_BUTTON_COLOR } from '@/constants/BUTTON';
 
 interface ModalProps {
   handleClose: () => void;
-  callback: () => void;
-  message?: string;
+  yescallback: () => void;
+  nocallback: () => void;
+  message: string;
+  yesText: string;
+  noText: string;
 }
 
-export default function CancelConfirmationModal({ handleClose, callback, message }: ModalProps) {
-  const handleConfirmClick = () => {
-    callback();
+export default function ConfirmationModal({
+  handleClose,
+  yescallback,
+  nocallback,
+  message,
+  yesText,
+  noText,
+}: ModalProps) {
+  const handleNoClick = () => {
+    nocallback();
+    handleClose();
+  };
+
+  const handleYesClick = () => {
+    yescallback();
     handleClose();
   };
 
@@ -36,11 +51,11 @@ export default function CancelConfirmationModal({ handleClose, callback, message
     <S.Container>
       <S.Message>{message}</S.Message>
       <S.Buttons>
-        <RoundButton onClick={handleClose} color={ROUND_BUTTON_COLOR.GRAY}>
-          취소
+        <RoundButton onClick={handleNoClick} color={ROUND_BUTTON_COLOR.GRAY}>
+          {noText}
         </RoundButton>
-        <RoundButton onClick={handleConfirmClick} color={ROUND_BUTTON_COLOR.BLACK}>
-          확인
+        <RoundButton onClick={handleYesClick} color={ROUND_BUTTON_COLOR.BLACK}>
+          {yesText}
         </RoundButton>
       </S.Buttons>
     </S.Container>

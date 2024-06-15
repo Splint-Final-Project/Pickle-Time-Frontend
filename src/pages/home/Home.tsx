@@ -21,8 +21,10 @@ import { BUTTON_TYPE } from '@/constants/BUTTON';
 import routes from '@/constants/routes';
 import useAuth from '@/hooks/zustand/useAuth';
 import useBottomSheetModal from '@/hooks/zustand/useBottomSheetModal';
-import CancelConfirmationModal from '@/components/common/modal/CancelConfirmationModal';
+import ConfirmationModal from '@/components/common/modal/ConfirmationModal';
 import ShareModal from '@/components/common/modal/ShareModal';
+import KeepCreatingModal from '@/components/common/modal/KeepCreatingModal';
+import usePickleCreation from '@/hooks/zustand/usePickleCreation';
 
 const S = {
   TopNavBarContainer: styled.div`
@@ -89,6 +91,8 @@ export default function Home() {
   const navigate = useNavigate();
   const [isModalOpen, setModalOpen] = useState(false);
 
+  const { inProgress } = usePickleCreation();
+
   const openModal = () => setModalOpen(true);
   const closeModal = () => setModalOpen(false);
 
@@ -144,7 +148,21 @@ export default function Home() {
         </ErrorBoundary>
       </PickleList.Container>
 
-      <S.FloatingButton type="button" onClick={() => navigate('/pickle-create')}>
+      <S.FloatingButton
+        type="button"
+        onClick={() => {
+          if (inProgress) {
+            handleOpen({
+              renderComponent: KeepCreatingModal,
+              callback: () => {
+                navigate('/pickle-create');
+              },
+            });
+          } else {
+            navigate('/pickle-create');
+          }
+        }}
+      >
         <S.CreatePickleIcon src="/icons/createPickle.svg" alt="" />
       </S.FloatingButton>
 
@@ -169,15 +187,19 @@ export default function Home() {
       <Button
         onClick={() =>
           handleOpen({
-            renderComponent: CancelConfirmationModal,
-            callback: handleConfirmAction,
-            message: '신청을 취소하고 나가실 건가요?',
+            renderComponent: ConfirmationModal,
+            nocallback: () => {},
+            yescallback: handleConfirmAction,
+            message: '신청을 취소하시겠습니까?',
+            yesText: '확인',
+            noText: '취소',
           })
         }
         style={{ width: '10rem', marginRight: '1rem' }}
       >
         취소확인모달
       </Button>
+
       <Button
         onClick={() =>
           handleOpen({

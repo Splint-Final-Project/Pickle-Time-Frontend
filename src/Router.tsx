@@ -11,10 +11,6 @@ import SignUp2 from './pages/auth/SignUp2';
 
 import Pickle from '@/pages/pickles/Pickle';
 import JoinPickle from '@/pages/pickles/JoinPickle';
-import CreatePickle1 from '@/pages/pickles/CreatePickle1';
-import CreatePickle2 from '@/pages/pickles/CreatePickle2';
-import CreatePickle3 from '@/pages/pickles/CreatePickle3';
-import CreatePickle4 from '@/pages/pickles/CreatePickle4';
 
 import AroundMe from '@/pages/around/AroundMe';
 
@@ -33,6 +29,7 @@ import PickleJoinRedirector from './redirectors/PickleJoinRedirector';
 import PickleCreationRedirector from './redirectors/PickleCreationRedirector';
 
 import routes from '@/constants/routes';
+import CreatePickle from './pages/pickles/CreatePickle';
 
 const privateChildren = [
   {
@@ -74,30 +71,8 @@ const router = createBrowserRouter([
       {
         path: '/pickle-create',
         //TODO: 피클 생성 하다만 기록이 있으면 있으면 그 단계에 맞춰서 리다이렉트
-        loader: async () => redirect('/pickle-create-1'),
+        element: <CreatePickle />,
       },
-      {
-        path: '/pickle-create-1',
-        element: <CreatePickle1 />,
-      },
-      {
-        path: '/pickle-create-2',
-        element: <CreatePickle2 />,
-      },
-      {
-        path: '/pickle-create-3',
-        element: <CreatePickle3 />,
-      },
-      {
-        path: '/pickle-create-4',
-        element: <CreatePickle4 />,
-        // path: routes.pickleCreate,
-        // element: <CreatePickle />,
-      },
-      // {
-      //   path: routes.pickleCreatePayment,
-      //   element: <CreatePicklePayment />,
-      // },
       {
         path: routes.chatList,
         element: <ConversationList />,

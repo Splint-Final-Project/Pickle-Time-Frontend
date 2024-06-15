@@ -2,12 +2,11 @@ import useAuth from '@/hooks/zustand/useAuth';
 import usePickleCreation from '@/hooks/zustand/usePickleCreation';
 import { useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Container, StepIndicator, StepIndicatorContainer, Title, TitleContainer } from './CreatePickleStyled';
+import client from '@/apis/axios';
 import PaymentWindow from '@/components/picklePayment/PaymentComponent';
 import styled from '@emotion/styled';
-import client from '@/apis/axios';
 
-export default function CreatePickle4() {
+export default function CreationPayment() {
   const { user } = useAuth();
   const navigate = useNavigate();
   const {
@@ -77,7 +76,7 @@ export default function CreatePickle4() {
           navigate(`/pickle/${notified.data.pickle._id}`, { replace: true });
         } else {
           alert('피클 생성이 실패하여 결제 금액은 환불되었습니다.' + notified.data.message);
-          navigate(`/pickle-create-1`, { replace: true });
+          navigate(`/pickle-create`, { replace: true });
         }
       } catch (err) {
         console.log(err);
@@ -86,19 +85,7 @@ export default function CreatePickle4() {
   }
 
   return (
-    <Container>
-      <TitleContainer>
-        <Title>
-          <img src="icons/back.svg" alt="back" onClick={() => navigate('/pickle-create-3')} />
-          <div>피클 생성</div>
-        </Title>
-        <StepIndicatorContainer>
-          <StepIndicator $selected={false}>1</StepIndicator>
-          <StepIndicator $selected={false}>2</StepIndicator>
-          <StepIndicator $selected={false}>3</StepIndicator>
-          <StepIndicator $selected={true}>4</StepIndicator>
-        </StepIndicatorContainer>
-      </TitleContainer>
+    <>
       <PaymentWindow.Section>
         <></>
         <PaymentWindow.PreviewPickle
@@ -136,10 +123,9 @@ export default function CreatePickle4() {
       <S.PaymentButton onClick={onClickPayment} disabled={!paymentMethod || !isAgree}>
         {cost - usePointValue}원 결제하기
       </S.PaymentButton>
-    </Container>
+    </>
   );
 }
-
 const S = {
   Wrap: styled.div`
     padding: 1.6rem 2rem;
