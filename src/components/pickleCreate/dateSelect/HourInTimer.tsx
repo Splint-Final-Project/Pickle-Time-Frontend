@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { useHandleTimeWithWheel } from '.';
+import { useHandleTimeWithWheel } from './hooks';
 import { TimeTypeInInterface } from '@/hooks/zustand/useDateSelect';
 import styled from '@emotion/styled';
 
@@ -11,7 +11,11 @@ interface TimeTextProps {
 }
 
 export default function HourInTimer({ minTime, maxTime, time, setTime }: TimeTextProps) {
-  const { getAdjacentTime, containerRef, time: localScopeTime } = useHandleTimeWithWheel(minTime, maxTime);
+  const {
+    getAdjacentTime,
+    containerRef,
+    time: localScopeTime,
+  } = useHandleTimeWithWheel(minTime, maxTime, time.hour);
 
   useEffect(() => {
     setTime({ ...time, hour: localScopeTime });

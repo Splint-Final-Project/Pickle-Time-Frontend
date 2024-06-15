@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { TimeTypeInInterface } from '@/hooks/zustand/useDateSelect';
-import { useHandleTimeWithWheel } from '.';
+import { useHandleTimeWithWheel } from './hooks';
 import styled from '@emotion/styled';
 
 interface TimeTextProps {
@@ -11,7 +11,11 @@ interface TimeTextProps {
 }
 
 export default function MinuteInTimer({ minTime, maxTime, time, setTime }: TimeTextProps) {
-  const { getAdjacentTime, containerRef, time: localScopeTime } = useHandleTimeWithWheel(minTime, maxTime);
+  const {
+    getAdjacentTime,
+    containerRef,
+    time: localScopeTime,
+  } = useHandleTimeWithWheel(minTime, maxTime, time.minute);
 
   useEffect(() => {
     setTime({ ...time, minute: localScopeTime });

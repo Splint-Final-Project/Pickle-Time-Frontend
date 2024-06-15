@@ -1,7 +1,8 @@
 import { useState, useEffect, useRef } from 'react';
 
-export const useHandleTimeWithWheel = (minTime: number, maxTime: number) => {
-  const [time, setTime] = useState<number>(minTime);
+export const useHandleTimeWithWheel = (minTime: number, maxTime: number, initTime: number) => {
+  console.log(initTime)
+  const [time, setTime] = useState<number>(initTime);
   const [offset, setOffset] = useState<number>(0);
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -24,7 +25,7 @@ export const useHandleTimeWithWheel = (minTime: number, maxTime: number) => {
   useEffect(() => {
     if (offset !== 0) {
       const timeout = setTimeout(() => {
-        setTime(prevTime => {
+        setTime((prevTime: any)=> {
           let newTime = prevTime + offset;
           if (newTime > maxTime) newTime = minTime;
           if (newTime < minTime) newTime = maxTime;
