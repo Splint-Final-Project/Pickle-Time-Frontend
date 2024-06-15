@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef } from 'react';
 
 export const useHandleTimeWithWheel = (minTime: number, maxTime: number) => {
   const [time, setTime] = useState<number>(minTime);
@@ -8,7 +8,7 @@ export const useHandleTimeWithWheel = (minTime: number, maxTime: number) => {
   const handleWheel = (event: WheelEvent) => {
     event.preventDefault();
 
-    setOffset(event.deltaY < 0 ? -1 : 1); 
+    setOffset(event.deltaY < 0 ? -1 : 1);
   };
 
   useEffect(() => {
@@ -24,13 +24,13 @@ export const useHandleTimeWithWheel = (minTime: number, maxTime: number) => {
   useEffect(() => {
     if (offset !== 0) {
       const timeout = setTimeout(() => {
-        setTime((prevTime) => {
+        setTime(prevTime => {
           let newTime = prevTime + offset;
           if (newTime > maxTime) newTime = minTime;
           if (newTime < minTime) newTime = maxTime;
           return newTime;
         });
-        setOffset(0); 
+        setOffset(0);
       }, 120); // 애니메이션 시간 (300ms)
 
       return () => clearTimeout(timeout);
@@ -46,18 +46,3 @@ export const useHandleTimeWithWheel = (minTime: number, maxTime: number) => {
 
   return { getAdjacentTime, containerRef, time };
 };
-
-export const useMaxDaysInMonth = (month: number, year: number) => {
-  const daysInMonth = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
-
-  // 윤년 계산
-  const isLeapYear = (year: number) => {
-    return (year % 4 === 0 && year % 100 !== 0) || (year % 400 === 0);
-  };
-
-  if (month === 2 && isLeapYear(year)) {
-    return 29; // 2월 윤년
-  }
-
-  return daysInMonth[month - 1];
-}
