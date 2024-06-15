@@ -10,6 +10,7 @@ import { GridTemplate } from '@/styles/commonStyles';
 export default function InfinitePickleCardList() {
   const loaderRef = useRef<HTMLDivElement>(null);
   const { data: infiniteWholePickleData, fetchNextPage, hasNextPage } = useGetInfinitePickles();
+  console.log('전체피클목록카드', infiniteWholePickleData);
 
   useIntersectionObserver(async () => {
     await fetchNextPage();

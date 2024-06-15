@@ -14,15 +14,18 @@ export default function PickleTextInfo({ when, location, capacity, cost }: Pickl
     <S.Container>
       <S.Row className="date">
         <img src="/icons/timeIcon.svg" />
-        <S.DateTime>
-          <span>기간</span>
+        <S.Text>
+          <span>{when?.summary}</span>
           <span className="time">시간</span>
           <span>요일</span>
-        </S.DateTime>
+        </S.Text>
       </S.Row>
       <S.Row>
         <img src="/icons/locationIcon.svg" />
-        <span>{location}</span>
+        <S.Text>
+          <span>{location}</span>
+          <span>도로명주소</span>
+        </S.Text>
       </S.Row>
       <S.Row>
         <img src="/icons/groupIcon.svg" />
@@ -59,7 +62,7 @@ const S = {
     }
   `,
 
-  DateTime: styled.div`
+  Text: styled.div`
     display: flex;
     flex-direction: column;
 
