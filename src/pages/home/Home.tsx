@@ -36,6 +36,7 @@ const S = {
   Logo: styled.img`
     margin: 2rem 0rem 1.4rem;
     width: 10rem;
+    cursor: pointer;
   `,
   Profile: styled.div`
     color: ${({ theme }) => theme.color.black};
@@ -107,7 +108,7 @@ export default function Home() {
   return (
     <div style={{ paddingBottom: '8.5rem' }}>
       <S.TopNavBarContainer>
-        <S.Logo src="images/logotext.svg" />
+        <S.Logo src="images/logotext.svg" draggable={false} onClick={() => navigate('/')} />
         <S.Profile>
           {user ? (
             <>
