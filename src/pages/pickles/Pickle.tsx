@@ -18,7 +18,7 @@ import Tag from '@/components/common/tag/Tag';
  */
 //Todo : 확정된 데이터 나오면 마지막 보완예정
 
-const goals = ['프로젝트 성공', '플젝존버단', '은수님 치킨', '민준님 죠쓰', '현우님 따봉', '주언님 맥주'];
+// const goals = ['프로젝트 성공', '플젝존버단', '은수님 치킨', '민준님 죠쓰', '현우님 따봉', '주언님 맥주'];
 
 export default function Pickle() {
   const navigate = useNavigate();
@@ -30,7 +30,7 @@ export default function Pickle() {
   const pickleDetailData = data?.data;
 
   //임시 좋아요 수
-  const likeCount = 324;
+  // const likeCount = 324;
   const { handleOpen } = useBottomSheetModal(state => state);
 
   return (
@@ -39,7 +39,7 @@ export default function Pickle() {
         <BackButton />
         <S.TopBox>
           <Category category={pickleDetailData?.category} />
-          <button className="inquiry-btn" onClick={() => navigate(routes.chat)}>
+          <button className="inquiry-btn" onClick={() => navigate(`${routes.chat}/${pickleDetailData?.leader}`)}>
             1:1문의하기
           </button>
         </S.TopBox>
@@ -48,9 +48,9 @@ export default function Pickle() {
           <span className="applicant">{pickleDetailData?.participantNumber}명이 신청했어요!</span>
           <S.TitleAndLike>
             <h1 className="pickle-title">{pickleDetailData?.title}</h1>
-            <LikeCount pickleId={pickleId} likeCount={likeCount} />
+            <LikeCount pickleId={pickleId} likeCount={pickleDetailData?.like} />
           </S.TitleAndLike>
-          <S.Thumbnail src="https://avatars.githubusercontent.com/u/124874266?v=4" alt="피클 이미지" />
+          <S.Thumbnail src={pickleDetailData?.imgUrl} alt="피클 이미지" />
           <PickleTextInfo
             when={pickleDetailData?.when}
             location={pickleDetailData?.place}
@@ -69,7 +69,7 @@ export default function Pickle() {
         <S.GoalAndBtn>
           <h3>피클의 목표에요!</h3>
           <S.GoalContainer>
-            {goals.map(goal => (
+            {pickleDetailData?.goals.map((goal:any) => (
               <Tag key={goal} hasHandler={false}>
                 {goal}
               </Tag>

@@ -128,7 +128,7 @@ const router = createBrowserRouter([
         element: <SignUp2 />,
       },
       {
-        path: routes.chat,
+        path: `${routes.chat}/:id`,
         element: <Conversation />,
       },
       {
