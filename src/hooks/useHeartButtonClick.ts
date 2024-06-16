@@ -2,6 +2,7 @@ import { useGetLikePickle, useDeletePickleLikeMutation, usePickleLikeMutation } 
 
 export default function useHeartButtonClick(pickleId: string) {
   const { data } = useGetLikePickle(pickleId);
+  console.log(data);
   const { mutate: postLikeMutate } = usePickleLikeMutation(pickleId);
   const { mutate: deleteLikeMutate } = useDeletePickleLikeMutation(pickleId);
 

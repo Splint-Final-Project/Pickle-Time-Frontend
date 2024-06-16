@@ -27,7 +27,7 @@ export const useGetLikePickles = () => {
 
 export const useGetLikePickle = (pickleId: string) => {
   return useQuery({
-    queryKey: ['pickles', 'like', pickleId],
+    queryKey: ['pickles', pickleId, 'like'],
     queryFn: async () => await likeRequests.getPickle(pickleId),
   });
 }
