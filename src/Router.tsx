@@ -70,7 +70,7 @@ const router = createBrowserRouter([
       },
       {
         path: '/pickle-create',
-        //TODO: 피클 생성 하다만 기록이 있으면 있으면 그 단계에 맞춰서 리다이렉트
+        //피클 생성 하다만 기록이 있으면 있으면 그 단계에 맞춰서 리다이렉트
         element: <CreatePickle />,
       },
       {

@@ -3,24 +3,30 @@ import { formatCurrency, formatDays, formatPeriod, formatTimeRange } from '@/uti
 import styled from '@emotion/styled';
 import { useMemo } from 'react';
 
-interface PickleTextInfoProps {
+export default function PickleTextInfo({
+  when,
+  place,
+  address,
+  detailedAddress,
+  capacity,
+  cost,
+}: {
   when: When;
-  location: string;
+  place: string;
+  address: string;
+  detailedAddress: string;
   capacity: number;
   cost: number;
-}
-
-export default function PickleTextInfo({ when, location, capacity, cost }: PickleTextInfoProps) {
-  const days = useMemo(() => formatDays(when), [when]);
-  const time = useMemo(() => formatTimeRange(when), [when]);
-  const period = useMemo(() => formatPeriod(when), [when]);
-
+}) {
+  const date = formatPeriod(when);
+  const time = formatTimeRange(when);
+  const days = formatDays(when);
   return (
     <S.Container>
       <S.Row className="date">
         <img src="/icons/timeIcon.svg" />
         <S.Text>
-          <span>{period}</span>
+          <span>{date}</span>
           <span className="time">{time}</span>
           <span>{days}</span>
         </S.Text>
@@ -28,8 +34,10 @@ export default function PickleTextInfo({ when, location, capacity, cost }: Pickl
       <S.Row>
         <img src="/icons/locationIcon.svg" />
         <S.Text>
-          <span>{location}</span>
-          <span>도로명주소</span>
+          <span>{place}</span>
+          <span>
+            {address} ({detailedAddress})
+          </span>
         </S.Text>
       </S.Row>
       <S.Row>

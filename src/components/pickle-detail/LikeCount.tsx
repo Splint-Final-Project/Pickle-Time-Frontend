@@ -10,17 +10,17 @@ interface LikeCountProps {
 export default function LikeCount({ pickleId, likeCount = 0 }: LikeCountProps) {
   const { isLiked, handleHeartClick } = useHeartButtonClick(pickleId);
 
-  const updateLikeCount = () => {
-    if (isLiked) {
-      return likeCount + 1;
-    }
-    return likeCount;
-  };
+  // const updateLikeCount = () => {
+  //   if (isLiked) {
+  //     return likeCount + 1;
+  //   }
+  //   return likeCount;
+  // };
 
   return (
     <S.Container>
       <HeartButton size={20} isActive={isLiked} onClick={handleHeartClick} />
-      <S.LikeCount>{updateLikeCount()}</S.LikeCount>
+      <S.LikeCount>{isLiked}</S.LikeCount>
     </S.Container>
   );
 }

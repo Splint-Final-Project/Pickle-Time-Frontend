@@ -49,7 +49,9 @@ export default function Pickle() {
           <S.Thumbnail src={pickleDetailData?.imgUrl} alt="피클 이미지" />
           <PickleTextInfo
             when={pickleDetailData?.when}
-            location={pickleDetailData?.place}
+            place={pickleDetailData?.place}
+            address={pickleDetailData?.address}
+            detailedAddress={pickleDetailData?.detailedAddress}
             capacity={pickleDetailData?.capacity}
             cost={pickleDetailData?.cost}
           />

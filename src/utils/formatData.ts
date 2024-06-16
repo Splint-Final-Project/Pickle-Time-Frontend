@@ -7,28 +7,19 @@ export const formatCurrency = (cost: number): string => {
 
 // 요일 추출(D, D, ...)
 export const formatDays = (when: When): string => {
-  const match = when?.summary.match(/매주\s([\uac00-\ud7a3]+(?:,\s[\uac00-\ud7a3]+)*)/);
-  return match ? match[1].replace(/\s/g, ' ') : '';
+  if (!when?.selectedDays) return '';
+  if (when?.selectedDays.length === 7) return '매일';
+  return when?.selectedDays.map(day => ['일', '월', '화', '수', '목', '금', '토'][day]).join(', ') || '';
 };
 
 // 시간 추출(00:00 am/pm ~ 00:00 am/pm)
 export const formatTimeRange = (when: When): string => {
-  const match = when?.summary.match(/(AM|PM)\s(\d{2}시\s\d{2}분)\s~\s(AM|PM)\s(\d{2}시\s\d{2}분)/);
-  if (match) {
-    const startPeriod = match[1].toLowerCase();
-    const endPeriod = match[3].toLowerCase();
-    const startTime = match[2].replace('시', ' :').replace('분', '');
-    const endTime = match[4].replace('시', ' :').replace('분', '');
-    return `${startTime} ${startPeriod} ~ ${endTime} ${endPeriod}`;
-  }
-  return '';
+  if (!when?.startTime || !when?.finishTime) return '';
+  return `${('0' + when?.startTime.hour).slice(-2)}:${('0' + when?.startTime.minute).slice(-2)} ~ ${('0' + when?.finishTime.hour).slice(-2)}:${('0' + when?.finishTime.minute).slice(-2)}`;
 };
 
 // 기간 추출(MM. DD ~ MM. DD)
 export const formatPeriod = (when: When): string => {
-  const startDate = new Date(when?.times[0]);
-  const endDate = new Date(when?.times[when.times.length - 1]);
-  const formatDate = (date: Date) =>
-    `${String(date.getMonth() + 1).padStart(2, '0')}. ${String(date.getDate()).padStart(2, '0')}`;
-  return `${formatDate(startDate)} ~ ${formatDate(endDate)}`;
+  if (!when?.startDate || !when?.finishDate) return '';
+  return `${when?.startDate.month}/${when?.startDate.day} ~ ${when?.finishDate.month}/${when?.finishDate.day}`;
 };
