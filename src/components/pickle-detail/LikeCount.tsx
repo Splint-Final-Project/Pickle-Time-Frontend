@@ -8,7 +8,6 @@ interface LikeCountProps {
 }
 
 export default function LikeCount({ pickleId }: LikeCountProps) {
-  // const [ isLiked, setIsLiked ] = useState(false);
   const { data } = useGetLikeCount(pickleId);
   const { mutate: postLikeMutate } = usePickleLikeMutation(pickleId);
   const { mutate: deleteLikeMutate } = useDeletePickleLikeMutation(pickleId);
