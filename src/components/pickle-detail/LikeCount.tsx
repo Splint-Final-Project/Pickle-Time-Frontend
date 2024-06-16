@@ -1,18 +1,34 @@
 import styled from '@emotion/styled';
 import HeartButton from '@/components/common/button/HeartButton';
-import useHeartButtonClick from '@/hooks/useHeartButtonClick';
+import { useDeletePickleLikeMutation, usePickleLikeMutation, useGetLikeCount } from '@/hooks/query/like';
+import { useState } from 'react';
 
 interface LikeCountProps {
   pickleId: string;
 }
 
 export default function LikeCount({ pickleId }: LikeCountProps) {
-  const { isLiked, like, handleHeartClick } = useHeartButtonClick(pickleId);
+  // const [ isLiked, setIsLiked ] = useState(false);
+  const { data } = useGetLikeCount(pickleId);
+  const { mutate: postLikeMutate } = usePickleLikeMutation(pickleId);
+  const { mutate: deleteLikeMutate } = useDeletePickleLikeMutation(pickleId);
+
+
+  const handleHeartClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    e.stopPropagation();
+
+    if (data?.data.isClicked) {
+      deleteLikeMutate();
+    } else {
+      postLikeMutate();
+    }
+  };
 
   return (
     <S.Container>
-      <HeartButton size={20} isActive={isLiked} onClick={handleHeartClick} />
-      <S.LikeCount>{like}</S.LikeCount>
+      <HeartButton size={20} isActive={data?.data.isClicked} onClick={handleHeartClick} />
+      <S.LikeCount>{data?.data.likeCount}</S.LikeCount>
     </S.Container>
   );
 }

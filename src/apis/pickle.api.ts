@@ -39,6 +39,9 @@ export const picklesRequests = Object.freeze({
     return client.get(API_PICKLE.BY_ID(pickleId));
   },
 
+  getLikeCount: (pickleId: string) => {
+    return client.get(API_PICKLE.FAVORITES_COUNT(pickleId));
+  },
   // test: async (deadline: any) => {
   //   const { data } = await client.post("/pickle/test", {deadline});
   //   return data;

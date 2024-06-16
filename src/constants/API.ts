@@ -21,6 +21,7 @@ export const API_PICKLE = Object.freeze({
   POPULAR: `${API.PICKLE}/popular`,
   HOT_TIME: `${API.PICKLE}/hotTime`,
   BY_ID: (pickleId: string) => `${API.PICKLE}/${pickleId}`,
+  FAVORITES_COUNT: (pickleId: string) => `${API.PICKLE}/${pickleId}/favorite`,
   SEARCH: (pickleType: string) => `${API.PICKLE}/${pickleType}`, // 피클검색
   LOCATION_SEARCH: `${API.PICKLE}/search`, // 지역검색
   IN_LOCATION: `${API.PICKLE}/location`, // 지도 내 피클 조회
