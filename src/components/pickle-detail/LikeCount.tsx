@@ -9,14 +9,6 @@ interface LikeCountProps {
 export default function LikeCount({ pickleId }: LikeCountProps) {
   const { isLiked, like, handleHeartClick } = useHeartButtonClick(pickleId);
 
-  // 이 로직 없어도 됩니다. 이유: 뮤테이션으로 좋아요 개수는 누르자 마자, 갱신됩니다.
-  // const updateLikeCount = () => {
-  //   if (isLiked) {
-  //     return likeCount + 1;
-  //   }
-  //   return likeCount;
-  // };
-
   return (
     <S.Container>
       <HeartButton size={20} isActive={isLiked} onClick={handleHeartClick} />

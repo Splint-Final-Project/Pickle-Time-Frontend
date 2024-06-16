@@ -1,6 +1,6 @@
 import useAuth from '@/hooks/zustand/useAuth';
 import usePickleCreation from '@/hooks/zustand/usePickleCreation';
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import client from '@/apis/axios';
 import PaymentWindow from '@/components/picklePayment/PaymentComponent';
@@ -28,20 +28,54 @@ export default function CreationPayment() {
     clear,
   } = usePickleCreation();
   const [paymentMethod, setPaymentMethod] = useState<string>('');
+  const [point, setPoint] = useState(0);
   const [usePointValue, setUsePointValue] = useState(0);
   const [isAgree, setIsAgree] = useState(false);
 
   const { IMP } = window;
 
-  function onClickPayment() {
+  async function getPoints() {
+    try {
+      const res = await client.get('/users/points');
+      if (res.status === 200) {
+        setPoint(res.data.points);
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  async function onClickPayment() {
+    // if (cost - usePointValue === 0 ){
+    //   const notified = await client.post('/pickle/create/free', {
+    //     discount: usePointValue,
+    //     title,
+    //     category,
+    //     capacity,
+    //     imgUrl,
+    //     explanation,
+    //     goals,
+    //     cost,
+    //     place,
+    //     address,
+    //     detailedAddress,
+    //     areaCode,
+    //     latitude,
+    //     longitude,
+    //     when,
+    //     deadLine,
+    //   });
+    // }
     const data = {
       pg: `${paymentMethod === 'kakaopay' ? 'kakaopay.TC0ONETIME' : 'tosspay.tosstest'}`,
       pay_method: 'card',
       merchant_uid: `mid_${new Date().getTime()}`,
+      customer_uid: `cid_${new Date().getTime()}`,
       amount: cost - usePointValue,
       name: `${title} 생성하기`,
       buyer_name: user.nickname,
       custom_data: {
+        discount: usePointValue,
         title,
         category,
         capacity,
@@ -84,6 +118,10 @@ export default function CreationPayment() {
     });
   }
 
+  useEffect(() => {
+    getPoints();
+  }, []);
+
   return (
     <>
       <PaymentWindow.Section>
@@ -95,14 +133,14 @@ export default function CreationPayment() {
             title,
             cost,
             capacity,
-            summary: when.summary,
+            when,
           }}
           type="create"
         />
       </PaymentWindow.Section>
       <PaymentWindow.Section>
         {/* TODO :포인트 api연결하기 */}
-        <PaymentWindow.Point totalPoint={1500} setUsePoint={setUsePointValue} />
+        <PaymentWindow.Point cost={cost} totalPoint={point} setUsePoint={setUsePointValue} />
       </PaymentWindow.Section>
       <PaymentWindow.Section>
         <PaymentWindow.FinalAmount total={cost} usePoint={usePointValue} />
@@ -117,7 +155,7 @@ export default function CreationPayment() {
         <PaymentWindow.PaymentTerms setState={setIsAgree} />
       </PaymentWindow.Section>
       <S.Wrap>
-        <S.Notice>* 2주 이내 모집이 완료되지 않으면 피클은 사라집니다.</S.Notice>
+        <S.Notice>* 1주 이내 모집이 완료되지 않으면 피클은 사라집니다.</S.Notice>
         <S.Notice>* 사라진 피클은 입금 계좌로 영업일 2~3일 이내 환불됩니다.</S.Notice>
       </S.Wrap>
       <S.PaymentButton onClick={onClickPayment} disabled={!paymentMethod || !isAgree}>

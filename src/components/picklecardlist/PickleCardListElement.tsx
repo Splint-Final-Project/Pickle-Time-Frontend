@@ -57,7 +57,7 @@ const S = {
       `}
   `,
   Container: styled.div`
-    padding: 0 2.8rem;
+    padding: 2.8rem;
   `,
   Wrapper: styled.div`
     position: relative;

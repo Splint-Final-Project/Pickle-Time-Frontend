@@ -22,8 +22,7 @@ export const totalMeetingTimesCalculate = ({
   deadline,
   startTime,
   finishTime,
-}: MeetingTimesInterface): { times: Date[]; summary: string } => {
-
+}: MeetingTimesInterface): { times: Date[] } => {
   const start = new Date(
     new Date().getFullYear(),
     startDate.month - 1,
@@ -45,7 +44,7 @@ export const totalMeetingTimesCalculate = ({
     (startTime.hour === finishTime.hour && startTime.minute > finishTime.minute)
   ) {
     console.log('StartTime이 finishTime보다 큰 경우 에러 발생');
-    return { times: [], summary: '' };
+    return { times: [] };
   }
 
   const result: Date[] = [];
@@ -61,7 +60,7 @@ export const totalMeetingTimesCalculate = ({
   // 피클 모집 마감 일자 보다 시작 시간이 앞서면, 에러 발생 => 이거도 사실 필요 없어요
   if (result[0] < deadline) {
     console.log('피클 모집 마감 일자 보다 시작 시간이 앞서면, 에러 발생');
-    return { times: [], summary: '' };
+    return { times: [] };
   }
   const yoils = ['일', '월', '화', '수', '목', '금', '토'];
   let daysString = '';
@@ -74,14 +73,14 @@ export const totalMeetingTimesCalculate = ({
     daysString += ', ' + yoils[day];
   });
 
-  const startDateFormatted = `${startDate.month.toString().padStart(2, '0')}월 ${startDate.day.toString().padStart(2, '0')}일`;
-  const finishDateFormatted = `${finishDate.month.toString().padStart(2, '0')}월 ${finishDate.day.toString().padStart(2, '0')}일`;
-  const startTimeFormatted = formatTime(startTime);
-  const finishTimeFormatted = formatTime(finishTime);
+  // const startDateFormatted = `${startDate.month.toString().padStart(2, '0')}월 ${startDate.day.toString().padStart(2, '0')}일`;
+  // const finishDateFormatted = `${finishDate.month.toString().padStart(2, '0')}월 ${finishDate.day.toString().padStart(2, '0')}일`;
+  // const startTimeFormatted = formatTime(startTime);
+  // const finishTimeFormatted = formatTime(finishTime);
 
-  const summary = `매주 ${daysString}, ${startTimeFormatted} ~ ${finishTimeFormatted} (${startDateFormatted} 부터 ~ ${finishDateFormatted} 까지)`;
-  console.log(summary);
-  return { times: result, summary: summary };
+  // const summary = `매주 ${daysString}, ${startTimeFormatted} ~ ${finishTimeFormatted} (${startDateFormatted} 부터 ~ ${finishDateFormatted} 까지)`;
+  // console.log(summary);
+  return { times: result };
 };
 
 export const meetingTimesSummary = () => {};

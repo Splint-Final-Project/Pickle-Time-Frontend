@@ -7,31 +7,29 @@ import Gigan from './Gigan';
 import usePickleCreation from '@/hooks/zustand/usePickleCreation';
 
 export default function DateSelect() {
-  const { setWhen, setDeadLine } = usePickleCreation();
-  const { startDate, finishDate, startTime, finishTime, selectedDays } = usePickleCreation();
+  const { when, setTimes, setDeadLine } = usePickleCreation();
 
-  const handleWhenCalculate = async () => {
+  const handleWhenCalculate = () => {
     // deadline
     const oneWeekLater = oneWeekCalculate();
     setDeadLine(oneWeekLater);
 
     // when
-    const { times, summary } = totalMeetingTimesCalculate({
-      startDate,
-      finishDate,
-      selectedDays,
-      startTime,
-      finishTime,
+    const { times } = totalMeetingTimesCalculate({
+      startDate: when?.startDate,
+      finishDate: when?.finishDate,
+      selectedDays: when?.selectedDays,
+      startTime: when?.startTime,
+      finishTime: when?.finishTime,
       deadline: oneWeekLater,
     });
-    setWhen({ times: times, summary: summary });
+
+    setTimes(times);
   };
 
   useEffect(() => {
-    if (selectedDays.length > 0) {
-      handleWhenCalculate();
-    }
-  }, [startDate, finishDate, startTime, finishTime, selectedDays]);
+    handleWhenCalculate();
+  }, [when.selectedDays, when.startDate, when.finishDate, when.startTime, when.finishTime]);
 
   return (
     <S.Container>

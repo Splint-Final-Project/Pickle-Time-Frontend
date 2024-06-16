@@ -1,4 +1,4 @@
-import summaryParse from '@/utils/summaryParse';
+import { formatDays, formatPeriod, formatTimeRange } from '@/utils/formatData';
 import styled from '@emotion/styled';
 
 interface PicklePreviewCardProps {
@@ -8,33 +8,37 @@ interface PicklePreviewCardProps {
     title: string;
     cost: number;
     capacity: number;
-    summary: string;
+    when: any;
   };
   type: 'create' | 'join';
 }
 export default function PicklePreviewCard({ data, type }: PicklePreviewCardProps) {
-  const { day, time, date } = summaryParse(data.summary);
-  console.log(time);
-  
+  const date = formatPeriod(data?.when);
+  const time = formatTimeRange(data?.when);
+  const days = formatDays(data?.when);
+
   return (
     <>
       <S.Title>{type === 'create' ? '생성할 피클을 확인해주세요.' : '신청할 피클을 확인해주세요.'}</S.Title>
-      {/* <S.Category>{data.category}</S.Category> */}
-      <S.Figure>
-        <S.FigureImgWrap>
-          <S.FigureImg src={data.imgUrl} alt="피클 이미지" />
-        </S.FigureImgWrap>
-        <S.Figcaption>
-          <S.FigureContent>{data.title}</S.FigureContent>
-          <S.FigureContent>
-            {date} <span>{time}</span>
-          </S.FigureContent>
-          <S.FigureContent>{type === 'create' ? `${data.capacity}명 | ${day}` : `${day}`}</S.FigureContent>
-          <S.FigureContent>
-            <strong>{data.cost.toLocaleString()}</strong>원
-          </S.FigureContent>
-        </S.Figcaption>
-      </S.Figure>
+      <S.Figures>
+        <S.Figure>
+          {data.title}
+          <span>{data.category}</span>
+        </S.Figure>
+        <S.Figure>
+          <S.FigureImgWrap>
+            <S.FigureImg src={data.imgUrl} alt="피클 이미지" />
+          </S.FigureImgWrap>
+          <S.Figcaption>
+            <S.FigureContent>{date}</S.FigureContent>
+            <S.FigureContent>{time}</S.FigureContent>
+            <S.FigureContent>{type === 'create' ? `${data.capacity}명 | ${days}` : `${days}`}</S.FigureContent>
+            <S.FigureContent>
+              <strong>{data.cost.toLocaleString()}</strong>원
+            </S.FigureContent>
+          </S.Figcaption>
+        </S.Figure>
+      </S.Figures>
     </>
   );
 }
@@ -51,14 +55,31 @@ const S = {
     font-size: 1.4rem;
     margin-bottom: 0.8rem;
   `,
-  Figure: styled.figure`
-    border-radius: 4px;
+  Figures: styled.div`
     display: flex;
+    flex-direction: column;
+    border-radius: 4px;
+    border: 1px solid #d0d0d0;
+  `,
+  Figure: styled.figure`
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
     gap: 1.6rem;
+    padding: 10px;
+    :nth-of-type(1) {
+      border-bottom: 1px solid #d0d0d0;
+    }
+    font-size: 1.4rem;
+    font-weight: 500;
+    span {
+      font-size: 1.3rem;
+      font-weight: 400;
+    }
   `,
   FigureImgWrap: styled.div`
-    width: 10rem;
-    height: 10rem;
+    width: 12rem;
+    height: 8rem;
   `,
   FigureImg: styled.img`
     width: 100%;
@@ -75,27 +96,29 @@ const S = {
     font-weight: 500;
   `,
   FigureContent: styled.p`
-    &:first-child {
-      font-size: 1.8rem;
+    &:first-of-type {
+      font-size: 1.6rem;
     }
-    &:nth-child(2) {
-      font-size: 1.4rem;
+    &:nth-of-type(2) {
+      font-size: 1.3rem;
       display: flex;
       align-items: center;
       gap: 0.8rem;
+      color: #8b8d94;
+      line-height: 1.4rem;
     }
 
-    &:nth-child(3) {
-      font-size: 1.4rem;
+    &:nth-of-type(3) {
+      font-size: 1.2rem;
     }
     strong {
-      font-size: 1.8rem;
-      font-weight: 700;
+      font-size: 1.5rem;
+      font-weight: 600;
     }
-    span {
+    /* span {
       color: #8b8d94;
       font-size: 1.3rem;
       line-height: 1.4rem;
-    }
+    } */
   `,
 };

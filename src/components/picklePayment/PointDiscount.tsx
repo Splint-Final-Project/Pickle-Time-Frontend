@@ -2,23 +2,23 @@ import styled from '@emotion/styled';
 import { useMemo, useState } from 'react';
 
 interface PointDisCountProps {
+  cost: number;
   totalPoint: number;
   setUsePoint: React.Dispatch<React.SetStateAction<number>>;
 }
 
-export default function PointDisCount({ totalPoint, setUsePoint }: PointDisCountProps) {
+export default function PointDisCount({ cost, totalPoint, setUsePoint }: PointDisCountProps) {
   const [isFocus, setIsFocus] = useState(false);
   const [value, setValue] = useState('0');
   const [error, setError] = useState('');
-  const availablePoint = useMemo(() => Math.floor(totalPoint / 10) * 10, [totalPoint]);
+  console.log(Math.min(Math.floor(totalPoint / 10) * 10, cost));
+  console.log(cost, totalPoint);
+  const availablePoint = useMemo(() => Math.min(Math.floor(totalPoint / 10) * 10, cost), [cost, totalPoint]);
   const handleBlur = () => {
     setIsFocus(false);
     const point = parseInt(value, 10);
     if (point > availablePoint) {
       setError('사용 가능한 포인트를 초과하였습니다.');
-      setUsePoint(0);
-    } else if (point % 10 !== 0) {
-      setError('포인트는 10단위로 입력해야합니다.');
       setUsePoint(0);
     } else if (point < 100 && point !== 0) {
       setError('포인트는 100P부터 사용가능합니다.');
@@ -41,7 +41,7 @@ export default function PointDisCount({ totalPoint, setUsePoint }: PointDisCount
   return (
     <>
       <S.Title>할인 적용</S.Title>
-      <S.Description>100P부터 사용 가능하며, 10P 단위로 사용할 수 있습니다.</S.Description>
+      <S.Description>100P부터 사용 가능합니다.</S.Description>
       <S.Wrap>
         <S.InputWrap>
           <S.Label htmlFor="point">포인트</S.Label>
@@ -64,12 +64,12 @@ export default function PointDisCount({ totalPoint, setUsePoint }: PointDisCount
       </S.Wrap>
       <S.PointBox>
         <S.TotalPoint>
-          보유 포인트
+          <div>보유 포인트</div>
           <em>{totalPoint}P</em>
         </S.TotalPoint>
         <S.PossiblePoint>
           사용가능 포인트
-          <em>{totalPoint > 100 ? Math.floor(totalPoint / 10) * 10 : 0}P</em>
+          <em>{availablePoint}P</em>
         </S.PossiblePoint>
       </S.PointBox>
     </>
@@ -89,6 +89,7 @@ const S = {
     font-style: normal;
     font-weight: 500;
     line-height: 0%;
+    margin-top: 5px;
     margin-bottom: 2.4rem;
   `,
   Wrap: styled.div`
@@ -162,7 +163,7 @@ const S = {
     gap: 0.8rem;
     font-size: 1.3rem;
     color: #8b8d94;
-
+    word-break: keep-all;
     font-weight: 500;
   `,
   PossiblePoint: styled.span`
@@ -170,6 +171,7 @@ const S = {
     gap: 0.8rem;
     font-size: 1.3rem;
     color: #5dc26d;
+    word-break: keep-all;
     font-weight: 500;
   `,
   PointBox: styled.div`

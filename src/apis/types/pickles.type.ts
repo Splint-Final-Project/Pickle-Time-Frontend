@@ -4,15 +4,39 @@ export interface Coordinates {
 }
 
 export interface When {
-  summary: string;
   times: string[];
+  startDate: {
+    year: number;
+    month: number;
+    day: number;
+  };
+  finishDate: {
+    year: number;
+    month: number;
+    day: number;
+  };
+  selectedDays: number[];
+  startTime: {
+    hour: number;
+    minute: number;
+  };
+  finishTime: {
+    hour: number;
+    minute: number;
+  };
 }
 
 export type CreatePickleData = {
   title: string;
   capacity: number;
   deadLine: string;
-  where: string;
+  place: string;
+  address: string;
+  detailedAddress: string;
+  areaCode: string;
+  cost: number;
+  goals: string[];
+  imgUrl: string;
   when: When;
   category: string;
   explanation: string;
