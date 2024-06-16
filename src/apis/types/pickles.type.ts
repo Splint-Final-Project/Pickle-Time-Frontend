@@ -47,9 +47,14 @@ export interface DetailPickle {
   updatedAt: string;
   deadLine: string;
   explanation: string;
+  goals: string[];
+  imgUrl: string;
   isCancelled: boolean;
   latitude: number;
   longtitude: number;
+  leader: string;
+  like: number;
+  place: string;
   participantNumber: number;
   title: string;
   viewCount: number;
