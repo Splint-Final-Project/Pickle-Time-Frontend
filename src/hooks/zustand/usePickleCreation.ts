@@ -32,8 +32,12 @@ const usePickleCreation = create(
     latitude: number;
     longitude: number;
     when: {
-      summary: string;
       times: Date[];
+      startDate: DateTypeInInterface;
+      finishDate: DateTypeInInterface;
+      selectedDays: number[];
+      startTime: TimeTypeInInterface;
+      finishTime: TimeTypeInInterface;
     };
     category: string;
     explanation: string;
@@ -42,13 +46,10 @@ const usePickleCreation = create(
     imgUrl: string;
     isImgLoading: boolean;
 
-    startDate: DateTypeInInterface;
-    finishDate: DateTypeInInterface;
-    selectedDays: number[];
-    startTime: TimeTypeInInterface;
-    finishTime: TimeTypeInInterface;
     setStep: (step: 1 | 2 | 3 | 4) => void;
     setInProgress: (inProgress: boolean) => void;
+
+    setTimes: (newTimes: Date[]) => void;
     setStartDate: (newStartDate: DateTypeInInterface) => void;
     setFinishDate: (newFinishDate: DateTypeInInterface) => void;
     setSelectedDays: (newSelectedDays: number[]) => void;
@@ -65,7 +66,6 @@ const usePickleCreation = create(
     setAreaCode: (areaCode: number) => void;
     setLatitude: (latitude: number) => void;
     setLongitude: (longitude: number) => void;
-    setWhen: (when: { summary: string; times: Date[] }) => void;
     setCategory: (category: string) => void;
     setExplanation: (explanation: string) => void;
     setViewCount: (viewCount: number) => void;
@@ -88,8 +88,12 @@ const usePickleCreation = create(
       latitude: 0,
       longitude: 0,
       when: {
-        summary: '',
         times: [],
+        startDate: { year, month: month + 1, day: day + 8 },
+        finishDate: { year, month: month + 1, day: day + 8 },
+        selectedDays: [],
+        startTime: { hour: 9, minute: 0 },
+        finishTime: { hour: 10, minute: 0 },
       },
       category: '',
       explanation: '',
@@ -109,7 +113,6 @@ const usePickleCreation = create(
       setAreaCode: (areaCode: number) => set({ areaCode }),
       setLatitude: (latitude: number) => set({ latitude }),
       setLongitude: (longitude: number) => set({ longitude }),
-      setWhen: (when: { summary: string; times: Date[] }) => set({ when }),
       setCategory: (category: string) => set({ category }),
       setExplanation: (explanation: string) => set({ explanation }),
       setViewCount: (viewCount: number) => set({ viewCount }),
@@ -130,8 +133,12 @@ const usePickleCreation = create(
           latitude: 0,
           longitude: 0,
           when: {
-            summary: '',
             times: [],
+            startDate: { year, month: month + 1, day: day + 8 },
+            finishDate: { year, month: month + 1, day: day + 8 },
+            selectedDays: [],
+            startTime: { hour: 9, minute: 0 },
+            finishTime: { hour: 10, minute: 0 },
           },
           category: '',
           explanation: '',
@@ -141,21 +148,17 @@ const usePickleCreation = create(
           isImgLoading: false,
         }),
       setIsImgLoading: (isImgLoading: boolean) => set({ isImgLoading }),
-
-      startDate: { year, month: month + 1, day: day + 8 },
-      finishDate: { year, month: month + 1, day: day + 8 },
-      selectedDays: [],
-      startTime: { hour: 9, minute: 0, dayTime: 'AM' },
-      finishTime: { hour: 10, minute: 0, dayTime: 'AM' },
+      setTimes: (newTimes: Date[]) => set(state => ({ ...state, when: { ...state.when, times: newTimes } })),
       setStartDate: (newStartDate: { year: number; month: number; day: number }) =>
-        set(state => ({ ...state, startDate: newStartDate })),
+        set(state => ({ ...state, when: { ...state.when, startDate: newStartDate } })),
       setFinishDate: (newFinishDate: { year: number; month: number; day: number }) =>
-        set(state => ({ ...state, finishDate: newFinishDate })),
-      setSelectedDays: (newSelectedDays: any[]) => set(state => ({ ...state, selectedDays: newSelectedDays })),
-      setStartTime: (newStartTime: { hour: number; minute: number; }) =>
-        set(state => ({ ...state, startTime: newStartTime })),
-      setFinishTime: (newFinishTime: { hour: number; minute: number; }) =>
-        set(state => ({ ...state, finishTime: newFinishTime })),
+        set(state => ({ ...state, when: { ...state.when, finishDate: newFinishDate } })),
+      setSelectedDays: (newSelectedDays: any[]) =>
+        set(state => ({ ...state, when: { ...state.when, selectedDays: newSelectedDays } })),
+      setStartTime: (newStartTime: { hour: number; minute: number }) =>
+        set(state => ({ ...state, when: { ...state.when, startTime: newStartTime } })),
+      setFinishTime: (newFinishTime: { hour: number; minute: number }) =>
+        set(state => ({ ...state, when: { ...state.when, finishTime: newFinishTime } })),
     }),
     {
       name: 'create-pickle-storage',

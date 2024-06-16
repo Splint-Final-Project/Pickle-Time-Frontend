@@ -95,7 +95,7 @@ export default function CreationPayment() {
             title,
             cost,
             capacity,
-            summary: when.summary,
+            when,
           }}
           type="create"
         />
