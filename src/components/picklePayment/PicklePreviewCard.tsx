@@ -1,4 +1,3 @@
-import summaryParse from '@/utils/summaryParse';
 import styled from '@emotion/styled';
 
 interface PicklePreviewCardProps {
@@ -8,12 +7,44 @@ interface PicklePreviewCardProps {
     title: string;
     cost: number;
     capacity: number;
-    summary: string;
+    when: any;
   };
   type: 'create' | 'join';
 }
 export default function PicklePreviewCard({ data, type }: PicklePreviewCardProps) {
-  const { day, time, date } = summaryParse(data.summary);
+  // const { day, time, date } = summaryParse(data.summary);
+
+  // console.log(time);
+  let days = '';
+  ['일', '월', '화', '수', '목', '금', '토'].forEach((day, index) => {
+    if (data.when.selectedDays.includes(index)) {
+      if (days === '') {
+        days += day;
+      } else {
+        days += ', ' + day;
+      }
+    }
+  });
+  let time = '';
+  time +=
+    ('0' + data.when.startTime.hour).slice(-2) +
+    ':' +
+    ('0' + data.when.startTime.minute).slice(-2) +
+    ' ~ ' +
+    ('0' + data.when.finishTime.hour).slice(-2) +
+    ':' +
+    ('0' + data.when.finishTime.minute).slice(-2);
+  let date = '';
+  date +=
+    data.when.startDate.month +
+    '월 ' +
+    data.when.startDate.day +
+    '일 ~ ' +
+    data.when.finishDate.month +
+    '월 ' +
+    data.when.finishDate.day +
+    '일';
+
   return (
     <>
       <S.Title>{type === 'create' ? '생성할 피클을 확인해주세요.' : '신청할 피클을 확인해주세요.'}</S.Title>
@@ -27,7 +58,7 @@ export default function PicklePreviewCard({ data, type }: PicklePreviewCardProps
           <S.FigureContent>
             {date} <span>{time}</span>
           </S.FigureContent>
-          <S.FigureContent>{type === 'create' ? `${data.capacity}명 | ${day}` : `${day}`}</S.FigureContent>
+          <S.FigureContent>{type === 'create' ? `${data.capacity}명 | ${days}` : `${days}`}</S.FigureContent>
           <S.FigureContent>
             <strong>{data.cost.toLocaleString()}</strong>원
           </S.FigureContent>

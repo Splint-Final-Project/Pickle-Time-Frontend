@@ -44,7 +44,7 @@ export default function CreatePickle() {
   } = usePickleCreation();
 
   const navigate = useNavigate();
-
+  console.log(when);
   return (
     <Container>
       <TitleContainer>
