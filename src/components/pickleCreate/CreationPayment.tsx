@@ -46,66 +46,30 @@ export default function CreationPayment() {
   }
 
   async function onClickPayment() {
-    // if (cost - usePointValue === 0 ){
-    //   const notified = await client.post('/pickle/create/free', {
-    //     discount: usePointValue,
-    //     title,
-    //     category,
-    //     capacity,
-    //     imgUrl,
-    //     explanation,
-    //     goals,
-    //     cost,
-    //     place,
-    //     address,
-    //     detailedAddress,
-    //     areaCode,
-    //     latitude,
-    //     longitude,
-    //     when,
-    //     deadLine,
-    //   });
-    // }
-    const data = {
-      pg: `${paymentMethod === 'kakaopay' ? 'kakaopay.TC0ONETIME' : 'tosspay.tosstest'}`,
-      pay_method: 'card',
-      merchant_uid: `mid_${new Date().getTime()}`,
-      customer_uid: `cid_${new Date().getTime()}`,
-      amount: cost - usePointValue,
-      name: `${title} 생성하기`,
-      buyer_name: user.nickname,
-      custom_data: {
-        discount: usePointValue,
-        title,
-        category,
-        capacity,
-        imgUrl,
-        explanation,
-        goals,
-        cost,
-        place,
-        address,
-        detailedAddress,
-        areaCode,
-        latitude,
-        longitude,
-        when,
-        deadLine,
-      },
-      m_redirect_url: `${window.location.origin.toString()}/create-redirect`,
-    };
-    IMP.init('imp88171622');
-    IMP.request_pay(data, async (response: any) => {
-      if (!response.success) {
-        alert(`결제에 실패했습니다: ${response.error_msg}`);
-        navigate(`/pickle-create`, { replace: true });
-      }
+    if (cost - usePointValue === 0) {
+      console.log('free');
       try {
         const notified = await client.post('/pickle/create', {
-          imp_uid: response.imp_uid,
+          imp_uid: null,
+          discount: usePointValue,
+          title,
+          category,
+          capacity,
+          imgUrl,
+          explanation,
+          goals,
+          cost,
+          place,
+          address,
+          detailedAddress,
+          areaCode,
+          latitude,
+          longitude,
+          when,
+          deadLine,
         });
         if (notified.status === 201) {
-          alert('결제 및 피클 생성이 완료되었습니다.');
+          alert('전액 포인트로 피클 생성이 완료되었습니다.');
           clear();
           navigate(`/pickle/${notified.data.pickle._id}`, { replace: true });
         } else {
@@ -115,7 +79,58 @@ export default function CreationPayment() {
       } catch (err) {
         console.log(err);
       }
-    });
+    } else {
+      const data = {
+        pg: `${paymentMethod === 'kakaopay' ? 'kakaopay.TC0ONETIME' : 'tosspay.tosstest'}`,
+        pay_method: 'card',
+        merchant_uid: `mid_${new Date().getTime()}`,
+        customer_uid: `cid_${new Date().getTime()}`,
+        amount: cost - usePointValue,
+        name: `${title} 생성하기`,
+        buyer_name: user.nickname,
+        custom_data: {
+          discount: usePointValue,
+          title,
+          category,
+          capacity,
+          imgUrl,
+          explanation,
+          goals,
+          cost,
+          place,
+          address,
+          detailedAddress,
+          areaCode,
+          latitude,
+          longitude,
+          when,
+          deadLine,
+        },
+        m_redirect_url: `${window.location.origin.toString()}/create-redirect`,
+      };
+      IMP.init('imp88171622');
+      IMP.request_pay(data, async (response: any) => {
+        if (!response.success) {
+          alert(`결제에 실패했습니다: ${response.error_msg}`);
+          navigate(`/pickle-create`, { replace: true });
+        }
+        try {
+          const notified = await client.post('/pickle/create', {
+            imp_uid: response.imp_uid,
+          });
+          if (notified.status === 201) {
+            alert('결제 및 피클 생성이 완료되었습니다.');
+            clear();
+            navigate(`/pickle/${notified.data.pickle._id}`, { replace: true });
+          } else {
+            alert('피클 생성이 실패하여 결제 금액은 환불되었습니다.' + notified.data.message);
+            navigate(`/pickle-create`, { replace: true });
+          }
+        } catch (err) {
+          console.log(err);
+        }
+      });
+    }
   }
 
   useEffect(() => {

@@ -13,7 +13,8 @@ export default function Gigan() {
   const month = d.getMonth(); // 월
   const day = d.getDate(); // 일
   const [isCalanderOpen, setIsCalanderOpen] = useState(false);
-  const { startDate, finishDate, setStartDate, setFinishDate } = usePickleCreation();
+  const { when, setStartDate, setFinishDate } = usePickleCreation();
+  const { startDate, finishDate } = when;
   return (
     <>
       <S.SubText onClick={() => setIsCalanderOpen(prev => !prev)}>
