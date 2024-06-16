@@ -1,6 +1,7 @@
 import { When } from '@/apis/types/pickles.type';
-import { formatCurrency } from '@/utils/formatData';
+import { formatCurrency, formatDays, formatPeriod, formatTimeRange } from '@/utils/formatData';
 import styled from '@emotion/styled';
+import { useMemo } from 'react';
 
 interface PickleTextInfoProps {
   when: When;
@@ -10,14 +11,18 @@ interface PickleTextInfoProps {
 }
 
 export default function PickleTextInfo({ when, location, capacity, cost }: PickleTextInfoProps) {
+  const days = useMemo(() => formatDays(when), [when]);
+  const time = useMemo(() => formatTimeRange(when), [when]);
+  const period = useMemo(() => formatPeriod(when), [when]);
+
   return (
     <S.Container>
       <S.Row className="date">
         <img src="/icons/timeIcon.svg" />
         <S.Text>
-          <span>{when?.summary}</span>
-          <span className="time">시간</span>
-          <span>요일</span>
+          <span>{period}</span>
+          <span className="time">{time}</span>
+          <span>{days}</span>
         </S.Text>
       </S.Row>
       <S.Row>
