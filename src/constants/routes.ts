@@ -8,7 +8,7 @@ const routes = {
   chat: '/chat',
   chatList: '/chat-list',
   pickle: '/pickle',
-  pickleList: '/pickle-list',
+  myPickles: '/my-pickles',
   picklePopularList: '/pickle-popular-list',
   pickleHotTimeList: '/pickle-hot-time-list',
   pickleCreate: '/pickle-create',

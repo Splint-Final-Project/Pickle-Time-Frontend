@@ -37,7 +37,7 @@ export default function SpecialPickleCard({ pickleData }: { pickleData: any }) {
   };
 
   return (
-    <S.CardLayer to={`${routes.pickleList}/${pickleData.id}`}>
+    <S.CardLayer to={`${routes.pickle}/${pickleData.id}`}>
       <S.Wrap>
         <S.DeadlineBadge>D-{Dday}</S.DeadlineBadge>
         <HeartButton size={22} isActive={data?.data.isClicked} onClick={handleHeartClick} />

@@ -25,7 +25,7 @@ export default function Pickle() {
 
   const { data } = useGetPickelDetail(pickleId);
   const pickleDetailData = data?.data;
-  const isLeader = user._id === pickleDetailData?.leader;
+  const isLeader = user?._id === pickleDetailData?.leader;
   // console.log(pickleDetailData.imgUrl)
 
   const { handleOpen } = useBottomSheetModal(state => state);
