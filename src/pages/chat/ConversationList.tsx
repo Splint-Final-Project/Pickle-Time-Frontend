@@ -1,23 +1,29 @@
-import { Link } from 'react-router-dom';
-
-import Conversation from './Conversation';
-import { useGetMessages, useSendMessage } from '@/hooks/query/messages';
+import ChatListContainer from '@/components/chatList/ChatListContainer';
+import styled from '@emotion/styled';
 
 export default function ConversationList() {
-  //server state
-  const { data } = useGetMessages("2");
-  const { mutate } = useSendMessage({message: "hi"}, "2");
-
-  const handleClick = () => {
-    mutate();
-  }
-
   return (
-    <div>
-      <button type='submit' onClick={handleClick}>클릭</button>
-      {/* <h1>채팅 목록 페이지입니다</h1> */}
-      <Conversation/>
-      {/* <Link to="/">홈으로</Link> */}
-    </div>
+    <S.Container>
+      <S.Title>피클 메세지</S.Title>
+      <ChatListContainer />
+    </S.Container>
   );
 }
+
+const S = {
+  Container: styled.div`
+    padding: 8rem 1.8rem 8.5rem;
+  `,
+  Title: styled.h1`
+    font-size: 2.4rem;
+    font-weight: 600;
+    margin-bottom: 2rem;
+  `,
+};
+
+// const { data } = useGetMessages('2');
+// const { mutate } = useSendMessage({ message: 'hi' }, '2');
+
+// const handleClick = () => {
+//   mutate();
+// };
