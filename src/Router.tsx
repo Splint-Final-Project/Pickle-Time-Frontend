@@ -69,8 +69,8 @@ const router = createBrowserRouter([
         element: <JoinPickle />,
       },
       {
+        //피클 생성 하다만 기록이 있으면 있으면 그 단계에 맞춰서 리다이렉트됨
         path: '/pickle-create',
-        //피클 생성 하다만 기록이 있으면 있으면 그 단계에 맞춰서 리다이렉트
         element: <CreatePickle />,
       },
       {

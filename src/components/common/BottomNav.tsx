@@ -67,7 +67,7 @@ export default function BottomNav() {
       <S.NavItem to={routes.pickle} isActive={location.pathname === routes.pickle}>
         <S.Icon src="/icons/bottomNavbar/marker.svg" alt="Marker" />내 주변
       </S.NavItem>
-      <S.NavItem to={routes.pickleList} isActive={location.pathname === routes.pickleList}>
+      <S.NavItem to={routes.myPickles} isActive={location.pathname === routes.myPickles}>
         <S.Icon src="/icons/bottomNavbar/myPickle.svg" alt="My Pickle" />내 피클
       </S.NavItem>
       <S.NavItem to={routes.chatList} isActive={location.pathname === routes.chatList}>

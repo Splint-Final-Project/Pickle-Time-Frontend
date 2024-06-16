@@ -39,7 +39,7 @@ function SpecialPickleCard({ pickleData }: { pickleData: any }) {
   const { isLiked, handleHeartClick } = useHeartButtonClick(pickleData.id);
 
   return (
-    <S.CardLayer to={`${routes.pickleList}/${pickleData.id}`}>
+    <S.CardLayer to={`${routes.pickle}/${pickleData.id}`}>
       <S.Wrap>
         <S.DeadlineBadge>D-{Dday}</S.DeadlineBadge>
         <HeartButton size={22} isActive={isLiked} onClick={handleHeartClick} />

@@ -6,7 +6,7 @@ export default function OAuthSuccessRedirector() {
   const [searchParams] = useSearchParams();
   const status = searchParams.get('status');
   console.log(status);
-  if (status === 'Pending') {
+  if (status === 'pending') {
     console.log('추가 정보 입력 페이지로 이동합니다.');
     // alert('추가 정보 입력 페이지로 이동합니다.');
     return <Navigate to="/sign-up2" />;
