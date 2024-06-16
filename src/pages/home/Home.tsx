@@ -168,13 +168,6 @@ export default function Home() {
 
       <br />
       <br />
-      <div>
-        <Link to={'/pickle/6662941ec1151126a67f6530'}>테스트 피클 보기+신청하기테스트</Link>
-      </div>
-      <br />
-      <br />
-
-      <br />
       <br />
       <br />
 
