@@ -70,8 +70,8 @@ export const InputComponent = styled.div`
   background-color: white;
 `;
 
-export const SubmitButton = styled.button`
-  margin: 1rem 3.5rem 0;
+export const SubmitButton = styled.button<{ disabled?: boolean }>`
+  margin: 1rem 3.5rem 13rem;
   height: 42px;
   border-radius: 4px;
   background-color: #5dc26d;
