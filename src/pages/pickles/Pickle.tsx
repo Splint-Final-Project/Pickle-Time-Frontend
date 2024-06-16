@@ -26,6 +26,7 @@ export default function Pickle() {
   const { data } = useGetPickelDetail(pickleId);
   const pickleDetailData = data?.data;
   const isLeader = user._id === pickleDetailData?.leader;
+  // console.log(pickleDetailData.imgUrl)
 
   const { handleOpen } = useBottomSheetModal(state => state);
 
@@ -44,7 +45,7 @@ export default function Pickle() {
           <span className="applicant">{pickleDetailData?.participantNumber}명이 신청했어요!</span>
           <S.TitleAndLike>
             <h1 className="pickle-title">{pickleDetailData?.title}</h1>
-            <LikeCount pickleId={pickleId} likeCount={pickleDetailData?.like} />
+            <LikeCount pickleId={pickleId} />
           </S.TitleAndLike>
           <S.Thumbnail src={pickleDetailData?.imgUrl} alt="피클 이미지" />
           <PickleTextInfo

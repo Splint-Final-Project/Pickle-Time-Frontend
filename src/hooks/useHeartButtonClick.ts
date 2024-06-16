@@ -16,5 +16,5 @@ export default function useHeartButtonClick(pickleId: string) {
     }
   };
 
-  return { isLiked: data?.data.length > 0, handleHeartClick };
+  return { isLiked: data?.data.length > 0, like: data?.data.length, handleHeartClick };
 }
