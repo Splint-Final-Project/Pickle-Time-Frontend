@@ -1,6 +1,7 @@
 import { toast } from 'react-hot-toast';
 import { useQuery, useInfiniteQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { likeRequests } from '@/apis/like.api';
+import { picklesRequests } from '@/apis/pickle.api';
 
 type HandleSuccessFunction = (data: any) => void;
 
@@ -27,8 +28,15 @@ export const useGetLikePickles = () => {
 
 export const useGetLikePickle = (pickleId: string) => {
   return useQuery({
-    queryKey: ['pickles', pickleId, 'like'],
+    queryKey: ['pickles', 'like', pickleId],
     queryFn: async () => await likeRequests.getPickle(pickleId),
+  });
+}
+
+export const useGetLikeCount = (pickleId: string) => {
+  return useQuery({
+    queryKey: ['pickles', 'like', pickleId, 'likeCount'],
+    queryFn: async () => await picklesRequests.getLikeCount(pickleId),
   });
 }
 
