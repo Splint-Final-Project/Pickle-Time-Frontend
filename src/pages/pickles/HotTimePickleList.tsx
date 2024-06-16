@@ -1,8 +1,8 @@
-import Header from '@/components/pickleWholeList/Header';
-import PickleCardMockData from '@/mocks/pickleCardData';
+import PickleListHeader from '@/components/pickleWholeList/PickleListHeader';
 import styled from '@emotion/styled';
-import { GridTemplate } from '@/styles/commonStyles';
+import { TwoColumnGridTemplate } from '@/styles/commonStyles';
 import { useState } from 'react';
+import PickleListCard from '@/components/pickleWholeList/PickleListCard';
 
 const S = {
   Container: styled.div`
@@ -51,7 +51,7 @@ export default function HotTimePickleList() {
 
   return (
     <S.Container>
-      <Header title="마감 임박 피클" summary="마감이 얼마 남지 않은 피클!">
+      <PickleListHeader title="마감 임박 피클" summary="마감이 얼마 남지 않은 피클!">
         <S.TabWrapper>
           {['전체', '운동', '취미', '스터디'].map(tab => (
             <S.Tab key={tab} isActive={activeTab === tab} onClick={() => handleTabClick(tab)}>
@@ -59,11 +59,11 @@ export default function HotTimePickleList() {
             </S.Tab>
           ))}
         </S.TabWrapper>
-      </Header>
+      </PickleListHeader>
       <S.Content>
-        <GridTemplate>
-          <PickleCardMockData />
-        </GridTemplate>
+        <TwoColumnGridTemplate>
+          <PickleListCard category="hotTime" />
+        </TwoColumnGridTemplate>
       </S.Content>
     </S.Container>
   );

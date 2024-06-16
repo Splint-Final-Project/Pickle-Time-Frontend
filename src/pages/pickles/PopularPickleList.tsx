@@ -1,10 +1,8 @@
-import Header from '@/components/pickleWholeList/Header';
-import PickleCardMockData from '@/mocks/pickleCardData';
+import PickleListHeader from '@/components/pickleWholeList/PickleListHeader';
 import styled from '@emotion/styled';
-import { useRef, useState } from 'react';
-import { GridTemplate } from '@/styles/commonStyles';
-import InfinitePickleCardLoader from '@/components/picklecard/InfinitePickleCardLoader';
-import useIntersectionObserver from '@/hooks/useIntersectionObserver';
+import { useState } from 'react';
+import { TwoColumnGridTemplate } from '@/styles/commonStyles';
+import PickleListCard from '@/components/pickleWholeList/PickleListCard';
 
 const S = {
   Section: styled.section``,
@@ -15,6 +13,9 @@ const S = {
     display: flex;
     margin-top: 4rem;
     gap: 1.4rem;
+    @media (max-width: 500px) {
+      gap: 1rem;
+    }
   `,
   Tab: styled.button<{ isActive: boolean }>`
     font-size: 1.4rem;
@@ -30,25 +31,19 @@ const S = {
       background: ${({ isActive }) => (isActive ? '#000' : '#dcdcdc')};
       color: ${({ isActive }) => (isActive ? '#fff' : '#8b8d94')};
     }
+    @media (max-width: 500px) {
+      font-size: 1.2rem;
+    }
   `,
   Content: styled.div`
     background: #f2f3f5;
     min-height: calc(100% - 30rem);
     padding: 2rem 2.9rem 1.8rem;
-
-    @media (max-width: 550px) {
-      padding: 2rem 0.5rem;
-    }
-    @media (max-width: 500px) {
-      padding: 2rem 0rem;
-    }
   `,
 };
 
 export default function PopularPickleList() {
   const [activeTab, setActiveTab] = useState('전체');
-
-  const loaderRef = useRef<HTMLDivElement>(null);
 
   const handleTabClick = (tabName: string) => {
     setActiveTab(tabName);
@@ -56,7 +51,7 @@ export default function PopularPickleList() {
 
   return (
     <S.Container>
-      <Header title="인기 급상승 피클" summary="참여하고 싶어지는 급상승 피클!">
+      <PickleListHeader title="인기 급상승 피클" summary="참여하고 싶어지는 급상승 피클!">
         <S.TabWrapper>
           {['전체', '운동', '취미', '스터디'].map(tab => (
             <S.Tab key={tab} isActive={activeTab === tab} onClick={() => handleTabClick(tab)}>
@@ -64,11 +59,11 @@ export default function PopularPickleList() {
             </S.Tab>
           ))}
         </S.TabWrapper>
-      </Header>
+      </PickleListHeader>
       <S.Content>
-        <GridTemplate>
-          <PickleCardMockData />
-        </GridTemplate>
+        <TwoColumnGridTemplate>
+          <PickleListCard category="popular" />
+        </TwoColumnGridTemplate>
       </S.Content>
     </S.Container>
   );
