@@ -30,6 +30,7 @@ import PickleCreationRedirector from './redirectors/PickleCreationRedirector';
 
 import routes from '@/constants/routes';
 import CreatePickle from './pages/pickles/CreatePickle';
+import EditProfilePage from './pages/profile/EditProfilePage';
 
 const privateChildren = [
   {
@@ -63,6 +64,10 @@ const privateChildren = [
   {
     path: routes.mypage,
     element: <MyPage />,
+  },
+  {
+    path: routes.editProfile,
+    element: <EditProfilePage />,
   },
   {
     path: routes.signUp2,

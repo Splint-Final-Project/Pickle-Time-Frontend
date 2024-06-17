@@ -18,6 +18,7 @@ const routes = {
   pickleCreatePayment: '/pickle-create-payment',
   around: '/around',
   mypage: '/mypage',
+  editProfile: '/edit-profile',
   pickleJoinRedirect: '/join-redirect',
   pickleCreateRedirect: '/create-redirect',
   mobilePaymentRedirect: '/payment-redirect',
