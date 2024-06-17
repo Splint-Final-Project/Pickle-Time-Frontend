@@ -1,4 +1,3 @@
-import { useNavigate, useParams } from 'react-router-dom';
 import styled from '@emotion/styled';
 
 import BackButton from '@/components/common/button/BackButton';
@@ -12,6 +11,7 @@ import useAuth from '@/hooks/zustand/useAuth';
 import routes from '@/constants/routes';
 import useBottomSheetModal from '@/hooks/zustand/useBottomSheetModal';
 import Tag from '@/components/common/tag/Tag';
+import { useNavigate, useParams } from 'react-router-dom';
 
 /**
  * 피클 상세 페이지
@@ -80,7 +80,7 @@ export default function Pickle() {
             onClick={() =>
               isLeader
                 ? navigate('/pickle-create-1', { state: { pickleId } }) //Todo 편집페이지로 변경필요
-                : navigate('/pickle-join', {
+                : navigate('/pickle-join/' + pickleId, {
                     state: {
                       pickleId,
                       pickleTitle: pickleDetailData?.title,

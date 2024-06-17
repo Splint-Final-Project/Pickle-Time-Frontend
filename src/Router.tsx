@@ -37,7 +37,7 @@ const privateChildren = [
     element: <Admin />,
   },
   {
-    path: '/pickle-join',
+    path: '/pickle-join/:id',
     element: <JoinPickle />,
   },
   {

@@ -1,6 +1,6 @@
 import useAuth from '@/hooks/zustand/useAuth';
 import { useEffect, useMemo, useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 
 import { Container } from './CreatePickleStyled';
 
@@ -20,20 +20,12 @@ declare global {
 export default function JoinPickle() {
   const navigate = useNavigate();
   const { user } = useAuth();
-  const location = useLocation();
-  const { pickleId } = location.state;
+  // const location = useLocation();
+  const { id: pickleId = '' } = useParams();
+  console.log(pickleId);
   const { data } = useGetPickelDetail(pickleId);
-  const pickleData = useMemo(
-    () => ({
-      category: data.data.category,
-      imgUrl: data.data.imgUrl,
-      title: data.data.title,
-      cost: data.data.cost,
-      capacity: data.data.capacity,
-      when: data.data.when,
-    }),
-    [],
-  );
+
+  const pickleData = data?.data;
 
   const [paymentMethod, setPaymentMethod] = useState<string>('');
   const [point, setPoint] = useState(0);
@@ -123,42 +115,46 @@ export default function JoinPickle() {
           <S.Title>피클 신청</S.Title>
         </S.Inner>
       </S.Wrapper>
-      <PaymentWindow.Section>
-        {' '}
-        <PaymentWindow.PreviewPickle
-          data={{
-            category: pickleData.category,
-            imgUrl: pickleData.imgUrl,
-            title: pickleData.title,
-            cost: pickleData.cost,
-            capacity: pickleData.capacity,
-            when: pickleData.when,
-          }}
-          type="join"
-        />
-      </PaymentWindow.Section>
-      <PaymentWindow.Section>
-        <PaymentWindow.Point cost={pickleData.cost} totalPoint={point} setUsePoint={setUsePointValue} />
-      </PaymentWindow.Section>
-      <PaymentWindow.Section>
-        <PaymentWindow.FinalAmount total={pickleData.cost} usePoint={usePointValue} />
-      </PaymentWindow.Section>
-      <PaymentWindow.Section>
-        <PaymentWindow.Methods setState={setPaymentMethod} />
-      </PaymentWindow.Section>
-      <PaymentWindow.Section>
-        <PaymentWindow.PaymentEvent />
-      </PaymentWindow.Section>
-      <PaymentWindow.Section>
-        <PaymentWindow.PaymentTerms setState={setIsAgree} />
-      </PaymentWindow.Section>
-      <S.Wrap>
-        <S.Notice>* 1주 이내 모집이 완료되지 않으면 피클은 사라집니다.</S.Notice>
-        <S.Notice>* 사라진 피클은 입금 계좌로 영업일 2~3일 이내 환불됩니다.</S.Notice>
-      </S.Wrap>
-      <S.PaymentButton onClick={onClickPayment} disabled={!paymentMethod || !isAgree}>
-        {pickleData.cost - usePointValue}원 결제하기
-      </S.PaymentButton>
+      {pickleData && (
+        <>
+          <PaymentWindow.Section>
+            {' '}
+            <PaymentWindow.PreviewPickle
+              data={{
+                category: pickleData.category,
+                imgUrl: pickleData.imgUrl,
+                title: pickleData.title,
+                cost: pickleData.cost,
+                capacity: pickleData.capacity,
+                when: pickleData.when,
+              }}
+              type="join"
+            />
+          </PaymentWindow.Section>
+          <PaymentWindow.Section>
+            <PaymentWindow.Point cost={pickleData.cost} totalPoint={point} setUsePoint={setUsePointValue} />
+          </PaymentWindow.Section>
+          <PaymentWindow.Section>
+            <PaymentWindow.FinalAmount total={pickleData.cost} usePoint={usePointValue} />
+          </PaymentWindow.Section>
+          <PaymentWindow.Section>
+            <PaymentWindow.Methods setState={setPaymentMethod} />
+          </PaymentWindow.Section>
+          <PaymentWindow.Section>
+            <PaymentWindow.PaymentEvent />
+          </PaymentWindow.Section>
+          <PaymentWindow.Section>
+            <PaymentWindow.PaymentTerms setState={setIsAgree} />
+          </PaymentWindow.Section>
+          <S.Wrap>
+            <S.Notice>* 1주 이내 모집이 완료되지 않으면 피클은 사라집니다.</S.Notice>
+            <S.Notice>* 사라진 피클은 입금 계좌로 영업일 2~3일 이내 환불됩니다.</S.Notice>
+          </S.Wrap>
+          <S.PaymentButton onClick={onClickPayment} disabled={!paymentMethod || !isAgree}>
+            {pickleData.cost - usePointValue}원 결제하기
+          </S.PaymentButton>
+        </>
+      )}
     </Container>
   );
 }

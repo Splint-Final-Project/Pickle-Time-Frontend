@@ -6,8 +6,10 @@ import useAuth from '@/hooks/zustand/useAuth';
 export default function LoginRedirector() {
   const navigate = useNavigate();
   const { user, signOut } = useAuth();
+  console.log('LoginRedirector.tsx');
 
   useEffect(() => {
+    console.log('LoginRedirector.tsx useEffect');
     const responseInterceptor = client.interceptors.response.use(
       function (response: any) {
         return response;
@@ -15,12 +17,12 @@ export default function LoginRedirector() {
       function (error: any) {
         const status = error.response?.status;
         if (status === 401) {
-          signOut();
           console.log('server responded with 401 status. redirecting to login page.');
-          navigate('/sign-in');
+          signOut();
+          navigate('/sign-in', { replace: true });
         } else if (status === 403) {
           console.log('server responded with 403 status. redirecting to signup2 page.');
-          navigate('/sign-up2');
+          navigate('/sign-up2', { replace: true });
         }
         return Promise.reject(error);
       },
