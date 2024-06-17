@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import client from '@/apis/axios';
-import { Outlet, useNavigate } from 'react-router-dom';
+import { Navigate, Outlet, useNavigate } from 'react-router-dom';
 import useAuth from '@/hooks/zustand/useAuth';
 
 export default function LoginRedirector() {
@@ -30,11 +30,9 @@ export default function LoginRedirector() {
     };
   }, [navigate]);
 
-  useEffect(() => {
-    if (!user) {
-      navigate('/sign-in', { replace: true });
-    }
-  }, []);
+  if (!user) {
+    return <Navigate to="/sign-in" replace={true} />;
+  }
 
   return <Outlet />;
 }

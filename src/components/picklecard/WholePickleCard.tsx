@@ -35,7 +35,7 @@ export default function WholePickleCard({ id: pickleId, type, title, when, cost 
 
   return (
     <S.CardLayer to={`${routes.pickle}/${pickleId}`} $backImgType={type}>
-      <HeartButton isActive={data?.data.isClicked} onClick={handleHeartClick} />
+      <HeartButton $active={data?.data.isClicked} onClick={handleHeartClick} />
       {/* <S.ProgressDay>{when.summary}</S.ProgressDay> */}
       <S.Title>{title}</S.Title>
       <S.Price>{formatCurrency(cost)}원</S.Price>
@@ -44,7 +44,9 @@ export default function WholePickleCard({ id: pickleId, type, title, when, cost 
 }
 
 const S = {
-  CardLayer: styled(Link)<{ $backImgType: 'study' | 'exercise' }>`
+  CardLayer: styled(Link, {
+    shouldForwardProp: prop => prop !== '$backImgType',
+  })<{ $backImgType: 'study' | 'exercise' }>`
     display: block;
     /* width: 15rem; */
     height: 10.7rem;
@@ -65,7 +67,6 @@ const S = {
     color: #6f6f6f;
     font-size: 1rem;
     font-weight: 500;
-    margin-bottom: 1rem;
   `,
   Title: styled.h3`
     color: #161616;
@@ -73,6 +74,7 @@ const S = {
     font-weight: 600;
     width: 80%;
     letter-spacing: -0.9px;
+    margin-top: 1rem;
     margin-bottom: 1.2rem;
   `,
   Price: styled.em`

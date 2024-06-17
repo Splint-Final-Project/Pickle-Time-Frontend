@@ -44,7 +44,8 @@ export default function SignUp2() {
   const [selectedGus, setSelectedGus] = useState<Set<number>>(new Set());
 
   const navigate = useNavigate();
-  const { signUp2 } = useAuth();
+  const { user, signUp2 } = useAuth();
+
   async function handleSignUp2(data: SignUpFormValues2) {
     try {
       await signUp2(data);
@@ -70,6 +71,10 @@ export default function SignUp2() {
   useEffect(() => {
     setValue('areaCodes', Array.from(selectedGus));
   }, [selectedGus]);
+
+  if (user) {
+    navigate('/', { replace: true });
+  }
 
   return (
     <Container>

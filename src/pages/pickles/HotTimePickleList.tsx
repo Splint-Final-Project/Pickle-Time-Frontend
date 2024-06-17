@@ -13,19 +13,19 @@ const S = {
     margin-top: 4rem;
     gap: 1.4rem;
   `,
-  Tab: styled.button<{ isActive: boolean }>`
+  Tab: styled.button<{ $active: boolean }>`
     font-size: 1.4rem;
     border-radius: 18px;
-    background: ${({ isActive }) => (isActive ? '#000' : '#f1f1f1')};
-    color: ${({ isActive }) => (isActive ? '#fff' : 'var(--Sub-Text, var(--Tab-Bar-Color-2, #8b8d94))')};
+    background: ${({ $active }) => ($active ? '#000' : '#f1f1f1')};
+    color: ${({ $active }) => ($active ? '#fff' : 'var(--Sub-Text, var(--Tab-Bar-Color-2, #8b8d94))')};
     padding: 0.7rem 1.4rem;
     transition:
       background-color 0.3s,
       color 0.3s;
 
     &:hover {
-      background: ${({ isActive }) => (isActive ? '#000' : '#dcdcdc')};
-      color: ${({ isActive }) => (isActive ? '#fff' : '#8b8d94')};
+      background: ${({ $active }) => ($active ? '#000' : '#dcdcdc')};
+      color: ${({ $active }) => ($active ? '#fff' : '#8b8d94')};
     }
   `,
   Content: styled.div`
@@ -54,7 +54,7 @@ export default function HotTimePickleList() {
       <PickleListHeader title="마감 임박 피클" summary="마감이 얼마 남지 않은 피클!">
         <S.TabWrapper>
           {['전체', '운동', '취미', '스터디'].map(tab => (
-            <S.Tab key={tab} isActive={activeTab === tab} onClick={() => handleTabClick(tab)}>
+            <S.Tab key={tab} $active={activeTab === tab} onClick={() => handleTabClick(tab)}>
               {tab}
             </S.Tab>
           ))}
