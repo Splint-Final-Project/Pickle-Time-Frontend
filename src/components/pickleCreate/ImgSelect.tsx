@@ -20,16 +20,18 @@ export default function ImgSelect() {
     });
     const image_url = response.data[0].url;
     return image_url;
-  }
+  };
 
   const handleClickAI = async () => {
     try {
       setIsImgLoading(true);
       const image_url = await generateImage();
-
       if (image_url) {
-        setImgUrl(image_url);
+        const imageUrlInStorage = await picklesRequests.createGeneratedImgUrl(image_url);
 
+        if(imageUrlInStorage?.data.url) {
+          setImgUrl(imageUrlInStorage?.data.url);
+        }
       } else {
         throw new Error('이미지 생성 실패')
       };

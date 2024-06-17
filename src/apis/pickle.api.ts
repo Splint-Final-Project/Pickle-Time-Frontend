@@ -59,5 +59,9 @@ export const picklesRequests = Object.freeze({
         'Content-Type': 'multipart/form-data',
       },
     });
-  }
+  },
+
+  createGeneratedImgUrl: (imgUrl: string) => {
+    return client.post(API_PICKLE.CREATE_GENERATED_IMG, imgUrl);
+  },
 });
