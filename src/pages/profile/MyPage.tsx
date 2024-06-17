@@ -10,7 +10,6 @@ export type MyMenu = (typeof MY_MENU)[keyof typeof MY_MENU];
 
 export default function MyPage() {
   const [selectedMenu, setSelectedMenu] = useState<MyMenu>(MY_MENU.POINT);
-  console.log(selectedMenu);
 
   const menuArray = Object.entries(MY_MENU).map(([key, label]) => ({
     label,
@@ -21,7 +20,7 @@ export default function MyPage() {
   }));
 
   return (
-    <S.Container>
+    <>
       <S.TopSection>
         <S.Header>
           <h1>마이페이지</h1>
@@ -40,17 +39,14 @@ export default function MyPage() {
       <S.BottomSection>
         <DynamicRender menu={selectedMenu} />
       </S.BottomSection>
-    </S.Container>
+    </>
   );
 }
 
 const S = {
-  Container: styled.div`
-    color: ${({ theme }) => theme.color.basic};
-  `,
-
   TopSection: styled.div`
     padding: 8rem 2rem 5rem;
+    color: ${({ theme }) => theme.color.basic};
 
     h1 {
       ${({ theme }) => theme.typography.header};
@@ -96,5 +92,14 @@ const S = {
     height: 2.4rem;
   `,
 
-  BottomSection: styled.div``,
+  BottomSection: styled.div`
+    margin-bottom: 8.5rem;
+
+    ::before {
+      display: block;
+      height: 1.2rem;
+      background-color: ${({ theme }) => theme.color.background};
+      content: '';
+    }
+  `,
 };
