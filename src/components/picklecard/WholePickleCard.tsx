@@ -35,7 +35,7 @@ export default function WholePickleCard({ id: pickleId, type, title, when, cost 
 
   return (
     <S.CardLayer to={`${routes.pickle}/${pickleId}`} $backImgType={type}>
-      <HeartButton isActive={data?.data.isClicked} onClick={handleHeartClick} />
+      <HeartButton $isActive={data?.data.isClicked} onClick={handleHeartClick} />
       {/* <S.ProgressDay>{when.summary}</S.ProgressDay> */}
       <S.Title>{title}</S.Title>
       <S.Price>{formatCurrency(cost)}원</S.Price>

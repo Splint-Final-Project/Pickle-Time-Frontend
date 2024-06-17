@@ -22,10 +22,11 @@ export default function Pickle() {
   const { pickleId = '' } = useParams();
 
   const { user } = useAuth();
+  // 로그인 안 한 경우엔 user가 없을것임.
 
   const { data } = useGetPickelDetail(pickleId);
   const pickleDetailData = data?.data;
-  const isLeader = user?._id === pickleDetailData?.leader;
+  const isLeader = user?._id && user._id === pickleDetailData?.leader;
   // console.log(pickleDetailData.imgUrl)
 
   const { handleOpen } = useBottomSheetModal(state => state);

@@ -30,7 +30,7 @@ const S = {
       max-width: 100%;
     }
   `,
-  NavItem: styled(Link)<{ isActive: boolean }>`
+  NavItem: styled(Link)<{ $isActive: boolean }>`
     text-decoration: none;
     display: flex;
     flex-direction: column;
@@ -38,7 +38,7 @@ const S = {
     justify-content: center;
     width: 10rem;
     height: 50px;
-    opacity: ${props => (props.isActive ? 1 : 0.5)};
+    opacity: ${props => (props.$isActive ? 1 : 0.5)};
 
     @media (max-width: ${breakpoints.mobile}) {
       /* margin: 0 10px; */
@@ -61,20 +61,20 @@ export default function BottomNav() {
 
   return (
     <S.Container>
-      <S.NavItem to={routes.home} isActive={location.pathname === routes.home}>
+      <S.NavItem to={routes.home} $isActive={location.pathname === routes.home}>
         <S.Icon src="/icons/bottomNavbar/home.svg" alt="Home" />홈
       </S.NavItem>
-      <S.NavItem to={routes.pickle} isActive={location.pathname === routes.pickle}>
+      <S.NavItem to={routes.pickle} $isActive={location.pathname === routes.pickle}>
         <S.Icon src="/icons/bottomNavbar/marker.svg" alt="Marker" />내 주변
       </S.NavItem>
-      <S.NavItem to={routes.myPickles} isActive={location.pathname === routes.myPickles}>
+      <S.NavItem to={routes.myPickles} $isActive={location.pathname === routes.myPickles}>
         <S.Icon src="/icons/bottomNavbar/myPickle.svg" alt="My Pickle" />내 피클
       </S.NavItem>
-      <S.NavItem to={routes.chatList} isActive={location.pathname === routes.chatList}>
+      <S.NavItem to={routes.chatList} $isActive={location.pathname === routes.chatList}>
         <S.Icon src="/icons/bottomNavbar/message.svg" alt="Message" />
         피클 메세지
       </S.NavItem>
-      <S.NavItem to={routes.mypage} isActive={location.pathname === routes.mypage}>
+      <S.NavItem to={routes.mypage} $isActive={location.pathname === routes.mypage}>
         <S.Icon src="/icons/bottomNavbar/myPage.svg" alt="My Page" />
         마이 페이지
       </S.NavItem>

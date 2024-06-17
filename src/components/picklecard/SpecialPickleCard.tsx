@@ -20,10 +20,9 @@ const calculateDday = (deadLine: string) => {
 export default function SpecialPickleCard({ pickleData }: { pickleData: any }) {
   const Dday = calculateDday(pickleData.deadLine);
   // // server state
-  const { data } = useGetLikeCount(pickleData.id); 
+  const { data } = useGetLikeCount(pickleData.id);
   const { mutate: postLikeMutate } = usePickleLikeMutation(pickleData.id);
   const { mutate: deleteLikeMutate } = useDeletePickleLikeMutation(pickleData.id);
-
 
   const handleHeartClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
@@ -40,7 +39,7 @@ export default function SpecialPickleCard({ pickleData }: { pickleData: any }) {
     <S.CardLayer to={`${routes.pickle}/${pickleData.id}`}>
       <S.Wrap>
         <S.DeadlineBadge>D-{Dday}</S.DeadlineBadge>
-        <HeartButton size={22} isActive={data?.data.isClicked} onClick={handleHeartClick} />
+        <HeartButton size={22} $isActive={data?.data.isClicked} onClick={handleHeartClick} />
       </S.Wrap>
       <S.Title>{pickleData.title}</S.Title>
       <S.ResgisterStatus>

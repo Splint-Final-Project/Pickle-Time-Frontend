@@ -12,7 +12,6 @@ export default function LikeCount({ pickleId }: LikeCountProps) {
   const { mutate: postLikeMutate } = usePickleLikeMutation(pickleId);
   const { mutate: deleteLikeMutate } = useDeletePickleLikeMutation(pickleId);
 
-
   const handleHeartClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     e.stopPropagation();
@@ -26,7 +25,7 @@ export default function LikeCount({ pickleId }: LikeCountProps) {
 
   return (
     <S.Container>
-      <HeartButton size={20} isActive={data?.data.isClicked} onClick={handleHeartClick} />
+      <HeartButton size={20} $isActive={data?.data.isClicked} onClick={handleHeartClick} />
       <S.LikeCount>{data?.data.likeCount}</S.LikeCount>
     </S.Container>
   );
