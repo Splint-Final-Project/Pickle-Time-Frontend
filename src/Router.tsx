@@ -37,16 +37,44 @@ const privateChildren = [
     element: <Admin />,
   },
   {
+    path: '/pickle-join',
+    element: <JoinPickle />,
+  },
+  {
+    path: '/pickle-create',
+    element: <CreatePickle />,
+  },
+  {
     path: routes.chat,
     element: <Conversation />,
+  },
+  {
+    path: routes.around,
+    element: <AroundMe />,
+  },
+  {
+    path: routes.pickleJoinRedirect,
+    element: <PickleJoinRedirector />,
+  },
+  {
+    path: routes.pickleCreateRedirect,
+    element: <PickleCreationRedirector />,
+  },
+  {
+    path: routes.mypage,
+    element: <MyPage />,
+  },
+  {
+    path: routes.signUp2,
+    element: <SignUp2 />,
   },
   {
     path: routes.chatList,
     element: <ConversationList />,
   },
   {
-    path: routes.mypage,
-    element: <MyPage />,
+    path: `${routes.chat}/:id`,
+    element: <Conversation />,
   },
 ];
 
@@ -65,24 +93,6 @@ const router = createBrowserRouter([
         element: <Pickle />,
       },
       {
-        path: '/pickle-join',
-        element: <JoinPickle />,
-      },
-      {
-        //피클 생성 하다만 기록이 있으면 있으면 그 단계에 맞춰서 리다이렉트됨
-        path: '/pickle-create',
-        element: <CreatePickle />,
-      },
-      {
-        path: routes.chatList,
-        element: <ConversationList />,
-      },
-      {
-        path: routes.around,
-        element: <AroundMe />,
-      },
-
-      {
         path: '/oauth/*',
         children: [
           {
@@ -92,16 +102,7 @@ const router = createBrowserRouter([
         ],
       },
       {
-        path: routes.pickleJoinRedirect,
-        element: <PickleJoinRedirector />,
-      },
-      {
-        path: routes.pickleCreateRedirect,
-        element: <PickleCreationRedirector />,
-      },
-      {
         path: '',
-        // 로그인 안 되어있을 시 리다이렉트
         element: <LoginRedirector />,
         children: [...privateChildren],
       },
@@ -123,22 +124,7 @@ const router = createBrowserRouter([
         path: routes.signInEmail,
         element: <SignIn_Email />,
       },
-      {
-        path: routes.signUp2,
-        element: <SignUp2 />,
-      },
-      {
-        path: `${routes.chat}/:id`,
-        element: <Conversation />,
-      },
-      {
-        path: routes.mypage,
-        element: <MyPage />,
-      },
-      // {
-      //   path: routes.pickleJoin,
-      //   element: <JoinPicklePayment />,
-      // },
+
       {
         path: routes.picklePopularList,
         element: <PopularPickleList />,
@@ -146,6 +132,11 @@ const router = createBrowserRouter([
       {
         path: routes.pickleHotTimeList,
         element: <HotTimePickleList />,
+      },
+      {
+        path: '',
+        element: <LoginRedirector />,
+        children: [...privateChildren],
       },
     ],
   },
