@@ -65,7 +65,6 @@ const S = {
     color: #6f6f6f;
     font-size: 1rem;
     font-weight: 500;
-    margin-bottom: 1rem;
   `,
   Title: styled.h3`
     color: #161616;
@@ -73,6 +72,7 @@ const S = {
     font-weight: 600;
     width: 80%;
     letter-spacing: -0.9px;
+    margin-top: 1rem;
     margin-bottom: 1.2rem;
   `,
   Price: styled.em`
