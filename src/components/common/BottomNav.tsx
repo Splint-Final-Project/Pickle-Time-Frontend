@@ -70,7 +70,8 @@ export default function BottomNav() {
       <S.NavItem to={routes.home} active={location.pathname === routes.home}>
         <S.Icon src="/icons/bottomNavbar/home.svg" alt="Home" />홈
       </S.NavItem>
-      <S.NavItem to={routes.pickle} active={location.pathname === routes.pickle}>
+
+      <S.NavItem to={routes.around} isActive={location.pathname === routes.around}>
         <S.Icon src="/icons/bottomNavbar/marker.svg" alt="Marker" />내 주변
       </S.NavItem>
       <S.NavItem to={routes.myPickles} active={location.pathname === routes.myPickles}>
