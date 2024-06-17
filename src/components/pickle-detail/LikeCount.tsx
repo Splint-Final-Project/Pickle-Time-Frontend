@@ -25,7 +25,7 @@ export default function LikeCount({ pickleId }: LikeCountProps) {
 
   return (
     <S.Container>
-      <HeartButton size={20} $isActive={data?.data.isClicked} onClick={handleHeartClick} />
+      <HeartButton size={20} $active={data?.data.isClicked} onClick={handleHeartClick} />
       <S.LikeCount>{data?.data.likeCount}</S.LikeCount>
     </S.Container>
   );

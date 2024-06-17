@@ -4,14 +4,14 @@ import EmptyHeartIcon from '@/assets/icons/EmptyHeartIcon';
 import FilledHeartIcon from '@/assets/icons/FilledHeartIcon';
 
 interface HeartProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  $isActive: boolean;
+  $active: boolean;
   size?: number;
 }
 
-export default function HeartButton({ $isActive, size, ...htmlButtonProps }: HeartProps) {
+export default function HeartButton({ $active, size, ...htmlButtonProps }: HeartProps) {
   return (
     <S.Container {...htmlButtonProps}>
-      {$isActive ? <FilledHeartIcon size={size} /> : <EmptyHeartIcon size={size} />}
+      {$active ? <FilledHeartIcon size={size} /> : <EmptyHeartIcon size={size} />}
     </S.Container>
   );
 }
