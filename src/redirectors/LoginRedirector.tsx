@@ -30,6 +30,7 @@ export default function LoginRedirector() {
     };
   }, [navigate]);
 
+  console.log(user);
   if (!user) {
     return <Navigate to="/sign-in" replace={true} />;
   }

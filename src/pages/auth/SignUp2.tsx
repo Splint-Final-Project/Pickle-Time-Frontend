@@ -72,10 +72,6 @@ export default function SignUp2() {
     setValue('areaCodes', Array.from(selectedGus));
   }, [selectedGus]);
 
-  if (user) {
-    navigate('/', { replace: true });
-  }
-
   return (
     <Container>
       <SubTitle>1분이면 끝나요</SubTitle>

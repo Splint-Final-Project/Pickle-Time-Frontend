@@ -11,9 +11,9 @@ export default function PointDisCount({ cost, totalPoint, setUsePoint }: PointDi
   const [isFocus, setIsFocus] = useState(false);
   const [value, setValue] = useState('0');
   const [error, setError] = useState('');
-  console.log(Math.min(Math.floor(totalPoint / 10) * 10, cost));
-  console.log(cost, totalPoint);
-  const availablePoint = useMemo(() => Math.min(Math.floor(totalPoint / 10) * 10, cost), [cost, totalPoint]);
+  // console.log(Math.min(Math.floor(totalPoint / 10) * 10, cost));
+  // console.log(cost, totalPoint);
+  const availablePoint = useMemo(() => Math.min(totalPoint, cost), [cost, totalPoint]);
   const handleBlur = () => {
     setIsFocus(false);
     const point = parseInt(value, 10);

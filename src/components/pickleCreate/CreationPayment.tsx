@@ -46,6 +46,14 @@ export default function CreationPayment() {
   }
 
   async function onClickPayment() {
+    if (cost - usePointValue < 0) {
+      alert('포인트를 잘못 사용하셨습니다.');
+      return;
+    }
+    if (!paymentMethod || !isAgree) {
+      alert('결제 수단과 약관 동의를 확인해주세요.');
+      return;
+    }
     if (cost - usePointValue === 0) {
       console.log('free');
       try {
@@ -84,7 +92,6 @@ export default function CreationPayment() {
         pg: `${paymentMethod === 'kakaopay' ? 'kakaopay.TC0ONETIME' : 'tosspay.tosstest'}`,
         pay_method: 'card',
         merchant_uid: `mid_${new Date().getTime()}`,
-        customer_uid: `cid_${new Date().getTime()}`,
         amount: cost - usePointValue,
         name: `${title} 생성하기`,
         buyer_name: user.nickname,
@@ -154,7 +161,6 @@ export default function CreationPayment() {
         />
       </PaymentWindow.Section>
       <PaymentWindow.Section>
-        {/* TODO :포인트 api연결하기 */}
         <PaymentWindow.Point cost={cost} totalPoint={point} setUsePoint={setUsePointValue} />
       </PaymentWindow.Section>
       <PaymentWindow.Section>

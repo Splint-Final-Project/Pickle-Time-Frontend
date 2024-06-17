@@ -1,5 +1,5 @@
 import useAuth from '@/hooks/zustand/useAuth';
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 import { Container } from './CreatePickleStyled';
@@ -9,6 +9,7 @@ import styled from '@emotion/styled';
 import CloseIcon from '@/assets/icons/CloseIcon';
 
 import { useGetPickelDetail } from '@/hooks/query/pickles';
+import client from '@/apis/axios';
 
 declare global {
   interface Window {
@@ -22,10 +23,6 @@ export default function JoinPickle() {
   const location = useLocation();
   const { pickleId } = location.state;
   const { data } = useGetPickelDetail(pickleId);
-  const [paymentMethod, setPaymentMethod] = useState<string>('');
-  const [usePointValue, setUsePointValue] = useState(0);
-  const [isAgree, setIsAgree] = useState(false);
-
   const pickleData = useMemo(
     () => ({
       category: data.data.category,
@@ -33,10 +30,86 @@ export default function JoinPickle() {
       title: data.data.title,
       cost: data.data.cost,
       capacity: data.data.capacity,
-      summary: data.data.when.summary,
+      when: data.data.when,
     }),
     [],
   );
+
+  const [paymentMethod, setPaymentMethod] = useState<string>('');
+  const [point, setPoint] = useState(0);
+  const [usePointValue, setUsePointValue] = useState(0);
+  const [isAgree, setIsAgree] = useState(false);
+
+  const { IMP } = window;
+
+  async function getPoints() {
+    try {
+      const res = await client.get('/users/points');
+      if (res.status === 200) {
+        setPoint(res.data.points);
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  }
+  useEffect(() => {
+    getPoints();
+  }, []);
+
+  async function onClickPayment() {
+    if (pickleData.cost - usePointValue < 0) {
+      alert('포인트를 잘못 사용하셨습니다.');
+      return;
+    }
+    if (!paymentMethod || !isAgree) {
+      alert('결제 수단과 약관에 동의해주세요.');
+      return;
+    }
+    if (pickleData.cost - usePointValue === 0) {
+      console.log('free');
+      try {
+        const notified = await client.post('/pickle/join', {
+          imp_uid: null,
+          discount: usePointValue,
+          pickle_id: pickleId,
+        });
+        alert('결제 및 신청이 완료되었습니다.');
+      } catch (err: any) {
+        alert(err.response.data.message);
+      }
+      navigate(`/pickle/${pickleId}`, { replace: true });
+    } else {
+      const data = {
+        pg: `${paymentMethod === 'kakaopay' ? 'kakaopay.TC0ONETIME' : 'tosspay.tosstest'}`,
+        pay_method: 'card',
+        merchant_uid: `mid_${new Date().getTime()}`, // 해당 피클의 아이디?
+        amount: pickleData.cost - usePointValue,
+        custom_data: { pickle_id: pickleId, discount: usePointValue },
+        name: `${pickleData.title} 신청하기`,
+        buyer_name: user.name,
+        m_redirect_url: `${window.location.origin.toString()}/join-redirect?pickle_id=${pickleId}&`,
+      };
+
+      IMP.init('imp88171622');
+
+      IMP.request_pay(data, async (response: any) => {
+        if (!response.success) {
+          alert(`결제에 실패했습니다: ${response.error_msg}`);
+          navigate(`/pickle/${pickleId}`, { replace: true });
+        }
+        try {
+          const notified = await client.post('/pickle/join', {
+            imp_uid: response.imp_uid,
+            pickle_id: pickleId,
+          });
+          alert('결제 및 신청이 완료되었습니다.');
+        } catch (err: any) {
+          alert(err.response.data.message);
+        }
+        navigate(`/pickle/${pickleId}`, { replace: true });
+      });
+    }
+  }
 
   return (
     <Container>
@@ -51,10 +124,21 @@ export default function JoinPickle() {
         </S.Inner>
       </S.Wrapper>
       <PaymentWindow.Section>
-        <PaymentWindow.PreviewPickle data={pickleData} type="join" />
+        {' '}
+        <PaymentWindow.PreviewPickle
+          data={{
+            category: pickleData.category,
+            imgUrl: pickleData.imgUrl,
+            title: pickleData.title,
+            cost: pickleData.cost,
+            capacity: pickleData.capacity,
+            when: pickleData.when,
+          }}
+          type="join"
+        />
       </PaymentWindow.Section>
       <PaymentWindow.Section>
-        <PaymentWindow.Point totalPoint={1505} setUsePoint={setUsePointValue} />
+        <PaymentWindow.Point cost={pickleData.cost} totalPoint={point} setUsePoint={setUsePointValue} />
       </PaymentWindow.Section>
       <PaymentWindow.Section>
         <PaymentWindow.FinalAmount total={pickleData.cost} usePoint={usePointValue} />
@@ -72,7 +156,7 @@ export default function JoinPickle() {
         <S.Notice>* 1주 이내 모집이 완료되지 않으면 피클은 사라집니다.</S.Notice>
         <S.Notice>* 사라진 피클은 입금 계좌로 영업일 2~3일 이내 환불됩니다.</S.Notice>
       </S.Wrap>
-      <S.PaymentButton onClick={() => {}} disabled={!paymentMethod || !isAgree}>
+      <S.PaymentButton onClick={onClickPayment} disabled={!paymentMethod || !isAgree}>
         {pickleData.cost - usePointValue}원 결제하기
       </S.PaymentButton>
     </Container>
@@ -119,45 +203,15 @@ const S = {
     margin: 0 20px;
     height: 42px;
     border-radius: 4px;
-    background: var(--Main-Color, #5dc26d);
+    background-color: var(--Main-Color, #5dc26d);
     color: white;
     font-size: 1.4rem;
 
     &:disabled {
-      background: #d0d0d0;
+      background-color: #d0d0d0;
       cursor: auto;
     }
+
+    transition: background-color 0.3s;
   `,
 };
-
-// function onClickPayment() {
-//   const data = {
-//     pg: `${paymentMethod === 'kakaopay' ? 'kakaopay.TC0ONETIME' : 'tosspay.tosstest'}`,
-//     pay_method: 'card',
-//     merchant_uid: `mid_${new Date().getTime()}`, // 해당 피클의 아이디?
-//     amount: pickleCost,
-//     name: `${pickleTitle} 신청하기`,
-//     buyer_name: user.name,
-//     m_redirect_url: `${window.location.origin.toString()}/join-redirect?pickle_id=${pickleId}&`,
-//   };
-
-//   IMP.init('imp88171622');
-
-//   IMP.request_pay(data, async (response: any) => {
-//     if (!response.success) {
-//       alert(`결제에 실패했습니다: ${response.error_msg}`);
-//       navigate(`/pickle/${pickleId}`);
-//     }
-
-//     const notified = await client.post('/pickle/join', {
-//       imp_uid: response.imp_uid,
-//       pickle_id: pickleId,
-//     });
-//     if (notified.status === 200) {
-//       alert('결제 및 신청이 완료되었습니다.');
-//     } else {
-//       alert('신청이 실패하여 결제 금액은 환불되었습니다.' + notified.data.message);
-//     }
-//     navigate(`/pickle/${pickleId}`);
-//   });
-// }
