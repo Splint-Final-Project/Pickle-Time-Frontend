@@ -5,18 +5,13 @@ export default function OAuthSuccessRedirector() {
   const { setMe } = useAuth();
   const [searchParams] = useSearchParams();
   const status = searchParams.get('status');
-  console.log(status);
-  if (status === 'pending') {
-    console.log('추가 정보 입력 페이지로 이동합니다.');
-    // alert('추가 정보 입력 페이지로 이동합니다.');
-    return <Navigate to="/sign-up2" />;
-  }
   const _id = searchParams.get('_id');
   const nickname = searchParams.get('nickname');
   const profilePic = searchParams.get('profilePic');
   const occupation = searchParams.get('occupation');
   const oauthType = searchParams.get('oauthType');
   const oauthId = searchParams.get('oauthId');
+
   setMe({
     _id,
     nickname,
@@ -26,6 +21,12 @@ export default function OAuthSuccessRedirector() {
     oauthType,
     oauthId,
   });
+
+  if (status === 'pending') {
+    console.log('추가 정보 입력 페이지로 이동합니다.');
+    // alert('추가 정보 입력 페이지로 이동합니다.');
+    return <Navigate to="/sign-up2" />;
+  }
 
   // alert('로그인 성공.');
   return <Navigate to="/" />;
