@@ -8,7 +8,7 @@ export default function TodayPickleListContainer() {
       <PagenationBar totalDataCount={15} />
       <TodayPickleCard />
       <S.AttendanceButton>
-        <span>시작하기</span>
+        <span>출석하기</span>
       </S.AttendanceButton>
     </S.Container>
   );
