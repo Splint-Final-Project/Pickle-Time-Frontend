@@ -30,6 +30,7 @@ import PickleCreationRedirector from './redirectors/PickleCreationRedirector';
 
 import routes from '@/constants/routes';
 import CreatePickle from './pages/pickles/CreatePickle';
+import MyPickles from '@/pages/pickles/MyPickles';
 
 const privateChildren = [
   {
@@ -81,7 +82,10 @@ const router = createBrowserRouter([
         path: routes.around,
         element: <AroundMe />,
       },
-
+      {
+        path: routes.myPickles,
+        element: <MyPickles />,
+      },
       {
         path: '/oauth/*',
         children: [
