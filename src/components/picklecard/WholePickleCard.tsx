@@ -44,7 +44,9 @@ export default function WholePickleCard({ id: pickleId, type, title, when, cost 
 }
 
 const S = {
-  CardLayer: styled(Link)<{ $backImgType: 'study' | 'exercise' }>`
+  CardLayer: styled(Link, {
+    shouldForwardProp: prop => prop !== '$backImgType',
+  })<{ $backImgType: 'study' | 'exercise' }>`
     display: block;
     /* width: 15rem; */
     height: 10.7rem;
