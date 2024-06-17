@@ -1,3 +1,5 @@
+import MyPickleListContainer from '@/components/myPicklePage/MyPickleListContainer';
+
 import TodayPickleListContainer from '@/components/myPicklePage/TodayPickleListContainer';
 import styled from '@emotion/styled';
 
@@ -9,7 +11,9 @@ export default function MyPickles() {
         <TodayPickleListContainer />
       </S.TodayPickleSection>
       <S.Line />
-      <S.MyPickleListSection></S.MyPickleListSection>
+      <S.MyPickleListSection>
+        <MyPickleListContainer />
+      </S.MyPickleListSection>
     </S.Container>
   );
 }
