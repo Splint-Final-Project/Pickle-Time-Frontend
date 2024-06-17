@@ -7,16 +7,25 @@ type color =
   | 'sub'
   | 'line'
   | 'primary'
+  | 'primaryDark'
+  | 'primaryDeepDark'
   | 'secondary'
+  | 'secondary2'
   | 'inputBox'
   | 'inputText'
   | 'card'
   | 'error'
+  | 'selected'
+  | 'category'
+  | 'accent1'
+  | 'accent2'
   | 'background';
 
 type typography =
   | 'header'
   | 'title'
+  | 'title2'
+  | 'title3'
   | 'subTitle1'
   | 'subTitle2'
   | 'subTitle3'
@@ -27,7 +36,9 @@ type typography =
   | 'detail'
   | 'price'
   | 'tab'
-  | 'caption';
+  | 'caption'
+  | 'terms'
+  | 'chat';
 
 declare module '@emotion/react' {
   export interface Theme {
