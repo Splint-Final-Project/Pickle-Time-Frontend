@@ -42,10 +42,6 @@ export const picklesRequests = Object.freeze({
   getLikeCount: (pickleId: string) => {
     return client.get(API_PICKLE.FAVORITES_COUNT(pickleId));
   },
-  // test: async (deadline: any) => {
-  //   const { data } = await client.post("/pickle/test", {deadline});
-  //   return data;
-  // }
 
   // 리뷰 작성
   createReview: (pickleId: string, reviewData: CreateReviewData) => {
@@ -53,4 +49,15 @@ export const picklesRequests = Object.freeze({
       data: reviewData,
     });
   },
+
+  createImgUrl: (imageFile: File) => {
+    const formData = new FormData();
+    formData.append('image', imageFile);
+
+    return client.post(API_PICKLE.CREATE_IMG, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
+  }
 });

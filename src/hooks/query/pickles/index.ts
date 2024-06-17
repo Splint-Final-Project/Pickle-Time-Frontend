@@ -4,6 +4,26 @@ import { picklesRequests } from '@/apis/pickle.api';
 import { Coordinates, CreatePickleData, CreateReviewData } from '@/apis/types/pickles.type';
 import toast from 'react-hot-toast';
 
+interface PICKLE_DATA {
+
+}
+
+// Domain: MOST_IMPORTANT
+export const useCreatePickleMutation = (pickleData: any) => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async () => {
+      return await picklesRequests.createPickle(pickleData);
+    },
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: ['pickles'] }),
+    onError: error => {
+      console.error(error);
+      toast.error('피클 생성에 실패했습니다.');
+    },
+  });
+};
+
 export const useGetInfinitePickles = () => {
   return useInfiniteQuery({
     queryKey: ['pickles'],
@@ -38,19 +58,6 @@ export const useGetNearbyPickles = (location: Coordinates | null) => {
     refetchOnWindowFocus: true, // 포커스 될 때 재요청
     refetchIntervalInBackground: true, // 백그라운드 일 때 재요청 o
     refetchInterval: 300000,
-  });
-};
-
-export const useCreatePickleMutation = (pickleData: CreatePickleData) => {
-  const queryClient = useQueryClient();
-
-  return useMutation({
-    mutationFn: async () => await picklesRequests.createPickle(pickleData),
-    onSuccess: () => queryClient.invalidateQueries({ queryKey: ['pickles'] }),
-    onError: error => {
-      console.error(error);
-      toast.error('피클 생성에 실패했습니다.');
-    },
   });
 };
 

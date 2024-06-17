@@ -20,6 +20,7 @@ export const API_PICKLE = Object.freeze({
   CREATE: `${API.PICKLE}/create`,
   POPULAR: `${API.PICKLE}/popular`,
   HOT_TIME: `${API.PICKLE}/hotTime`,
+  CREATE_IMG: `${API.PICKLE}/img`,
   BY_ID: (pickleId: string) => `${API.PICKLE}/${pickleId}`,
   FAVORITES_COUNT: (pickleId: string) => `${API.PICKLE}/${pickleId}/favorite`,
   SEARCH: (pickleType: string) => `${API.PICKLE}/${pickleType}`, // 피클검색
