@@ -30,6 +30,7 @@ import PickleCreationRedirector from './redirectors/PickleCreationRedirector';
 
 import routes from '@/constants/routes';
 import CreatePickle from './pages/pickles/CreatePickle';
+import MyPickles from '@/pages/pickles/MyPickles';
 
 const privateChildren = [
   {
@@ -93,6 +94,28 @@ const router = createBrowserRouter([
         element: <Pickle />,
       },
       {
+        path: '/pickle-join',
+        element: <JoinPickle />,
+      },
+      {
+        //피클 생성 하다만 기록이 있으면 있으면 그 단계에 맞춰서 리다이렉트됨
+        path: '/pickle-create',
+        element: <CreatePickle />,
+      },
+      {
+        path: routes.chatList,
+        element: <ConversationList />,
+      },
+      {
+        path: routes.around,
+        element: <AroundMe />,
+      },
+      {
+        path: routes.myPickles,
+        element: <MyPickles />,
+      },
+      {
+
         path: '/oauth/*',
         children: [
           {
