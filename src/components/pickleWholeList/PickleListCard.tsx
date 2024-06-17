@@ -28,7 +28,7 @@ export default function PickleListCard({ category }: PickleCardListProps) {
       {data?.length ? (
         data.map((pickle: any) => <SpecialPickleCard key={pickle.id} pickleData={pickle} />)
       ) : (
-        <h1>피클이 없네요 ㅠㅠ</h1>
+        <h1>회원님의 활동 지역 내에 모집중인 피클이 없습니다. [TODO: 이거 디자인]</h1>
       )}
       {/* <PickleCardListMockData /> */}
     </>
@@ -40,7 +40,6 @@ function SpecialPickleCard({ pickleData }: { pickleData: any }) {
   const { data } = useGetLikeCount(pickleData.id);
   const { mutate: postLikeMutate } = usePickleLikeMutation(pickleData.id);
   const { mutate: deleteLikeMutate } = useDeletePickleLikeMutation(pickleData.id);
-
 
   const handleHeartClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
@@ -57,7 +56,7 @@ function SpecialPickleCard({ pickleData }: { pickleData: any }) {
     <S.CardLayer to={`${routes.pickle}/${pickleData.id}`}>
       <S.Wrap>
         <S.DeadlineBadge>D-{Dday}</S.DeadlineBadge>
-        <HeartButton size={22} isActive={data?.data.isClicked} onClick={handleHeartClick} />
+        <HeartButton size={22} $active={data?.data.isClicked} onClick={handleHeartClick} />
       </S.Wrap>
       <S.Title>{pickleData.title}</S.Title>
       <S.ResgisterStatus>

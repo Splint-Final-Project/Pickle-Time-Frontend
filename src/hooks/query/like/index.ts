@@ -2,6 +2,8 @@ import { toast } from 'react-hot-toast';
 import { useQuery, useInfiniteQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { likeRequests } from '@/apis/like.api';
 import { picklesRequests } from '@/apis/pickle.api';
+import useAuth from '@/hooks/zustand/useAuth';
+import { useNavigate } from 'react-router-dom';
 
 type HandleSuccessFunction = (data: any) => void;
 
@@ -20,10 +22,10 @@ export const useGetLikePickles = () => {
       return data;
     },
 
-    refetchOnWindowFocus: true, // 포커스 될 때 재요청 
+    refetchOnWindowFocus: true, // 포커스 될 때 재요청
     refetchIntervalInBackground: true, // 백그라운드 일 때 재요청 o
     refetchInterval: 300000,
-  })
+  });
 };
 
 export const useGetLikePickle = (pickleId: string) => {
@@ -31,20 +33,25 @@ export const useGetLikePickle = (pickleId: string) => {
     queryKey: ['pickles', 'like', pickleId],
     queryFn: async () => await likeRequests.getPickle(pickleId),
   });
-}
+};
 
 export const useGetLikeCount = (pickleId: string) => {
   return useQuery({
     queryKey: ['pickles', 'like', pickleId, 'likeCount'],
     queryFn: async () => await picklesRequests.getLikeCount(pickleId),
   });
-}
+};
 
 export const usePickleLikeMutation = (pickleId: string) => {
   const queryClient = useQueryClient();
+  const { user } = useAuth();
+  const navigate = useNavigate();
 
   return useMutation({
     mutationFn: async () => {
+      if (!user) {
+        return navigate('/sign-in');
+      }
       return likeRequests.likePickle(pickleId);
     },
     onSuccess: () => queryClient.invalidateQueries({ queryKey: ['pickles', 'like', pickleId] }),
@@ -57,7 +64,7 @@ export const usePickleLikeMutation = (pickleId: string) => {
 
 export const useDeletePickleLikeMutation = (pickleId: string) => {
   const queryClient = useQueryClient();
-  
+
   return useMutation({
     mutationFn: () => likeRequests.deletePickleLike(pickleId),
     onSuccess: () => queryClient.invalidateQueries({ queryKey: ['pickles', 'like', pickleId] }),

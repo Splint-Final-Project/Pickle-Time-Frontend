@@ -1,4 +1,3 @@
-import { useNavigate, useParams } from 'react-router-dom';
 import styled from '@emotion/styled';
 
 import BackButton from '@/components/common/button/BackButton';
@@ -12,6 +11,7 @@ import useAuth from '@/hooks/zustand/useAuth';
 import routes from '@/constants/routes';
 import useBottomSheetModal from '@/hooks/zustand/useBottomSheetModal';
 import Tag from '@/components/common/tag/Tag';
+import { useNavigate, useParams } from 'react-router-dom';
 
 /**
  * 피클 상세 페이지
@@ -22,10 +22,13 @@ export default function Pickle() {
   const { pickleId = '' } = useParams();
 
   const { user } = useAuth();
+  // 로그인 안 한 경우엔 user가 없을것임.
 
   const { data } = useGetPickelDetail(pickleId);
   const pickleDetailData = data?.data;
-  const isLeader = user?._id === pickleDetailData?.leader;
+  const amILeader = user?._id && user._id === pickleDetailData?.leader;
+  const amIMember = user?._id && pickleDetailData?.amIMember;
+  const full = pickleDetailData?.capacity <= pickleDetailData?.participantNumber;
   // console.log(pickleDetailData.imgUrl)
 
   const { handleOpen } = useBottomSheetModal(state => state);
@@ -76,10 +79,11 @@ export default function Pickle() {
           </S.GoalContainer>
           <Button
             className="apply-btn"
+            disabled={(!amILeader && amIMember) || full}
             onClick={() =>
-              isLeader
-                ? navigate('/pickle-create-1', { state: { pickleId } }) //Todo 편집페이지로 변경필요
-                : navigate('/pickle-join', {
+              amILeader
+                ? navigate('/pickle-edit/' + pickleId) //Todo 편집페이지로 변경필요
+                : navigate('/pickle-join/' + pickleId, {
                     state: {
                       pickleId,
                       pickleTitle: pickleDetailData?.title,
@@ -88,7 +92,7 @@ export default function Pickle() {
                   })
             }
           >
-            {isLeader ? '피클 수정하기' : '피클 신청하기'}
+            {amILeader ? '피클 수정하기' : amIMember ? '신청됨' : full ? '마감됨' : '피클 신청하기'}
           </Button>
         </S.GoalAndBtn>
       </S.BottomSection>

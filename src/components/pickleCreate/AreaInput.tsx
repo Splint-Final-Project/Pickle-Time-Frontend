@@ -137,7 +137,7 @@ export default function AreaInput() {
                 lng: center.lng,
               }}
               image={{
-                src: 'icons/mapmarker.svg',
+                src: '/icons/mapmarker.svg',
                 size: {
                   width: 32,
                   height: 44,
