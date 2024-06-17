@@ -2,8 +2,24 @@ import { Link } from 'react-router-dom';
 import styled from '@emotion/styled';
 import MenuList from '@/components/my-page/MenuList';
 import routes from '@/constants/routes';
+import { useState } from 'react';
+import { MY_MENU } from '@/constants/BUTTON';
+import DynamicRender from '@/components/my-page/DynamicRender';
+
+export type MyMenu = (typeof MY_MENU)[keyof typeof MY_MENU];
 
 export default function MyPage() {
+  const [selectedMenu, setSelectedMenu] = useState<MyMenu>(MY_MENU.POINT);
+  console.log(selectedMenu);
+
+  const menuArray = Object.entries(MY_MENU).map(([key, label]) => ({
+    label,
+    icon: `/icons/mypage-menu/${key.toLowerCase()}Icon.svg`,
+    func: () => {
+      setSelectedMenu(label);
+    },
+  }));
+
   return (
     <S.Container>
       <S.TopSection>
@@ -18,9 +34,12 @@ export default function MyPage() {
           <span className="nickname">닉네임</span>
           <span className="email">이메일</span>
         </S.Profile>
-        <MenuList />
+        <MenuList menuList={menuArray} />
       </S.TopSection>
-      <div className="다이나믹렌더섹션">다이나믹렌더 컴포넌트</div>
+
+      <S.BottomSection>
+        <DynamicRender menu={selectedMenu} />
+      </S.BottomSection>
     </S.Container>
   );
 }
@@ -56,7 +75,6 @@ const S = {
       border-radius: 1.5rem;
       object-fit: cover;
     }
-
     & .nickname {
       ${({ theme }) => theme.typography.subTitle1};
       margin: 1.1rem 0 0.2rem;
@@ -77,4 +95,6 @@ const S = {
     width: 2.4rem;
     height: 2.4rem;
   `,
+
+  BottomSection: styled.div``,
 };

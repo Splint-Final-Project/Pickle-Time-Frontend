@@ -1,20 +1,40 @@
+import { useState } from 'react';
 import styled from '@emotion/styled';
 
-export default function MenuList() {
+/**
+ * 마이페이지 메뉴리스트 탭
+ * - 포인트 / 리뷰 관리 / 찜한 목록
+ */
+
+type MenuItem = {
+  label: string;
+  icon: string;
+  func: () => void;
+};
+interface MenuProps {
+  menuList: MenuItem[];
+}
+
+export default function MenuList({ menuList }: MenuProps) {
+  const [selectedMenu, setSelectedMenu] = useState(0);
+
   return (
     <S.MenuContainer>
-      <S.Item className="point">
-        <img src="/icons/mypage-menu/pointIcon.svg" alt="포인트" />
-        <span>포인트</span>
-      </S.Item>
-      <S.Item className="review">
-        <img src="/icons/mypage-menu/reviewIcon.svg" alt="리뷰 관리" />
-        <span>리뷰 관리</span>
-      </S.Item>
-      <S.Item className="wishlist">
-        <img src="/icons/mypage-menu/likeIcon.svg" alt="찜한 피클" />
-        <span>찜한 피클</span>
-      </S.Item>
+      {menuList.map((menu, index) => (
+        <S.Item
+          key={index}
+          value={index}
+          className={`${selectedMenu === index ? 'selected' : ''} ${index === 1 ? 'middle' : ''}`}
+          onClick={() => {
+            if (selectedMenu === index) return;
+            setSelectedMenu(index);
+            menu.func();
+          }}
+        >
+          <img src={menu.icon} alt={menu.label} />
+          <span>{menu.label}</span>
+        </S.Item>
+      ))}
     </S.MenuContainer>
   );
 }
@@ -24,7 +44,7 @@ const S = {
     display: flex;
     width: 100%;
 
-    & .review {
+    & .middle {
       border-left: 1px solid #bababa;
       border-right: 1px solid #bababa;
     }
@@ -38,9 +58,11 @@ const S = {
     gap: 1rem;
     cursor: pointer;
 
-    span {
-      color: ${({ theme }) => theme.color.sub};
-      ${({ theme }) => theme.typography.body1}
+    color: ${({ theme }) => theme.color.sub};
+    ${({ theme }) => theme.typography.body1}
+
+    &.selected {
+      color: ${({ theme }) => theme.color.basic};
     }
   `,
 };
