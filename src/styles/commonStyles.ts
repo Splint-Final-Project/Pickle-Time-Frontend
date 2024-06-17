@@ -27,3 +27,17 @@ export const TwoColumnGridTemplate = styled.div`
     margin-bottom: 1.5rem;
   }
 `;
+
+export const MyDynamicTemplate = styled.div`
+  padding: 2.3rem 1.6rem;
+  color: ${({ theme }) => theme.color.basic};
+
+  h1 {
+    margin-top: 1.2rem;
+    ${({ theme }) => theme.typography.header};
+  }
+
+  h2 {
+    ${({ theme }) => theme.typography.body1};
+  }
+`;
