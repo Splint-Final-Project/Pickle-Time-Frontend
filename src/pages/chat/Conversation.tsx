@@ -4,9 +4,11 @@ import MessageList from '@/components/message/MessageList';
 import { useGetMessages } from '@/hooks/query/messages';
 import { useGetPickelDetail } from '@/hooks/query/pickles';
 import LeftArrowIcon from '/public/icons/leftBlackArrow.svg';
-import MenuIcon from '/public/icons/menu.svg';
-import GongjiIcon from '/public/icons/Gongji.svg';
-import BottomArrowIcon from '/public/icons/greenBottomArrow.svg';
+import MenuIcon from '/icons/menu.svg';
+import GongjiIcon from '/icons/Gongji.svg';
+import BottomArrowIcon from '/icons/greenBottomArrow.svg';
+import GalleryIcon from '/icons/galleryInMessage.svg';
+import SendMessageIcon from '/icons/sendMessage.svg';
 
 import styled from '@emotion/styled';
 import Message from '@/components/message/Message';
@@ -17,10 +19,9 @@ export default function Conversation() {
   // server state
   const { data: pickleData } = useGetPickelDetail(pickleId);
   const { data } = useGetMessages(leaderId);
-  console.log(data);
 
   return (
-    <>
+    <div>
       <S.Header>
         <img src={LeftArrowIcon} />
         <S.HeaderTitle>{pickleData?.data.title}</S.HeaderTitle>
@@ -37,11 +38,22 @@ export default function Conversation() {
       {data?.map((message: string) => (
         <Message message={message}/>
       ))}
-    </>
+      <S.MessageLayout>
+        <S.InputWrapper>
+          <img src={GalleryIcon}/>
+          <S.InputMessage placeholder='메시지 입력'/>
+        </S.InputWrapper>
+        <img src={SendMessageIcon} />
+        </S.MessageLayout>
+    </div>
   );
 }
 
 const S = {
+  Container: styled.div`
+    position: relative;
+  `,
+
   Header: styled.header`
     display: flex;
     justify-content: space-between;
@@ -94,6 +106,33 @@ const S = {
     font-weight: 500;
     font-style: normal;
     line-height: normal;
-`
+  `,
 
+  MessageLayout: styled.div`
+    width: 100%;
+    display: flex;
+    position: absolute;
+    align-items: center;
+    bottom: 9rem;
+    margin: 2rem auto;
+    gap: 1rem;
+  `,
+
+  InputWrapper: styled.div`
+    display: flex;
+    align-items: center;
+    width: 85%;
+    height: 4.1rem;
+    flex-shrink: 0;
+    border-radius: 2.0rem;
+    background: #F3F4F6;
+    padding: 2rem;
+    gap: 1rem;
+  `,
+
+  InputMessage: styled.input`
+    width: 100%;
+    border: none;
+    background: #F3F4F6;
+  `,
 };
