@@ -87,6 +87,7 @@ export default function AreaInput() {
       <InputField
         type="text"
         id="juso"
+        name="jusoSearch"
         placeholder="주소, 상호명, 키워드로 검색"
         value={jusoSearch}
         onChange={e => setJusoSearch(e.target.value)}
@@ -158,7 +159,7 @@ export default function AreaInput() {
             value={detailedAddress}
             onChange={e => setDetailedAddress(e.target.value)}
           />
-          <InputConstraint>상세 주소를 입력해 주세요</InputConstraint>
+          <InputConstraint>상세 주소를 입력해 주세요(선택)</InputConstraint>
         </>
       )}
     </>

@@ -2,11 +2,11 @@ import { Link } from 'react-router-dom';
 import styled from '@emotion/styled';
 
 import HeartButton from '@/components/common/button/HeartButton';
-import useHeartButtonClick from '@/hooks/useHeartButtonClick';
 import BackImg from '@/assets/images/specialPickleCardBackImg.png';
 import SpecialPickleCardArrowIcon from '@/assets/icons/SpecialPickleCardArrowIcon';
 import routes from '@/constants/routes';
 import { useGetLikeCount, usePickleLikeMutation, useDeletePickleLikeMutation } from '@/hooks/query/like';
+import { formatCurrency } from '@/utils/formatData';
 
 const ONEDAY_MILLISECOND = 1000 * 60 * 60 * 24;
 
@@ -18,6 +18,7 @@ const calculateDday = (deadLine: string) => {
 };
 
 export default function SpecialPickleCard({ pickleData }: { pickleData: any }) {
+  console.log(pickleData);
   const Dday = calculateDday(pickleData.deadLine);
   // // server state
   const { data } = useGetLikeCount(pickleData.id);
@@ -41,12 +42,12 @@ export default function SpecialPickleCard({ pickleData }: { pickleData: any }) {
         <S.DeadlineBadge>D-{Dday}</S.DeadlineBadge>
         <HeartButton size={22} $active={data?.data.isClicked} onClick={handleHeartClick} />
       </S.Wrap>
-      <S.Title>{pickleData.title}</S.Title>
+      <S.Title>{pickleData?.title}</S.Title>
       <S.ResgisterStatus>
         {pickleData?.capacity}명 중 <span>{pickleData?.participantNumber}</span>명이 신청하는 중
       </S.ResgisterStatus>
       <S.Price>
-        {pickleData.cost.toLocaleString()}
+        {formatCurrency(pickleData?.cost)}
         <span>원</span>
       </S.Price>
       <S.Circle>
@@ -114,6 +115,7 @@ const S = {
     line-height: normal;
     display: flex;
     align-items: center;
+
     span {
       font-size: 1.2rem;
       font-weight: 500;
