@@ -47,6 +47,6 @@ export const API_LIKE = Object.freeze({
 
 export const API_CHAT = Object.freeze({
   INQUIRY: (receiverId: string) => `${API.MESSAGES}/send/${receiverId}`,
-  LIST: (senderId: string) => `${API.MESSAGES}/${senderId}`,
+  MESSAGES_IN_CONVERSATION: (senderId: string) => `${API.MESSAGES}/${senderId}`,
   GROUP: (pickleId: string, senderId: string) => `${API.CONVERSATIONS}/${pickleId}/${senderId}`,
 });

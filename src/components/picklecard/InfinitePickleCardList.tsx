@@ -8,26 +8,15 @@ import { WholePickle } from '@/apis/types/pickles.type';
 import { GridTemplate } from '@/styles/commonStyles';
 
 export default function InfinitePickleCardList() {
-  const loaderRef = useRef<HTMLDivElement>(null);
-  const { data: infiniteWholePickleData, fetchNextPage, hasNextPage } = useGetInfinitePickles();
-  // console.log('전체피클목록카드', infiniteWholePickleData);
-
-  useIntersectionObserver(async () => {
-    await fetchNextPage();
-  }, loaderRef);
+  const { data: infiniteWholePickleData } = useGetInfinitePickles();
 
   return (
     <>
       <GridTemplate>
-        {infiniteWholePickleData?.pages.map(page =>
-          page?.data.map((pickle: WholePickle) => <WholePickleCard key={pickle.id} {...pickle} type={'study'} />),
+        {infiniteWholePickleData?.data.map((pickle: any) =>
+          <WholePickleCard key={pickle.id} {...pickle} type={'study'} />
         )}
       </GridTemplate>
-
-      <InfinitePickleCardLoader
-        loaderRef={loaderRef}
-        style={!hasNextPage ? { display: 'none' } : { marginTop: '2rem' }}
-      />
     </>
   );
 }

@@ -39,7 +39,7 @@ export default function Pickle() {
         <BackButton />
         <S.TopBox>
           <Category category={pickleDetailData?.category} />
-          <button className="inquiry-btn" onClick={() => navigate(`${routes.chat}/${pickleDetailData?.leader}`)}>
+          <button className="inquiry-btn" onClick={() => navigate(`${routes.chat}/${pickleId}/${pickleDetailData?.leader}`)}>
             1:1문의하기
           </button>
         </S.TopBox>

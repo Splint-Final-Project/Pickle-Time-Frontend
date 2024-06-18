@@ -24,23 +24,9 @@ export const useCreatePickleMutation = (pickleData: any) => {
 };
 
 export const useGetInfinitePickles = () => {
-  return useInfiniteQuery({
+  return useQuery({
     queryKey: ['pickles'],
-    initialPageParam: 0,
-    queryFn: async ({ pageParam }) => {
-      const { data } = await picklesRequests.getWithPage(pageParam);
-      return data;
-    },
-
-    getNextPageParam: lastPage => {
-      const currentPage = lastPage.page;
-      const totalPages = lastPage.pages;
-
-      if (currentPage >= totalPages) {
-        return undefined;
-      }
-      return currentPage + 1;
-    },
+    queryFn: async () => await picklesRequests.get(),
 
     refetchOnWindowFocus: true, // 포커스 될 때 재요청
     refetchIntervalInBackground: true, // 백그라운드 일 때 재요청 o

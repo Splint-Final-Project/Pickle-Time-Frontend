@@ -9,7 +9,7 @@ export const messages = Object.freeze({
   },
 
   get: async (receiverId: string) => {
-    const { data } = await client.get(API_CHAT.LIST(receiverId));
+    const { data } = await client.get(API_CHAT.MESSAGES_IN_CONVERSATION(receiverId));
     return data;
   },
 });
