@@ -52,7 +52,7 @@ export default function KaKaoMap() {
           <Map
             center={{ lat: location.latitude, lng: location.longitude }}
             style={{ width: '100%', height: '400px' }}
-            level={3}
+            level={4}
             onCreate={setMap}
           >
             <MapMarker
