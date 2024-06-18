@@ -17,10 +17,11 @@ export const picklesRequests = Object.freeze({
     return data;
   },
   // 가까운 피클
-  getNearby: async (location: Coordinates | null) => {
+  getNearby: async (location: Coordinates | null, level: number) => {
     if (location === null) return null;
     const { data } = await client.get(API_PICKLE.NEARBY, {
       params: {
+        level,
         latitude: location.latitude,
         longitude: location.longitude,
       },

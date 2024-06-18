@@ -3,10 +3,9 @@ import { useQuery, useInfiniteQuery, useMutation, useQueryClient, useSuspenseQue
 import { picklesRequests } from '@/apis/pickle.api';
 import { Coordinates, CreatePickleData, CreateReviewData } from '@/apis/types/pickles.type';
 import toast from 'react-hot-toast';
+import { useDebounce } from '@uidotdev/usehooks';
 
-interface PICKLE_DATA {
-
-}
+interface PICKLE_DATA {}
 
 // Domain: MOST_IMPORTANT
 export const useCreatePickleMutation = (pickleData: any) => {
@@ -49,11 +48,12 @@ export const useGetInfinitePickles = () => {
   });
 };
 
-export const useGetNearbyPickles = (location: Coordinates | null) => {
+export const useGetNearbyPickles = (location: Coordinates | null, level: number) => {
+  const locationquery = useDebounce(JSON.stringify([location, level]), 500);
   return useQuery({
-    queryKey: ['pickles', 'nearby'],
+    queryKey: ['pickles', 'nearby', JSON.parse(locationquery)],
 
-    queryFn: async () => await picklesRequests.getNearby(location),
+    queryFn: async () => await picklesRequests.getNearby(location, level),
 
     refetchOnWindowFocus: true, // 포커스 될 때 재요청
     refetchIntervalInBackground: true, // 백그라운드 일 때 재요청 o
