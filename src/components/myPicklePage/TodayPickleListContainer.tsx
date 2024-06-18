@@ -1,11 +1,11 @@
 import styled from '@emotion/styled';
 import PagenationBar from './PagenationBar';
 import TodayPickleCard from './TodayPickleCard';
-import { useGetFinishPickles, useGetProceedingPickles } from '@/hooks/query/pickles';
 import { useQueryClient } from '@tanstack/react-query';
 import { useSearchParams } from 'react-router-dom';
 import { useEffect, useMemo } from 'react';
 import { useGeolocation } from '@/hooks/useGeolocation';
+import isButtonActive from '@/utils/isButtonActive';
 
 const TEST_DATA = [
   {
@@ -154,6 +154,7 @@ const TEST_DATA = [
 ];
 export default function TodayPickleListContainer() {
   const [searchParams, setSearchParams] = useSearchParams();
+  //무한 리렌더링 발생 오류
   // const { location, error } = useGeolocation({ enableHighAccuracy: true, timeout: 5000 });
   const currentPage = Number(searchParams.get('page')) || 1;
   const queryClient = useQueryClient();
@@ -165,14 +166,14 @@ export default function TodayPickleListContainer() {
     // alert(`${location?.longitude} ,${location?.latitude}`);
     //TODO : 출석을 누르면 경도 위도를 POST로 보내어 출석을 한다.
   };
-  console.log(todayPickles);
+
   return (
     <S.Container>
       <PagenationBar totalDataCount={TEST_DATA?.length} />
       <TodayPickleCard cardData={TEST_DATA[currentPage - 1]} />
       <S.AttendanceButton
         onClick={handleAttendance}
-        disabled={!isButtonDisabled(TEST_DATA[currentPage - 1].startHour, TEST_DATA[currentPage - 1].startMinute)}
+        disabled={!isButtonActive(TEST_DATA[currentPage - 1].startHour, TEST_DATA[currentPage - 1].startMinute)}
       >
         <span>출석하기</span>
       </S.AttendanceButton>
@@ -181,21 +182,6 @@ export default function TodayPickleListContainer() {
 }
 
 //버튼 disabled 판단 함수
-
-function isButtonDisabled(startHour: number, startMinute: number) {
-  const now = new Date();
-
-  const startTime = new Date();
-  startTime.setHours(startHour, startMinute, 0, 0);
-
-  const prev10 = new Date(startTime);
-  prev10.setMinutes(startTime.getMinutes() - 10);
-
-  const after10 = new Date(startTime);
-  after10.setMinutes(startTime.getMinutes() + 10);
-
-  return now >= prev10 && now <= after10;
-}
 
 const S = {
   Container: styled.div`
