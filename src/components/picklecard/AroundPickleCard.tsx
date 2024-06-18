@@ -43,8 +43,7 @@ export default function AroundPickleCard({ pickleId, title, imgUrl, when, cost }
         size={20}
         style={{ position: 'absolute', top: '1rem', right: '1rem' }}
       />
-      {/* <S.ThumbnailImg src={imgUrl} alt="피클 이미지" /> */}
-      <S.ThumbnailDiv />
+      <S.ThumbnailImg src={imgUrl} alt="피클 이미지" />
       <S.TextInfoBox>
         <S.Title>{title}</S.Title>
         <S.BottomText>
@@ -70,6 +69,13 @@ const S = {
     box-shadow: 0 0 1rem 0 rgba(0, 0, 0, 0.05);
     overflow: hidden;
     cursor: pointer;
+  `,
+
+  ThumbnailImg: styled.img`
+    width: 100%;
+    height: 123px;
+    object-fit: cover;
+    background-color: #ccc;
   `,
 
   ThumbnailDiv: styled.div`

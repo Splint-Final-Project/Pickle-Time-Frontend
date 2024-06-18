@@ -12,7 +12,7 @@ import SignUp2 from './pages/auth/SignUp2';
 import Pickle from '@/pages/pickles/Pickle';
 import JoinPickle from '@/pages/pickles/JoinPickle';
 
-import AroundMe from '@/pages/around/AroundMe';
+import MapSearch from './pages/mapsearch/MapSearch';
 
 import OAuthSuccessRedirector from './redirectors/OAuthSuccessRedirector';
 import LoginRedirector from './redirectors/LoginRedirector';
@@ -49,11 +49,6 @@ const privateChildren = [
     path: routes.chat,
     element: <Conversation />,
   },
-  {
-    path: routes.around,
-    element: <AroundMe />,
-  },
-
   {
     path: routes.myPickles,
     element: <MyPickles />,
@@ -112,8 +107,8 @@ const router = createBrowserRouter([
         element: <ConversationList />,
       },
       {
-        path: routes.around,
-        element: <AroundMe />,
+        path: routes.map,
+        element: <MapSearch />,
       },
       {
         path: '/oauth/*',

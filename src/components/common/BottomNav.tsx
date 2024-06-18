@@ -71,8 +71,9 @@ export default function BottomNav() {
         <S.Icon src="/icons/bottomNavbar/home.svg" alt="Home" />홈
       </S.NavItem>
 
-      <S.NavItem to={routes.around} active={location.pathname === routes.around}>
-        <S.Icon src="/icons/bottomNavbar/marker.svg" alt="Marker" />내 주변
+      <S.NavItem to={routes.map} active={location.pathname === routes.map}>
+        <S.Icon src="/icons/bottomNavbar/marker.svg" alt="Marker" />
+        지도 탐색
       </S.NavItem>
       <S.NavItem to={routes.myPickles} active={location.pathname === routes.myPickles}>
         <S.Icon src="/icons/bottomNavbar/myPickle.svg" alt="My Pickle" />내 피클

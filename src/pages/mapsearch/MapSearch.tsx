@@ -15,7 +15,7 @@ const geolocationOptions = {
   timeout: 1000 * 4,
 };
 
-export default function AroundMe() {
+export default function MapSearch() {
   const { location: initialLocation, error } = useGeolocation(geolocationOptions);
 
   const [searchParams, setSearchParams] = useSearchParams();
@@ -88,6 +88,7 @@ export default function AroundMe() {
                 {
                   lat: initialLocation.latitude + '',
                   lng: initialLocation.longitude + '',
+                  level: searchParams.get('level') || '4',
                 },
                 { replace: true },
               );
