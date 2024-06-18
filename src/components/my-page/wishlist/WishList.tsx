@@ -1,6 +1,6 @@
+import styled from '@emotion/styled';
 import SpecialPickleCard from '@/components/picklecard/SpecialPickleCard';
 import { MyDynamicTemplate, WishListGridTemplate } from '@/styles/commonStyles';
-import styled from '@emotion/styled';
 
 const wishListPickle = [
   {

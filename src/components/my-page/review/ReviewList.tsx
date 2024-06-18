@@ -1,7 +1,7 @@
-import { MyDynamicTemplate } from '@/styles/commonStyles';
-import styled from '@emotion/styled';
-import Rating from './Rating';
 import { useState } from 'react';
+import styled from '@emotion/styled';
+import Rating from '@/components/my-page/review/Rating';
+import { MyDynamicTemplate } from '@/styles/commonStyles';
 
 const mockData = [
   {

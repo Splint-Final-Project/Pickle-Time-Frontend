@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import { MyDynamicTemplate } from '@/styles/commonStyles';
-import PointHistoryCard from './PointHistoryCard';
+import PointHistoryCard from '@/components/my-page/point/PointHistoryCard';
 
 const pointListData = [
   {

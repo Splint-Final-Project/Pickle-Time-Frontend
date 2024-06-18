@@ -1,10 +1,11 @@
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import styled from '@emotion/styled';
+
 import MenuList from '@/components/my-page/MenuList';
-import routes from '@/constants/routes';
-import { useState } from 'react';
-import { MY_MENU } from '@/constants/BUTTON';
 import DynamicRender from '@/components/my-page/DynamicRender';
+import routes from '@/constants/routes';
+import { MY_MENU } from '@/constants/BUTTON';
 
 export type MyMenu = (typeof MY_MENU)[keyof typeof MY_MENU];
 
