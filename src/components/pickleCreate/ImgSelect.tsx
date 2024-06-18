@@ -5,6 +5,7 @@ import GenerateAIICon from '/icons/generateAI.svg';
 import styled from '@emotion/styled';
 import Spinner from '@/components/common/Spinner';
 import openai from '@/apis/openai';
+import { picklesRequests } from '@/apis/pickle.api';
 
 export default function ImgSelect() {
   const { title, imgUrl, setImgUrl, isImgLoading, setIsImgLoading } = usePickleCreation();
@@ -19,16 +20,25 @@ export default function ImgSelect() {
     });
     const image_url = response.data[0].url;
     return image_url;
-  }
+  };
 
   const handleClickAI = async () => {
     try {
       setIsImgLoading(true);
       const image_url = await generateImage();
-      if (image_url) setImgUrl(image_url);
-      else throw new Error('이미지 생성 실패');
+      if (image_url) {
+        const imageUrlInStorage = await picklesRequests.createGeneratedImgUrl(image_url);
+
+        if(imageUrlInStorage?.data.url) {
+          setImgUrl(imageUrlInStorage?.data.url);
+        }
+      } else {
+        throw new Error('이미지 생성 실패')
+      };
+
     } catch (e) {
       console.log(e);
+
     } finally {
       setIsImgLoading(false);
     }
@@ -38,12 +48,19 @@ export default function ImgSelect() {
     imageInput.current.click();
   };
 
-  const handleFileChange = (event: any) => {
+  const handleFileChange = async (event: any) => {
     const file = event.target.files[0];
     if (file) {
       setImgUrl(URL.createObjectURL(file)); // 이미지 URL 생성
+
+      const imgUrlData = await picklesRequests.createImgUrl(file);
+
+      if (imgUrlData?.data.url) {
+        setImgUrl(imgUrlData?.data.url);
+      }
     }
   };
+
   return (
     <S.Container>
       <S.Text>대표 이미지를 설정해 주세요</S.Text>

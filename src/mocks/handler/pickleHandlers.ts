@@ -26,7 +26,7 @@ export const pickleHandlers = [
     const { pickleId } = params;
     if (!pickleId) return HttpResponse.json({ message: '존재하지 않는 피클입니다.' }, { status: 400 });
 
-    const review: CreateReviewData = await request.json();
+    const review: any = await request.json();
     console.log('생성된리뷰', review);
 
     const newReview = {
