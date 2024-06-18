@@ -46,7 +46,11 @@ export const API_LIKE = Object.freeze({
 });
 
 export const API_CHAT = Object.freeze({
-  INQUIRY: (receiverId: string) => `${API.MESSAGES}/send/${receiverId}`,
+  INQUIRY: (receiverId: string, pickleId: string) => `${API.MESSAGES}/send/${pickleId}/${receiverId}`,
   MESSAGES_IN_CONVERSATION: (senderId: string) => `${API.MESSAGES}/${senderId}`,
-  GROUP: (pickleId: string, senderId: string) => `${API.CONVERSATIONS}/${pickleId}/${senderId}`,
+  // GROUP: (pickleId: string, senderId: string) => `${API.CONVERSATIONS}/${pickleId}/${senderId}`,
+});
+
+export const API_CONVERSATIONS = Object.freeze({
+  GET_ALL: `${API.CONVERSATIONS}`,
 });
