@@ -12,8 +12,6 @@ const useGetMessages = () => {
       try {
         const data = await messages.get(selectedConversation);
 
-        console.log(data);
-
         if (data.error) throw new Error(data.error);
 
         setMessages(data);

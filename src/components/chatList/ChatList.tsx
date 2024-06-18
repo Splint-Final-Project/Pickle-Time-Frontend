@@ -1,10 +1,10 @@
 import { Link } from 'react-router-dom';
 import useAuth from '@/hooks/zustand/useAuth';
-// import { useGetConversationList } from '@/hooks/query/messages';
-import Img from '@/assets/images/study-2.jpg';
 import { CategoryType } from './CategoryFilterBar';
 import styled from '@emotion/styled';
 import { useGetConversations } from '@/hooks/query/conversation';
+
+import routes from '@/constants/routes';
 
 
 interface ChatListProps {
@@ -15,12 +15,8 @@ interface ChatListProps {
 export default function ChatList({ currentCategory, searchValue }: ChatListProps) {
   const regex = new RegExp(searchValue, 'i');
 
-  // 전역 상태
-  const { user, signOut } = useAuth();
-
   // server state
   const { data } = useGetConversations();
-  console.log(data)
 
   return (
     <S.Container>
@@ -45,12 +41,15 @@ export default function ChatList({ currentCategory, searchValue }: ChatListProps
 }
 
 function ChatListItem({ chatData }: { chatData: any }) {
+  const { user } = useAuth();
+
   const time = timeParsed(chatData.updatedAt);
+  const notMe = chatData?.participants.find((participant: []) => participant.toString() !== user._id.toString());
 
   return (
-    <S.Item to={'/'}>
+    <S.Item to={`${routes.chat}/${chatData.pickleId}/${notMe}`}>
       <S.ItemInner>
-        <S.ItemImg alt="피클 이미지" src={chatData.imgUrl} />
+        <S.ItemImg alt="피클 이미지" src={chatData.imageUrl} />
         <S.ItemTextContent>
           <S.Wrap>
             <S.ItemTitle>
