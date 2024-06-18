@@ -126,10 +126,17 @@ const TEST_DATA = [
 ];
 export default function TodayPickleListContainer() {
   const [searchParams, setSearchParams] = useSearchParams();
+  const { location, error } = useGeolocation({ enableHighAccuracy: true, timeout: 5000 });
   const currentPage = Number(searchParams.get('page')) || 1;
   const queryClient = useQueryClient();
   const pickleData: any = queryClient.getQueryData(['pickles', 'proceeding']);
-  const todayPickles = pickleData?.todayPickles;
+  const todayPickles = useMemo(() => {
+    return pickleData?.todayPickles;
+  }, [pickleData]);
+  const handleAttendance = () => {
+    alert(`${location?.longitude} ,${location?.latitude}`);
+    //TODO : 출석을 누르면 경도 위도를 POST로 보내어 출석을 한다.
+  };
 
   return (
     <S.Container>
