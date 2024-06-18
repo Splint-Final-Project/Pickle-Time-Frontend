@@ -73,7 +73,7 @@ const privateChildren = [
     element: <ConversationList />,
   },
   {
-    path: `${routes.chat}/:id`,
+    path: `${routes.chat}/:pickleId/:leaderId`,
     element: <Conversation />,
   },
 ];

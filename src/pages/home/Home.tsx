@@ -141,12 +141,8 @@ export default function Home() {
       {/* 전체 피클 */}
       <PickleList.Container>
         <PickleList.Header category="total" />
-        <ErrorBoundary fallback={Error}>
-          <Suspense fallback={<SkeletonPickleCardList />}>
             <SortButtons />
             <InfinitePickleCardList />
-          </Suspense>
-        </ErrorBoundary>
       </PickleList.Container>
 
       <S.FloatingButton
