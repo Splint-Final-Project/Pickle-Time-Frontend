@@ -1,12 +1,15 @@
 import styled from '@emotion/styled';
 import PagenationBar from './PagenationBar';
 import TodayPickleCard from './TodayPickleCard';
+import Tilt from 'react-parallax-tilt';
 
 export default function TodayPickleListContainer() {
   return (
     <S.Container>
       <PagenationBar totalDataCount={15} />
-      <TodayPickleCard />
+      <Tilt>
+        <TodayPickleCard />
+      </Tilt>
       <S.AttendanceButton>
         <span>출석하기</span>
       </S.AttendanceButton>
