@@ -53,6 +53,11 @@ const privateChildren = [
     path: routes.around,
     element: <AroundMe />,
   },
+
+  {
+    path: routes.myPickles,
+    element: <MyPickles />,
+  },
   {
     path: routes.pickleJoinRedirect,
     element: <PickleJoinRedirector />,
@@ -111,11 +116,6 @@ const router = createBrowserRouter([
         element: <AroundMe />,
       },
       {
-        path: routes.myPickles,
-        element: <MyPickles />,
-      },
-      {
-
         path: '/oauth/*',
         children: [
           {
