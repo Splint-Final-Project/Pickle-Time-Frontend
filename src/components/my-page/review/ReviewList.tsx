@@ -1,22 +1,67 @@
 import { MyDynamicTemplate } from '@/styles/commonStyles';
 import styled from '@emotion/styled';
 import Rating from './Rating';
+import { useState } from 'react';
+
+const mockData = [
+  {
+    id: '666fc6511259c037a9893425',
+    title: '알고리즘 스터디✏️',
+    imgUrl: 'https://avatars.githubusercontent.com/u/124874266?v=4',
+    createdAt: '24.06.11',
+    rating: 4,
+    review:
+      '텍스트리뷰텍스트리뷰니ㅏㄴㅇㄹㄴㅇㄹㄴㅇㄹ ㄴ이이이이이이ㅇ러ㅐ쟈ㅓ래;ㅑ저ㅐㅇ랴ㅓㅈ;ㅐ야러ㅐ쟈얼텍스트리뷰텍스트리뷰니ㅏㅇ러ㅐ쟈ㅓ래;ㅑ저ㅐㅇ랴ㅓㅈ;ㅐ야러ㅐ쟈얼텍스트리뷰텍스트리뷰니ㅏㅇ러ㅐ쟈ㅓ래;ㅑ저ㅐㅇ랴ㅓㅈ;ㅐ야러ㅐ쟈얼',
+  },
+  {
+    id: '666fc6511259c037a9893426',
+    title: '자스 스터디🏷️',
+    imgUrl: 'https://avatars.githubusercontent.com/u/124874266?v=4',
+    createdAt: '24.06.10',
+    rating: 5,
+    review:
+      '텍스트리뷰텍스트리뷰니ㅏㅇ러ㅐ쟈ㅓ래;ㅑ저ㅐㅇ랴ㅓㅈ;ㅐ야러ㅐ쟈얼텍스트리뷰텍스트리뷰니ㅏㅇ러ㅐ쟈ㅓ래;ㅑ저ㅐㅇ랴ㅓㅈ;ㅐ야러ㅐ쟈얼텍스트리뷰텍스트리뷰니ㅏㅇ러ㅐ쟈ㅓ래;ㅑ저ㅐㅇ랴ㅓㅈ;ㅐ야러ㅐ쟈얼',
+  },
+  {
+    id: '666fc6511259c037a9893427',
+    title: '리액트 스터디🔥',
+    imgUrl: 'https://avatars.githubusercontent.com/u/124874266?v=4',
+    createdAt: '24.06.09',
+    rating: 3,
+    review:
+      '텍스트리뷰텍스트리뷰니ㅏㅇ러ㅐ쟈ㅓ래;ㅑ저ㅐㅇ랴ㅓㅈ;ㅐ야러ㅐ쟈얼텍스트리뷰텍스트리뷰니ㅏㅇ러ㅐ쟈ㅓ래;ㅑ저ㅐㅇ랴ㅓㅈ;ㅐ야러ㅐ쟈얼텍스트리뷰텍스트리뷰니ㅏㅇ러ㅐ쟈ㅓ래;ㅑ저ㅐㅇ랴ㅓㅈ;ㅐ야러ㅐ쟈얼',
+  },
+];
 
 export default function ReviewList() {
+  const [checkedReviews, setCheckedReviews] = useState<string[]>([]);
+
+  const handleChecked = (id: string) => {
+    if (checkedReviews.includes(id)) setCheckedReviews(checkedReviews.filter(item => item !== id));
+    else setCheckedReviews([...checkedReviews, id]);
+  };
+
   return (
     <MyDynamicTemplate>
       <h2>작성한 리뷰</h2>
-      <h1>12 개</h1>
-      <S.Review>
-        <S.Image src="https://avatars.githubusercontent.com/u/124874266?v=4" alt="프로필 이미지" />
-        <S.TextInfoBox>
-          <S.CheckBox src="/icons/emptyCheck.svg" alt="체크박스" />
-          <span className="writing-date">24.06.11 작성</span>
-          <span className="pickle-title">토익 850 목표 스터디</span>
-          <Rating rating={5} />
-          <p>텍스트리뷰텍스트리뷰니ㅏㅇ러ㅐ쟈ㅓ래;ㅑ저ㅐㅇ랴ㅓㅈ;ㅐ야러ㅐ쟈얼</p>
-        </S.TextInfoBox>
-      </S.Review>
+      <h1>{mockData.length} 개</h1>
+      <S.Delete $isChecked={checkedReviews.length > 0}>삭제하기</S.Delete>
+      {mockData.map(review => (
+        <S.Review key={review.id}>
+          <S.Image src={review.imgUrl} alt="피클 이미지" />
+          <S.TextInfoBox>
+            <S.CheckBox
+              onClick={() => handleChecked(review.id)}
+              src={checkedReviews.includes(review.id) ? '/icons/filledCheck.svg' : '/icons/emptyCheck.svg'}
+              alt="체크박스"
+            />
+            <span className="writing-date">{review.createdAt} 작성</span>
+            <span className="pickle-title">{review.title}</span>
+            <Rating rating={5} />
+            <p>{review.review}</p>
+          </S.TextInfoBox>
+        </S.Review>
+      ))}
     </MyDynamicTemplate>
   );
 }
@@ -25,7 +70,7 @@ const S = {
   Review: styled.div`
     display: flex;
     gap: 1.7rem;
-    padding: 2.2rem 0 4rem;
+    padding: 1.5rem 0 4rem;
     border-bottom: ${({ theme }) => theme.border};
   `,
 
@@ -34,6 +79,13 @@ const S = {
     height: 6rem;
     border-radius: 1.5rem;
     object-fit: cover;
+  `,
+
+  Delete: styled.div<{ $isChecked: boolean }>`
+    text-align: end;
+    color: ${({ theme, $isChecked }) => ($isChecked ? theme.color.accent2 : theme.color.sub)};
+    ${({ theme }) => theme.typography.body1};
+    cursor: pointer;
   `,
 
   TextInfoBox: styled.div`
@@ -61,5 +113,6 @@ const S = {
     position: absolute;
     top: 0;
     right: 0.4rem;
+    cursor: pointer;
   `,
 };
