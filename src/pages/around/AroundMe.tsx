@@ -1,7 +1,9 @@
+import AroundPickleCard from '@/components/picklecard/AroundPickleCard';
 import { useGetNearbyPickles } from '@/hooks/query/pickles';
 import { useGeolocation } from '@/hooks/useGeolocation';
+import styled from '@emotion/styled';
 import { useEffect, useState } from 'react';
-import { Map, MapMarker, MarkerClusterer } from 'react-kakao-maps-sdk';
+import { CustomOverlayMap, Map, MapMarker, MarkerClusterer } from 'react-kakao-maps-sdk';
 
 /**
  * 내 주변 페이지
@@ -14,14 +16,16 @@ const geolocationOptions = {
 
 export default function AroundMe() {
   const { location: initialLocation, error } = useGeolocation(geolocationOptions);
+
   const [location, setLocation] = useState(initialLocation);
+
   const [level, setLevel] = useState(4);
   const [map, setMap] = useState<kakao.maps.Map | null>(null);
   const { data } = useGetNearbyPickles(location, level);
   const nearbyPickle: any[] = data?.data || [];
 
   useEffect(() => {
-    function handleChange() {
+    function handleMapMove() {
       if (map === null) return;
       const level = map.getLevel();
       setLevel(level);
@@ -32,11 +36,11 @@ export default function AroundMe() {
       });
     }
     if (map) {
-      kakao.maps.event.addListener(map, 'center_changed', handleChange);
+      kakao.maps.event.addListener(map, 'center_changed', handleMapMove);
     }
     return () => {
       if (map) {
-        kakao.maps.event.removeListener(map, 'center_changed', handleChange);
+        kakao.maps.event.removeListener(map, 'center_changed', handleMapMove);
       }
     };
   });
@@ -47,16 +51,33 @@ export default function AroundMe() {
     }
   }, [initialLocation]);
 
-  if (error) {
-    return <div>{error}</div>;
-  }
   return (
-    <>
-      {initialLocation ? (
-        <>
+    <Container>
+      <h1>제목제목제목</h1>
+      <h2>위치 기반으로 피클 찾기~~</h2>
+      <br />
+      <br />
+      <br />
+      <h1>검색하기</h1>
+      <h1>카테고리 고르기</h1>
+      <br />
+      <br />
+      <br />
+      {initialLocation && location ? (
+        <MapContainer>
+          <ReCenterButton
+            src="/icons/recenter.svg"
+            alt="recenter"
+            onClick={() => {
+              map?.setCenter(new kakao.maps.LatLng(initialLocation.latitude, initialLocation.longitude));
+              // map?.setLevel(4);
+              setLocation(initialLocation);
+              // setLevel(4);
+            }}
+          />
           <Map
             center={{ lat: initialLocation.latitude, lng: initialLocation.longitude }}
-            style={{ width: '100%', height: '400px' }}
+            style={{ width: '100%', height: '100%', marginTop: '-70px' }}
             level={4}
             onCreate={setMap}
           >
@@ -79,12 +100,18 @@ export default function AroundMe() {
             <MarkerClusterer
               gridSize={40}
               averageCenter={true}
-              minClusterSize={1}
+              minClusterSize={2}
               minLevel={1}
-              disableClickZoom={false}
-              // onClusterclick={(cluster: any) => {
-              //   console.log('cluster', cluster);
-              // }}
+              disableClickZoom={true}
+              onClusterclick={(_target, cluster) => {
+                map?.setCenter(cluster.getCenter());
+                map?.setLevel(2);
+                setLocation({
+                  latitude: cluster.getCenter().getLat(),
+                  longitude: cluster.getCenter().getLng(),
+                });
+                setLevel(2);
+              }}
               styles={[
                 {
                   width: '40px',
@@ -105,50 +132,92 @@ export default function AroundMe() {
                   key={pickle?.id}
                   position={{ lat: pickle?.latitude, lng: pickle?.longitude }}
                   title={pickle?.title}
+                  clickable={true}
+                  onClick={() => {
+                    map?.setCenter(new kakao.maps.LatLng(pickle.latitude, pickle.longitude));
+                    map?.setLevel(2);
+                    setLocation({
+                      latitude: pickle.latitude,
+                      longitude: pickle.longitude,
+                    });
+                    setLevel(2);
+                  }}
                   image={{
-                    src: '/icons/mapmarker.svg',
+                    src: `${
+                      pickle?.category === '스터디'
+                        ? '/icons/studyMarker.svg'
+                        : pickle.category === '운동'
+                          ? '/icons/undongMarker.svg'
+                          : '/icons/chimiMarker.svg'
+                    }`,
                     size: {
-                      width: 32,
-                      height: 44,
+                      width: 80,
+                      height: 80,
                     },
                     options: {
                       offset: {
-                        x: 16,
-                        y: 44,
+                        x: 50,
+                        y: 50,
                       },
                     },
                   }}
-                />
+                ></MapMarker>
               ))}
             </MarkerClusterer>
           </Map>
-        </>
+          <PickleCardContainer>
+            {nearbyPickle?.map((pickle: any) => (
+              <AroundPickleCard
+                key={pickle?.id}
+                pickleId={pickle?.id}
+                title={pickle?.title}
+                imgUrl={pickle?.imgUrl}
+                when={pickle?.when}
+                cost={pickle?.cost}
+              />
+            ))}
+          </PickleCardContainer>
+        </MapContainer>
       ) : (
-        <div>지도 로딩중</div>
+        <div>{'asdfasfdasdfasf' + error}</div>
       )}
-      {/* {nearbyPickle?.map((pickle: any) => (
-        <AroundPickleCard
-          key={pickle?.id}
-          pickleId={pickle?.id}
-          title={pickle?.title}
-          imgUrl={pickle?.imgUrl}
-          when={pickle?.when}
-          cost={pickle?.cost}
-        />
-      ))} */}
-
-      {/* {markerData.map(marker => (
-        <MapMarker
-          key={marker.id}
-          position={{ lat: marker.latitude, lng: marker.longitude }}
-          title={marker.name}
-          image={{ src: image, size: { width: 30, height: 30 } }}
-          onClick={() => handleMarkerClick(marker)} // 마커 클릭 이벤트 추가
-        >
-           name을 적으면 Map의 center에서 오류가 발생함, name이 적용할 경우 위에 있는 useEffect 코드에 있는 주석 부분으로 수정해야함
-          <div style={{ color: '#000' }}>{marker.name}</div>
-        </MapMarker>
-      ))} */}
-    </>
+    </Container>
   );
 }
+
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+  height: 100%;
+`;
+
+const MapContainer = styled.div`
+  width: 100%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+`;
+
+const ReCenterButton = styled.img`
+  cursor: pointer;
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  width: 50px;
+  height: 50px;
+  z-index: 10;
+`;
+
+const PickleCardContainer = styled.div`
+  position: absolute;
+  width: 100%;
+  bottom: 100px;
+  display: flex;
+  flex-shrink: 0;
+  overflow: scroll;
+  padding: 0 20px;
+  gap: 20px;
+  z-index: 10;
+`;
