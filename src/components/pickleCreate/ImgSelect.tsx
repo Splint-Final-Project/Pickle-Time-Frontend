@@ -20,7 +20,7 @@ export default function ImgSelect() {
     });
     const image_url = response.data[0].url;
     return image_url;
-  };
+  }
 
   const handleClickAI = async () => {
     try {
@@ -32,17 +32,15 @@ export default function ImgSelect() {
 
         const imageUrlInStorage = await picklesRequests.createGeneratedImgUrl(image_url);
 
-        if(imageUrlInStorage?.data.url) {
+        if (imageUrlInStorage?.data.url) {
           setImgUrl(imageUrlInStorage?.data.url);
           console.log(imageUrlInStorage?.data.url)
         }
       } else {
-        throw new Error('이미지 생성 실패')
-      };
-
+        throw new Error('이미지 생성 실패');
+      }
     } catch (e) {
       console.log(e);
-
     } finally {
       setIsImgLoading(false);
     }
@@ -56,12 +54,18 @@ export default function ImgSelect() {
   const handleFileChange = async (event: any) => {
     const file = event.target.files[0];
     if (file) {
-      setImgUrl(URL.createObjectURL(file)); // 이미지 URL 생성
-
-      const imgUrlData = await picklesRequests.createImgUrl(file);
-
-      if (imgUrlData?.data.url) {
-        setImgUrl(imgUrlData?.data.url);
+      try {
+        setIsImgLoading(true);
+        const imgUrlData = await picklesRequests.createImgUrl(file);
+        if (imgUrlData?.data.url) {
+          setImgUrl(imgUrlData?.data.url);
+        } else {
+          throw new Error('이미지 업로드 실패');
+        }
+      } catch (e) {
+        console.log(e);
+      } finally {
+        setIsImgLoading(false);
       }
     }
   };
