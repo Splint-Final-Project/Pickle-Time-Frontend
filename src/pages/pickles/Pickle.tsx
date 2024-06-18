@@ -26,7 +26,9 @@ export default function Pickle() {
 
   const { data } = useGetPickelDetail(pickleId);
   const pickleDetailData = data?.data;
-  const isLeader = user?._id && user._id === pickleDetailData?.leader;
+  const amILeader = user?._id && user._id === pickleDetailData?.leader;
+  const amIMember = user?._id && pickleDetailData?.amIMember;
+  const full = pickleDetailData?.capacity <= pickleDetailData?.participantNumber;
   // console.log(pickleDetailData.imgUrl)
 
   const { handleOpen } = useBottomSheetModal(state => state);
@@ -37,7 +39,7 @@ export default function Pickle() {
         <BackButton />
         <S.TopBox>
           <Category category={pickleDetailData?.category} />
-          <button className="inquiry-btn" onClick={() => navigate(`${routes.chat}/${pickleDetailData?.leader}`)}>
+          <button className="inquiry-btn" onClick={() => navigate(`${routes.chat}/${pickleId}/${pickleDetailData?.leader}`)}>
             1:1문의하기
           </button>
         </S.TopBox>
@@ -77,9 +79,10 @@ export default function Pickle() {
           </S.GoalContainer>
           <Button
             className="apply-btn"
+            disabled={(!amILeader && amIMember) || full}
             onClick={() =>
-              isLeader
-                ? navigate('/pickle-create-1', { state: { pickleId } }) //Todo 편집페이지로 변경필요
+              amILeader
+                ? navigate('/pickle-edit/' + pickleId) //Todo 편집페이지로 변경필요
                 : navigate('/pickle-join/' + pickleId, {
                     state: {
                       pickleId,
@@ -89,7 +92,7 @@ export default function Pickle() {
                   })
             }
           >
-            {isLeader ? '피클 수정하기' : '피클 신청하기'}
+            {amILeader ? '피클 수정하기' : amIMember ? '신청됨' : full ? '마감됨' : '피클 신청하기'}
           </Button>
         </S.GoalAndBtn>
       </S.BottomSection>

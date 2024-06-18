@@ -28,7 +28,7 @@ export default function PickleListCard({ category }: PickleCardListProps) {
       {data?.length ? (
         data.map((pickle: any) => <SpecialPickleCard key={pickle.id} pickleData={pickle} />)
       ) : (
-        <h1>피클이 없네요 ㅠㅠ</h1>
+        <h1>회원님의 활동 지역 내에 모집중인 피클이 없습니다. [TODO: 이거 디자인]</h1>
       )}
       {/* <PickleCardListMockData /> */}
     </>

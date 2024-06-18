@@ -20,6 +20,8 @@ export const API_PICKLE = Object.freeze({
   CREATE: `${API.PICKLE}/create`,
   POPULAR: `${API.PICKLE}/popular`,
   HOT_TIME: `${API.PICKLE}/hotTime`,
+  CREATE_IMG: `${API.PICKLE}/img`,
+  CREATE_GENERATED_IMG: `${API.PICKLE}/generatedImg`,
   BY_ID: (pickleId: string) => `${API.PICKLE}/${pickleId}`,
   FAVORITES_COUNT: (pickleId: string) => `${API.PICKLE}/${pickleId}/favorite`,
   SEARCH: (pickleType: string) => `${API.PICKLE}/${pickleType}`, // 피클검색
@@ -34,6 +36,8 @@ export const API_PICKLE = Object.freeze({
   // 내피클
   MY_PICKEL: (userId: string) => `${API.PICKLE}/${userId}`,
   MY_PICKEL_STATUS: (userId: string, status: string) => `${API.PICKLE}/${userId}/${status}`,
+  MY_PROCEEDING_PICKLES: `${API.PICKLE}/proceeding`,
+  MY_FINISH_PICKLES: `${API.PICKLE}/finish`,
 });
 
 export const API_LIKE = Object.freeze({
@@ -45,6 +49,6 @@ export const API_LIKE = Object.freeze({
 
 export const API_CHAT = Object.freeze({
   INQUIRY: (receiverId: string) => `${API.MESSAGES}/send/${receiverId}`,
-  LIST: (senderId: string) => `${API.MESSAGES}/${senderId}`,
+  MESSAGES_IN_CONVERSATION: (senderId: string) => `${API.MESSAGES}/${senderId}`,
   GROUP: (pickleId: string, senderId: string) => `${API.CONVERSATIONS}/${pickleId}/${senderId}`,
 });

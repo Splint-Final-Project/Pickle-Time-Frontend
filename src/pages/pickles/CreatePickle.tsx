@@ -44,7 +44,7 @@ export default function CreatePickle() {
   } = usePickleCreation();
 
   const navigate = useNavigate();
-  console.log(when);
+
   return (
     <Container>
       <TitleContainer>
@@ -131,7 +131,7 @@ export default function CreatePickle() {
                   <DateSelect />
                 </InputComponent>
                 <SubmitButton
-                  disabled={!place || !address || !detailedAddress || !areaCode || when.times.length === 0}
+                  disabled={!place || !address || !areaCode || when.times.length === 0}
                   onClick={() => {
                     setInProgress(true);
                     setStep(4);

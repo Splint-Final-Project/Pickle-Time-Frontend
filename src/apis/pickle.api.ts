@@ -4,8 +4,10 @@ import { Coordinates, CreatePickleData, CreateReviewData } from './types/pickles
 
 export const picklesRequests = Object.freeze({
   // 피클 전체 목록조회
-  getWithPage: (pageParam: number) => {
-    return client.get(`${API.PICKLE}?page=${pageParam}`);
+  get: async () => {
+    const { data } = await client.get(`${API.PICKLE}`);
+    console.log(data);
+    return data;
   },
 
   getPopular: async () => {
@@ -17,10 +19,11 @@ export const picklesRequests = Object.freeze({
     return data;
   },
   // 가까운 피클
-  getNearby: async (location: Coordinates | null) => {
+  getNearby: async (location: Coordinates | null, level: number) => {
     if (location === null) return null;
     const { data } = await client.get(API_PICKLE.NEARBY, {
       params: {
+        level,
         latitude: location.latitude,
         longitude: location.longitude,
       },
@@ -42,15 +45,35 @@ export const picklesRequests = Object.freeze({
   getLikeCount: (pickleId: string) => {
     return client.get(API_PICKLE.FAVORITES_COUNT(pickleId));
   },
-  // test: async (deadline: any) => {
-  //   const { data } = await client.post("/pickle/test", {deadline});
-  //   return data;
-  // }
 
   // 리뷰 작성
   createReview: (pickleId: string, reviewData: CreateReviewData) => {
     return client.post(API_PICKLE.REVIEW(pickleId), {
       data: reviewData,
     });
+  },
+  //진행중(투데이) 피클 조회
+  getProceedingPickles: async () => {
+    const { data } = await client.get(API_PICKLE.MY_PROCEEDING_PICKLES);
+    return data;
+  },
+  //끝난 피클 조회
+  getFinishPickles: async () => {
+    const { data } = await client.get(API_PICKLE.MY_FINISH_PICKLES);
+    return data;
+  },
+  createImgUrl: (imageFile: File) => {
+    const formData = new FormData();
+    formData.append('image', imageFile);
+
+    return client.post(API_PICKLE.CREATE_IMG, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
+  },
+
+  createGeneratedImgUrl: async (imgUrl: string) => {
+    return await client.post(API_PICKLE.CREATE_GENERATED_IMG, { imageUrl: imgUrl });
   },
 });

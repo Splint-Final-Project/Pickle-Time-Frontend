@@ -149,7 +149,7 @@ const S = {
     display: flex;
     flex-wrap: wrap;
     gap: 1rem; /* 아이템 간의 간격 설정 */
-    padding: 2rem;
+    padding: 2rem 0;
   `,
 
   CapacityText: styled.span`
