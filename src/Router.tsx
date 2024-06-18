@@ -4,6 +4,7 @@ import Home from '@/pages/home/Home';
 import Conversation from '@/pages/chat/Conversation';
 import ConversationList from '@/pages/chat/ConversationList';
 import MyPage from '@/pages/profile/MyPage';
+import EditProfilePage from './pages/profile/EditProfilePage';
 
 import Admin from '@/pages/auth/Admin';
 import SignUp from '@/pages/auth/SignUp';
@@ -31,6 +32,7 @@ import PickleCreationRedirector from './redirectors/PickleCreationRedirector';
 import routes from '@/constants/routes';
 import CreatePickle from './pages/pickles/CreatePickle';
 import MyPickles from '@/pages/pickles/MyPickles';
+
 
 const privateChildren = [
   {
@@ -64,6 +66,10 @@ const privateChildren = [
   {
     path: routes.mypage,
     element: <MyPage />,
+  },
+  {
+    path: routes.editProfile,
+    element: <EditProfilePage />,
   },
   {
     path: routes.signUp2,
