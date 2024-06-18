@@ -1,6 +1,20 @@
+import useAuth from '@/hooks/zustand/useAuth';
 import styled from '@emotion/styled';
 
-export default function Message() {
+function extractTime(dateString: string) {
+	const date = new Date(dateString);
+	const hours = padZero(date.getHours());
+	const minutes = padZero(date.getMinutes());
+	return `${hours}:${minutes}`;
+}
+
+function padZero(number: number) {
+	return number.toString().padStart(2, "0");
+}
+
+export default function Message({message}: {message: string}) {
+  const { user } = useAuth();
+
   return (
     <ChatContainer>
       <ChatImage className="chat-image avatar">

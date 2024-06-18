@@ -1,7 +1,9 @@
-import styled from '@emotion/styled';
+import { Link } from 'react-router-dom';
+import useAuth from '@/hooks/zustand/useAuth';
+// import { useGetConversationList } from '@/hooks/query/messages';
 import Img from '@/assets/images/study-2.jpg';
 import { CategoryType } from './CategoryFilterBar';
-import { Link } from 'react-router-dom';
+import styled from '@emotion/styled';
 
 //목업 데이터
 const testData = [
@@ -104,11 +106,18 @@ interface ChatListProps {
 
 //TODO : React-query 및 currentCategory, searchValue를 이용한 api호출
 export default function ChatList({ currentCategory, searchValue }: ChatListProps) {
-  console.log(searchValue);
   const regex = new RegExp(searchValue, 'i');
   const filterData = testData.filter(
     item => (currentCategory === '전체' ? true : item.category === currentCategory) && regex.test(item.title),
   );
+
+  // 전역 상태
+  const { user, signOut } = useAuth();
+
+  // server state
+  // const { data } = useGetConversationList(user._id);
+  // console.log(data)
+
   return (
     <S.Container>
       {currentCategory === '전체' && searchValue === ''
