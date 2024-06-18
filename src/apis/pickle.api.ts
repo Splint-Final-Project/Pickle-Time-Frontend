@@ -4,8 +4,10 @@ import { Coordinates, CreatePickleData, CreateReviewData } from './types/pickles
 
 export const picklesRequests = Object.freeze({
   // 피클 전체 목록조회
-  getWithPage: (pageParam: number) => {
-    return client.get(`${API.PICKLE}?page=${pageParam}`);
+  get: async () => {
+    const { data } =  await client.get(`${API.PICKLE}`);
+    console.log(data);
+    return data;
   },
 
   getPopular: async () => {
@@ -42,15 +44,26 @@ export const picklesRequests = Object.freeze({
   getLikeCount: (pickleId: string) => {
     return client.get(API_PICKLE.FAVORITES_COUNT(pickleId));
   },
-  // test: async (deadline: any) => {
-  //   const { data } = await client.post("/pickle/test", {deadline});
-  //   return data;
-  // }
 
   // 리뷰 작성
   createReview: (pickleId: string, reviewData: CreateReviewData) => {
     return client.post(API_PICKLE.REVIEW(pickleId), {
       data: reviewData,
     });
+  },
+
+  createImgUrl: (imageFile: File) => {
+    const formData = new FormData();
+    formData.append('image', imageFile);
+
+    return client.post(API_PICKLE.CREATE_IMG, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
+  },
+
+  createGeneratedImgUrl: async (imgUrl: string) => {
+    return await client.post(API_PICKLE.CREATE_GENERATED_IMG, { imageUrl: imgUrl });
   },
 });

@@ -16,7 +16,7 @@ export default function SignIn_Email() {
   const handleSignIn: SubmitHandler<SignInFormValues> = async data => {
     try {
       const status = await signIn(data);
-      if (status === 'Pending') {
+      if (status === 'pending') {
         alert('추가 정보 입력 페이지로 이동');
         navigate('/sign-up2');
       } else {

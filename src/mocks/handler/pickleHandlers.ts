@@ -5,7 +5,7 @@ const reviews = new Map();
 
 export const pickleHandlers = [
   // 피클 찜하기
-  http.put('http://localhost:8080/api/v1/pickle/:pickleId/scrap', ({ params }) => {
+  http.put(`${import.meta.env.VITE_BACKEND_URL}/api/v1/pickle/:pickleId/scrap`, ({ params }) => {
     const { pickleId } = params;
     console.log('아이디', pickleId);
 
@@ -14,7 +14,7 @@ export const pickleHandlers = [
   }),
 
   // 피클 찜 취소
-  http.delete('http://localhost:8080/api/v1/pickle/:pickleId/scrap', ({ params }) => {
+  http.delete(`${import.meta.env.VITE_BACKEND_URL}/api/v1/pickle/:pickleId/scrap`, ({ params }) => {
     const { pickleId } = params;
 
     if (!pickleId) return HttpResponse.json({ message: '존재하지 않는 피클입니다.' }, { status: 400 });
@@ -22,11 +22,11 @@ export const pickleHandlers = [
   }),
 
   // 리뷰 작성
-  http.post('http://localhost:8080/api/v1/pickle/:pickleId/review', async ({ params, request }) => {
+  http.post(`${import.meta.env.VITE_BACKEND_URL}/api/v1/pickle/:pickleId/review`, async ({ params, request }) => {
     const { pickleId } = params;
     if (!pickleId) return HttpResponse.json({ message: '존재하지 않는 피클입니다.' }, { status: 400 });
 
-    const review: CreateReviewData = await request.json();
+    const review: any = await request.json();
     console.log('생성된리뷰', review);
 
     const newReview = {

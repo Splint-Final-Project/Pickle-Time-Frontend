@@ -35,7 +35,7 @@ export default function AroundPickleCard({ pickleId, title, imgUrl, when, cost }
   return (
     <S.Container>
       <HeartButton
-        isActive={data?.data.isClicked}
+        $active={data?.data.isClicked}
         onClick={handleHeartClick}
         size={20}
         style={{ position: 'absolute', top: '1rem', right: '1rem' }}

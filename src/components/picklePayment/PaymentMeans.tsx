@@ -17,7 +17,7 @@ export default function PaymentMeans({ setState }: PaymentMeansProps) {
           onChange={e => setState(e.target.value)}
         />
         <S.Label htmlFor="tosspay">
-          <S.PayLogoImg src={'icons/tosspay.svg'} alt="토스페이 로고 이미지" />
+          <S.PayLogoImg src={'/icons/tosspay.svg'} alt="토스페이 로고 이미지" />
           <S.PayText>토스 페이</S.PayText>
         </S.Label>
       </S.InputWrap>
@@ -30,7 +30,7 @@ export default function PaymentMeans({ setState }: PaymentMeansProps) {
           onChange={e => setState(e.target.value)}
         />
         <S.Label htmlFor="kakaopay">
-          <S.PayLogoImg src={'icons/kakaopay.svg'} alt="카카오페이 로고 이미지" />
+          <S.PayLogoImg src={'/icons/kakaopay.svg'} alt="카카오페이 로고 이미지" />
           <S.PayText>카카오 페이</S.PayText>
         </S.Label>
       </S.InputWrap>
