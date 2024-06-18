@@ -97,3 +97,17 @@ export const useCreateReviewMutation = (pickleId: string, handleSuccess: () => v
     },
   });
 };
+
+export const useGetProceedingPickles = () => {
+  return useQuery({
+    queryKey: ['pickles', 'proceeding'],
+    queryFn: async () => await picklesRequests.getProceedingPickles(),
+  });
+};
+
+export const useGetFinishPickles = () => {
+  return useQuery({
+    queryKey: ['pickles', 'finish'],
+    queryFn: async () => await picklesRequests.getFinishPickles(),
+  });
+};
