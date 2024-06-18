@@ -7,24 +7,37 @@ import { pickleState } from './PickleStateFilterBar';
 import { css } from '@emotion/react';
 
 type CategoryType = '운동' | '취미' | '스터디';
-//TODO : 동적으로 값 받게하기
-interface MyPickleCardProps {
+export type PickleDataType = {
+  title: string;
+  duration: string;
+  address: string;
   categoryType: CategoryType;
   state: pickleState;
+  id: string;
+};
+//TODO : 동적으로 값 받게하기
+interface MyPickleCardProps {
+  pickleData: PickleDataType;
 }
 
-export default function MyPickleCard({ categoryType, state }: MyPickleCardProps) {
+export default function MyPickleCard({ pickleData }: MyPickleCardProps) {
+  const handleClickReview = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    alert('리뷰모달 오픈');
+  };
   return (
     <S.Card>
-      <S.CardInner to={'/'} $picklestate={state}>
-        <S.CardTitle>토익 성적 850목표 스터디</S.CardTitle>
+      <S.CardInner to={`/pickle/${pickleData.id}`} $picklestate={pickleData.state}>
+        <S.CardTitle>{pickleData.title}</S.CardTitle>
         <S.CardContent>
-          <S.Date>06.11 ~ 09.11</S.Date>
-          <S.Address>스타벅스 약수점</S.Address>
+          <S.Date>{pickleData.duration}</S.Date>
+          <S.Address>{pickleData.address}</S.Address>
         </S.CardContent>
-        <S.CategoryBg $bgtype={categoryType} />
+        <S.CategoryBg $bgtype={pickleData.categoryType} />
       </S.CardInner>
-      <S.ReviewBtn $isshow={state !== 'closed'}>리뷰 쓰기</S.ReviewBtn>
+      <S.ReviewBtn $isshow={pickleData.state !== 'closed'} onClick={handleClickReview}>
+        리뷰 쓰기
+      </S.ReviewBtn>
     </S.Card>
   );
 }
