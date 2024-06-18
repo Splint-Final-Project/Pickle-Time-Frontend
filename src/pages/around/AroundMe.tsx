@@ -4,6 +4,7 @@ import { useGeolocation } from '@/hooks/useGeolocation';
 import styled from '@emotion/styled';
 import { useEffect, useState } from 'react';
 import { CustomOverlayMap, Map, MapMarker, MarkerClusterer } from 'react-kakao-maps-sdk';
+import { useSearchParams } from 'react-router-dom';
 
 /**
  * 내 주변 페이지
@@ -17,10 +18,14 @@ const geolocationOptions = {
 export default function AroundMe() {
   const { location: initialLocation, error } = useGeolocation(geolocationOptions);
 
-  const [location, setLocation] = useState(initialLocation);
-
-  const [level, setLevel] = useState(4);
+  const [searchParams, setSearchParams] = useSearchParams();
   const [map, setMap] = useState<kakao.maps.Map | null>(null);
+  const location = {
+    latitude: Number(searchParams.get('lat')),
+    longitude: Number(searchParams.get('lng')),
+  };
+  const level = Number(searchParams.get('level'));
+
   const { data } = useGetNearbyPickles(location, level);
   const nearbyPickle: any[] = data?.data || [];
 
@@ -28,12 +33,14 @@ export default function AroundMe() {
     function handleMapMove() {
       if (map === null) return;
       const level = map.getLevel();
-      setLevel(level);
-      const latlng = map.getCenter();
-      setLocation({
-        latitude: latlng.getLat(),
-        longitude: latlng.getLng(),
-      });
+      setSearchParams(
+        {
+          lat: map.getCenter().getLat() + '',
+          lng: map.getCenter().getLng() + '',
+          level: level + '',
+        },
+        { replace: true },
+      );
     }
     if (map) {
       kakao.maps.event.addListener(map, 'center_changed', handleMapMove);
@@ -46,8 +53,15 @@ export default function AroundMe() {
   });
 
   useEffect(() => {
-    if (initialLocation) {
-      setLocation(initialLocation);
+    if (initialLocation && searchParams.get('lat') === null && searchParams.get('lng') === null) {
+      setSearchParams(
+        {
+          lat: initialLocation.latitude + '',
+          lng: initialLocation.longitude + '',
+          level: '4',
+        },
+        { replace: true },
+      );
     }
   }, [initialLocation]);
 
@@ -70,9 +84,13 @@ export default function AroundMe() {
             alt="recenter"
             onClick={() => {
               map?.setCenter(new kakao.maps.LatLng(initialLocation.latitude, initialLocation.longitude));
-              // map?.setLevel(4);
-              setLocation(initialLocation);
-              // setLevel(4);
+              setSearchParams(
+                {
+                  lat: initialLocation.latitude + '',
+                  lng: initialLocation.longitude + '',
+                },
+                { replace: true },
+              );
             }}
           />
           <Map
@@ -106,11 +124,14 @@ export default function AroundMe() {
               onClusterclick={(_target, cluster) => {
                 map?.setCenter(cluster.getCenter());
                 map?.setLevel(2);
-                setLocation({
-                  latitude: cluster.getCenter().getLat(),
-                  longitude: cluster.getCenter().getLng(),
-                });
-                setLevel(2);
+                setSearchParams(
+                  {
+                    lat: cluster.getCenter().getLat() + '',
+                    lng: cluster.getCenter().getLng() + '',
+                    level: '2',
+                  },
+                  { replace: true },
+                );
               }}
               styles={[
                 {
@@ -136,11 +157,14 @@ export default function AroundMe() {
                   onClick={() => {
                     map?.setCenter(new kakao.maps.LatLng(pickle.latitude, pickle.longitude));
                     map?.setLevel(2);
-                    setLocation({
-                      latitude: pickle.latitude,
-                      longitude: pickle.longitude,
-                    });
-                    setLevel(2);
+                    setSearchParams(
+                      {
+                        lat: pickle.latitude + '',
+                        lng: pickle.longitude + '',
+                        level: '2',
+                      },
+                      { replace: true },
+                    );
                   }}
                   image={{
                     src: `${
