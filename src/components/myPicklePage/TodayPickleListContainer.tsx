@@ -149,6 +149,23 @@ export default function TodayPickleListContainer() {
   );
 }
 
+//버튼 disabled 판단 함수
+
+function isButtonDisabled(startHour: number, startMinute: number) {
+  const now = new Date();
+
+  const startTime = new Date();
+  startTime.setHours(startHour, startMinute, 0, 0);
+
+  const prev10 = new Date(startTime);
+  prev10.setMinutes(startTime.getMinutes() - 10);
+
+  const after10 = new Date(startTime);
+  after10.setMinutes(startTime.getMinutes() + 10);
+
+  return now >= prev10 && now <= after10;
+}
+
 const S = {
   Container: styled.div`
     width: 34.4rem;
