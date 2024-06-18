@@ -53,4 +53,14 @@ export const picklesRequests = Object.freeze({
       data: reviewData,
     });
   },
+  //진행중(투데이) 피클 조회
+  getProceedingPickles: async () => {
+    const { data } = await client.get(API_PICKLE.MY_PROCEEDING_PICKLES);
+    return data;
+  },
+  //끝난 피클 조회
+  getFinishPickles: async () => {
+    const { data } = await client.get(API_PICKLE.MY_FINISH_PICKLES);
+    return data;
+  },
 });
