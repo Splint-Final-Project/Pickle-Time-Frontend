@@ -28,6 +28,14 @@ export const TwoColumnGridTemplate = styled.div`
   }
 `;
 
+export const WishListGridTemplate = styled.div`
+  display: grid;
+  justify-content: center;
+  align-items: flex-start;
+  grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
+  row-gap: 2.8rem;
+`;
+
 export const MyDynamicTemplate = styled.div`
   padding: 2.3rem 1.6rem;
   color: ${({ theme }) => theme.color.basic};
