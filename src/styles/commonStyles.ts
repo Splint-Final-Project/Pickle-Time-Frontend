@@ -13,6 +13,7 @@ export const GridTemplate = styled.div`
 
 export const TwoColumnGridTemplate = styled.div`
   display: grid;
+  position: relative;
   justify-content: center;
   align-items: flex-start;
   grid-template-columns: 1fr 1fr;
