@@ -4,6 +4,7 @@ import Home from '@/pages/home/Home';
 import Conversation from '@/pages/chat/Conversation';
 import ConversationList from '@/pages/chat/ConversationList';
 import MyPage from '@/pages/profile/MyPage';
+import EditProfilePage from './pages/profile/EditProfilePage';
 
 import Admin from '@/pages/auth/Admin';
 import SignUp from '@/pages/auth/SignUp';
@@ -12,7 +13,7 @@ import SignUp2 from './pages/auth/SignUp2';
 import Pickle from '@/pages/pickles/Pickle';
 import JoinPickle from '@/pages/pickles/JoinPickle';
 
-import AroundMe from '@/pages/around/AroundMe';
+import MapSearch from './pages/mapsearch/MapSearch';
 
 import OAuthSuccessRedirector from './redirectors/OAuthSuccessRedirector';
 import LoginRedirector from './redirectors/LoginRedirector';
@@ -32,6 +33,7 @@ import routes from '@/constants/routes';
 import CreatePickle from './pages/pickles/CreatePickle';
 import MyPickles from '@/pages/pickles/MyPickles';
 
+
 const privateChildren = [
   {
     path: routes.admin,
@@ -50,11 +52,6 @@ const privateChildren = [
     element: <Conversation />,
   },
   {
-    path: routes.around,
-    element: <AroundMe />,
-  },
-
-  {
     path: routes.myPickles,
     element: <MyPickles />,
   },
@@ -69,6 +66,10 @@ const privateChildren = [
   {
     path: routes.mypage,
     element: <MyPage />,
+  },
+  {
+    path: routes.editProfile,
+    element: <EditProfilePage />,
   },
   {
     path: routes.signUp2,
@@ -112,8 +113,8 @@ const router = createBrowserRouter([
         element: <ConversationList />,
       },
       {
-        path: routes.around,
-        element: <AroundMe />,
+        path: routes.map,
+        element: <MapSearch />,
       },
       {
         path: '/oauth/*',

@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 
 import useGetMessages from '@/hooks/message/useGetMessages';
 import { useGetPickelDetail } from '@/hooks/query/pickles';
+
 import useConversation from '@/hooks/zustand/useConversation';
 import useSendMessage from '@/hooks/message/useSendMessage';
 import useListenMessages from '@/hooks/message/useListenMessage';
@@ -61,10 +62,10 @@ export default function Conversation() {
       </S.Header>
       <S.Gongji>
         <S.GongjiWrapper>
-          <img src={GongjiIcon}/>
+          <img src={GongjiIcon} />
           <S.GongjiText>공지</S.GongjiText>
         </S.GongjiWrapper>
-        <img src={BottomArrowIcon}/>
+        <img src={BottomArrowIcon} />
       </S.Gongji>
       <S.MessageContainer>
         {messages?.map((message: any) => (
@@ -122,8 +123,8 @@ const S = {
     width: 100%;
     height: 6.4rem;
     flex-shrink: 0;
-    border-radius: 0px 0px 2.0rem 2.0rem;
-    background: #E9F4F2;
+    border-radius: 0px 0px 2rem 2rem;
+    background: #e9f4f2;
   `,
 
   GongjiWrapper: styled.div`
@@ -131,9 +132,9 @@ const S = {
     justify-content: space-between;
     align-items: center;
   `,
-
+  
   GongjiText: styled.span`
-    color: #181F29;
+    color: #181f29;
     font-family: Pretendard;
     font-size: 1.4rem;
     font-weight: 500;

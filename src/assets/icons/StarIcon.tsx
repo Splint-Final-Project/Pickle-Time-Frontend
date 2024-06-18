@@ -1,8 +1,8 @@
 interface StarProps {
   size?: number;
   filled: boolean;
-  onClick: () => void;
-  onMouseEnter: () => void;
+  onClick?: () => void;
+  onMouseEnter?: () => void;
 }
 
 export default function StarIcon({ size = 30, filled = false, onMouseEnter, onClick }: StarProps) {
