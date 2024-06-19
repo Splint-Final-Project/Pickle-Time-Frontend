@@ -5,9 +5,10 @@ import Tilt from 'react-parallax-tilt';
 import { useGetFinishPickles, useGetProceedingPickles } from '@/hooks/query/pickles';
 import { useQueryClient } from '@tanstack/react-query';
 import { useSearchParams } from 'react-router-dom';
-import { useEffect, useMemo } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useGeolocation } from '@/hooks/useGeolocation';
 import isButtonActive from '@/utils/isButtonActive';
+import betweenLength from '@/utils/betweenLength';
 
 const TEST_DATA = [
   {
@@ -156,8 +157,8 @@ const TEST_DATA = [
 ];
 export default function TodayPickleListContainer() {
   const [searchParams, setSearchParams] = useSearchParams();
-  //무한 리렌더링 발생 오류
-  // const { location, error } = useGeolocation({ enableHighAccuracy: true, timeout: 5000 });
+  const [length, setLength] = useState(0);
+
   const currentPage = Number(searchParams.get('page')) || 1;
   const queryClient = useQueryClient();
 
@@ -168,14 +169,22 @@ export default function TodayPickleListContainer() {
     // alert(`${location?.longitude} ,${location?.latitude}`);
     //TODO : 출석을 누르면 경도 위도를 POST로 보내어 출석을 한다.
   };
-
+  useEffect(() => {
+    const length = async () => {
+      const result = await betweenLength({ latitude: 37.5547, longitude: 126.9706 });
+      console.log(result);
+      setLength(result);
+    };
+    length();
+  }, []);
+  console.log(length);
   return (
     <S.Container>
       <PagenationBar totalDataCount={TEST_DATA?.length} />
       <Tilt>
-       <TodayPickleCard cardData={TEST_DATA[currentPage - 1]} />
+        <TodayPickleCard cardData={TEST_DATA[currentPage - 1]} />
       </Tilt>
-       <S.AttendanceButton
+      <S.AttendanceButton
         onClick={handleAttendance}
         disabled={!isButtonActive(TEST_DATA[currentPage - 1].startHour, TEST_DATA[currentPage - 1].startMinute)}
       >
