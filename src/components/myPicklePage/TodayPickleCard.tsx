@@ -2,16 +2,31 @@ import styled from '@emotion/styled';
 import CardBackImg from '@/assets/images/todayPickleCardBackImg.svg';
 import ClockIcon from '@/assets/icons/ClockIcon';
 import AddressIcon from '@/assets/icons/AddressIcon';
-export default function TodayPickleCard() {
+
+type CardDataType = {
+  title: string;
+  finishDate: string;
+  time: string;
+  startTime: string;
+  address: string;
+  detailAddress: string;
+  isNearby?: boolean;
+};
+
+interface TodayPickleCardProps {
+  cardData: CardDataType;
+}
+
+export default function TodayPickleCard({ cardData }: TodayPickleCardProps) {
   return (
     <S.CardContainer>
       <S.Card>
         <S.CardHeader>
           <S.HeaderWrap>
             <S.CardLogo>오늘의 피클 타임</S.CardLogo>
-            <S.FinishDate>~ 09.11</S.FinishDate>
+            <S.FinishDate>{cardData.finishDate}</S.FinishDate>
           </S.HeaderWrap>
-          <S.CardTitle>토익 성적 850 목표 스터디</S.CardTitle>
+          <S.CardTitle>{cardData.title}</S.CardTitle>
         </S.CardHeader>
         <S.CardBody>
           <S.AlertMessage>! 피클 한 시간 전이에요</S.AlertMessage>
@@ -19,15 +34,16 @@ export default function TodayPickleCard() {
             <S.IconBox>
               <ClockIcon />
             </S.IconBox>
-            <span>01 : 00pm ~ 05 : 00pm</span>
+            <span>{cardData.time}</span>
           </S.PickleTime>
+          {cardData.isNearby && <S.AlertMessage>! 1km 남았어요</S.AlertMessage>}
           <S.PickleAddress>
             <S.IconBox>
               <AddressIcon />
             </S.IconBox>
             <span>
-              스타벅스 약수점 <br />
-              <S.RestAddress>서울특별시 중구 다산로 35 (건물 2층)</S.RestAddress>
+              {cardData.address} <br />
+              <S.RestAddress>{cardData.detailAddress}</S.RestAddress>
             </span>
           </S.PickleAddress>
         </S.CardBody>
@@ -62,11 +78,12 @@ const S = {
     background-size: contain;
     color: #fff;
     width: 100%;
+    min-height: 23.4rem;
     position: relative;
     z-index: 100;
   `,
   CardHeader: styled.div`
-    margin-bottom: 5.4rem;
+    margin-bottom: 2.7rem;
   `,
   HeaderWrap: styled.div`
     display: flex;

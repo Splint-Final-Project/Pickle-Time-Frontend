@@ -1,12 +1,11 @@
 import { useQuery, useInfiniteQuery, useMutation, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
-
+import { keepPreviousData } from '@tanstack/react-query';
 import { picklesRequests } from '@/apis/pickle.api';
 import { Coordinates, CreatePickleData, CreateReviewData } from '@/apis/types/pickles.type';
 import toast from 'react-hot-toast';
+import { useDebounce } from '@uidotdev/usehooks';
 
-interface PICKLE_DATA {
-
-}
+interface PICKLE_DATA {}
 
 // Domain: MOST_IMPORTANT
 export const useCreatePickleMutation = (pickleData: any) => {
@@ -35,12 +34,14 @@ export const useGetInfinitePickles = () => {
   });
 };
 
-export const useGetNearbyPickles = (location: Coordinates | null) => {
+export const useGetNearbyPickles = (location: Coordinates | null, level: number) => {
+  const locationquery = useDebounce(JSON.stringify([location, level]), 210);
   return useQuery({
-    queryKey: ['pickles', 'nearby'],
+    queryKey: ['pickles', 'nearby', JSON.parse(locationquery)],
 
-    queryFn: async () => await picklesRequests.getNearby(location),
+    queryFn: async () => await picklesRequests.getNearby(location, level),
 
+    placeholderData: keepPreviousData,
     refetchOnWindowFocus: true, // 포커스 될 때 재요청
     refetchIntervalInBackground: true, // 백그라운드 일 때 재요청 o
     refetchInterval: 300000,
@@ -94,5 +95,19 @@ export const useCreateReviewMutation = (pickleId: string, handleSuccess: () => v
       console.error(error);
       toast.error('리뷰 작성에 실패했습니다.');
     },
+  });
+};
+
+export const useGetProceedingPickles = () => {
+  return useQuery({
+    queryKey: ['pickles', 'proceeding'],
+    queryFn: async () => await picklesRequests.getProceedingPickles(),
+  });
+};
+
+export const useGetFinishPickles = () => {
+  return useQuery({
+    queryKey: ['pickles', 'finish'],
+    queryFn: async () => await picklesRequests.getFinishPickles(),
   });
 };

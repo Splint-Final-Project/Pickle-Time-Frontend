@@ -5,7 +5,7 @@ import { Coordinates, CreatePickleData, CreateReviewData } from './types/pickles
 export const picklesRequests = Object.freeze({
   // 피클 전체 목록조회
   get: async () => {
-    const { data } =  await client.get(`${API.PICKLE}`);
+    const { data } = await client.get(`${API.PICKLE}`);
     console.log(data);
     return data;
   },
@@ -19,10 +19,11 @@ export const picklesRequests = Object.freeze({
     return data;
   },
   // 가까운 피클
-  getNearby: async (location: Coordinates | null) => {
+  getNearby: async (location: Coordinates | null, level: number) => {
     if (location === null) return null;
     const { data } = await client.get(API_PICKLE.NEARBY, {
       params: {
+        level,
         latitude: location.latitude,
         longitude: location.longitude,
       },
@@ -51,7 +52,16 @@ export const picklesRequests = Object.freeze({
       data: reviewData,
     });
   },
-
+  //진행중(투데이) 피클 조회
+  getProceedingPickles: async () => {
+    const { data } = await client.get(API_PICKLE.MY_PROCEEDING_PICKLES);
+    return data;
+  },
+  //끝난 피클 조회
+  getFinishPickles: async () => {
+    const { data } = await client.get(API_PICKLE.MY_FINISH_PICKLES);
+    return data;
+  },
   createImgUrl: (imageFile: File) => {
     const formData = new FormData();
     formData.append('image', imageFile);

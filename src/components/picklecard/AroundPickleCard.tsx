@@ -3,6 +3,7 @@ import HeartButton from '@/components/common/button/HeartButton';
 import { useDeletePickleLikeMutation, useGetLikeCount, usePickleLikeMutation } from '@/hooks/query/like';
 import { When } from '@/apis/types/pickles.type';
 import { formatCurrency, formatDays, formatPeriod } from '@/utils/formatData';
+import { useNavigate } from 'react-router-dom';
 
 interface AroundPickleProps {
   pickleId: string;
@@ -14,6 +15,7 @@ interface AroundPickleProps {
 
 export default function AroundPickleCard({ pickleId, title, imgUrl, when, cost }: AroundPickleProps) {
   const { data } = useGetLikeCount(pickleId);
+  const navigate = useNavigate();
   const { mutate: postLikeMutate } = usePickleLikeMutation(pickleId);
   const { mutate: deleteLikeMutate } = useDeletePickleLikeMutation(pickleId);
 
@@ -32,9 +34,10 @@ export default function AroundPickleCard({ pickleId, title, imgUrl, when, cost }
   const date = formatPeriod(when);
   const days = formatDays(when);
 
+  //TODO 하트 달기 작동 안 함
   //TODO: 하트가 이미지 위에서 잘 안보이기 때문에 EmptyHeart에 border 좀 더 밝은색 띄울 수 있도록 해야함
   return (
-    <S.Container>
+    <S.Container onClick={() => navigate(`/pickle/${pickleId}`)}>
       <HeartButton
         $active={data?.data.isClicked}
         onClick={handleHeartClick}
@@ -59,17 +62,27 @@ export default function AroundPickleCard({ pickleId, title, imgUrl, when, cost }
 const S = {
   Container: styled.div`
     position: relative;
-    max-width: 32.2rem;
+    width: 322px;
+    height: 200px;
+    flex-shrink: 0;
     border-radius: 1.2rem;
+    background-color: #fff;
     box-shadow: 0 0 1rem 0 rgba(0, 0, 0, 0.05);
+    overflow: hidden;
+    cursor: pointer;
   `,
 
   ThumbnailImg: styled.img`
     width: 100%;
-    height: 12.3rem;
+    height: 123px;
     object-fit: cover;
-    border-top-left-radius: 1.2rem;
-    border-top-right-radius: 1.2rem;
+    background-color: #ccc;
+  `,
+
+  ThumbnailDiv: styled.div`
+    width: 100%;
+    height: 123px;
+    object-fit: cover;
     background-color: #ccc;
   `,
 
