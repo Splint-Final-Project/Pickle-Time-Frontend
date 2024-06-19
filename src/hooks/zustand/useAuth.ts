@@ -20,6 +20,7 @@ const useAuth = create(
         try {
           const res = await authRequests.signIn(data);
           set({ user: res.user });
+          console.log(res.user);
           return res.user.status;
         } catch (err) {
           console.log(err);
@@ -34,7 +35,7 @@ const useAuth = create(
         try {
           const res = await authRequests.signUp(data);
           set({ user: res.user });
-          console.log(res);
+          console.log(res.user);
         } catch (err) {
           console.log(err);
           throw new Error();
@@ -44,7 +45,7 @@ const useAuth = create(
         try {
           const res = await authRequests.signUp2(data);
           set({ user: res.user });
-          console.log(res);
+          console.log(res.user);
         } catch (err) {
           console.log(err);
           throw new Error();
