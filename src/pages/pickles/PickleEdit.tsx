@@ -17,8 +17,9 @@ import useBottomSheetModal from '@/hooks/zustand/useBottomSheetModal';
 import ConfirmationModal from '@/components/common/modal/ConfirmationModal';
 import { useEffect } from 'react';
 import usePickleEdit from '@/hooks/zustand/usePickleEdit';
-import { useGetPickelDetail } from '@/hooks/query/pickles';
+import { useEditPickleMutation, useGetPickelDetail } from '@/hooks/query/pickles';
 import useAuth from '@/hooks/zustand/useAuth';
+import toast from 'react-hot-toast';
 
 export default function PickleEdit() {
   const {
@@ -44,12 +45,30 @@ export default function PickleEdit() {
   const { handleOpen } = useBottomSheetModal(state => state);
   const { data } = useGetPickelDetail(id || '');
   const pickleDetailData = data?.data;
+  const { mutate } = useEditPickleMutation(id || '', {
+    title,
+    category,
+    imgUrl,
+    explanation,
+    goals,
+  });
+
+  function handleEdit() {
+    try {
+      mutate();
+      clear();
+      navigate('/pickle/' + id, { replace: true });
+    } catch (err) {
+      toast.error('피클 수정에 실패했습니다.');
+      console.log(err);
+    }
+  }
 
   useEffect(() => {
     if (pickleDetailData) {
       if (user?._id !== pickleDetailData.leader) {
         alert('피클 작성자만 수정할 수 있습니다.');
-        navigate('/pickle/' + id);
+        navigate('/pickle/' + id, { replace: true });
       }
       clear();
       setTitle(pickleDetailData.title || '');
@@ -123,11 +142,7 @@ export default function PickleEdit() {
                 </InputComponent>
                 <SubmitButton
                   disabled={isImgLoading || imgUrl === '' || explanation === '' || goals.length === 0}
-                  onClick={() => {
-                    // 수정하기 call
-                    clear();
-                    navigate('/pickle/' + id);
-                  }}
+                  onClick={() => handleEdit()}
                 >
                   수정하기
                 </SubmitButton>

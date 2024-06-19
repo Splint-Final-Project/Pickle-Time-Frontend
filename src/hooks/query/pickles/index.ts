@@ -23,6 +23,22 @@ export const useCreatePickleMutation = (pickleData: any) => {
   });
 };
 
+export const useEditPickleMutation = (pickleId: string, pickleData: any) => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async () => {
+      return await picklesRequests.editPickle(pickleId, pickleData);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['pickles'] });
+    },
+    onError: error => {
+      throw new Error('피클 수정에 실패했습니다.');
+    },
+  });
+};
+
 export const useGetInfinitePickles = () => {
   return useQuery({
     queryKey: ['pickles'],

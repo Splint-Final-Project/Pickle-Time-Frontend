@@ -60,13 +60,14 @@ export default function CreatePickle() {
                   handleOpen({
                     renderComponent: ConfirmationModal,
                     nocallback: () => {},
-                    yescallback: () => navigate('/'),
+                    yescallback: () => navigate('/', { replace: true }),
                     message: '작성중이던 피클은 임시 저장됩니다.',
                     yesText: '확인',
                     noText: '취소',
                   });
                 } else {
-                  navigate('/');
+                  clear();
+                  navigate('/', { replace: true });
                 }
               } else {
                 setStep((step - 1) as 1 | 2 | 3 | 4);
