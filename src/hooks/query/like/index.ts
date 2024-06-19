@@ -99,9 +99,15 @@ export const usePickleLikeMutation = (pickleId: string) => {
 export const useDeletePickleLikeMutation = (pickleId: string) => {
   const queryClient = useQueryClient();
   const { user } = useAuth();
+  const navigate = useNavigate();
 
   return useMutation({
-    mutationFn: async () => likeRequests.deletePickleLike(pickleId),
+    mutationFn: async () => {
+      if (!user) {
+        return navigate('/sign-in');
+      }
+      return likeRequests.deletePickleLike(pickleId);
+    },
     onMutate: async () => {
       await queryClient.cancelQueries({ queryKey: ['pickles', 'like', pickleId] });
       await queryClient.cancelQueries({ queryKey: ['pickles', 'myFavorites', 'ids'] });
