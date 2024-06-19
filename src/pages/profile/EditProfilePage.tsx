@@ -1,10 +1,18 @@
+import { useState } from 'react';
 import styled from '@emotion/styled';
+
 import BackButton from '@/components/common/button/BackButton';
 import Button from '@/components/common/button/Button';
+import ActivityArea from '@/components/my-page/edit/ActivityArea';
+import useAuth from '@/hooks/zustand/useAuth';
 import DefaultProfileIcon from '@/assets/icons/DefaultProfileIcon';
+import CancelIcon from '@/assets/icons/CancelIcon';
 import { BUTTON_TYPE } from '@/constants/BUTTON';
 
 export default function EditProfilePage() {
+  const { user } = useAuth();
+  const [nickname, setNickname] = useState(user.nickname);
+
   return (
     <>
       <S.TopSection>
@@ -12,34 +20,24 @@ export default function EditProfilePage() {
           <BackButton />
           <h1>프로필 수정</h1>
         </S.Header>
-        {/* 프로필섹션(이미지변경) 따로 분리 필요할듯 */}
         <S.ProfileBox>
-          <DefaultProfileIcon />
-          <S.NickName>닉네임</S.NickName>
+          {user.profilePic ? (
+            <img className="profile-img" src={user.profilePic} alt="프로필 이미지" />
+          ) : (
+            <DefaultProfileIcon />
+          )}
+          <S.NickName>
+            <input className="nickname" value={nickname} onChange={e => setNickname(e.target.value)} />
+            <CancelIcon style={{ position: 'absolute', top: '0.3rem', right: 0 }} />
+          </S.NickName>
+          <span className="email">{user.email}</span>
         </S.ProfileBox>
-        <S.ButtonBox>
-          <Button styleType={BUTTON_TYPE.DISABLE}>
-            <img src="/icons/pictureIcon.svg" />
-            라이브러리에서 선택
-          </Button>
-          <Button styleType={BUTTON_TYPE.DISABLE} style={{ marginTop: '1.2rem' }}>
-            <img src="/icons/aiIcon.svg" />
-            AI로 생성하기
-          </Button>
-        </S.ButtonBox>
       </S.TopSection>
 
       <S.BottomSection>
         <S.InnerWrap>
-          {/* 컴포넌트 분리 필요 */}
           <h2>주요 활동 범위</h2>
-          <div className="setting-box">
-            활동 범위 설정하기
-            <button onClick={() => console.log('모달 오픈')}>
-              <img src="icons/rightArrowIcon.svg" />
-            </button>
-          </div>
-          <div>설정했던 범위데이터들</div>
+          <ActivityArea areaCodes={user.areaCodes} />
           <Button styleType={BUTTON_TYPE.DISABLE} style={{ color: '#8B8D94', margin: '3.5rem 0 3.2rem' }}>
             프로필 설정 완료하기
           </Button>
@@ -72,22 +70,34 @@ const S = {
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 4.3rem 1.6rem 0;
+    gap: 1.3rem;
+    margin: 4.2rem 0 3.2rem;
+
+    & .profile-img {
+      width: 8.1rem;
+      height: 8.1rem;
+      border-radius: 1.5rem;
+      object-fit: cover;
+    }
+    & .email {
+      color: ${({ theme }) => theme.color.sub};
+      ${({ theme }) => theme.typography.body1};
+    }
   `,
 
-  NickName: styled.span`
-    margin: 1.4rem 0 0.8rem;
-    ${({ theme }) => theme.typography.body1}
-  `,
+  NickName: styled.div`
+    display: flex;
+    align-items: center;
+    position: relative;
+    width: 40%;
 
-  ButtonBox: styled.div`
-    border-top: 0.7px solid #d0d0d0;
-    padding-top: 1.7rem;
-
-    button {
-      display: flex;
-      justify-content: center;
-      align-items: center;
+    & .nickname {
+      width: 100%;
+      padding-bottom: 0.9rem;
+      border: none;
+      border-bottom: ${({ theme }) => theme.border};
+      text-align: center;
+      ${({ theme }) => theme.typography.subTitle3};
     }
   `,
 
@@ -105,18 +115,6 @@ const S = {
 
     h2 {
       ${({ theme }) => theme.typography.subTitle2};
-    }
-
-    & .setting-box {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-
-      margin: 1.6rem 0 2.2rem;
-      padding: 1.5rem 2rem;
-      border-radius: 1.5rem;
-      background-color: ${({ theme }) => theme.color.secondary2};
-      ${({ theme }) => theme.typography.body3};
     }
   `,
 
