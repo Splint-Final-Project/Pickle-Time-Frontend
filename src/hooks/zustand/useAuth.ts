@@ -28,6 +28,7 @@ const useAuth = create(
         }
       },
       setMe: (data: any) => {
+        console.log(data);
         set({ user: data });
       },
 

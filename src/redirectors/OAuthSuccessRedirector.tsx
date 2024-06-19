@@ -10,6 +10,7 @@ export default function OAuthSuccessRedirector() {
   const nickname = searchParams.get('nickname');
   const profilePic = searchParams.get('profilePic');
   const areaCodes = searchParams.get('areaCodes');
+  const areaCodesArray = areaCodes ? areaCodes.split(',').map(Number) : [];
   const oauthType = searchParams.get('oauthType');
   const oauthId = searchParams.get('oauthId');
 
@@ -19,7 +20,7 @@ export default function OAuthSuccessRedirector() {
       nickname,
       status,
       profilePic,
-      areaCodes,
+      areaCodes: areaCodesArray,
       oauthType,
       oauthId,
     });
