@@ -3,6 +3,7 @@ import PickleStateFilterBar, { pickleState } from './PickleStateFilterBar';
 import styled from '@emotion/styled';
 import MyPickleCard, { PickleDataType } from './MyPickleCard';
 import { useQueryClient } from '@tanstack/react-query';
+import { useGetFinishPickles } from '@/hooks/query/pickles';
 
 //TODO : api 연결 해서 보여주기
 export default function MyPickleListContainer() {
@@ -126,17 +127,23 @@ const TEST_DATA: PickleDataType[] = [
   },
 ];
 function MyPickleList({ currentState }: MyPickleListProps) {
-  // const [picklesList, setPicklesList] = useState<any>([]);
-  // const queryClient = useQueryClient();
-  // useEffect(() => {
-  //   switch (currentState) {
-  //     case 'progress':
-  //       const data = queryClient.getQueryData(['pickles', 'proceeding']);
-  //       setPicklesList(data);
-  //       break;
-  //   }
-
-  // }, [currentState, picklesList]);
+  const [picklesList, setPicklesList] = useState<any>([]);
+  const finishData = useGetFinishPickles();
+  const queryClient = useQueryClient();
+  useEffect(() => {
+    switch (currentState) {
+      case 'progress':
+        const { proceedingPickles } = queryClient.getQueryData(['pickles', 'proceeding']) as {
+          proceedingPickles: any[];
+        };
+        setPicklesList(proceedingPickles);
+        break;
+      case 'closed':
+        setPicklesList(finishData);
+        break;
+    }
+  }, [currentState]);
+  console.log(picklesList);
   const FilterData = TEST_DATA.filter(item => item.state === currentState);
   return (
     <S.List>
