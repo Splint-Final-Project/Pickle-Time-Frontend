@@ -39,7 +39,10 @@ export default function Pickle() {
         <BackButton />
         <S.TopBox>
           <Category category={pickleDetailData?.category} />
-          <button className="inquiry-btn" onClick={() => navigate(`${routes.chat}/${pickleId}/${pickleDetailData?.leader}`)}>
+          <button
+            className="inquiry-btn"
+            onClick={() => navigate(`${routes.chat}/${pickleId}/${pickleDetailData?.leader}`)}
+          >
             1:1문의하기
           </button>
         </S.TopBox>
@@ -77,7 +80,8 @@ export default function Pickle() {
               </Tag>
             ))}
           </S.GoalContainer>
-          <Button
+          {/* ToDo: 피클 신청하기 버튼 BottomNav없어지면 하단으로 내리기 */}
+          <S.FloatingButton
             className="apply-btn"
             disabled={(!amILeader && amIMember) || full}
             onClick={() =>
@@ -93,7 +97,7 @@ export default function Pickle() {
             }
           >
             {amILeader ? '피클 수정하기' : amIMember ? '신청됨' : full ? '마감됨' : '피클 신청하기'}
-          </Button>
+          </S.FloatingButton>
         </S.GoalAndBtn>
       </S.BottomSection>
     </S.Container>
@@ -157,6 +161,13 @@ const S = {
     margin-bottom: 2rem;
     object-fit: cover;
     border-radius: 0.4rem;
+
+    @media (min-width: 400px) {
+      height: 20rem;
+    }
+    @media (min-width: 500px) {
+      height: 40rem;
+    }
   `,
 
   BottomSection: styled.div`
@@ -181,6 +192,7 @@ const S = {
 
   GoalAndBtn: styled.div`
     padding: 2.6rem 3.4rem 13.6rem;
+    margin-bottom: 5rem;
 
     & .apply-btn {
       margin-top: 5rem;
@@ -194,4 +206,12 @@ const S = {
   `,
 
   ShareButton: styled.button``,
+  FloatingButton: styled(Button)`
+    position: fixed;
+    bottom: 10rem;
+    left: 50%;
+    max-width: 650px;
+    transform: translateX(-50%);
+    width: 80%;
+  `,
 };
