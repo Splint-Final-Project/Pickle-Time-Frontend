@@ -53,7 +53,7 @@ const S = {
     ${({ $isBackcolor }) =>
       $isBackcolor &&
       css`
-        background-color: #eef6ee;
+        background: #f2f2f2;
       `}
   `,
   Container: styled.div`

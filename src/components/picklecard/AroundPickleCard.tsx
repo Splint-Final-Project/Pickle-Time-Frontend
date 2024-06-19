@@ -19,13 +19,13 @@ export default function AroundPickleCard({ pickleId, title, imgUrl, when, cost }
   const { mutate: postLikeMutate } = usePickleLikeMutation(pickleId);
   const { mutate: deleteLikeMutate } = useDeletePickleLikeMutation(pickleId);
 
-  const handleHeartClick = (event: any) => {
-    event.preventDefault();
-    event.stopPropagation();
+  const handleHeartClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    e.stopPropagation();
 
-    if (data && data.data.length) {
+    if (data?.data.isClicked) {
       deleteLikeMutate();
-    } else if (data && !data.data.length) {
+    } else {
       postLikeMutate();
     }
   };
@@ -33,8 +33,6 @@ export default function AroundPickleCard({ pickleId, title, imgUrl, when, cost }
   const date = formatPeriod(when);
   const days = formatDays(when);
 
-  //TODO 하트 달기 작동 안 함
-  //TODO: 하트가 이미지 위에서 잘 안보이기 때문에 EmptyHeart에 border 좀 더 밝은색 띄울 수 있도록 해야함
   return (
     <S.Container onClick={() => navigate(`/pickle/${pickleId}`)}>
       <HeartButton

@@ -21,4 +21,14 @@ export const likeRequests = Object.freeze({
     const { data } = await client.delete(API_LIKE.DELETE(pickleId));
     return data;
   },
+
+  getMyFavorites: async () => {
+    const { data } = await client.get(API_LIKE.GETALL());
+    return data;
+  },
+
+  getMyFavoriteIds: async () => {
+    const { data } = await client.get(API_LIKE.GETIDS());
+    return data;
+  },
 });

@@ -43,6 +43,7 @@ export const totalMeetingTimesCalculate = ({
     startTime.hour > finishTime.hour ||
     (startTime.hour === finishTime.hour && startTime.minute > finishTime.minute)
   ) {
+    // console.log(startTime.hour, finishTime.hour, startTime.minute, finishTime.minute);
     console.log('StartTime이 finishTime보다 큰 경우 에러 발생');
     return { times: [] };
   }
@@ -52,7 +53,7 @@ export const totalMeetingTimesCalculate = ({
   for (let d = new Date(start); d <= finish; d.setDate(d.getDate() + 1)) {
     const dayOfWeek = d.getDay();
     const activeDay = selectedDays.find(dayIndex => dayIndex === dayOfWeek);
-    if (activeDay) {
+    if (activeDay !== undefined) {
       result.push(new Date(d));
     }
   }
