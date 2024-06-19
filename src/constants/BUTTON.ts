@@ -1,6 +1,7 @@
 export const BUTTON_TYPE = Object.freeze({
   PRIMARY: 'PRIMARY',
   SECONDARY: 'SECONDARY',
+  DISABLE: 'DISABLE',
 });
 
 export const ROUND_BUTTON_COLOR = Object.freeze({
