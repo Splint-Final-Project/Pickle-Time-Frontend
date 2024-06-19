@@ -6,6 +6,7 @@ const routes = {
   signInEmail: '/sign-in-email',
   admin: '/admin',
   chat: '/chat',
+  oneToOneChat: '/one-to-one-chat',
   chatList: '/chat-list',
   pickle: '/pickle',
   myPickles: '/my-pickles',

@@ -30,11 +30,10 @@ export default function AroundPickleCard({ pickleId, title, imgUrl, when, cost }
     }
   };
 
+
   const date = formatPeriod(when);
   const days = formatDays(when);
 
-  //TODO 하트 달기 작동 안 함
-  //TODO: 하트가 이미지 위에서 잘 안보이기 때문에 EmptyHeart에 border 좀 더 밝은색 띄울 수 있도록 해야함
   return (
     <S.Container onClick={() => navigate(`/pickle/${pickleId}`)}>
       <HeartButton
