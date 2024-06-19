@@ -103,7 +103,7 @@ export default function Home() {
   return (
     <div style={{ paddingBottom: '8.5rem' }}>
       <S.TopNavBarContainer>
-        <S.Logo src="images/logotext.svg" draggable={false} onClick={() => navigate('/')} />
+        <S.Logo src="images/logotext.svg" onClick={() => navigate('/')} />
         <S.Profile>
           {user ? (
             <>
