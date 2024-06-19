@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
 import PagenationBar from './PagenationBar';
 import TodayPickleCard from './TodayPickleCard';
+import Tilt from 'react-parallax-tilt';
 import { useGetFinishPickles, useGetProceedingPickles } from '@/hooks/query/pickles';
 import { useQueryClient } from '@tanstack/react-query';
 import { useSearchParams } from 'react-router-dom';
@@ -134,7 +135,9 @@ export default function TodayPickleListContainer() {
   return (
     <S.Container>
       <PagenationBar totalDataCount={TEST_DATA?.length} />
-      <TodayPickleCard cardData={TEST_DATA[currentPage - 1]} />
+      <Tilt>
+        <TodayPickleCard cardData={TEST_DATA[currentPage - 1]} />
+      </Tilt>
       <S.AttendanceButton>
         <span>출석하기</span>
       </S.AttendanceButton>

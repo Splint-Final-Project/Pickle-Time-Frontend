@@ -15,7 +15,7 @@ interface PickleCardListProps {
 
 const SLIDER_MOVE_VALUE = 288;
 
-//TODO : 데이터 없을시 보여줄 ui 디자인하기
+// 홈화면에서 보여주는 피클 카드 리스트
 export default function PickleCardList({ category }: PickleCardListProps) {
   const { data } = useGetSpecialPickles(category);
 
@@ -62,7 +62,11 @@ export default function PickleCardList({ category }: PickleCardListProps) {
                 </li>
               ))
             ) : (
-              <h1>회원님의 활동 지역 내에 모집중인 피클이 없습니다. [TODO: 이거 디자인]</h1>
+              <S.CardWrapper>
+                <S.CardLayer>
+                  <S.NoPicklesImg src="/images/noPickles.png" />
+                </S.CardLayer>
+              </S.CardWrapper>
             )}
             {/* 목데이터 */}
             {/* <PickleCardMockData /> */}
@@ -84,6 +88,26 @@ export default function PickleCardList({ category }: PickleCardListProps) {
 }
 
 const S = {
+  CardWrapper: styled.div`
+    display: flex;
+  `,
+  CardLayer: styled.div`
+    display: block;
+    margin: auto;
+
+    width: 29.6rem;
+    height: 16.5rem;
+    border-radius: 0.4rem;
+    background: #fff;
+    padding: 1.2rem 1.2rem 1.2rem 2.2rem;
+    color: #161616;
+    position: relative;
+    box-shadow: 0px 1px 2.8px 0px rgba(0, 0, 0, 0.25);
+    transition: 0.5s;
+  `,
+  NoPicklesImg: styled.img`
+    height: 100%;
+  `,
   ListViewBox: styled.div`
     margin-left: -2.8rem;
     margin-right: -2.8rem;

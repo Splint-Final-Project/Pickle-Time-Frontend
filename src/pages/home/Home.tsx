@@ -1,12 +1,7 @@
-import { Suspense, useEffect, useState } from 'react';
+import { Suspense, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import styled from '@emotion/styled';
-
-import KaKaoMap from '@/components/map/KaKaoMap';
 import BackDropModal from '@/components/common/modal/BackDropModal';
-import HeartButton from '@/components/common/button/HeartButton';
-import { useCreatePickleMutation } from '@/hooks/query/pickles';
-import MainLayout from '@/layouts/MainLayout';
 import Carousel from '@/components/carousel/Carousel';
 import PickleList from '@/components/picklecardlist/PickleCardListElement';
 import PickleCardList from '@/components/picklecardlist/PickleCardList';
@@ -141,8 +136,8 @@ export default function Home() {
       {/* 전체 피클 */}
       <PickleList.Container>
         <PickleList.Header category="total" />
-            <SortButtons />
-            <InfinitePickleCardList />
+        <SortButtons />
+        <InfinitePickleCardList />
       </PickleList.Container>
 
       <S.FloatingButton
