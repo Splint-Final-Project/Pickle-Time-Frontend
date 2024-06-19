@@ -19,20 +19,7 @@ export default function PickleListHeader({ title, summary, children }: HeaderPro
           </S.BackButton>
         </S.BackButtonWrapper>
         <S.Summary>{summary}</S.Summary>
-        <S.Title>
-          {title}
-          <S.ImgContainer>
-            <S.ImgWrapper>
-              <img src="/images/category1.svg" alt="" />
-            </S.ImgWrapper>
-            <S.ImgWrapper>
-              <img src="/images/category2.svg" alt="" />
-            </S.ImgWrapper>
-            <S.ImgWrapper>
-              <img src="/images/category3.svg" alt="" />
-            </S.ImgWrapper>
-          </S.ImgContainer>
-        </S.Title>
+        <S.Title>{title}</S.Title>
       </S.Section>
       {children}
     </S.Wrapper>

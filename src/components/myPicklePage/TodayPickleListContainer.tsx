@@ -1,6 +1,8 @@
 import styled from '@emotion/styled';
 import PagenationBar from './PagenationBar';
 import TodayPickleCard from './TodayPickleCard';
+import Tilt from 'react-parallax-tilt';
+import { useGetFinishPickles, useGetProceedingPickles } from '@/hooks/query/pickles';
 import { useQueryClient } from '@tanstack/react-query';
 import { useSearchParams } from 'react-router-dom';
 import { useEffect, useMemo } from 'react';
@@ -170,8 +172,10 @@ export default function TodayPickleListContainer() {
   return (
     <S.Container>
       <PagenationBar totalDataCount={TEST_DATA?.length} />
-      <TodayPickleCard cardData={TEST_DATA[currentPage - 1]} />
-      <S.AttendanceButton
+      <Tilt>
+       <TodayPickleCard cardData={TEST_DATA[currentPage - 1]} />
+      </Tilt>
+       <S.AttendanceButton
         onClick={handleAttendance}
         disabled={!isButtonActive(TEST_DATA[currentPage - 1].startHour, TEST_DATA[currentPage - 1].startMinute)}
       >
