@@ -2,41 +2,70 @@ import useAuth from '@/hooks/zustand/useAuth';
 import styled from '@emotion/styled';
 
 function extractTime(dateString: string) {
-	const date = new Date(dateString);
-	const hours = padZero(date.getHours());
-	const minutes = padZero(date.getMinutes());
-	return `${hours}:${minutes}`;
+  const date = new Date(dateString);
+  const hours = padZero(date.getHours());
+  const minutes = padZero(date.getMinutes());
+  return `${hours}:${minutes}`;
 }
 
 function padZero(number: number) {
-	return number.toString().padStart(2, "0");
+  return number.toString().padStart(2, '0');
 }
 
-export default function Message({message}: {message: any}) {
+export default function Message({ message }: { message: any }) {
   const { user } = useAuth();
-
+  const time = extractTime(message.updatedAt);
+  console.log(time);
   const fromMe = user?._id === message?.senderId;
 
   return (
     <S.Container fromMe={fromMe}>
-      <S.TextContainer>
-        <S.Text fromMe={fromMe}>{message?.message}</S.Text>
-      </S.TextContainer>
+      {fromMe ? (
+        <>
+          <S.OutSide fromMe={fromMe}>
+            <S.OutsideNumberText>1</S.OutsideNumberText>
+            <S.OutSideTimeText>{time}</S.OutSideTimeText>
+          </S.OutSide>
+          <S.MessageContainer fromMe={fromMe}>
+            <S.TextContainer>
+              <S.Text fromMe={fromMe}>{message?.message}</S.Text>
+            </S.TextContainer>
+          </S.MessageContainer>
+        </>
+      ) : (
+        <>
+          <S.MessageContainer fromMe={fromMe}>
+            <S.TextContainer>
+              <S.Text fromMe={fromMe}>{message?.message}</S.Text>
+            </S.TextContainer>
+          </S.MessageContainer>
+          <S.OutSide fromMe={fromMe}>
+            <S.OutsideNumberText>1</S.OutsideNumberText>
+            <S.OutSideTimeText>{time}</S.OutSideTimeText>
+          </S.OutSide>
+        </>
+      )}
     </S.Container>
-  )
+  );
 }
 
 const S = {
-  Container: styled.div<{fromMe: boolean}>`
+  Container: styled.div<{ fromMe: boolean }>`
+    align-self: ${props => (props.fromMe ? 'flex-end' : 'flex-start')};
+    position: relative;
     justify-content: center;
     align-items: center;
+    display: flex;
+    gap: 0.4em;
+  `,
+
+  MessageContainer: styled.div<{ fromMe: boolean }>`
     flex-shrink: 0;
     min-height: 4.1rem;
     max-width: 22.6rem;
     height: auto;
-    border-radius: ${(props) => (props.fromMe ? '2.0rem 1.0rem 2.0rem 2.0rem' : '1.0rem 2.0rem 2.0rem 2.0rem')};
-    background: ${(props) => (props.fromMe ? '#5DC26D' : '#F3F4F6')};
-    align-self: ${(props) => (props.fromMe ? 'flex-end' : 'flex-start')};
+    border-radius: ${props => (props.fromMe ? '2.0rem 1.0rem 2.0rem 2.0rem' : '1.0rem 2.0rem 2.0rem 2.0rem')};
+    background: ${props => (props.fromMe ? '#5DC26D' : '#F3F4F6')};
     word-wrap: break-word;
     margin: 0.5rem 0;
   `,
@@ -52,12 +81,38 @@ const S = {
     padding: 1rem;
     word-wrap: break-word;
   `,
-  Text: styled.span<{fromMe: boolean}>`
-    color: ${(props) => (props.fromMe ? '#FFF' : '#3F3F3F')};
+
+  Text: styled.span<{ fromMe: boolean }>`
+    color: ${props => (props.fromMe ? '#FFF' : '#3F3F3F')};
     font-family: Pretendard;
     font-size: 1.4rem;
     font-weight: 400;
     font-style: normal;
     line-height: normal;
-  `
-}
+  `,
+
+  OutSide: styled.div<{ fromMe: boolean }>`
+    display: flex;
+    flex-direction: column;
+    margin-bottom: -1.3rem;
+    align-items: ${props => (props.fromMe ? 'flex-end' : 'flex-start')};
+  `,
+
+  OutsideNumberText: styled.span`
+    color: #181f29;
+    font-family: Pretendard;
+    font-size: 1rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+  `,
+
+  OutSideTimeText: styled.span`
+    color: #8b8d94;
+    font-family: Pretendard;
+    font-style: normal;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: normal;
+  `,
+};
