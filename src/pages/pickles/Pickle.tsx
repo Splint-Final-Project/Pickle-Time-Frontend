@@ -87,7 +87,6 @@ export default function Pickle() {
               </Tag>
             ))}
           </S.GoalContainer>
-          {/* ToDo: 피클 신청하기 버튼 BottomNav없어지면 하단으로 내리기 */}
           <S.FloatingButton
             className="apply-btn"
             disabled={(!amILeader && amIMember) || full}
@@ -215,7 +214,7 @@ const S = {
   ShareButton: styled.button``,
   FloatingButton: styled(Button)`
     position: fixed;
-    bottom: 10rem;
+    bottom: 4rem;
     left: 50%;
     max-width: 650px;
     transform: translateX(-50%);

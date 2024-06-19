@@ -164,10 +164,6 @@ const router = createBrowserRouter([
         element: <Home />,
       },
       {
-        path: `${routes.pickle}/:pickleId`,
-        element: <Pickle />,
-      },
-      {
         path: '/pickle-join',
         element: <JoinPickle />,
       },
@@ -215,6 +211,10 @@ const router = createBrowserRouter([
       {
         path: routes.signInEmail,
         element: <SignIn_Email />,
+      },
+      {
+        path: `${routes.pickle}/:pickleId`,
+        element: <Pickle />,
       },
       {
         path: routes.picklePopularList,
