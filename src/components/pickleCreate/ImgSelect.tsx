@@ -1,5 +1,5 @@
 import usePickleCreation from '@/hooks/zustand/usePickleCreation';
-import { useRef, useState } from 'react';
+import { useRef } from 'react';
 import SelectInLibraryIcon from '/icons/selectInLibrary.svg';
 import GenerateAIICon from '/icons/generateAI.svg';
 import styled from '@emotion/styled';
@@ -34,7 +34,7 @@ export default function ImgSelect() {
 
         if (imageUrlInStorage?.data.url) {
           setImgUrl(imageUrlInStorage?.data.url);
-          console.log(imageUrlInStorage?.data.url)
+          console.log(imageUrlInStorage?.data.url);
         }
       } else {
         throw new Error('이미지 생성 실패');
@@ -45,7 +45,6 @@ export default function ImgSelect() {
       setIsImgLoading(false);
     }
   };
-
 
   const handleClickSelect = (imageInput: any) => {
     imageInput.current.click();
@@ -74,7 +73,7 @@ export default function ImgSelect() {
     <S.Container>
       <S.Text>대표 이미지를 설정해 주세요</S.Text>
       <S.ImgSelectContainer>
-        <S.ImgContainer>
+        <S.ImgContainer hasImage={!!imgUrl}>
           {isImgLoading ? (
             <Spinner />
           ) : imgUrl ? (
@@ -118,8 +117,7 @@ const S = {
     line-height: normal;
   `,
 
-  ImgContainer: styled.div`
-    /* cursor: pointer; */
+  ImgContainer: styled.div<{ hasImage: boolean }>`
     display: flex;
     justify-content: center;
     align-items: center;
@@ -128,6 +126,17 @@ const S = {
     flex-shrink: 0;
     border-radius: 0.4rem;
     background: #d9d9d9;
+
+    ${({ hasImage }) =>
+      hasImage &&
+      `
+      @media (min-width: 400px) {
+        height: 20rem;
+      }
+      @media (min-width: 500px) {
+        height: 40rem;
+      }
+    `}
   `,
 
   ImgText: styled.span`
