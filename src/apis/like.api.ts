@@ -26,4 +26,9 @@ export const likeRequests = Object.freeze({
     const { data } = await client.get(API_LIKE.GETALL());
     return data;
   },
+
+  getMyFavoriteIds: async () => {
+    const { data } = await client.get(API_LIKE.GETIDS());
+    return data;
+  },
 });

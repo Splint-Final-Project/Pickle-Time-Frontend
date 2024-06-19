@@ -7,13 +7,22 @@ import { useNavigate } from 'react-router-dom';
 
 type HandleSuccessFunction = (data: any) => void;
 
-export const useMyFavoritePickles = () => {
+// export const useMyFavoritePickles = () => {
+//   return useQuery({
+//     queryKey: ['pickles', 'myFavorites'],
+//     queryFn: async () => await likeRequests.getMyFavorites(),
+//   });
+// };
+
+// 내가 찜한 피클들의 id만 가져오기
+export const useMyFavoritePickleIds = () => {
   return useQuery({
-    queryKey: ['pickles', 'myFavorites'],
-    queryFn: async () => await likeRequests.getMyFavorites(),
+    queryKey: ['pickles', 'myFavorites', 'ids'],
+    queryFn: async () => await likeRequests.getMyFavoriteIds(),
   });
 };
 
+// 내가 찜한 피클들을 가져오기
 export const useGetLikePickles = () => {
   return useInfiniteQuery({
     queryKey: ['pickles', 'like'],
@@ -35,20 +44,23 @@ export const useGetLikePickles = () => {
   });
 };
 
-export const useGetLikePickle = (pickleId: string) => {
-  return useQuery({
-    queryKey: ['pickles', 'like', pickleId],
-    queryFn: async () => await likeRequests.getPickle(pickleId),
-  });
-};
+// Legacy code
+// export const useGetLikePickle = (pickleId: string) => {
+//   return useQuery({
+//     queryKey: ['pickles', 'like', pickleId],
+//     queryFn: async () => await likeRequests.getPickle(pickleId),
+//   });
+// };
 
+// 피클의 찜한 개수와 내가 찜했는지를 가져오기 (찜 단건조회)
 export const useGetLikeCount = (pickleId: string) => {
   return useQuery({
-    queryKey: ['pickles', 'like', pickleId, 'likeCount'],
+    queryKey: ['pickles', 'like', pickleId],
     queryFn: async () => await picklesRequests.getLikeCount(pickleId),
   });
 };
 
+//피클 찜하기
 export const usePickleLikeMutation = (pickleId: string) => {
   const queryClient = useQueryClient();
   const { user } = useAuth();
@@ -61,7 +73,21 @@ export const usePickleLikeMutation = (pickleId: string) => {
       }
       return likeRequests.likePickle(pickleId);
     },
-    onSuccess: () => queryClient.invalidateQueries({ queryKey: ['pickles', 'like', pickleId] }),
+    onMutate: async () => {
+      await queryClient.cancelQueries({ queryKey: ['pickles', 'like', pickleId] });
+      await queryClient.cancelQueries({ queryKey: ['pickles', 'myFavorites', 'ids'] });
+      let previousData: any = queryClient.getQueryData(['pickles', 'like', pickleId]);
+      queryClient.setQueryData(['pickles', 'like', pickleId], {
+        data: { ...previousData.data, isClicked: true },
+      });
+      previousData = queryClient.getQueryData(['pickles', 'myFavorites', 'ids']);
+      queryClient.setQueryData(['pickles', 'myFavorites', 'ids'], [...previousData.data, pickleId]);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['pickles', 'like', pickleId] });
+      queryClient.invalidateQueries({ queryKey: ['pickles', 'myFavorites'] });
+      queryClient.invalidateQueries({ queryKey: ['pickles', 'myFavorites', 'ids'] });
+    },
     onError: error => {
       console.log(error);
       toast.error('피클을 찜하지 못했습니다!');
@@ -69,11 +95,31 @@ export const usePickleLikeMutation = (pickleId: string) => {
   });
 };
 
+//피클 찜 취소하기
 export const useDeletePickleLikeMutation = (pickleId: string) => {
   const queryClient = useQueryClient();
+  const { user } = useAuth();
 
   return useMutation({
-    mutationFn: () => likeRequests.deletePickleLike(pickleId),
-    onSuccess: () => queryClient.invalidateQueries({ queryKey: ['pickles', 'like', pickleId] }),
+    mutationFn: async () => likeRequests.deletePickleLike(pickleId),
+    onMutate: async () => {
+      await queryClient.cancelQueries({ queryKey: ['pickles', 'like', pickleId] });
+      await queryClient.cancelQueries({ queryKey: ['pickles', 'myFavorites', 'ids'] });
+      let previousData: any = queryClient.getQueryData(['pickles', 'like', pickleId]);
+      queryClient.setQueryData(['pickles', 'like', pickleId], {
+        data: { ...previousData.data, isClicked: false },
+      });
+      previousData = queryClient.getQueryData(['pickles', 'myFavorites', 'ids']);
+      console.log(previousData.data);
+      queryClient.setQueryData(
+        ['pickles', 'myFavorites', 'ids'],
+        previousData.data?.filter((id: any) => id !== pickleId),
+      );
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['pickles', 'like', pickleId] });
+      queryClient.invalidateQueries({ queryKey: ['pickles', 'myFavorites'] });
+      queryClient.invalidateQueries({ queryKey: ['pickles', 'myFavorites', 'ids'] });
+    },
   });
 };

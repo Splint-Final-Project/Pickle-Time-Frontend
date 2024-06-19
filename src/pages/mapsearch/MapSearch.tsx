@@ -1,5 +1,5 @@
 import AroundPickleCard from '@/components/picklecard/AroundPickleCard';
-import { useMyFavoritePickles } from '@/hooks/query/like';
+import { useMyFavoritePickleIds } from '@/hooks/query/like';
 import { useGetNearbyPickles } from '@/hooks/query/pickles';
 import { useGeolocation } from '@/hooks/useGeolocation';
 import styled from '@emotion/styled';
@@ -37,12 +37,12 @@ export default function MapSearch() {
   const [map, setMap] = useState<kakao.maps.Map | null>(null);
 
   const { data } = useGetNearbyPickles(location, level);
-  const { data: favorites } = useMyFavoritePickles();
+  const { data: favoriteIds } = useMyFavoritePickleIds();
   let nearbyPickle: any[] = data?.data || [];
   if (activeTabs.has('찜')) {
     console.log('찜');
     nearbyPickle = nearbyPickle.filter((pickle: any) => {
-      return favorites?.data?.find((favorite: any) => favorite.id === pickle.id);
+      return favoriteIds?.data?.find((favoriteId: any) => favoriteId === pickle.id);
     });
     nearbyPickle = nearbyPickle.filter((pickle: any) => {
       if (activeTabs.size === 1) return true;
@@ -194,7 +194,7 @@ export default function MapSearch() {
           )}
           <Map
             center={{ lat: location.latitude, lng: location.longitude }}
-            style={{ width: '100%', height: '100%', marginTop: '-70px' }}
+            style={{ width: '100%', height: 'calc(100% + 70px)', marginTop: '-140px' }}
             level={level}
             onCreate={setMap}
           >
