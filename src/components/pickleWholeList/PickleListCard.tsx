@@ -19,7 +19,7 @@ const calculateDday = (deadLine: string) => {
   const deadLineMilliseconds = new Date(deadLine).getTime();
   return Math.floor((deadLineMilliseconds - today) / ONEDAY_MILLISECOND);
 };
-
+// 전체보기 눌렀을 때 나오는 화면에서 사용
 export default function PickleListCard({ category }: PickleCardListProps) {
   const { data } = useGetSpecialPickles(category);
 
@@ -28,7 +28,7 @@ export default function PickleListCard({ category }: PickleCardListProps) {
       {data?.length ? (
         data.map((pickle: any) => <SpecialPickleCard key={pickle.id} pickleData={pickle} />)
       ) : (
-        <h1>회원님의 활동 지역 내에 모집중인 피클이 없습니다. [TODO: 이거 디자인]</h1>
+        <S.NoPicklesImg src="/images/noPickles.png" />
       )}
       {/* <PickleCardListMockData /> */}
     </>
@@ -74,6 +74,13 @@ function SpecialPickleCard({ pickleData }: { pickleData: any }) {
 }
 
 const S = {
+  NoPicklesImg: styled.img`
+    position: absolute;
+    width: 80%;
+    left: 50%;
+    top: 1rem;
+    transform: translate(-50%, 0);
+  `,
   CardLayer: styled(Link)`
     display: block;
     margin: auto;
