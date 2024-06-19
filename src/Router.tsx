@@ -127,7 +127,11 @@ const router = createBrowserRouter([
             element: <PickleCreationRedirector />,
           },
           {
-            path: `${routes.chat}/:pickleId/:leaderId`,
+            path: `${routes.oneToOneChat}/:pickleId/:leaderId`,
+            element: <OneToOne />,
+          },
+          {
+            path: `${routes.chat}/:pickleId/:conversationId`,
             element: <Conversation />,
           },
           {
