@@ -14,9 +14,9 @@ interface ChatListProps {
 
 export default function ChatList({ currentCategory, searchValue }: ChatListProps) {
   const regex = new RegExp(searchValue, 'i');
-
+  console.log(searchValue);
   // server state
-  const { data } = useGetConversations();
+  const { data } = useGetConversations(currentCategory);
 
   return (
     <S.Container>
@@ -41,13 +41,7 @@ export default function ChatList({ currentCategory, searchValue }: ChatListProps
 }
 
 function ChatListItem({ chatData }: { chatData: any }) {
-  const { user } = useAuth();
-
   const time = timeParsed(chatData.updatedAt);
-  console.log(chatData)
-  // const notMe = chatData?.participants.find((participant: []) => participant.toString() !== user._id.toString());
-  // const params = new URLSearchParams({ leader: notMe });
-  // console.log(params.toString());
 
   return (
     <S.Item to={{

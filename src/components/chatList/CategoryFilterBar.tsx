@@ -31,11 +31,6 @@ const TAB_LIST: TabListType[] = [
     text: '진행 중',
     value: '진행 중',
   },
-  // {
-  //   id: 4,
-  //   text: '스터디',
-  //   value: '스터디',
-  // },
 ];
 
 export default function CategoryFilterBar({ setCategory, currentCategory, resetInputValue }: CategoryFilterBarProps) {
