@@ -1863,6 +1863,11 @@ react-list@^0.8.13:
   dependencies:
     prop-types "15"
 
+react-parallax-tilt@^1.7.228:
+  version "1.7.228"
+  resolved "https://registry.yarnpkg.com/react-parallax-tilt/-/react-parallax-tilt-1.7.228.tgz#a8a548658546579f81a65ac67a0e0e709a9c1d13"
+  integrity sha512-dACuwQ+yOk47rjWYCYk1PGqIEA7lQM3x7kVeWrhxXleclyYPEJwdD8/EmjpileaH443dgLmNKHYf8366SjnR8g==
+
 react-refresh@^0.14.2:
   version "0.14.2"
   resolved "https://registry.npmjs.org/react-refresh/-/react-refresh-0.14.2.tgz"

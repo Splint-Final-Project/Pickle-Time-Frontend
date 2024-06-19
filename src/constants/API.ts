@@ -43,6 +43,7 @@ export const API_PICKLE = Object.freeze({
 export const API_LIKE = Object.freeze({
   GET: (pickleId: string) => `${API.LIKE}/${pickleId}`,
   GETALL: () => `${API.LIKE}`,
+  GETIDS: () => `${API.LIKE}/ids`,
   CREATE: (pickleId: string) => `${API.LIKE}/${pickleId}`,
   DELETE: (pickleId: string) => `${API.LIKE}/${pickleId}`,
 });

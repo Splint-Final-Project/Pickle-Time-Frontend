@@ -14,6 +14,14 @@ export const buttonStyleByType = {
     background-color: ${theme.color.white};
     color: ${theme.color.primary};
   `,
+
+  DISABLE: `
+  background-color: ${theme.color.category};
+  border-radius: 0.4rem
+  color:  ${theme.color.sub};
+  ${theme.typography.body1}
+  
+  `,
 };
 
 export const roundButtonStyle = {
