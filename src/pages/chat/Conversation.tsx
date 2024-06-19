@@ -24,7 +24,7 @@ import routes from '@/constants/routes';
 export default function Conversation() {
   const navigate = useNavigate();
   const { pickleId='', conversationId = '' } = useParams();
-  const lastMessageRef = useRef(null);
+  const lastMessageRef = useRef<HTMLDivElement | null>(null);
 
   // server state
   const { data: pickleData } = useGetPickelDetail(pickleId);
