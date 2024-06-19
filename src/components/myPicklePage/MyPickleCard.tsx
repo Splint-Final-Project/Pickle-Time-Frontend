@@ -5,6 +5,8 @@ import CategoryBgHobby from '@/assets/images/categoryBgHobby.png';
 import CategoryBgExercise from '@/assets/images/categoryBgExercise.png';
 import { pickleState } from './PickleStateFilterBar';
 import { css } from '@emotion/react';
+import useBottomSheetModal from '@/hooks/zustand/useBottomSheetModal';
+import ReviewModal from '../my-page/review/ReviewModal';
 
 type CategoryType = '운동' | '취미' | '스터디';
 export type PickleDataType = {
@@ -21,9 +23,10 @@ interface MyPickleCardProps {
 }
 
 export default function MyPickleCard({ pickleData }: MyPickleCardProps) {
+  const { handleOpen } = useBottomSheetModal(state => state);
   const handleClickReview = (e: React.MouseEvent) => {
     e.stopPropagation();
-    alert('리뷰모달 오픈');
+    handleOpen({ renderComponent: ReviewModal });
   };
   return (
     <S.Card>
