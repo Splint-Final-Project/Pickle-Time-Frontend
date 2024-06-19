@@ -53,6 +53,10 @@ const S = {
     }
   `,
   Tab: styled.button<{ $active: boolean }>`
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+    -ms-user-select: none; /* 인터넷익스플로러 */
+    user-select: none;
     font-size: 1.4rem;
     display: inline-flex;
     align-items: center;
