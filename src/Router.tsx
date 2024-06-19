@@ -28,6 +28,7 @@ import PopularPickleList from '@/pages/pickles/PopularPickleList';
 import HotTimePickleList from '@/pages/pickles/HotTimePickleList';
 import PickleJoinRedirector from './redirectors/PickleJoinRedirector';
 import PickleCreationRedirector from './redirectors/PickleCreationRedirector';
+import OneToOne from '@/pages/chat/OneToOne';
 
 import routes from '@/constants/routes';
 import CreatePickle from './pages/pickles/CreatePickle';

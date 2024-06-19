@@ -30,6 +30,7 @@ export default function AroundPickleCard({ pickleId, title, imgUrl, when, cost }
     }
   };
 
+
   const date = formatPeriod(when);
   const days = formatDays(when);
 
