@@ -210,7 +210,7 @@ const S = {
     }
   `,
   PaymentButton: styled.button`
-    margin: 0 20px;
+    margin: 0 20px 120px;
     height: 42px;
     border-radius: 4px;
     background-color: var(--Main-Color, #5dc26d);
