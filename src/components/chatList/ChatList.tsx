@@ -44,10 +44,16 @@ function ChatListItem({ chatData }: { chatData: any }) {
   const { user } = useAuth();
 
   const time = timeParsed(chatData.updatedAt);
-  const notMe = chatData?.participants.find((participant: []) => participant.toString() !== user._id.toString());
+  console.log(chatData)
+  // const notMe = chatData?.participants.find((participant: []) => participant.toString() !== user._id.toString());
+  // const params = new URLSearchParams({ leader: notMe });
+  // console.log(params.toString());
 
   return (
-    <S.Item to={`${routes.chat}/${chatData.pickleId}/${notMe}`}>
+    <S.Item to={{
+      pathname: `${routes.chat}/${chatData?.pickleId}/${chatData._id}`,
+      // search: params.toString(),
+    }}>
       <S.ItemInner>
         <S.ItemImg alt="피클 이미지" src={chatData.imageUrl} />
         <S.ItemTextContent>

@@ -27,16 +27,13 @@ import PopularPickleList from '@/pages/pickles/PopularPickleList';
 import HotTimePickleList from '@/pages/pickles/HotTimePickleList';
 import PickleJoinRedirector from './redirectors/PickleJoinRedirector';
 import PickleCreationRedirector from './redirectors/PickleCreationRedirector';
+import OneToOne from '@/pages/chat/OneToOne';
 
 import routes from '@/constants/routes';
 import CreatePickle from './pages/pickles/CreatePickle';
 import MyPickles from '@/pages/pickles/MyPickles';
 
-const privateChildren = [
-  {
-    path: routes.admin,
-    element: <Admin />,
-  },
+const simpleChildren = [
   {
     path: '/pickle-join/:id',
     element: <JoinPickle />,
@@ -44,19 +41,6 @@ const privateChildren = [
   {
     path: '/pickle-create',
     element: <CreatePickle />,
-  },
-  {
-    path: routes.chat,
-    element: <Conversation />,
-  },
-  {
-    path: routes.around,
-    element: <AroundMe />,
-  },
-
-  {
-    path: routes.myPickles,
-    element: <MyPickles />,
   },
   {
     path: routes.pickleJoinRedirect,
@@ -67,22 +51,89 @@ const privateChildren = [
     element: <PickleCreationRedirector />,
   },
   {
-    path: routes.mypage,
-    element: <MyPage />,
-  },
-  {
     path: routes.signUp2,
     element: <SignUp2 />,
+  },
+  {
+    path: `${routes.oneToOneChat}/:pickleId/:leaderId`,
+    element: <OneToOne />,
+  },
+  {
+    path: `${routes.chat}/:pickleId/:conversationId`,
+    element: <Conversation />,
+  },
+];
+
+const children = [
+  // {
+  //   path: routes.admin,
+  //   element: <Admin />,
+  // },
+  {
+    path: routes.chat,
+    element: <Conversation />,
+  },
+  {
+    path: routes.myPickles,
+    element: <MyPickles />,
+  },
+  {
+    path: routes.mypage,
+    element: <MyPage />,
   },
   {
     path: routes.chatList,
     element: <ConversationList />,
   },
-  {
-    path: `${routes.chat}/:pickleId/:leaderId`,
-    element: <Conversation />,
-  },
 ];
+
+// const privateChildren = [
+//   {
+//     path: routes.admin,
+//     element: <Admin />,
+//   },
+//   {
+//     path: '/pickle-join/:id',
+//     element: <JoinPickle />,
+//   },
+//   {
+//     path: '/pickle-create',
+//     element: <CreatePickle />,
+//   },
+//   {
+//     path: routes.chat,
+//     element: <Conversation />,
+//   },
+//   {
+//     path: routes.around,
+//     element: <AroundMe />,
+//   },
+
+//   {
+//     path: routes.myPickles,
+//     element: <MyPickles />,
+//   },
+//   {
+//     path: routes.pickleJoinRedirect,
+//     element: <PickleJoinRedirector />,
+//   },
+//   {
+//     path: routes.pickleCreateRedirect,
+//     element: <PickleCreationRedirector />,
+//   },
+//   {
+//     path: routes.mypage,
+//     element: <MyPage />,
+//   },
+//   {
+//     path: routes.signUp2,
+//     element: <SignUp2 />,
+//   },
+//   {
+//     path: routes.chatList,
+//     element: <ConversationList />,
+//   },
+// ];
 
 const router = createBrowserRouter([
   {
@@ -127,7 +178,7 @@ const router = createBrowserRouter([
       {
         path: '',
         element: <LoginRedirector />,
-        children: [...privateChildren],
+        children: [...children],
       },
     ],
   },
@@ -159,7 +210,7 @@ const router = createBrowserRouter([
       {
         path: '',
         element: <LoginRedirector />,
-        children: [...privateChildren],
+        children: [...simpleChildren],
       },
     ],
   },

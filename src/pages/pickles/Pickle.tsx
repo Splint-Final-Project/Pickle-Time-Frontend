@@ -31,7 +31,9 @@ export default function Pickle() {
   const full = pickleDetailData?.capacity <= pickleDetailData?.participantNumber;
   // console.log(pickleDetailData.imgUrl)
 
+
   const { handleOpen } = useBottomSheetModal(state => state);
+
 
   return (
     <S.Container>
@@ -39,7 +41,9 @@ export default function Pickle() {
         <BackButton />
         <S.TopBox>
           <Category category={pickleDetailData?.category} />
-          {!amILeader && <button className="inquiry-btn" onClick={() => navigate(`${routes.chat}/${pickleId}/${pickleDetailData?.leader}`)}>
+          {!amILeader && <button className="inquiry-btn" onClick={() => navigate({
+            pathname: `${routes.oneToOneChat}/${pickleId}/${pickleDetailData?.leader}`,
+          })}>
             1:1문의하기
           </button>}
         </S.TopBox>

@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 
-import { useGetMessages } from '@/hooks/message/useGetMessages';
+import { useGetMessagesInOneToOne } from '@/hooks/message/useGetMessages';
 import { useGetPickelDetail } from '@/hooks/query/pickles';
 import useConversation from '@/hooks/zustand/useConversation';
-import { useSendMessage } from '@/hooks/message/useSendMessage';
+import { useSendMessageOneToOne } from '@/hooks/message/useSendMessage';
 import useListenMessages from '@/hooks/message/useListenMessage';
 
 import Message from '@/components/message/Message';
@@ -20,19 +20,20 @@ import { S } from './Chat.style'
 import useAuth from '@/hooks/zustand/useAuth';
 import routes from '@/constants/routes';
 
-export default function Conversation() {
+
+export default function OneToOne() {
   const navigate = useNavigate();
-  const { pickleId='', conversationId = '' } = useParams();
+  const { leaderId = '', pickleId='' } = useParams();
 
   // server state
   const { data: pickleData } = useGetPickelDetail(pickleId);
 
   // global state
   const { user } = useAuth();
-  const { setConversationId, setPickleId, clear } = useConversation();
-  const { messages, loading } = useGetMessages();
-  const { sendMessage } = useSendMessage();
-
+  const { setLeaderId, setPickleId, clear } = useConversation();
+  const { messages, loading } = useGetMessagesInOneToOne();
+  const { sendMessage } = useSendMessageOneToOne();
+  
   // local state
   const [message, setMessage] = useState("");
 
@@ -54,9 +55,9 @@ export default function Conversation() {
 
   // 전역 상태 리셋
   useEffect(() => {
-    setConversationId(conversationId);
+    setLeaderId(leaderId);
     setPickleId(pickleId);
-  }, [user, conversationId, pickleId]);
+  }, [user, leaderId, pickleId]);
 
   return (
     <S.Container>

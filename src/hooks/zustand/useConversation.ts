@@ -1,21 +1,27 @@
 import { create } from "zustand";
 
 interface conversationType {
-	selectedConversation: any;
+	leaderId: string;
 	pickleId: string;
+	conversationId: string;
 	messages: [];
-	setSelectedConversation: (selectedConversation: any) => void;
+	setLeaderId: (leaderId: string) => void;
 	setPickleId: (pickleId: string) => void;
 	setMessages: (messages: any) => void;
+	setConversationId: (conversationId: string) => void;
+	clear: () => void;
 }
 
 const useConversation = create<conversationType>((set) => ({
-	selectedConversation: null,
+	leaderId: "",
 	pickleId: "",
 	messages: [],
+	conversationId: "",
 	setPickleId: (pickleId: string) => set({ pickleId }),
-	setSelectedConversation: (selectedConversation: any) => set({ selectedConversation }),
+	setLeaderId: (leaderId: string) => set({ leaderId }),
 	setMessages: (messages: any) => set({ messages }),
+	setConversationId: (conversationId: string) => set({ conversationId }),
+	clear: () => set({leaderId:'', pickleId: '', messages: [], conversationId: ''})
 }));
 
 export default useConversation;

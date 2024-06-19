@@ -22,13 +22,13 @@ export default function WholePickleCard({ id: pickleId, type, title, when, cost 
   const { mutate: postLikeMutate } = usePickleLikeMutation(pickleId);
   const { mutate: deleteLikeMutate } = useDeletePickleLikeMutation(pickleId);
 
-  const handleHeartClick = (event: any) => {
-    event.preventDefault();
-    event.stopPropagation();
+  const handleHeartClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    e.stopPropagation();
 
-    if (data && data.data.length) {
+    if (data?.data.isClicked) {
       deleteLikeMutate();
-    } else if (data && !data.data.length) {
+    } else {
       postLikeMutate();
     }
   };
