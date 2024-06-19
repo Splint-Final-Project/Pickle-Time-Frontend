@@ -2,12 +2,10 @@ import styled from '@emotion/styled';
 import PagenationBar from './PagenationBar';
 import TodayPickleCard from './TodayPickleCard';
 import Tilt from 'react-parallax-tilt';
-import { useGetFinishPickles, useGetProceedingPickles } from '@/hooks/query/pickles';
 import { useQueryClient } from '@tanstack/react-query';
 import { useSearchParams } from 'react-router-dom';
 import { useEffect, useMemo, useState } from 'react';
-import { useGeolocation } from '@/hooks/useGeolocation';
-import isButtonActive from '@/utils/isButtonActive';
+import { isButtonActive, getTimeGapMessage } from '@/utils/todayPickleCardUtils';
 import betweenLength from '@/utils/betweenLength';
 
 const TEST_DATA = [
@@ -157,9 +155,11 @@ const TEST_DATA = [
 ];
 export default function TodayPickleListContainer() {
   const [searchParams, setSearchParams] = useSearchParams();
-  const [length, setLength] = useState(0);
+  const [distance, setDistance] = useState(0);
 
-  const currentPage = Number(searchParams.get('page')) || 1;
+  const currentPage = useMemo(() => {
+    return Number(searchParams.get('page')) || 1;
+  }, [searchParams]);
   const queryClient = useQueryClient();
 
   const pickleData: any = queryClient.getQueryData(['pickles', 'proceeding']);
@@ -169,15 +169,15 @@ export default function TodayPickleListContainer() {
     // alert(`${location?.longitude} ,${location?.latitude}`);
     //TODO : 출석을 누르면 경도 위도를 POST로 보내어 출석을 한다.
   };
+
   useEffect(() => {
-    const length = async () => {
-      const result = await betweenLength({ latitude: 37.5547, longitude: 126.9706 });
-      console.log(result);
-      setLength(result);
+    const getDistance = async () => {
+      const distance = await betweenLength({ latitude: 37.5547, longitude: 126.9706 });
+      setDistance(distance);
     };
-    length();
-  }, []);
-  console.log(length);
+    getDistance();
+  }, [currentPage]);
+
   return (
     <S.Container>
       <PagenationBar totalDataCount={TEST_DATA?.length} />
@@ -193,8 +193,6 @@ export default function TodayPickleListContainer() {
     </S.Container>
   );
 }
-
-//버튼 disabled 판단 함수
 
 const S = {
   Container: styled.div`
