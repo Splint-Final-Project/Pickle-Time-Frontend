@@ -39,6 +39,10 @@ const S = {
     color: white;
     justify-content: ${props => (props.id !== '2' ? 'flex-start' : 'center')};
     align-items: ${props => (props.id == '3' ? 'flex-end' : 'center')};
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+    -ms-user-select: none; /* 인터넷익스플로러 */
+    user-select: none;
   `,
 
   ContentContainer: styled.div`

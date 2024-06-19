@@ -28,7 +28,7 @@ export default function PickleListCard({ category }: PickleCardListProps) {
       {data?.length ? (
         data.map((pickle: any) => <SpecialPickleCard key={pickle.id} pickleData={pickle} />)
       ) : (
-        <S.NoPicklesImg src="/images/noPickles.png" />
+        <S.NoPicklesImg src="/images/noPickles.png" alt="nopickles" />
       )}
       {/* <PickleCardListMockData /> */}
     </>
