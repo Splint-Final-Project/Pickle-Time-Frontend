@@ -7,6 +7,13 @@ import { useNavigate } from 'react-router-dom';
 
 type HandleSuccessFunction = (data: any) => void;
 
+export const useMyFavoritePickles = () => {
+  return useQuery({
+    queryKey: ['pickles', 'myFavorites'],
+    queryFn: async () => await likeRequests.getMyFavorites(),
+  });
+};
+
 export const useGetLikePickles = () => {
   return useInfiniteQuery({
     queryKey: ['pickles', 'like'],
