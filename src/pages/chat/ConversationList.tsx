@@ -20,10 +20,3 @@ const S = {
     margin-bottom: 2rem;
   `,
 };
-
-// const { data } = useGetMessages('2');
-// const { mutate } = useSendMessage({ message: 'hi' }, '2');
-
-// const handleClick = () => {
-//   mutate();
-// };

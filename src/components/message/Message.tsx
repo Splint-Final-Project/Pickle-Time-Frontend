@@ -12,53 +12,52 @@ function padZero(number: number) {
 	return number.toString().padStart(2, "0");
 }
 
-export default function Message({message}: {message: string}) {
+export default function Message({message}: {message: any}) {
   const { user } = useAuth();
 
+  const fromMe = user?._id === message?.senderId;
+
   return (
-    <ChatContainer>
-      <ChatImage className="chat-image avatar">
-        <Avatar alt="Tailwind CSS chat bubble component"
-            src="https://cdn0.iconfinder.com/data/icons/communication-line-10/24/account_profile_user_contact_person_avatar_placeholder-512.png">
-        </Avatar>
-      </ChatImage>
-      <ChatBubble>Hi!</ChatBubble>
-      <ChatFooter>12:42</ChatFooter>
-    </ChatContainer>
+    <S.Container fromMe={fromMe}>
+      <S.TextContainer>
+        <S.Text fromMe={fromMe}>{message?.message}</S.Text>
+      </S.TextContainer>
+    </S.Container>
   )
 }
 
-const ChatContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end; /* chat-end */
-  gap: 2px;
-`;
+const S = {
+  Container: styled.div<{fromMe: boolean}>`
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0;
+    min-height: 4.1rem;
+    max-width: 22.6rem;
+    height: auto;
+    border-radius: ${(props) => (props.fromMe ? '2.0rem 1.0rem 2.0rem 2.0rem' : '1.0rem 2.0rem 2.0rem 2.0rem')};
+    background: ${(props) => (props.fromMe ? '#5DC26D' : '#F3F4F6')};
+    align-self: ${(props) => (props.fromMe ? 'flex-end' : 'flex-start')};
+    word-wrap: break-word;
+    margin: 0.5rem 0;
+  `,
 
-const ChatImage = styled.div`
-  display: flex;
-  align-items: center;
-  /* margin-bottom: 0.5rem; Adjust the margin as needed */
-`;
-
-const Avatar = styled.img`
-  width: 2.5rem; /* w-10 */
-  border-radius: 9px; /* rounded-full */
-  overflow: hidden;
-`;
-
-const ChatBubble = styled.div`
-  background-color: #3b82f6; /* bg-blue-500 */
-  color: white; /* text-white */
-  padding: 0.75rem; /* Add padding as needed */
-  border-radius: 1rem; /* chat-bubble */
-  max-width: 75%; /* Optional: adjust the max-width */
-`;
-
-const ChatFooter = styled.div`
-  opacity: 0.5; /* opacity-50 */
-  font-size: 0.75rem; /* text-xs */
-  display: flex;
-  gap: 0.25rem; /* gap-1 */
-  align-items: center;
-`;
+  TextContainer: styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    flex-shrink: 0;
+    width: 100%;
+    min-height: 4.1rem;
+    padding: 1rem;
+    word-wrap: break-word;
+  `,
+  Text: styled.span<{fromMe: boolean}>`
+    color: ${(props) => (props.fromMe ? '#FFF' : '#3F3F3F')};
+    font-family: Pretendard;
+    font-size: 1.4rem;
+    font-weight: 400;
+    font-style: normal;
+    line-height: normal;
+  `
+}
