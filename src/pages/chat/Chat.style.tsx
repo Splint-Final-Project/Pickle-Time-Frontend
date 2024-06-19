@@ -4,6 +4,7 @@ export const S = {
   Container: styled.div`
     height: 100%;
     position: relative;
+    overflow: auto; 
   `,
 
   Header: styled.header`
@@ -60,20 +61,26 @@ export const S = {
   `,
 
   MessageContainer: styled.div`
+    height: 78.1vh;
+    overflow-y: auto;
+    flex-grow: 1;
+  `,
+
+  ForRefInMessageContainer: styled.div`
     display: flex;
     flex-direction: column;
     padding: 0 1rem;
   `,
 
   MessageLayout: styled.form`
-  width: 100%;
-  max-width: 767px;
-  display: flex;
-  position: fixed;
-  align-items: center;
-  bottom: 0rem;
-  margin: 2rem 1rem;
-  gap: 1rem;
+    width: 100%;
+    max-width: 767px;
+    display: flex;
+    position: fixed;
+    align-items: center;
+    bottom: 0rem;
+    margin: 2rem 1rem;
+    gap: 1rem;
   `,
 
   InputWrapper: styled.div`

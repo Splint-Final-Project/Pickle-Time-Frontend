@@ -4,9 +4,10 @@ import io from 'socket.io-client';
 interface SocketType {
   socket: any | null;
   initializeSocket: (authUserId: string) => void;
+  closeSocket: () => void;
 }
 
-const useSocket = create<SocketType>((set) => ({
+const useSocket = create<SocketType>((set, get) => ({
   socket: null,
   initializeSocket: (authUserId: string) => {
     if (authUserId) {
@@ -18,6 +19,7 @@ const useSocket = create<SocketType>((set) => ({
         reconnectionAttempts: 5, // 재연결 시도 횟수 제한
         transports: ['websocket'], // 사용할 전송 프로토콜 지정
       }); 
+      
 
       // socket.on("getOnlineUsers", (users) => {
       //   set({ onlineUsers: users });
@@ -35,13 +37,13 @@ const useSocket = create<SocketType>((set) => ({
       };
     }
   },
-  // closeSocket: () => {
-  //   const socket = get().socket;
-  //   if (socket) {
-  //     socket.close();
-  //     set({ socket: null });
-  //   }
-  // },
+  closeSocket: () => {
+    const socket = get().socket;
+    if (socket) {
+      socket.close();
+      set({ socket: null });
+    }
+  },
 }));
 
 export default useSocket;

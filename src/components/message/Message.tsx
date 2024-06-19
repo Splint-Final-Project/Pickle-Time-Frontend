@@ -15,7 +15,6 @@ function padZero(number: number) {
 export default function Message({ message }: { message: any }) {
   const { user } = useAuth();
   const time = extractTime(message.updatedAt);
-  console.log(time);
   const fromMe = user?._id === message?.senderId;
 
   return (

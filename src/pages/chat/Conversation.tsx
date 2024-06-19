@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 
 import { useGetMessages } from '@/hooks/message/useGetMessages';
@@ -24,6 +24,7 @@ import routes from '@/constants/routes';
 export default function Conversation() {
   const navigate = useNavigate();
   const { pickleId='', conversationId = '' } = useParams();
+  const lastMessageRef = useRef(null);
 
   // server state
   const { data: pickleData } = useGetPickelDetail(pickleId);
@@ -59,6 +60,14 @@ export default function Conversation() {
     setPickleId(pickleId);
   }, [user, conversationId, pickleId]);
 
+  useEffect(() => {
+		setTimeout(() => {
+			lastMessageRef.current?.scrollIntoView({ behavior: "smooth" });
+		}, 100);
+    console.log(messages)
+    console.log(lastMessageRef)
+	}, [messages]);
+
   return (
     <S.Container>
       <S.Header>
@@ -75,7 +84,9 @@ export default function Conversation() {
       </S.Gongji>
       <S.MessageContainer>
         {messages?.map((message: any) => (
-          <Message message={message} key={message?._id}/>
+          <S.ForRefInMessageContainer ref={lastMessageRef}>
+            <Message message={message} key={message._id}/>
+          </S.ForRefInMessageContainer>
         ))}
       </S.MessageContainer>
       <S.MessageLayout onSubmit={(e) => handleSendMessage(e, message)}>
