@@ -30,6 +30,7 @@ export default function CreatePickle() {
     capacity,
     category,
     clear,
+    inProgress,
     setInProgress,
     imgUrl,
     explanation,
@@ -51,18 +52,22 @@ export default function CreatePickle() {
       <TitleContainer>
         <Title>
           <img
-            src="icons/back.svg"
+            src="/icons/back.svg"
             alt="back"
             onClick={() => {
               if (step === 1) {
-                handleOpen({
-                  renderComponent: ConfirmationModal,
-                  nocallback: () => {},
-                  yescallback: () => navigate('/'),
-                  message: '작성중이던 피클은 임시 저장됩니다.',
-                  yesText: '확인',
-                  noText: '취소',
-                });
+                if (inProgress) {
+                  handleOpen({
+                    renderComponent: ConfirmationModal,
+                    nocallback: () => {},
+                    yescallback: () => navigate('/'),
+                    message: '작성중이던 피클은 임시 저장됩니다.',
+                    yesText: '확인',
+                    noText: '취소',
+                  });
+                } else {
+                  navigate('/');
+                }
               } else {
                 setStep((step - 1) as 1 | 2 | 3 | 4);
               }
@@ -84,13 +89,13 @@ export default function CreatePickle() {
             return (
               <>
                 <InputComponent>
-                  <TitleInput />
+                  <TitleInput hook={usePickleCreation} />
                 </InputComponent>
                 <InputComponent>
-                  <CategorySelect />
+                  <CategorySelect hook={usePickleCreation} />
                 </InputComponent>
                 <InputComponent>
-                  <CapacitySelect />
+                  <CapacitySelect hook={usePickleCreation} />
                 </InputComponent>
                 <SubmitButton
                   disabled={capacity === 0 || category === '' || title === ''}
@@ -99,7 +104,7 @@ export default function CreatePickle() {
                     setStep(2);
                   }}
                 >
-                  다음 단계로 넘어가기
+                  다음 단계로 이동하기
                 </SubmitButton>
               </>
             );
@@ -107,16 +112,16 @@ export default function CreatePickle() {
             return (
               <>
                 <InputComponent>
-                  <ImgSelect />
+                  <ImgSelect hook={usePickleCreation} />
                 </InputComponent>
                 <InputComponent>
-                  <WriteDetail />
+                  <WriteDetail hook={usePickleCreation} />
                 </InputComponent>
                 <InputComponent>
-                  <GoalSelect />
+                  <GoalSelect hook={usePickleCreation} />
                 </InputComponent>
                 <InputComponent>
-                  <CostSelect />
+                  <CostSelect hook={usePickleCreation} />
                 </InputComponent>
                 <SubmitButton
                   disabled={!imgUrl || !explanation || goals.length === 0 || !cost || isImgLoading}
@@ -125,7 +130,7 @@ export default function CreatePickle() {
                     setStep(3);
                   }}
                 >
-                  다음 단계로 넘어가기
+                  다음 단계로 이동하기
                 </SubmitButton>
               </>
             );
@@ -133,10 +138,10 @@ export default function CreatePickle() {
             return (
               <>
                 <InputComponent>
-                  <AreaInput />
+                  <AreaInput hook={usePickleCreation} />
                 </InputComponent>
                 <InputComponent>
-                  <DateSelect />
+                  <DateSelect hook={usePickleCreation} />
                 </InputComponent>
                 <SubmitButton
                   disabled={!place || !address || !areaCode || when.times.length === 0}
@@ -145,7 +150,7 @@ export default function CreatePickle() {
                     setStep(4);
                   }}
                 >
-                  다음 단계로 넘어가기
+                  다음 단계로 이동하기
                 </SubmitButton>
               </>
             );

@@ -1,11 +1,10 @@
 import { KeyboardEventHandler, useEffect, useState } from 'react';
-import usePickleCreation from '@/hooks/zustand/usePickleCreation';
 import styled from '@emotion/styled';
 import Tag from '@/components/common/tag/Tag';
 import openai from '@/apis/openai';
 
-export default function GoalSelect() {
-  const { title, goals, setGoals } = usePickleCreation();
+export default function GoalSelect({ hook }: { hook: any }) {
+  const { title, goals, setGoals } = hook();
   const [aiGeneratedGoals, setAIGeneratedGoals] = useState<string[]>([]);
 
   async function generateGoals() {

@@ -31,9 +31,7 @@ export default function Pickle() {
   const full = pickleDetailData?.capacity <= pickleDetailData?.participantNumber;
   // console.log(pickleDetailData.imgUrl)
 
-
   const { handleOpen } = useBottomSheetModal(state => state);
-
 
   return (
     <S.Container>
@@ -41,18 +39,49 @@ export default function Pickle() {
         <BackButton />
         <S.TopBox>
           <Category category={pickleDetailData?.category} />
-          {!amILeader && <button className="inquiry-btn" onClick={() => navigate({
-            pathname: `${routes.oneToOneChat}/${pickleId}/${pickleDetailData?.leader}`,
-          })}>
-            1:1문의하기
-          </button>}
+          {!amILeader && (
+            <button
+              className="inquiry-btn"
+              onClick={() =>
+                navigate({
+                  pathname: `${routes.oneToOneChat}/${pickleId}/${pickleDetailData?.leader}`,
+                })
+              }
+            >
+              1:1문의하기
+            </button>
+          )}
         </S.TopBox>
 
         <S.Information>
           <span className="applicant">{pickleDetailData?.participantNumber}명이 신청했어요!</span>
           <S.TitleAndLike>
             <h1 className="pickle-title">{pickleDetailData?.title}</h1>
-            <LikeCount pickleId={pickleId} />
+            <div
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '10px',
+              }}
+            >
+              <img
+                src="/icons/shareButton.svg"
+                alt="share"
+                onClick={() =>
+                  handleOpen({
+                    renderComponent: ShareModal,
+                  })
+                }
+              />
+              <img
+                src="/icons/verticalBar.svg"
+                alt="verticalBar"
+                style={{
+                  cursor: 'default',
+                }}
+              />
+              <LikeCount pickleId={pickleId} />
+            </div>
           </S.TitleAndLike>
           <S.Thumbnail src={pickleDetailData?.imgUrl} alt="피클 이미지" />
           <PickleTextInfo

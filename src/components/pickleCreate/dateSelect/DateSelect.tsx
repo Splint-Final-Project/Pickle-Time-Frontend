@@ -4,10 +4,9 @@ import styled from '@emotion/styled';
 import { oneWeekCalculate, totalMeetingTimesCalculate } from '@/utils/dateCalculate';
 import { useEffect, useState } from 'react';
 import Gigan from './Gigan';
-import usePickleCreation from '@/hooks/zustand/usePickleCreation';
 
-export default function DateSelect() {
-  const { when, setTimes, setDeadLine } = usePickleCreation();
+export default function DateSelect({ hook }: { hook: any }) {
+  const { when, setTimes, setDeadLine } = hook();
 
   const handleWhenCalculate = () => {
     // deadline

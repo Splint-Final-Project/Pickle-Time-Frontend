@@ -36,7 +36,7 @@ export default function EditProfilePage() {
           <div className="setting-box">
             활동 범위 설정하기
             <button onClick={() => console.log('모달 오픈')}>
-              <img src="icons/rightArrowIcon.svg" />
+              <img src="/icons/rightArrowIcon.svg" />
             </button>
           </div>
           <div>설정했던 범위데이터들</div>

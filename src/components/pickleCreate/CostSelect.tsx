@@ -1,12 +1,11 @@
-import usePickleCreation from '@/hooks/zustand/usePickleCreation';
 import styled from '@emotion/styled';
 
 const formatCost = (cost: number) => {
   return cost.toLocaleString('en-US'); // 3자리마다 쉼표 추가
 };
 
-export default function CostSelect() {
-  const { cost, setCost } = usePickleCreation();
+export default function CostSelect({ hook }: { hook: any }) {
+  const { cost, setCost } = hook();
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value.replace(/,/g, '');

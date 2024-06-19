@@ -1,4 +1,3 @@
-import usePickleCreation from '@/hooks/zustand/usePickleCreation';
 import styled from '@emotion/styled';
 
 const MAX_CAPACITY = 6;
@@ -11,8 +10,8 @@ const limitMaxCapacity = (capacity: number) => {
   return capacity;
 };
 
-export default function CapacitySelect() {
-  const { capacity, setCapacity } = usePickleCreation();
+export default function CapacitySelect({ hook }: { hook: any }) {
+  const { capacity, setCapacity } = hook();
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const inputNewCapacity = e.target.value;

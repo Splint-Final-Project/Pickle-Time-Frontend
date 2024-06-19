@@ -33,6 +33,7 @@ import OneToOne from '@/pages/chat/OneToOne';
 import routes from '@/constants/routes';
 import CreatePickle from './pages/pickles/CreatePickle';
 import MyPickles from '@/pages/pickles/MyPickles';
+import PickleEdit from './pages/pickles/PickleEdit';
 
 const router = createBrowserRouter([
   {
@@ -117,6 +118,10 @@ const router = createBrowserRouter([
           {
             path: '/pickle-create',
             element: <CreatePickle />,
+          },
+          {
+            path: '/pickle-edit/:id',
+            element: <PickleEdit />,
           },
           {
             path: routes.pickleJoinRedirect,
