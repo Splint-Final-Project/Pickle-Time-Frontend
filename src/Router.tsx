@@ -35,124 +35,6 @@ import CreatePickle from './pages/pickles/CreatePickle';
 import MyPickles from '@/pages/pickles/MyPickles';
 import PickleSearchResults from '@/pages/pickles/PickleSearchResults';
 
-const simpleChildren = [
-  {
-    path: '/pickle-join/:id',
-    element: <JoinPickle />,
-  },
-  {
-    path: '/pickle-create',
-    element: <CreatePickle />,
-  },
-  {
-    path: routes.chat,
-    element: <Conversation />,
-  },
-  {
-    path: routes.myPickles,
-    element: <MyPickles />,
-  },
-  {
-    path: routes.pickleJoinRedirect,
-    element: <PickleJoinRedirector />,
-  },
-  {
-    path: routes.pickleCreateRedirect,
-    element: <PickleCreationRedirector />,
-  },
-  {
-    path: routes.mypage,
-    element: <MyPage />,
-  },
-  {
-    path: routes.editProfile,
-    element: <EditProfilePage />,
-  },
-  {
-    path: routes.signUp2,
-    element: <SignUp2 />,
-  },
-  {
-    path: `${routes.oneToOneChat}/:pickleId/:leaderId`,
-    element: <OneToOne />,
-  },
-  {
-    path: `${routes.chat}/:pickleId/:conversationId`,
-    element: <Conversation />,
-  },
-];
-
-const children = [
-  // {
-  //   path: routes.admin,
-  //   element: <Admin />,
-  // },
-  {
-    path: routes.chat,
-    element: <Conversation />,
-  },
-  {
-    path: routes.myPickles,
-    element: <MyPickles />,
-  },
-  {
-    path: routes.mypage,
-    element: <MyPage />,
-  },
-  {
-    path: routes.chatList,
-    element: <ConversationList />,
-  },
-];
-
-// const privateChildren = [
-//   {
-//     path: routes.admin,
-//     element: <Admin />,
-//   },
-//   {
-//     path: '/pickle-join/:id',
-//     element: <JoinPickle />,
-//   },
-//   {
-//     path: '/pickle-create',
-//     element: <CreatePickle />,
-//   },
-//   {
-//     path: routes.chat,
-//     element: <Conversation />,
-//   },
-//   {
-//     path: routes.around,
-//     element: <AroundMe />,
-//   },
-
-//   {
-//     path: routes.myPickles,
-//     element: <MyPickles />,
-//   },
-//   {
-//     path: routes.pickleJoinRedirect,
-//     element: <PickleJoinRedirector />,
-//   },
-//   {
-//     path: routes.pickleCreateRedirect,
-//     element: <PickleCreationRedirector />,
-//   },
-//   {
-//     path: routes.mypage,
-//     element: <MyPage />,
-//   },
-//   {
-//     path: routes.signUp2,
-//     element: <SignUp2 />,
-//   },
-//   {
-//     path: routes.chatList,
-//     element: <ConversationList />,
-//   },
-// ];
-
 const router = createBrowserRouter([
   {
     path: '',
@@ -192,7 +74,20 @@ const router = createBrowserRouter([
       {
         path: '',
         element: <LoginRedirector />,
-        children: [...children],
+        children: [
+          {
+            path: routes.myPickles,
+            element: <MyPickles />,
+          },
+          {
+            path: routes.mypage,
+            element: <MyPage />,
+          },
+          {
+            path: routes.chatList,
+            element: <ConversationList />,
+          },
+        ],
       },
     ],
   },
@@ -231,7 +126,40 @@ const router = createBrowserRouter([
       {
         path: '',
         element: <LoginRedirector />,
-        children: [...simpleChildren],
+        children: [
+          {
+            path: '/pickle-join/:id',
+            element: <JoinPickle />,
+          },
+          {
+            path: '/pickle-create',
+            element: <CreatePickle />,
+          },
+          {
+            path: routes.pickleJoinRedirect,
+            element: <PickleJoinRedirector />,
+          },
+          {
+            path: routes.pickleCreateRedirect,
+            element: <PickleCreationRedirector />,
+          },
+          {
+            path: `${routes.oneToOneChat}/:pickleId/:leaderId`,
+            element: <OneToOne />,
+          },
+          {
+            path: `${routes.chat}/:pickleId/:conversationId`,
+            element: <Conversation />,
+          },
+          {
+            path: routes.editProfile,
+            element: <EditProfilePage />,
+          },
+          {
+            path: routes.signUp2,
+            element: <SignUp2 />,
+          },
+        ],
       },
     ],
   },

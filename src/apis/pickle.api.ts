@@ -6,7 +6,6 @@ export const picklesRequests = Object.freeze({
   // 피클 전체 목록조회
   get: async () => {
     const { data } = await client.get(`${API.PICKLE}`);
-    console.log(data);
     return data;
   },
 

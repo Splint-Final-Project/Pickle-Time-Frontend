@@ -77,11 +77,11 @@ export const usePickleLikeMutation = (pickleId: string) => {
       await queryClient.cancelQueries({ queryKey: ['pickles', 'like', pickleId] });
       await queryClient.cancelQueries({ queryKey: ['pickles', 'myFavorites', 'ids'] });
       let previousData: any = queryClient.getQueryData(['pickles', 'like', pickleId]);
-      queryClient.setQueryData(['pickles', 'like', pickleId], {
-        data: { ...previousData.data, isClicked: true },
+      await queryClient.setQueryData(['pickles', 'like', pickleId], {
+        data: previousData?.data ? { ...previousData.data, isClicked: false } : { isClicked: false },
       });
-      previousData = queryClient.getQueryData(['pickles', 'myFavorites', 'ids']);
-      queryClient.setQueryData(['pickles', 'myFavorites', 'ids'], [...previousData.data, pickleId]);
+      previousData = queryClient.getQueryData(['pickles', 'myFavorites', 'ids']) || { data: [] };
+      await queryClient.setQueryData(['pickles', 'myFavorites', 'ids'], { data: [...previousData.data, pickleId] });
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['pickles', 'like', pickleId] });
@@ -99,22 +99,27 @@ export const usePickleLikeMutation = (pickleId: string) => {
 export const useDeletePickleLikeMutation = (pickleId: string) => {
   const queryClient = useQueryClient();
   const { user } = useAuth();
+  const navigate = useNavigate();
 
   return useMutation({
-    mutationFn: async () => likeRequests.deletePickleLike(pickleId),
+    mutationFn: async () => {
+      if (!user) {
+        return navigate('/sign-in');
+      }
+      return likeRequests.deletePickleLike(pickleId);
+    },
     onMutate: async () => {
       await queryClient.cancelQueries({ queryKey: ['pickles', 'like', pickleId] });
       await queryClient.cancelQueries({ queryKey: ['pickles', 'myFavorites', 'ids'] });
       let previousData: any = queryClient.getQueryData(['pickles', 'like', pickleId]);
-      queryClient.setQueryData(['pickles', 'like', pickleId], {
+      await queryClient.setQueryData(['pickles', 'like', pickleId], {
         data: { ...previousData.data, isClicked: false },
       });
-      previousData = queryClient.getQueryData(['pickles', 'myFavorites', 'ids']);
-      console.log(previousData.data);
-      queryClient.setQueryData(
-        ['pickles', 'myFavorites', 'ids'],
-        previousData.data?.filter((id: any) => id !== pickleId),
-      );
+      previousData = queryClient.getQueryData(['pickles', 'myFavorites', 'ids']) || { data: [] };
+      console.log(previousData);
+      await queryClient.setQueryData(['pickles', 'myFavorites', 'ids'], {
+        data: previousData.data?.filter((id: any) => id !== pickleId),
+      });
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['pickles', 'like', pickleId] });

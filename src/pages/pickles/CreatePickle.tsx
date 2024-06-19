@@ -44,6 +44,7 @@ export default function CreatePickle() {
   } = usePickleCreation();
 
   const navigate = useNavigate();
+  const { handleOpen } = useBottomSheetModal(state => state);
 
   return (
     <Container>
@@ -54,7 +55,14 @@ export default function CreatePickle() {
             alt="back"
             onClick={() => {
               if (step === 1) {
-                navigate('/');
+                handleOpen({
+                  renderComponent: ConfirmationModal,
+                  nocallback: () => {},
+                  yescallback: () => navigate('/'),
+                  message: '작성중이던 피클은 임시 저장됩니다.',
+                  yesText: '확인',
+                  noText: '취소',
+                });
               } else {
                 setStep((step - 1) as 1 | 2 | 3 | 4);
               }
