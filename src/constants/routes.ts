@@ -15,6 +15,7 @@ const routes = {
   pickleJoin: '/pickle-join',
   pickleEdit: '/pickle-edit',
   pickleDetail: '/pickle-detail',
+  pickleSearchResults: '/pickle-search-results',
   pickleCreatePayment: '/pickle-create-payment',
   map: '/map',
   mypage: '/mypage',

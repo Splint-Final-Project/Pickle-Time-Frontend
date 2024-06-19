@@ -32,7 +32,7 @@ import PickleCreationRedirector from './redirectors/PickleCreationRedirector';
 import routes from '@/constants/routes';
 import CreatePickle from './pages/pickles/CreatePickle';
 import MyPickles from '@/pages/pickles/MyPickles';
-
+import PickleSearchResults from '@/pages/pickles/PickleSearchResults';
 
 const privateChildren = [
   {
@@ -148,7 +148,6 @@ const router = createBrowserRouter([
         path: routes.signInEmail,
         element: <SignIn_Email />,
       },
-
       {
         path: routes.picklePopularList,
         element: <PopularPickleList />,
@@ -156,6 +155,10 @@ const router = createBrowserRouter([
       {
         path: routes.pickleHotTimeList,
         element: <HotTimePickleList />,
+      },
+      {
+        path: routes.pickleSearchResults,
+        element: <PickleSearchResults />,
       },
       {
         path: '',
