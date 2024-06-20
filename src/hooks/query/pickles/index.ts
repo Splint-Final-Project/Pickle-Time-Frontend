@@ -94,7 +94,14 @@ export const useGetPickelDetail = (pickleId: string) => {
   });
 };
 
-export const useCreateReviewMutation = (pickleId: string, handleSuccess: () => void) => {
+export const useMyReviews = () => {
+  return useQuery({
+    queryKey: ['reviews'],
+    queryFn: async () => await picklesRequests.getMyReviews(),
+  });
+};
+
+export const useCreateReviewMutation = (pickleId: string) => {
   const queryClient = useQueryClient();
 
   return useMutation({
@@ -104,12 +111,29 @@ export const useCreateReviewMutation = (pickleId: string, handleSuccess: () => v
     },
     onSuccess: () => {
       toast('리뷰 작성이 완료되었어요!');
-      handleSuccess();
       queryClient.invalidateQueries({ queryKey: ['reviews'] });
-    }, //쿼리키를 어떻게 할까요~
+    },
     onError: error => {
       console.error(error);
       toast.error('리뷰 작성에 실패했습니다.');
+    },
+  });
+};
+
+export const useDeleteReviewMutation = (pickleId: string) => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async () => {
+      return picklesRequests.deleteReview(pickleId);
+    },
+    onSuccess: () => {
+      toast('리뷰 삭제가 완료되었어요!');
+      queryClient.invalidateQueries({ queryKey: ['reviews'] });
+    },
+    onError: error => {
+      console.error(error);
+      toast.error('리뷰 삭제에 실패했습니다.');
     },
   });
 };

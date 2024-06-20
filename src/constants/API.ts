@@ -27,6 +27,7 @@ export const API_PICKLE = Object.freeze({
   SEARCH: (pickleType: string) => `${API.PICKLE}/${pickleType}`, // 피클검색
   LOCATION_SEARCH: `${API.PICKLE}/search`, // 지역검색
   IN_LOCATION: `${API.PICKLE}/location`, // 지도 내 피클 조회
+  REVIEWS: () => `${API.PICKLE}/reviews`,
   REVIEW: (pickleId: string) => `${API.PICKLE}/${pickleId}/review`,
   ATTENDANCE: (pickleId: string) => `${API.PICKLE}/${pickleId}/public`,
   RE_REQUEST: (pickleId: string) => `${API.PICKLE}/${pickleId}/reRequest`,
