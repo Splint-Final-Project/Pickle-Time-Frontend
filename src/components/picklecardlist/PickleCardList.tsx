@@ -88,6 +88,9 @@ export default function PickleCardList({ category }: PickleCardListProps) {
 }
 
 const S = {
+  Container: styled.div`
+    position: relative;
+  `,
   CardWrapper: styled.div`
     display: flex;
   `,
@@ -131,23 +134,23 @@ const S = {
   HoverAreaLeft: styled.div`
     position: absolute;
     top: 0;
-    left: -3.5rem;
+    left: -2.8rem;
     bottom: 0;
-    width: 5rem;
+    width: 3rem;
     background-color: transparent;
   `,
   HoverAreaRight: styled.div`
     position: absolute;
     top: 0;
-    right: -3.5rem;
+    right: -2.8rem;
     bottom: 0;
-    width: 5rem;
+    width: 3rem;
     background-color: transparent;
   `,
   SliderControlBtn: styled.button<{ $isShow: boolean }>`
     display: ${({ $isShow }) => ($isShow ? 'inline-block' : 'none')};
-    width: 5rem;
-    height: 5rem;
+    width: 3rem;
+    height: 3rem;
     z-index: 500;
 
     position: absolute;
@@ -160,8 +163,5 @@ const S = {
       width: 2rem;
       height: 2rem;
     }
-  `,
-  Container: styled.div`
-    position: relative;
   `,
 };
