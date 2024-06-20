@@ -44,16 +44,13 @@ function MyPickleList({ currentState }: MyPickleListProps) {
         setPicklesList(proceedingPickles);
         break;
       case 'closed':
-// <<<<<<< HEAD
-//         setPicklesList(finishData?.finishedPickles);
-// =======
         setPicklesList(finishedPickles);
         break;
 
       default:
         setPicklesList(pendingPickles);
     }
-  }, [currentState]);
+  }, [currentState, pendingData]);
 
   return (
     <S.List>

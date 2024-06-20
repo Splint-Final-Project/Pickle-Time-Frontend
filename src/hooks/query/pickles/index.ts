@@ -144,6 +144,10 @@ export const useGetPendingPickles = () => {
   return useQuery({
     queryKey: ['pickles', 'pending'],
     queryFn: async () => await picklesRequests.getPendingPickles(),
+
+    refetchOnWindowFocus: true, // 포커스 될 때 재요청
+    refetchIntervalInBackground: true, // 백그라운드 일 때 재요청 o
+    refetchInterval: 5 * 60 * 1000,
   });
 };
 
@@ -151,6 +155,10 @@ export const useGetProceedingPickles = () => {
   return useQuery({
     queryKey: ['pickles', 'proceeding'],
     queryFn: async () => await picklesRequests.getProceedingPickles(),
+
+    refetchOnWindowFocus: true, // 포커스 될 때 재요청
+    refetchIntervalInBackground: true, // 백그라운드 일 때 재요청 o
+    refetchInterval: 5 * 60 * 1000,
   });
 };
 
@@ -158,5 +166,9 @@ export const useGetFinishPickles = () => {
   return useQuery({
     queryKey: ['pickles', 'finish'],
     queryFn: async () => await picklesRequests.getFinishPickles(),
+
+    refetchOnWindowFocus: true, // 포커스 될 때 재요청
+    refetchIntervalInBackground: true, // 백그라운드 일 때 재요청 o
+    refetchInterval: 5 * 60 * 1000,
   });
 };
