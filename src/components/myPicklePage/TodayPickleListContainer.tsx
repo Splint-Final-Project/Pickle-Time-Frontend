@@ -44,16 +44,19 @@ export default function TodayPickleListContainer() {
   const queryClient = useQueryClient();
 
   const pickleData: any = queryClient.getQueryData(['pickles', 'proceeding']);
-  const todayPickles = pickleData?.todayPickles;
+  const todayPickles: TodayPickleDataType[] = pickleData?.todayPickles;
 
   const handleAttendance = () => {
     // alert(`${location?.longitude} ,${location?.latitude}`);
-    //TODO : 출석을 누르면 경도 위도를 POST로 보내어 출석을 한다.
   };
 
   useEffect(() => {
     const getDistance = async () => {
-      const distance = await betweenLength({ latitude: 37.5547, longitude: 126.9706 });
+      if (!todayPickles || todayPickles.length === 0) return;
+      const distance = await betweenLength({
+        latitude: todayPickles[currentPage - 1].latitude,
+        longitude: todayPickles[currentPage - 1].longtitude,
+      });
       setDistance(distance);
     };
     getDistance();
