@@ -21,68 +21,6 @@ import ShareModal from '@/components/common/modal/ShareModal';
 import KeepCreatingModal from '@/components/common/modal/KeepCreatingModal';
 import usePickleCreation from '@/hooks/zustand/usePickleCreation';
 
-const S = {
-  TopNavBarContainer: styled.div`
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 4rem;
-  `,
-  Logo: styled.img`
-    margin: 2rem 0rem 1.4rem;
-    width: 10rem;
-    cursor: pointer;
-  `,
-  Profile: styled.div`
-    color: ${({ theme }) => theme.color.black};
-    font-weight: bold;
-  `,
-  Logout: styled.button`
-    border: 1px solid ${({ theme }) => theme.color.secondary};
-    padding: 0.5rem 1rem;
-    background-color: ${({ theme }) => theme.color.secondary};
-    color: ${({ theme }) => theme.color.white};
-    border-radius: 0.8rem;
-  `,
-  PickleCardListContainer: styled.div`
-    border: 1px solid black;
-  `,
-  FloatingButton: styled.button`
-    position: fixed;
-    left: 50%;
-    transform: translateX(30rem);
-    bottom: 10rem;
-
-    width: 5.7rem;
-    height: 5.7rem;
-
-    background-color: ${({ theme }) => theme.color.primary};
-    border-radius: 50%;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-
-    &:hover {
-      background-color: ${({ theme }) => theme.color.secondary};
-    }
-    @media (max-width: 767px) {
-      left: 85%;
-      transform: translateX(0);
-    }
-    @media (max-width: 460px) {
-      left: 80%;
-      transform: translateX(0);
-    }
-  `,
-  CreatePickleIcon: styled.img`
-    width: 2.9rem;
-    height: 2.8rem;
-  `,
-};
-
 export default function Home() {
   const navigate = useNavigate();
   const [isModalOpen, setModalOpen] = useState(false);
@@ -215,3 +153,65 @@ function Error({ error }: { error: Error }) {
   console.log(error);
   return <h1>에러 발생</h1>;
 }
+
+const S = {
+  TopNavBarContainer: styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 4rem;
+  `,
+  Logo: styled.img`
+    margin: 2rem 0rem 1.4rem;
+    width: 10rem;
+    cursor: pointer;
+  `,
+  Profile: styled.div`
+    color: ${({ theme }) => theme.color.black};
+    font-weight: bold;
+  `,
+  Logout: styled.button`
+    border: 1px solid ${({ theme }) => theme.color.secondary};
+    padding: 0.5rem 1rem;
+    background-color: ${({ theme }) => theme.color.secondary};
+    color: ${({ theme }) => theme.color.white};
+    border-radius: 0.8rem;
+  `,
+  PickleCardListContainer: styled.div`
+    border: 1px solid black;
+  `,
+  FloatingButton: styled.button`
+    position: fixed;
+    left: 50%;
+    transform: translateX(30rem);
+    bottom: 10rem;
+
+    width: 5.7rem;
+    height: 5.7rem;
+
+    background-color: ${({ theme }) => theme.color.primary};
+    border-radius: 50%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+
+    &:hover {
+      background-color: ${({ theme }) => theme.color.secondary};
+    }
+    @media (max-width: 767px) {
+      left: 85%;
+      transform: translateX(0);
+    }
+    @media (max-width: 460px) {
+      left: 80%;
+      transform: translateX(0);
+    }
+  `,
+  CreatePickleIcon: styled.img`
+    width: 2.9rem;
+    height: 2.8rem;
+  `,
+};
