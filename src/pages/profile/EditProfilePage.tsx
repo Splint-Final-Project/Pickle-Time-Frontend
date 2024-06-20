@@ -11,13 +11,19 @@ import EditIcon from '@/assets/icons/EditIcon';
 import { BUTTON_TYPE } from '@/constants/BUTTON';
 import { userRequests } from '@/apis/user.api';
 import openai from '@/apis/openai';
+import useBottomSheetModal from '@/hooks/zustand/useBottomSheetModal';
+import AreaSelectModal from '@/components/common/modal/AreaSelectModal';
 
 export default function EditProfilePage() {
   const { user, updateProfile } = useAuth();
 
   const [nickname, setNickname] = useState(user.nickname);
-  const [areaCodes, setAreaCodes] = useState(user.areCods);
+  const [areaCodes, setAreaCodes] = useState(user.areaCodes);
   const [profileImg, setProfileImg] = useState<File | null>(user.profilePic);
+  const [isImgLoading, setIsImgLoading] = useState(false);
+
+  const { handleOpen } = useBottomSheetModal(state => state);
+
   const nicknameRef = useRef<HTMLInputElement>(null);
   const imgInputRef = useRef<HTMLInputElement>(null);
 
@@ -29,10 +35,13 @@ export default function EditProfilePage() {
     const file = e.target.files[0];
     if (file) {
       try {
+        setIsImgLoading(true);
         const { data: profileImgUrl } = await userRequests.updateImgUrl(file);
         if (profileImgUrl.url) setProfileImg(profileImgUrl.url);
       } catch (e) {
         console.log(e);
+      } finally {
+        setIsImgLoading(false);
       }
     }
   };
@@ -51,6 +60,7 @@ export default function EditProfilePage() {
 
   const handleClickAI = async () => {
     try {
+      setIsImgLoading(true);
       const image_url = await generateImage();
 
       if (image_url) {
@@ -65,7 +75,13 @@ export default function EditProfilePage() {
       }
     } catch (e) {
       console.log(e);
+    } finally {
+      setIsImgLoading(false);
     }
+  };
+
+  const handleAreaSelectComplete = (newAreaCodes: number[]) => {
+    setAreaCodes(newAreaCodes);
   };
 
   return (
@@ -101,13 +117,22 @@ export default function EditProfilePage() {
 
         <input type="file" accept="image/*" ref={imgInputRef} style={{ display: 'none' }} onChange={handleFileChange} />
         <S.ImgSelectContainer>
-          <Button onClick={() => handleClickSelect(imgInputRef)} styleType={BUTTON_TYPE.DISABLE}>
+          <Button
+            disabled={isImgLoading}
+            onClick={() => handleClickSelect(imgInputRef)}
+            styleType={BUTTON_TYPE.DISABLE}
+          >
             <img src="/icons/pictureIcon.svg" />
             <span>라이브러리에서 선택</span>
           </Button>
-          <Button onClick={handleClickAI} styleType={BUTTON_TYPE.DISABLE} style={{ marginTop: '1.4rem' }}>
+          <Button
+            disabled={isImgLoading}
+            onClick={handleClickAI}
+            styleType={BUTTON_TYPE.DISABLE}
+            style={{ marginTop: '1.4rem' }}
+          >
             <img src="/icons/aiIcon.svg" />
-            <span>AI로 생성하기</span>
+            <span>{isImgLoading ? 'AI로 생성 중...' : 'AI로 생성하기'}</span>
           </Button>
         </S.ImgSelectContainer>
       </S.TopSection>
@@ -118,11 +143,19 @@ export default function EditProfilePage() {
           <h3>변경을 원하는 모임 장소를 설정해 주세요</h3>
           <S.AreaSettingBox>
             활동 범위 설정하기
-            <button onClick={() => console.log('모달 오픈')}>
+            <button
+              onClick={() =>
+                handleOpen({
+                  renderComponent: AreaSelectModal,
+                  areaCodes: areaCodes,
+                  onComplete: handleAreaSelectComplete,
+                })
+              }
+            >
               <img src="/icons/rightArrowIcon.svg" />
             </button>
           </S.AreaSettingBox>
-          <ActivityArea areaCodes={user.areaCodes} />
+          <ActivityArea areaCodes={areaCodes} />
           <Button styleType={BUTTON_TYPE.DISABLE} style={{ color: '#8B8D94', margin: '10rem 0 3.2rem' }}>
             프로필 설정 완료하기
           </Button>

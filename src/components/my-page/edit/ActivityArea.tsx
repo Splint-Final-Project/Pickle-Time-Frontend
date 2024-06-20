@@ -1,10 +1,10 @@
 import { map } from '@/constants/areas';
 import styled from '@emotion/styled';
 
-export default function ActivityArea({ areaCodes }) {
+export default function ActivityArea({ areaCodes }: { areaCodes: number[] }) {
   return (
     <S.ActivityArea>
-      {areaCodes.map(code => {
+      {areaCodes?.map(code => {
         const item = map.get(code);
         return (
           <S.Area key={code}>
