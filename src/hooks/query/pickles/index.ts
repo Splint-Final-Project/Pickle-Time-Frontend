@@ -101,7 +101,7 @@ export const useMyReviews = () => {
   });
 };
 
-export const useCreateReviewMutation = (pickleId: string) => {
+export const useCreateReviewMutation = (pickleId: string, callback: () => void) => {
   const queryClient = useQueryClient();
 
   return useMutation({
@@ -111,10 +111,12 @@ export const useCreateReviewMutation = (pickleId: string) => {
     },
     onSuccess: () => {
       toast('리뷰 작성이 완료되었어요!');
+      callback();
       queryClient.invalidateQueries({ queryKey: ['reviews'] });
     },
     onError: error => {
       console.error(error);
+      callback();
       toast.error('리뷰 작성에 실패했습니다.');
     },
   });
@@ -135,6 +137,13 @@ export const useDeleteReviewMutation = (pickleId: string) => {
       console.error(error);
       toast.error('리뷰 삭제에 실패했습니다.');
     },
+  });
+};
+
+export const useGetPendingPickles = () => {
+  return useQuery({
+    queryKey: ['pickles', 'pending'],
+    queryFn: async () => await picklesRequests.getPendingPickles(),
   });
 };
 

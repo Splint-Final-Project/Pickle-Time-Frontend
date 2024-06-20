@@ -44,6 +44,7 @@ export const API_PICKLE = Object.freeze({
   // 내피클
   MY_PICKEL: (userId: string) => `${API.PICKLE}/${userId}`,
   MY_PICKEL_STATUS: (userId: string, status: string) => `${API.PICKLE}/${userId}/${status}`,
+  MY_PENDING_PICKLES: `${API.PICKLE}/pending`,
   MY_PROCEEDING_PICKLES: `${API.PICKLE}/proceeding`,
   MY_FINISH_PICKLES: `${API.PICKLE}/finish`,
 

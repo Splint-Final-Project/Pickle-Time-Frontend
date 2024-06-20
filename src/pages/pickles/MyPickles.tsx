@@ -2,11 +2,23 @@ import MyPickleListContainer from '@/components/myPicklePage/MyPickleListContain
 
 import TodayPickleListContainer from '@/components/myPicklePage/TodayPickleListContainer';
 import styled from '@emotion/styled';
+import { useNavigate } from 'react-router-dom';
 
 export default function MyPickles() {
+  const navigate = useNavigate();
   return (
     <S.Container>
-      <S.Title>내 피클</S.Title>
+      <S.Title>
+        {' '}
+        <img
+          src="/icons/back.svg"
+          alt="back"
+          onClick={() => {
+            navigate(-1);
+          }}
+        />
+        <div>내 피클</div>
+      </S.Title>
       <S.TodayPickleSection>
         <TodayPickleListContainer />
       </S.TodayPickleSection>
@@ -20,13 +32,22 @@ export default function MyPickles() {
 
 const S = {
   Container: styled.div`
-    padding: 8rem 0 9.6rem;
+    padding: 6rem 0 9.6rem;
   `,
   Title: styled.h1`
-    font-size: 2.4rem;
+    padding: 0 35px;
+    display: flex;
+    align-items: center;
+    gap: 22px;
+    color: var(--Basic, #181f29);
+    font-size: 24px;
+    font-style: normal;
     font-weight: 600;
-    margin-bottom: 1rem;
-    padding: 0 1.6rem;
+    line-height: normal;
+    img {
+      height: 16px;
+      cursor: pointer;
+    }
   `,
   TodayPickleSection: styled.section`
     padding: 0 1.6rem 3.2rem;

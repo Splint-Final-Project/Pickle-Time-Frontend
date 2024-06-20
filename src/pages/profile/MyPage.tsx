@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import styled from '@emotion/styled';
 
 import MenuList from '@/components/my-page/MenuList';
@@ -13,6 +13,7 @@ export type MyMenu = (typeof MY_MENU)[keyof typeof MY_MENU];
 
 export default function MyPage() {
   const [selectedMenu, setSelectedMenu] = useState<MyMenu>(MY_MENU.POINT);
+  const navigate = useNavigate();
   const { user } = useAuth();
 
   const menuArray = Object.entries(MY_MENU).map(([key, label]) => ({
@@ -27,7 +28,16 @@ export default function MyPage() {
     <>
       <S.TopSection>
         <S.Header>
-          <h1>마이페이지</h1>
+          <S.Title>
+            <img
+              src="/icons/back.svg"
+              alt="back"
+              onClick={() => {
+                navigate(-1);
+              }}
+            />
+            <div>마이 페이지</div>
+          </S.Title>
           <S.SettingBtn to={routes.editProfile}>
             <img src="/icons/settingIcon.svg" alt="프로필 수정" />
           </S.SettingBtn>
@@ -49,11 +59,26 @@ export default function MyPage() {
 
 const S = {
   TopSection: styled.div`
-    padding: 8rem 2rem 5rem;
+    padding: 6rem 1.7rem 5rem;
     color: ${({ theme }) => theme.color.basic};
 
     h1 {
       ${({ theme }) => theme.typography.header};
+    }
+  `,
+  Title: styled.h1`
+    display: flex;
+    align-items: center;
+    padding: 0 1.8rem;
+    gap: 22px;
+    color: var(--Basic, #181f29);
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    img {
+      height: 16px;
+      cursor: pointer;
     }
   `,
 
@@ -97,7 +122,7 @@ const S = {
   `,
 
   BottomSection: styled.div`
-    margin-bottom: 8.5rem;
+    margin: 0 1.7rem 8.5rem;
 
     ::before {
       display: block;

@@ -32,12 +32,8 @@ export default function OAuthSuccessRedirector() {
 
   if (status === 'pending') {
     console.log('추가 정보 입력 페이지로 이동합니다.');
-    // alert('추가 정보 입력 페이지로 이동합니다.');
     return <Navigate to="/sign-up2" />;
   }
 
-  // alert('로그인 성공.');
   return <Navigate to="/" />;
-
-  // return <div>로딩 중</div>;
 }

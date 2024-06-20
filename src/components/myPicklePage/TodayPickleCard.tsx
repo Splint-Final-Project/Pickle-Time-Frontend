@@ -3,6 +3,7 @@ import CardBackImg from '@/assets/images/todayPickleCardBackImg.svg';
 import ClockIcon from '@/assets/icons/ClockIcon';
 import AddressIcon from '@/assets/icons/AddressIcon';
 import Character from '@/assets/icons/character.svg';
+
 import { formatTime } from '@/utils/dateCalculate';
 
 type Time = {
@@ -25,11 +26,17 @@ type CardDataType = {
   isNearby?: boolean;
 };
 
+import { TodayPickleDataType } from './TodayPickleListContainer';
+import { getTimeGapMessage } from '@/utils/todayPickleCardUtils';
+import { formatTimeRange } from '@/utils/formatData';
+
+
 interface TodayPickleCardProps {
-  cardData: CardDataType;
+  cardData: TodayPickleDataType;
+  distance: number;
 }
 
-export default function TodayPickleCard({ cardData }: TodayPickleCardProps) {
+export default function TodayPickleCard({ cardData }: any) {
   const now = new Date();
   const hours = now.getHours();
   const minutes = now.getMinutes();
@@ -52,14 +59,16 @@ export default function TodayPickleCard({ cardData }: TodayPickleCardProps) {
           <S.CardTitle>{cardData?.title}</S.CardTitle>
         </S.CardHeader>
         <S.CardBody>
-          <S.AlertMessage>! 피클 한 시간 전이에요</S.AlertMessage>
+          <S.AlertMessage>
+            {getTimeGapMessage(cardData.when.startTime.hour, cardData.when.startTime.minute)}
+          </S.AlertMessage>
           <S.PickleTime>
             <S.IconBox>
               <ClockIcon />
             </S.IconBox>
             <span>{timeFormat}</span>
           </S.PickleTime>
-          {cardData?.isNearby && <S.AlertMessage>! 1km 남았어요</S.AlertMessage>}
+          {/* {cardData?.isNearby && <S.AlertMessage>! 1km 남았어요</S.AlertMessage>} */}
           <S.PickleAddress>
             <S.IconBox>
               <AddressIcon />
@@ -148,8 +157,8 @@ const S = {
     flex-direction: column;
     gap: 1rem;
   `,
-  AlertMessage: styled.span`
-    color: #f66;
+  AlertMessage: styled.span<{ $arrive?: Boolean }>`
+    color: ${({ $arrive }) => ($arrive ? '#FFD66D' : '#f66')};
   `,
   PickleTime: styled.p`
     font-size: 1.3rem;
