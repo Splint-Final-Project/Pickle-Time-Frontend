@@ -22,10 +22,13 @@ interface MyPickleListProps {
 function MyPickleList({ currentState }: MyPickleListProps) {
   const [picklesList, setPicklesList] = useState<any>([]);
 
+  // server state
   const { data: pendingData } = useGetPendingPickles();
   const { data } = useGetProceedingPickles();
-  const proceedingData = data?.proceedingPickles;
   const { data: finishData } = useGetFinishPickles();
+
+  const proceedingData = data?.proceedingPickles;
+
   console.log('pendingData', pendingData);
   console.log('proceedingData', proceedingData);
   console.log('finishData', finishData);
@@ -46,11 +49,11 @@ function MyPickleList({ currentState }: MyPickleListProps) {
 
   return (
     <S.List>
-      {/* {FilterData.map(item => (
+      {picklesList?.map((item: any) => (
         <li key={item.id}>
           <MyPickleCard pickleData={item} />
         </li>
-      ))} */}
+      ))}
     </S.List>
   );
 }

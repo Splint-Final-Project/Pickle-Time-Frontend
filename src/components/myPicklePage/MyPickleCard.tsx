@@ -5,14 +5,25 @@ import { css } from '@emotion/react';
 import useBottomSheetModal from '@/hooks/zustand/useBottomSheetModal';
 import ReviewModal from '../my-page/review/ReviewModal';
 
+type Time = {
+  times: Date[];
+  startDate: any;
+  finishDate: any;
+  startTime: any;
+  finishTime: any;
+  selectedDays: any;
+}
+
 type CategoryType = '운동' | '취미' | '스터디';
+
 export type PickleDataType = {
   title: string;
   duration: string;
-  address: string;
-  categoryType: CategoryType;
+  place: string;
+  category: CategoryType;
   state: pickleState;
   id: string;
+  when: Time;
 };
 //TODO : 동적으로 값 받게하기
 interface MyPickleCardProps {
@@ -20,20 +31,31 @@ interface MyPickleCardProps {
 }
 
 export default function MyPickleCard({ pickleData }: MyPickleCardProps) {
+  console.log(pickleData);
+  // format
+  const dateFormat = `
+    ${pickleData?.when.startDate.month.toString().padStart(2, '0')}.
+    ${pickleData?.when.startDate.day.toString().padStart(2, '0')}~
+    ${pickleData?.when.finishDate.month.toString().padStart(2, '0')}.
+    ${pickleData?.when.finishDate.day.toString().padStart(2, '0')}
+  `
+
   const { handleOpen } = useBottomSheetModal(state => state);
+
   const handleClickReview = (e: React.MouseEvent) => {
     e.stopPropagation();
     handleOpen({ renderComponent: ReviewModal, pickleId: pickleData.id, pickleTitle: pickleData.title });
   };
+
   return (
     <S.Card>
       <S.CardInner to={`/pickle/${pickleData.id}`} $picklestate={pickleData.state}>
         <S.CardTitle>{pickleData.title}</S.CardTitle>
         <S.CardContent>
-          <S.Date>{pickleData.duration}</S.Date>
-          <S.Address>{pickleData.address}</S.Address>
+          <S.Date>{dateFormat}</S.Date>
+          <S.Address>{pickleData.place}</S.Address>
         </S.CardContent>
-        <S.CategoryBg $bgtype={pickleData.categoryType} />
+        <S.CategoryBg $bgtype={pickleData?.category} />
       </S.CardInner>
       <S.ReviewBtn $isshow={pickleData.state !== 'closed'} onClick={handleClickReview}>
         리뷰 쓰기

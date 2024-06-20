@@ -63,21 +63,23 @@ export default function TodayPickleListContainer() {
     };
     getDistance();
   }, [currentPage]);
+
   if (!data?.todayPickles || data?.todayPickles.length === 0) {
-    return <></>; // 오늘의 피클이 없습니다
+    return null; // 오늘의 피클이 없습니다
   }
+
   return (
     <S.Container>
       <PagenationBar totalDataCount={data?.todayPickles.length} />
       <Tilt>
         <TodayPickleCard cardData={data?.todayPickles[currentPage - 1]} distance={0} />
       </Tilt>
-      {/* <S.AttendanceButton
+      <S.AttendanceButton
         onClick={handleAttendance}
         disabled={!isButtonActive(data?.todayPickles[currentPage - 1].startHour, data?.todayPickles[currentPage - 1].startMinute)}
       >
         <span>출석하기</span>
-      </S.AttendanceButton> */}
+      </S.AttendanceButton>
     </S.Container>
   );
 }
