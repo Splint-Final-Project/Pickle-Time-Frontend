@@ -34,6 +34,7 @@ import routes from '@/constants/routes';
 import CreatePickle from './pages/pickles/CreatePickle';
 import MyPickles from '@/pages/pickles/MyPickles';
 import PickleEdit from './pages/pickles/PickleEdit';
+import PickleSearchResults from '@/pages/pickles/PickleSearchResults';
 
 const router = createBrowserRouter([
   {
@@ -46,8 +47,17 @@ const router = createBrowserRouter([
         element: <Home />,
       },
       {
-        path: `${routes.pickle}/:pickleId`,
-        element: <Pickle />,
+        path: '/pickle-join',
+        element: <JoinPickle />,
+      },
+      {
+        //피클 생성 하다만 기록이 있으면 있으면 그 단계에 맞춰서 리다이렉트됨
+        path: '/pickle-create',
+        element: <CreatePickle />,
+      },
+      {
+        path: routes.chatList,
+        element: <ConversationList />,
       },
       {
         path: routes.map,
@@ -98,7 +108,10 @@ const router = createBrowserRouter([
         path: routes.signInEmail,
         element: <SignIn_Email />,
       },
-
+      {
+        path: `${routes.pickle}/:pickleId`,
+        element: <Pickle />,
+      },
       {
         path: routes.picklePopularList,
         element: <PopularPickleList />,
@@ -106,6 +119,10 @@ const router = createBrowserRouter([
       {
         path: routes.pickleHotTimeList,
         element: <HotTimePickleList />,
+      },
+      {
+        path: routes.pickleSearchResults,
+        element: <PickleSearchResults />,
       },
       {
         path: '',

@@ -17,6 +17,7 @@ import {
   ErrorMessage,
   SubmitButton,
 } from './SignUpStyled';
+import { toast } from 'react-hot-toast';
 
 export default function SignUp() {
   const {
@@ -34,10 +35,9 @@ export default function SignUp() {
   async function handleSignUp(data: SignUpFormValues) {
     try {
       await signUp(data);
-      alert('회원가입 마무리 단계 페이지로 리다이렉팅됩니다');
       navigate('/sign-up2');
     } catch (e) {
-      console.log(e);
+      toast.error('회원가입에 실패했습니다. 다시 시도해 주세요.');
     }
   }
 
