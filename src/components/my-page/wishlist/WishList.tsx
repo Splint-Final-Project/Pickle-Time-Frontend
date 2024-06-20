@@ -5,7 +5,6 @@ import { useGetLikePickles } from '@/hooks/query/like';
 
 export default function WishList() {
   const { data: wishListData } = useGetLikePickles();
-  console.log('찜', wishListData);
 
   return (
     <S.Container>

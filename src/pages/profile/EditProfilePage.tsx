@@ -8,6 +8,7 @@ import useAuth from '@/hooks/zustand/useAuth';
 import DefaultProfileIcon from '@/assets/icons/DefaultProfileIcon';
 import CancelIcon from '@/assets/icons/CancelIcon';
 import { BUTTON_TYPE } from '@/constants/BUTTON';
+import EditIcon from '@/assets/icons/EditIcon';
 
 export default function EditProfilePage() {
   const { user } = useAuth();
@@ -23,11 +24,14 @@ export default function EditProfilePage() {
         </S.Header>
 
         <S.ProfileBox>
-          {user.profilePic ? (
-            <img className="profile-img" src={user.profilePic} alt="프로필 이미지" />
-          ) : (
-            <DefaultProfileIcon />
-          )}
+          <S.ProfileImg>
+            {user.profilePic ? (
+              <img className="profile-img" src={user.profilePic} alt="프로필 이미지" />
+            ) : (
+              <DefaultProfileIcon />
+            )}
+            <EditIcon style={{ position: 'absolute', bottom: -3, right: -5, cursor: 'pointer' }} />
+          </S.ProfileImg>
           <S.NickName>
             <input
               ref={nicknameRef}
@@ -61,8 +65,15 @@ export default function EditProfilePage() {
       <S.BottomSection>
         <S.InnerWrap>
           <h2>주요 활동 범위</h2>
+          <h3>변경을 원하는 모임 장소를 설정해 주세요</h3>
+          <S.AreaSettingBox>
+            활동 범위 설정하기
+            <button onClick={() => console.log('모달 오픈')}>
+              <img src="icons/rightArrowIcon.svg" />
+            </button>
+          </S.AreaSettingBox>
           <ActivityArea areaCodes={user.areaCodes} />
-          <Button styleType={BUTTON_TYPE.DISABLE} style={{ color: '#8B8D94', margin: '3.5rem 0 3.2rem' }}>
+          <Button styleType={BUTTON_TYPE.DISABLE} style={{ color: '#8B8D94', margin: '10rem 0 3.2rem' }}>
             프로필 설정 완료하기
           </Button>
           <S.Footer>
@@ -109,6 +120,12 @@ const S = {
     }
   `,
 
+  ProfileImg: styled.div`
+    position: relative;
+    display: flex;
+    justify-content: center;
+  `,
+
   NickName: styled.div`
     display: flex;
     align-items: center;
@@ -133,6 +150,7 @@ const S = {
       justify-content: center;
       align-items: center;
       gap: 1.2rem;
+      padding: 1rem 0;
     }
 
     span {
@@ -156,6 +174,23 @@ const S = {
     h2 {
       ${({ theme }) => theme.typography.subTitle2};
     }
+    h3 {
+      padding: 0.4rem 0 2.7rem;
+      color: ${({ theme }) => theme.color.sub};
+      ${({ theme }) => theme.typography.body2};
+    }
+  `,
+
+  AreaSettingBox: styled.div`
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 1.4rem;
+    margin-bottom: 2.1rem;
+    border-radius: 0.8rem;
+    background-color: ${({ theme }) => theme.color.secondary2};
+    ${({ theme }) => theme.typography.body3};
   `,
 
   Footer: styled.div`
