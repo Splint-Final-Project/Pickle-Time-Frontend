@@ -1,8 +1,6 @@
-import React from 'react';
-
-export default function DefaultProfileIcon({ size = 70 }) {
+export default function DefaultProfileIcon({ size = 70, ...props }) {
   return (
-    <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 71 71" fill="none">
+    <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 71 71" fill="none" {...props}>
       <g clip-path="url(#clip0_1690_1189)">
         <path
           d="M49.7126 0H21.2874C9.53068 0 0 9.53068 0 21.2874V49.7126C0 61.4693 9.53068 71 21.2874 71H49.7126C61.4693 71 71 61.4693 71 49.7126V21.2874C71 9.53068 61.4693 0 49.7126 0Z"

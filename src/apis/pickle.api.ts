@@ -45,12 +45,23 @@ export const picklesRequests = Object.freeze({
     return client.get(API_PICKLE.FAVORITES_COUNT(pickleId));
   },
 
+  // 내가 작성한 리뷰 조회
+  getMyReviews: () => {
+    return client.get(API_PICKLE.REVIEWS());
+  },
+
   // 리뷰 작성
   createReview: (pickleId: string, reviewData: CreateReviewData) => {
     return client.post(API_PICKLE.REVIEW(pickleId), {
       data: reviewData,
     });
   },
+
+  // 리뷰 삭제
+  deleteReview: (pickleId: string) => {
+    return client.delete(API_PICKLE.REVIEW(pickleId));
+  },
+
   //진행중(투데이) 피클 조회
   getProceedingPickles: async () => {
     const { data } = await client.get(API_PICKLE.MY_PROCEEDING_PICKLES);

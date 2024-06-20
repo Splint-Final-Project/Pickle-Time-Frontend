@@ -29,7 +29,7 @@ import {
 import { sis, sigus, map } from '@/constants/areas';
 import toast from 'react-hot-toast';
 
-type SigusType = {
+export type SigusType = {
   [key: string]: { si: string; gu: string; code: number }[];
 };
 

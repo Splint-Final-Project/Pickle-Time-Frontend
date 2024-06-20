@@ -88,6 +88,6 @@ export interface DetailPickle {
 }
 
 export interface CreateReviewData {
-  star: number;
-  reviewText?: string;
+  stars: number;
+  content?: string;
 }

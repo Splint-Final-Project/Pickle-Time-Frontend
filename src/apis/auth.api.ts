@@ -1,6 +1,6 @@
 import client from '@/apis/axios';
-import { SignInFormValues, SignUpFormValues, SignUpFormValues2 } from '@/apis/types/auth.type';
-import { API_AUTH } from '@/constants/API';
+import { SignInFormValues, SignUpFormValues, SignUpFormValues2, UpdateProfile } from '@/apis/types/auth.type';
+import { API, API_AUTH } from '@/constants/API';
 const TOKEN = '임시 토큰';
 
 // auth : react-Query에서 호출 x, 대신 zustand에서 직접 호출합니다!
@@ -30,6 +30,16 @@ export const authRequests = Object.freeze({
 
   signOut: async () => {
     const { data } = await client.delete(API_AUTH.LOGOUT, {});
+    return data;
+  },
+
+  updateProfile: async (body: UpdateProfile) => {
+    // const { data } = await client.put(API.AUTH, body);
+    const data = {
+      nickname: '임시네임',
+      profilePic: 'ddddd',
+      areaCodes: ['서울 중구', '서울 서대문구'],
+    };
     return data;
   },
 });

@@ -1,5 +1,6 @@
 export const API = Object.freeze({
   AUTH: '/user',
+  USER: '/users',
   PICKLE: '/pickle',
   MESSAGES: '/messages',
   CONVERSATIONS: '/conversations',
@@ -15,6 +16,12 @@ export const API_AUTH = Object.freeze({
   BY_ID: (userId: string) => `${API.AUTH}/${userId}`,
 });
 
+export const API_USER = Object.freeze({
+  PROFILE_IMG: `${API.USER}/profileImg`,
+  GENERATED_PROFILE_IMG: `${API.USER}/generatedProfileImg`,
+  PROFILE: `${API.USER}/profile`,
+});
+
 export const API_PICKLE = Object.freeze({
   NEARBY: `${API.PICKLE}/nearby`,
   CREATE: `${API.PICKLE}/create`,
@@ -27,6 +34,7 @@ export const API_PICKLE = Object.freeze({
   SEARCH: (pickleType: string) => `${API.PICKLE}/${pickleType}`, // 피클검색
   LOCATION_SEARCH: `${API.PICKLE}/search`, // 지역검색
   IN_LOCATION: `${API.PICKLE}/location`, // 지도 내 피클 조회
+  REVIEWS: () => `${API.PICKLE}/reviews`,
   REVIEW: (pickleId: string) => `${API.PICKLE}/${pickleId}/review`,
   ATTENDANCE: (pickleId: string) => `${API.PICKLE}/${pickleId}/public`,
   RE_REQUEST: (pickleId: string) => `${API.PICKLE}/${pickleId}/reRequest`,
