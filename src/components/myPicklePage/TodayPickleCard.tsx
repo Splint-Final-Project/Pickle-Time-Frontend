@@ -58,6 +58,11 @@ const S = {
     position: relative;
     width: 100%;
     margin: auto;
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -webkit-touch-callout: none;
 
     &::before {
       content: '';

@@ -132,14 +132,14 @@ export default function Pickle() {
                   })
             }
           >
-            {amILeader
-              ? '피클 수정하기'
-              : amIMember
-                ? '신청한 피클입니다'
-                : over
-                  ? '신청 기한이 끝났습니다'
-                  : full
-                    ? '마감된 피클입니다'
+            {over
+              ? '신청 기한이 끝났습니다'
+              : full
+                ? '마감된 피클입니다'
+                : amILeader
+                  ? '피클 수정하기'
+                  : amIMember
+                    ? '신청한 피클입니다'
                     : '피클 신청하기'}
           </Button>
         </S.GoalAndBtn>
