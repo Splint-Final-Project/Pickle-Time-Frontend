@@ -49,15 +49,15 @@ export default function MyPickleCard({ pickleData }: MyPickleCardProps) {
 
   return (
     <S.Card>
-      <S.CardInner to={`/pickle/${pickleData.id}`} $picklestate={pickleData.state}>
-        <S.CardTitle>{pickleData.title}</S.CardTitle>
+      <S.CardInner to={`/pickle/${pickleData?.id}`} $picklestate={pickleData?.state}>
+        <S.CardTitle>{pickleData?.title}</S.CardTitle>
         <S.CardContent>
           <S.Date>{dateFormat}</S.Date>
-          <S.Address>{pickleData.place}</S.Address>
+          <S.Address>{pickleData?.place}</S.Address>
         </S.CardContent>
         <S.CategoryBg $bgtype={pickleData?.category} />
       </S.CardInner>
-      <S.ReviewBtn $isshow={pickleData.state !== 'closed'} onClick={handleClickReview}>
+      <S.ReviewBtn $isshow={pickleData?.state !== 'closed'} onClick={handleClickReview}>
         리뷰 쓰기
       </S.ReviewBtn>
     </S.Card>

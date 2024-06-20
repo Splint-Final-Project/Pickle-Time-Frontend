@@ -36,14 +36,17 @@ function MyPickleList({ currentState }: MyPickleListProps) {
   useEffect(() => {
     switch (currentState) {
       case 'pending':
-        setPicklesList(pendingData);
+        setPicklesList(pendingData?.pendingPickles);
         break;
       case 'progress':
         setPicklesList(proceedingData);
         break;
       case 'closed':
-        setPicklesList(finishData);
+        setPicklesList(finishData?.finishedPickles);
         break;
+        
+      default:
+        setPicklesList(pendingData?.pendingPickles);
     }
   }, [currentState]);
 
