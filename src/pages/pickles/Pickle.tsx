@@ -33,7 +33,7 @@ export default function Pickle() {
 
   const { handleOpen } = useBottomSheetModal(state => state);
   if (error) {
-    navigate('/not-found');
+    navigate('/not-found', { replace: true });
   }
 
   return (

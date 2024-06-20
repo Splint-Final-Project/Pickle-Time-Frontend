@@ -29,7 +29,9 @@ export default function StarRating({ selectedRating, onStarHover, onStarClick }:
 
 const S = {
   Rating: styled.div`
+    width: 100%;
     display: flex;
+    justify-content: center;
     gap: 0.7rem;
   `,
 };
