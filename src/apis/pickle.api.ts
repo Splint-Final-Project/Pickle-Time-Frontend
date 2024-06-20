@@ -62,6 +62,10 @@ export const picklesRequests = Object.freeze({
     return client.delete(API_PICKLE.REVIEW(pickleId));
   },
 
+  getPendingPickles: async () => {
+    const { data } = await client.get(API_PICKLE.MY_PENDING_PICKLES);
+    return data;
+  },
   //진행중(투데이) 피클 조회
   getProceedingPickles: async () => {
     const { data } = await client.get(API_PICKLE.MY_PROCEEDING_PICKLES);

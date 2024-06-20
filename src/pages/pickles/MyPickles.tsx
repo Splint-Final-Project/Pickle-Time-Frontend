@@ -37,7 +37,7 @@ const S = {
     padding: 6rem 0 9.6rem;
   `,
   Title: styled.h1`
-    padding: 0 17px;
+    padding: 0 35px;
     display: flex;
     align-items: center;
     gap: 22px;

@@ -14,7 +14,7 @@ export default function ConversationList() {
             navigate(-1);
           }}
         />
-        <div>마이 페이지</div>
+        <div>피클 메세지</div>
       </S.Title>
       <ChatListContainer />
     </S.Container>
@@ -27,7 +27,7 @@ const S = {
     display: flex;
     flex-direction: column;
     gap: 20px;
-    padding: 6rem 1.7rem 8.5rem;
+    padding: 6rem 3.5rem 8.5rem;
   `,
   Title: styled.h1`
     display: flex;

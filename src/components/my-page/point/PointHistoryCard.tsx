@@ -9,7 +9,7 @@ type PointHistoryCardProps = {
 };
 
 export default function PointHistoryCard({ date, type, amount, remaining, message }: PointHistoryCardProps) {
-  const pointColor = type ? 'primary' : 'accent2';
+  const pointColor = type === 'earn' ? 'primary' : 'accent2';
   const d = new Date(date);
 
   return (

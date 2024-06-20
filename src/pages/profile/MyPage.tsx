@@ -36,7 +36,7 @@ export default function MyPage() {
                 navigate(-1);
               }}
             />
-            <div>피클 메세지</div>
+            <div>마이 페이지</div>
           </S.Title>
           <S.SettingBtn to={routes.editProfile}>
             <img src="/icons/settingIcon.svg" alt="프로필 수정" />
@@ -69,6 +69,7 @@ const S = {
   Title: styled.h1`
     display: flex;
     align-items: center;
+    padding: 0 1.8rem;
     gap: 22px;
     color: var(--Basic, #181f29);
     font-size: 24px;

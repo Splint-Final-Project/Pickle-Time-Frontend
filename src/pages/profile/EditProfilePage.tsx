@@ -106,7 +106,7 @@ export default function EditProfilePage() {
 
 const S = {
   TopSection: styled.div`
-    padding: 8rem 1.7rem 3.2rem;
+    padding: 6rem 3.5rem 3.2rem;
     color: ${({ theme }) => theme.color.basic};
 
     h1 {
@@ -116,7 +116,8 @@ const S = {
 
   Header: styled.div`
     display: flex;
-    gap: 1.5rem;
+    gap: 2.2rem;
+    align-items: center;
   `,
 
   ProfileBox: styled.div`

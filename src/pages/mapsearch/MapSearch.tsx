@@ -311,7 +311,7 @@ const Container = styled.div`
 
 export const Title = styled.div`
   margin-top: 60px;
-  padding: 0 17px;
+  padding: 0 35px;
   display: flex;
   align-items: center;
   gap: 22px;
@@ -371,7 +371,7 @@ const PickleCardContainer = styled.div`
 const InputContainer = styled.div`
   position: relative;
   width: 100%;
-  padding: 0 17px;
+  padding: 0 35px;
   height: 40px;
   margin-top: 32px;
 `;
@@ -380,7 +380,7 @@ const TabWrapper = styled.div`
   width: 100%;
   display: flex;
   gap: 10px;
-  padding: 0 17px;
+  padding: 0 35px;
   align-items: center;
   margin: 13px 0 15px;
 `;
@@ -452,7 +452,7 @@ const JusoOptions = styled.div`
   z-index: 10;
   display: flex;
   flex-direction: column;
-  padding: 0 17px;
+  padding: 0 35px;
 `;
 
 const JusoOption = styled.div`

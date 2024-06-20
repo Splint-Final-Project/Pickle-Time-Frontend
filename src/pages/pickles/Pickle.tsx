@@ -39,7 +39,10 @@ export default function Pickle() {
   return (
     <S.Container>
       <S.TopSection>
-        <BackButton />
+        <S.Title>
+          <BackButton />
+          피클
+        </S.Title>
         <S.TopBox>
           <Category category={pickleDetailData?.category} />
           {!amILeader && (
@@ -157,9 +160,22 @@ const S = {
       ${({ theme }) => theme.typography.subTitle4}
     }
   `,
-
+  Title: styled.h1`
+    display: flex;
+    align-items: center;
+    gap: 22px;
+    color: var(--Basic, #181f29);
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    img {
+      height: 16px;
+      cursor: pointer;
+    }
+  `,
   TopSection: styled.div`
-    padding: 9rem 3.4rem 2.7rem;
+    padding: 6rem 3.4rem 2.7rem;
   `,
 
   TopBox: styled.div`
@@ -251,11 +267,11 @@ const S = {
 
   ShareButton: styled.button``,
   FloatingButton: styled(Button)`
-    position: fixed;
+    /* position: fixed;
     bottom: 4rem;
     left: 50%;
-    max-width: 650px;
     transform: translateX(-50%);
-    width: 80%;
+    max-width: 650px;
+    width: 80%; */
   `,
 };

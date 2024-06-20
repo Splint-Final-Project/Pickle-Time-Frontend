@@ -140,6 +140,13 @@ export const useDeleteReviewMutation = (pickleId: string) => {
   });
 };
 
+export const useGetPendingPickles = () => {
+  return useQuery({
+    queryKey: ['pickles', 'pending'],
+    queryFn: async () => await picklesRequests.getPendingPickles(),
+  });
+};
+
 export const useGetProceedingPickles = () => {
   return useQuery({
     queryKey: ['pickles', 'proceeding'],
