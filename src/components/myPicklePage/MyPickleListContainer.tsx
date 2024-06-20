@@ -23,29 +23,35 @@ function MyPickleList({ currentState }: MyPickleListProps) {
 
   // server state
   const { data: pendingData } = useGetPendingPickles();
-  const { data } = useGetProceedingPickles();
+  const { data: proceedingData } = useGetProceedingPickles();
   const { data: finishData } = useGetFinishPickles();
 
-  const proceedingData = data?.proceedingPickles;
+  const pendingPickles = pendingData?.pendingPickles;
+  const proceedingPickles = proceedingData?.proceedingPickles;
+  const finishedPickles = finishData?.finishedPickles;
 
-  console.log('pendingData', pendingData);
-  console.log('proceedingData', proceedingData);
-  console.log('finishData', finishData);
+  console.log('pendingPickles', pendingPickles);
+  console.log('proceedingPickles', proceedingPickles);
+  console.log('finishPickles', finishedPickles);
+
 
   useEffect(() => {
     switch (currentState) {
       case 'pending':
-        setPicklesList(pendingData?.pendingPickles);
+        setPicklesList(pendingPickles);
         break;
       case 'progress':
-        setPicklesList(proceedingData);
+        setPicklesList(proceedingPickles);
         break;
       case 'closed':
-        setPicklesList(finishData?.finishedPickles);
+// <<<<<<< HEAD
+//         setPicklesList(finishData?.finishedPickles);
+// =======
+        setPicklesList(finishedPickles);
         break;
 
       default:
-        setPicklesList(pendingData?.pendingPickles);
+        setPicklesList(pendingPickles);
     }
   }, [currentState]);
 
