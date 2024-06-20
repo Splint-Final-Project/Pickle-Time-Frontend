@@ -1,5 +1,6 @@
 export const API = Object.freeze({
   AUTH: '/user',
+  USER: '/users',
   PICKLE: '/pickle',
   MESSAGES: '/messages',
   CONVERSATIONS: '/conversations',
@@ -13,6 +14,12 @@ export const API_AUTH = Object.freeze({
   JOIN2: `${API.AUTH}/join2`,
   LOGOUT: `${API.AUTH}/logout`,
   BY_ID: (userId: string) => `${API.AUTH}/${userId}`,
+});
+
+export const API_USER = Object.freeze({
+  PROFILE_IMG: `${API.USER}/profileImg`,
+  GENERATED_PROFILE_IMG: `${API.USER}/generatedProfileImg`,
+  PROFILE: `${API.USER}/profile`,
 });
 
 export const API_PICKLE = Object.freeze({
