@@ -13,7 +13,7 @@ export default function AreaSetting({ profileState, setProfileState }: UpdatePro
   return (
     <>
       <S.AreaSettingContainer>
-        활동 범위 설정하기
+        활동 범위 수정하기
         <button
           onClick={() =>
             handleOpen({
