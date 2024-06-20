@@ -27,6 +27,7 @@ import {
   SelectedGu,
 } from './SignUpStyled';
 import { sis, sigus, map } from '@/constants/areas';
+import toast from 'react-hot-toast';
 
 type SigusType = {
   [key: string]: { si: string; gu: string; code: number }[];
@@ -49,7 +50,7 @@ export default function SignUp2() {
   async function handleSignUp2(data: SignUpFormValues2) {
     try {
       await signUp2(data);
-      alert('회원가입이 완료되었습니다. 홈 페이지로 이동합니다');
+      toast.success('회원가입이 완료되었습니다. 홈 화면으로 이동합니다.');
       navigate('/');
     } catch (e) {
       console.log(e);
