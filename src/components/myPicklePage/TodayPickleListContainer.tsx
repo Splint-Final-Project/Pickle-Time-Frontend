@@ -6,6 +6,7 @@ import { useQueryClient } from '@tanstack/react-query';
 import { useSearchParams } from 'react-router-dom';
 import { useEffect, useMemo, useState } from 'react';
 import { isButtonActive, getTimeGapMessage } from '@/utils/todayPickleCardUtils';
+import { useGetProceedingPickles } from '@/hooks/query/pickles';
 import betweenLength from '@/utils/betweenLength';
 
 const TEST_DATA = [
@@ -157,13 +158,14 @@ export default function TodayPickleListContainer() {
   const [searchParams, setSearchParams] = useSearchParams();
   const [distance, setDistance] = useState(0);
 
+  // server state
+  const { data } = useGetProceedingPickles();
+  
   const currentPage = useMemo(() => {
     return Number(searchParams.get('page')) || 1;
   }, [searchParams]);
-  const queryClient = useQueryClient();
 
-  const pickleData: any = queryClient.getQueryData(['pickles', 'proceeding']);
-  const todayPickles = pickleData?.todayPickles;
+  // console.log(data?.todayPickles[currentPage-1]);
 
   const handleAttendance = () => {
     // alert(`${location?.longitude} ,${location?.latitude}`);
@@ -180,16 +182,16 @@ export default function TodayPickleListContainer() {
 
   return (
     <S.Container>
-      <PagenationBar totalDataCount={TEST_DATA?.length} />
+      <PagenationBar totalDataCount={data?.todayPickles.length} />
       <Tilt>
-        <TodayPickleCard cardData={TEST_DATA[currentPage - 1]} />
+        <TodayPickleCard cardData={data?.todayPickles[currentPage - 1]} />
       </Tilt>
-      <S.AttendanceButton
+      {/* <S.AttendanceButton
         onClick={handleAttendance}
-        disabled={!isButtonActive(TEST_DATA[currentPage - 1].startHour, TEST_DATA[currentPage - 1].startMinute)}
+        disabled={!isButtonActive(data?.todayPickles[currentPage - 1].startHour, data?.todayPickles[currentPage - 1].startMinute)}
       >
         <span>출석하기</span>
-      </S.AttendanceButton>
+      </S.AttendanceButton> */}
     </S.Container>
   );
 }

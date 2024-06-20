@@ -1,11 +1,9 @@
 import MyPickleListContainer from '@/components/myPicklePage/MyPickleListContainer';
 
 import TodayPickleListContainer from '@/components/myPicklePage/TodayPickleListContainer';
-import { useGetProceedingPickles } from '@/hooks/query/pickles';
 import styled from '@emotion/styled';
 
 export default function MyPickles() {
-  useGetProceedingPickles();
   return (
     <S.Container>
       <S.Title>내 피클</S.Title>

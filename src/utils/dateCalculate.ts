@@ -86,13 +86,29 @@ export const totalMeetingTimesCalculate = ({
 
 export const meetingTimesSummary = () => {};
 
-const formatTime = (time: { hour: number; minute: number }): string => {
-  const period = time.hour < 12 ? '오전' : '오후';
+export const formatTime = (time: { hour: number; minute: number , _id: any}): string => {
+  if (!time) return '';
+
+  const period = time.hour < 12 ? 'am' : 'pm';
 
   let newHour = time.hour;
   if (time.hour > 12) {
     newHour = newHour - 12;
   }
+  const hour = newHour.toString().padStart(2, '0');
   const minute = time.minute.toString().padStart(2, '0');
-  return `${period} ${newHour}시 ${minute}분`;
+  return `${hour}: ${minute} ${period}`;
+};
+
+export const untilChulseok = (now: {hour: number, minute: number}, pickleStart: {hour: number, minute: number, _id: any}) => {
+  if (!now || !pickleStart) return '';
+
+  const leftHour = now.hour - pickleStart.hour;
+  const leftMinute = now.minute - pickleStart.minute;
+  if (leftHour > 0) return `피클 ${leftHour}시간 전이에요`;
+  if (leftHour === 0) {
+    if (leftMinute > 0) return `피클 ${leftMinute}분 전이에요`;
+
+    if (leftMinute < 0) return `피클이 진행 중이에요!`;
+  }
 };

@@ -3,12 +3,24 @@ import CardBackImg from '@/assets/images/todayPickleCardBackImg.svg';
 import ClockIcon from '@/assets/icons/ClockIcon';
 import AddressIcon from '@/assets/icons/AddressIcon';
 import Character from '@/assets/icons/character.svg';
+import { formatTime } from '@/utils/dateCalculate';
+
+type Time = {
+  times: Date[];
+  startDate: any;
+  finishDate: any;
+  startTime: any;
+  finishTime: any;
+  selectedDays: any;
+}
+
 type CardDataType = {
   title: string;
   finishDate: string;
+  when: Time;
   time: string;
   startTime: string;
-  address: string;
+  place: string;
   detailAddress: string;
   isNearby?: boolean;
 };
@@ -18,6 +30,16 @@ interface TodayPickleCardProps {
 }
 
 export default function TodayPickleCard({ cardData }: TodayPickleCardProps) {
+  const now = new Date();
+  const hours = now.getHours();
+  const minutes = now.getMinutes();
+
+  // format
+  const finishDateFormat = `~${cardData?.when.finishDate.month.toString().padStart(2, '0')}.${cardData?.when.finishDate.day}`
+  const startTimeFormat = formatTime(cardData?.when.startTime);
+  const finishTimeFormat = formatTime(cardData?.when.finishTime);
+  const timeFormat = `${startTimeFormat}~${finishTimeFormat}`
+
   return (
     <S.CardContainer>
       <S.Character />
@@ -25,9 +47,9 @@ export default function TodayPickleCard({ cardData }: TodayPickleCardProps) {
         <S.CardHeader>
           <S.HeaderWrap>
             <S.CardLogo>오늘의 피클 타임</S.CardLogo>
-            <S.FinishDate>{cardData.finishDate}</S.FinishDate>
+            <S.FinishDate>{finishDateFormat}</S.FinishDate>
           </S.HeaderWrap>
-          <S.CardTitle>{cardData.title}</S.CardTitle>
+          <S.CardTitle>{cardData?.title}</S.CardTitle>
         </S.CardHeader>
         <S.CardBody>
           <S.AlertMessage>! 피클 한 시간 전이에요</S.AlertMessage>
@@ -35,16 +57,16 @@ export default function TodayPickleCard({ cardData }: TodayPickleCardProps) {
             <S.IconBox>
               <ClockIcon />
             </S.IconBox>
-            <span>{cardData.time}</span>
+            <span>{timeFormat}</span>
           </S.PickleTime>
-          {cardData.isNearby && <S.AlertMessage>! 1km 남았어요</S.AlertMessage>}
+          {cardData?.isNearby && <S.AlertMessage>! 1km 남았어요</S.AlertMessage>}
           <S.PickleAddress>
             <S.IconBox>
               <AddressIcon />
             </S.IconBox>
             <span>
-              {cardData.address} <br />
-              <S.RestAddress>{cardData.detailAddress}</S.RestAddress>
+              {cardData?.place} <br />
+              <S.RestAddress>{cardData?.detailAddress}</S.RestAddress>
             </span>
           </S.PickleAddress>
         </S.CardBody>
