@@ -1,12 +1,15 @@
 import styled from '@emotion/styled';
+import { keyframes } from '@emotion/react';
 import { useGetSpecialPickles } from '@/hooks/query/pickles';
 import HeartButton from '@/components/common/button/HeartButton';
-import useHeartButtonClick from '@/hooks/useHeartButtonClick';
 import SpecialPickleCardArrowIcon from '@/assets/icons/SpecialPickleCardArrowIcon';
 import routes from '@/constants/routes';
 import { Link } from 'react-router-dom';
-import PickleCardListMockData from '@/mocks/pickleCardListMockData';
 import { useGetLikeCount, usePickleLikeMutation, useDeletePickleLikeMutation } from '@/hooks/query/like';
+
+/**
+ * 전체보기 눌렀을 때 나오는 화면에서 사용하는 카드 컴포넌트
+ */
 
 interface PickleCardListProps {
   category: 'hotTime' | 'popular';
@@ -19,7 +22,7 @@ const calculateDday = (deadLine: string) => {
   const deadLineMilliseconds = new Date(deadLine).getTime();
   return Math.floor((deadLineMilliseconds - today) / ONEDAY_MILLISECOND);
 };
-// 전체보기 눌렀을 때 나오는 화면에서 사용
+
 export default function PickleListCard({ category }: PickleCardListProps) {
   const { data } = useGetSpecialPickles(category);
 
@@ -30,7 +33,6 @@ export default function PickleListCard({ category }: PickleCardListProps) {
       ) : (
         <S.NoPicklesImg src="/images/noPickles.png" alt="nopickles" />
       )}
-      {/* <PickleCardListMockData /> */}
     </>
   );
 }
@@ -73,6 +75,18 @@ function SpecialPickleCard({ pickleData }: { pickleData: any }) {
   );
 }
 
+const loadingAnimation = keyframes`
+  0% {
+    transform: translateX(-50%) translateY(0);
+  }
+  50% {
+    transform: translateX(-50%) translateY(-10px);
+  }
+  100% {
+    transform: translateX(-50%) translateY(0);
+  }
+`;
+
 const S = {
   NoPicklesImg: styled.img`
     position: absolute;
@@ -80,6 +94,7 @@ const S = {
     left: 50%;
     top: 1rem;
     transform: translate(-50%, 0);
+    animation: ${loadingAnimation} 3s infinite;
   `,
   CardLayer: styled(Link)`
     display: block;
@@ -92,7 +107,15 @@ const S = {
     color: #161616;
     position: relative;
     box-shadow: 0px 1px 2.8px 0px rgba(0, 0, 0, 0.25);
-    transition: 0.5s;
+    transition: transform 0.3s ease-in-out;
+
+    &:hover {
+      transform: translateY(-3px);
+    }
+
+    &:not(:hover) {
+      transform: translateY(0);
+    }
   `,
   Wrap: styled.div`
     display: flex;
