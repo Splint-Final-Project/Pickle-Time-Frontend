@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import styled from '@emotion/styled';
 
 import BackButton from '@/components/common/button/BackButton';
@@ -12,6 +12,7 @@ import { BUTTON_TYPE } from '@/constants/BUTTON';
 export default function EditProfilePage() {
   const { user } = useAuth();
   const [nickname, setNickname] = useState(user.nickname);
+  const nicknameRef = useRef<HTMLInputElement>(null);
 
   return (
     <>
@@ -20,6 +21,7 @@ export default function EditProfilePage() {
           <BackButton />
           <h1>프로필 수정</h1>
         </S.Header>
+
         <S.ProfileBox>
           {user.profilePic ? (
             <img className="profile-img" src={user.profilePic} alt="프로필 이미지" />
@@ -27,11 +29,33 @@ export default function EditProfilePage() {
             <DefaultProfileIcon />
           )}
           <S.NickName>
-            <input className="nickname" value={nickname} onChange={e => setNickname(e.target.value)} />
-            <CancelIcon style={{ position: 'absolute', top: '0.3rem', right: 0 }} />
+            <input
+              ref={nicknameRef}
+              className="nickname"
+              value={nickname}
+              onChange={e => setNickname(e.target.value)}
+            />
+            <CancelIcon
+              onClick={() => {
+                setNickname('');
+                nicknameRef.current?.focus();
+              }}
+              style={{ position: 'absolute', top: '0.3rem', right: 0, cursor: 'pointer' }}
+            />
           </S.NickName>
           <span className="email">{user.email}</span>
         </S.ProfileBox>
+
+        <S.ImgSelectContainer>
+          <Button styleType={BUTTON_TYPE.DISABLE}>
+            <img src="/icons/pictureIcon.svg" />
+            <span>라이브러리에서 선택</span>
+          </Button>
+          <Button styleType={BUTTON_TYPE.DISABLE} style={{ marginTop: '1.4rem' }}>
+            <img src="/icons/aiIcon.svg" />
+            <span>AI로 생성하기</span>
+          </Button>
+        </S.ImgSelectContainer>
       </S.TopSection>
 
       <S.BottomSection>
@@ -53,7 +77,7 @@ export default function EditProfilePage() {
 
 const S = {
   TopSection: styled.div`
-    padding: 8rem 1.7rem 3.7rem;
+    padding: 8rem 1.7rem 3.2rem;
     color: ${({ theme }) => theme.color.basic};
 
     h1 {
@@ -71,7 +95,7 @@ const S = {
     flex-direction: column;
     align-items: center;
     gap: 1.3rem;
-    margin: 4.2rem 0 3.2rem;
+    margin: 4.2rem 0 3.5rem;
 
     & .profile-img {
       width: 8.1rem;
@@ -89,7 +113,7 @@ const S = {
     display: flex;
     align-items: center;
     position: relative;
-    width: 40%;
+    width: 45%;
 
     & .nickname {
       width: 100%;
@@ -98,6 +122,22 @@ const S = {
       border-bottom: ${({ theme }) => theme.border};
       text-align: center;
       ${({ theme }) => theme.typography.subTitle3};
+    }
+  `,
+
+  ImgSelectContainer: styled.div`
+    padding: 0 1.5rem;
+
+    button {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 1.2rem;
+    }
+
+    span {
+      color: ${({ theme }) => theme.color.sub};
+      ${({ theme }) => theme.typography.body1};
     }
   `,
 
