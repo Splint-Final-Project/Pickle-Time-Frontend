@@ -37,7 +37,7 @@ const S = {
     justify-content: space-between;
     align-items: center;
 
-    padding: 1.5rem 1.3rem;
+    padding: 1.5rem 1.7rem;
     margin: 1.7rem 0 1.3rem;
     border-radius: 1.5rem;
     background-color: ${({ theme }) => theme.color.card};
