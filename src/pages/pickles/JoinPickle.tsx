@@ -1,6 +1,7 @@
 import useAuth from '@/hooks/zustand/useAuth';
-import { useEffect, useMemo, useState } from 'react';
-import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import { toast } from 'react-hot-toast';
 
 import { Container } from './CreatePickleStyled';
 
@@ -40,11 +41,11 @@ export default function JoinPickle() {
 
   async function onClickPayment() {
     if (pickleData.cost - usePointValue < 0) {
-      alert('포인트를 잘못 사용하셨습니다.');
+      toast.error('포인트를 잘못 사용하셨습니다.');
       return;
     }
     if (!paymentMethod || !isAgree) {
-      alert('결제 수단과 약관에 동의해주세요.');
+      toast.error('결제 수단과 약관에 동의해주세요.');
       return;
     }
     if (pickleData.cost - usePointValue === 0) {
@@ -55,9 +56,9 @@ export default function JoinPickle() {
           discount: usePointValue,
           pickle_id: pickleId,
         });
-        alert('결제 및 신청이 완료되었습니다.');
+        toast.success('결제 및 신청이 완료되었습니다.');
       } catch (err: any) {
-        alert(err.response.data.message);
+        toast.error(err.response.data.message);
       }
       navigate(`/pickle/${pickleId}`, { replace: true });
     } else {
@@ -76,7 +77,7 @@ export default function JoinPickle() {
 
       IMP.request_pay(data, async (response: any) => {
         if (!response.success) {
-          alert(`결제에 실패했습니다: ${response.error_msg}`);
+          toast.error(`결제에 실패했습니다: ${response.error_msg}`);
           navigate(`/pickle/${pickleId}`, { replace: true });
         }
         try {
@@ -84,9 +85,9 @@ export default function JoinPickle() {
             imp_uid: response.imp_uid,
             pickle_id: pickleId,
           });
-          alert('결제 및 신청이 완료되었습니다.');
+          toast.success('결제 및 신청이 완료되었습니다.');
         } catch (err: any) {
-          alert(err.response.data.message);
+          toast.error(err.response.data.message);
         }
         navigate(`/pickle/${pickleId}`, { replace: true });
       });

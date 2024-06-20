@@ -117,7 +117,7 @@ export default function Pickle() {
               </Tag>
             ))}
           </S.GoalContainer>
-          <Button
+          <S.FloatingButton
             className="apply-btn"
             disabled={(!amILeader && amIMember) || full || over}
             onClick={() =>
@@ -141,7 +141,7 @@ export default function Pickle() {
                   : amIMember
                     ? '신청한 피클입니다'
                     : '피클 신청하기'}
-          </Button>
+          </S.FloatingButton>
         </S.GoalAndBtn>
       </S.BottomSection>
     </S.Container>
@@ -205,6 +205,13 @@ const S = {
     margin-bottom: 2rem;
     object-fit: cover;
     border-radius: 0.4rem;
+
+    @media (min-width: 400px) {
+      height: 20rem;
+    }
+    @media (min-width: 500px) {
+      height: 40rem;
+    }
   `,
 
   BottomSection: styled.div`
@@ -229,6 +236,7 @@ const S = {
 
   GoalAndBtn: styled.div`
     padding: 2.6rem 3.4rem 13.6rem;
+    margin-bottom: 5rem;
 
     & .apply-btn {
       margin-top: 5rem;
@@ -242,4 +250,12 @@ const S = {
   `,
 
   ShareButton: styled.button``,
+  FloatingButton: styled(Button)`
+    position: fixed;
+    bottom: 4rem;
+    left: 50%;
+    max-width: 650px;
+    transform: translateX(-50%);
+    width: 80%;
+  `,
 };

@@ -17,10 +17,10 @@ export default function SignIn_Email() {
     try {
       const status = await signIn(data);
       if (status === 'pending') {
-        alert('추가 정보 입력 페이지로 이동');
+        toast.success('추가 정보 입력 페이지로 이동합니다.');
         navigate('/sign-up2');
       } else {
-        alert('로그인 성공! 홈 페이지로 이동합니다.');
+        toast.success('로그인 성공! 홈 페이지로 이동합니다.');
         navigate('/');
       }
     } catch (e) {
@@ -130,6 +130,7 @@ export default function SignIn_Email() {
 }
 
 import styled from '@emotion/styled';
+import toast from 'react-hot-toast';
 
 export const Container = styled.div`
   width: 100%;
