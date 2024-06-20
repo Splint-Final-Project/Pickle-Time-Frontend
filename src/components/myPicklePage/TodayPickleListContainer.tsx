@@ -66,13 +66,18 @@ export default function TodayPickleListContainer() {
   }
   return (
     <S.Container>
-      <PagenationBar totalDataCount={TEST_DATA?.length} />
+      <PagenationBar totalDataCount={todayPickles?.length} />
       <Tilt>
-        <TodayPickleCard cardData={TEST_DATA[currentPage - 1]} />
+        <TodayPickleCard cardData={todayPickles[currentPage - 1]} distance={distance} />
       </Tilt>
       <S.AttendanceButton
         onClick={handleAttendance}
-        disabled={!isButtonActive(TEST_DATA[currentPage - 1].startHour, TEST_DATA[currentPage - 1].startMinute)}
+        disabled={
+          !isButtonActive(
+            todayPickles[currentPage - 1].when.startTime.hour,
+            todayPickles[currentPage - 1].when.startTime.minute,
+          ) || distance > 1.5
+        }
       >
         <span>출석하기</span>
       </S.AttendanceButton>
