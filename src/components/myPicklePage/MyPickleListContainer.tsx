@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import PickleStateFilterBar, { pickleState } from './PickleStateFilterBar';
 import styled from '@emotion/styled';
 import MyPickleCard, { PickleDataType } from './MyPickleCard';
-import { useQueryClient } from '@tanstack/react-query';
 import { useGetFinishPickles, useGetPendingPickles, useGetProceedingPickles } from '@/hooks/query/pickles';
 
 export default function MyPickleListContainer() {
@@ -23,12 +22,14 @@ function MyPickleList({ currentState }: MyPickleListProps) {
   const [picklesList, setPicklesList] = useState<any>([]);
 
   const { data: pendingData } = useGetPendingPickles();
-  const { data } = useGetProceedingPickles();
-  const proceedingData = data?.proceedingPickles;
+  const pendingPickles = pendingData?.pendingPickles;
+  const { data: proceedingData } = useGetProceedingPickles();
+  const proceedingPickles = proceedingData?.proceedingPickles;
   const { data: finishData } = useGetFinishPickles();
-  console.log('pendingData', pendingData);
-  console.log('proceedingData', proceedingData);
-  console.log('finishData', finishData);
+  const finishedPickles = finishData?.finishedPickles;
+  console.log('pendingPickles', pendingPickles);
+  console.log('proceedingPickles', proceedingPickles);
+  console.log('finishPickles', finishedPickles);
 
   useEffect(() => {
     switch (currentState) {
@@ -36,21 +37,21 @@ function MyPickleList({ currentState }: MyPickleListProps) {
         setPicklesList(pendingData);
         break;
       case 'progress':
-        setPicklesList(proceedingData);
+        setPicklesList(proceedingPickles);
         break;
       case 'closed':
-        setPicklesList(finishData);
+        setPicklesList(finishedPickles);
         break;
     }
   }, [currentState]);
 
   return (
     <S.List>
-      {/* {FilterData.map(item => (
+      {picklesList.map((item: any) => (
         <li key={item.id}>
           <MyPickleCard pickleData={item} />
         </li>
-      ))} */}
+      ))}
     </S.List>
   );
 }
