@@ -100,7 +100,7 @@ export default function MapSearch() {
     <Container>
       <Title>
         <img
-          src="icons/back.svg"
+          src="/icons/back.svg"
           alt="back"
           onClick={() => {
             navigate('/');
@@ -123,7 +123,7 @@ export default function MapSearch() {
           }}
         />
         <SearchButton
-          src="icons/magnifier.svg"
+          src="/icons/magnifier.svg"
           alt="search"
           onClick={e => {
             handleJusoSearch();

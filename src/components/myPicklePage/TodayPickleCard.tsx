@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 import CardBackImg from '@/assets/images/todayPickleCardBackImg.svg';
 import ClockIcon from '@/assets/icons/ClockIcon';
 import AddressIcon from '@/assets/icons/AddressIcon';
-
+import Character from '@/assets/icons/character.svg';
 type CardDataType = {
   title: string;
   finishDate: string;
@@ -20,6 +20,7 @@ interface TodayPickleCardProps {
 export default function TodayPickleCard({ cardData }: TodayPickleCardProps) {
   return (
     <S.CardContainer>
+      <S.Character />
       <S.Card>
         <S.CardHeader>
           <S.HeaderWrap>
@@ -70,6 +71,17 @@ const S = {
       transform: translateX(-50%);
       z-index: 50;
     }
+  `,
+  Character: styled.div`
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    background-image: url(${Character});
+    background-repeat: no-repeat;
+    background-size: contain;
+    top: -2.1rem;
+    left: 1.5rem;
+    z-index: 200;
   `,
   Card: styled.div`
     padding: 2.8rem 2.5rem;

@@ -1,10 +1,8 @@
 import { useEffect, useState } from 'react';
 import { JusoOption, InputField, LabelText, SearchButton, InputConstraint } from './CreatePicklePageStyled';
-
 import { Map, MapMarker } from 'react-kakao-maps-sdk';
-import usePickleCreation from '@/hooks/zustand/usePickleCreation';
 
-export default function AreaInput() {
+export default function AreaInput({ hook }: { hook: any }) {
   const {
     place,
     address,
@@ -17,7 +15,7 @@ export default function AreaInput() {
     setLongitude,
     setAreaCode,
     setDetailedAddress,
-  } = usePickleCreation();
+  } = hook();
 
   const [jusoSearch, setJusoSearch] = useState('');
   const [jusoList, setJusoList] = useState<any[] | null>(null);
@@ -98,7 +96,7 @@ export default function AreaInput() {
         }}
       />
       <SearchButton
-        src="icons/magnifier.svg"
+        src="/icons/magnifier.svg"
         alt="search"
         onClick={e => {
           handleJusoSearch();

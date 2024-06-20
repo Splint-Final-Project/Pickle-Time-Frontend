@@ -1,4 +1,3 @@
-import usePickleCreation from '@/hooks/zustand/usePickleCreation';
 import { useRef } from 'react';
 import SelectInLibraryIcon from '/icons/selectInLibrary.svg';
 import GenerateAIICon from '/icons/generateAI.svg';
@@ -7,8 +6,8 @@ import Spinner from '@/components/common/Spinner';
 import openai from '@/apis/openai';
 import { picklesRequests } from '@/apis/pickle.api';
 
-export default function ImgSelect() {
-  const { title, imgUrl, setImgUrl, isImgLoading, setIsImgLoading } = usePickleCreation();
+export default function ImgSelect({ hook }: { hook: any }) {
+  const { title, imgUrl, setImgUrl, isImgLoading, setIsImgLoading } = hook();
   const imageInput = useRef(null);
 
   async function generateImage() {

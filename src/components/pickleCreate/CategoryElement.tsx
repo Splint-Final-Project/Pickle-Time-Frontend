@@ -29,7 +29,12 @@ export default function CategoryElement({ id, title, content, src, selectedId, o
 }
 
 const S = {
-  Container: styled.div``,
+  Container: styled.div`
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+    -ms-user-select: none; /* 인터넷익스플로러 */
+    user-select: none;
+  `,
 
   DividingLine: styled.div`
     height: 0.2rem;
