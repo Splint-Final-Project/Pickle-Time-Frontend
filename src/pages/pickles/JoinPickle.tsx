@@ -12,6 +12,7 @@ import { useGetPickelDetail } from '@/hooks/query/pickles';
 import client from '@/apis/axios';
 import useBottomSheetModal from '@/hooks/zustand/useBottomSheetModal';
 import ConfirmationModal from '@/components/common/modal/ConfirmationModal';
+import { useMyPoints } from '@/hooks/query/points';
 
 declare global {
   interface Window {
@@ -23,33 +24,19 @@ export default function JoinPickle() {
   const navigate = useNavigate();
   const { user } = useAuth();
   const { handleOpen } = useBottomSheetModal(state => state);
-  // const location = useLocation();
   const { id: pickleId = '' } = useParams();
-  console.log(pickleId);
   const { data } = useGetPickelDetail(pickleId);
 
   const pickleData = data?.data;
 
   const [paymentMethod, setPaymentMethod] = useState<string>('');
-  const [point, setPoint] = useState(0);
   const [usePointValue, setUsePointValue] = useState(0);
   const [isAgree, setIsAgree] = useState(false);
 
   const { IMP } = window;
 
-  async function getPoints() {
-    try {
-      const res = await client.get('/users/points');
-      if (res.status === 200) {
-        setPoint(res.data.points);
-      }
-    } catch (err) {
-      console.log(err);
-    }
-  }
-  useEffect(() => {
-    getPoints();
-  }, []);
+  const { data: pointsdata } = useMyPoints();
+  const point = pointsdata?.data?.points;
 
   async function onClickPayment() {
     if (pickleData.cost - usePointValue < 0) {

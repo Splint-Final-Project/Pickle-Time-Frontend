@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import client from '@/apis/axios';
 import PaymentWindow from '@/components/picklePayment/PaymentComponent';
 import styled from '@emotion/styled';
+import { useMyPoints } from '@/hooks/query/points';
 
 export default function CreationPayment() {
   const { user } = useAuth();
@@ -28,22 +29,13 @@ export default function CreationPayment() {
     clear,
   } = usePickleCreation();
   const [paymentMethod, setPaymentMethod] = useState<string>('');
-  const [point, setPoint] = useState(0);
   const [usePointValue, setUsePointValue] = useState(0);
   const [isAgree, setIsAgree] = useState(false);
 
   const { IMP } = window;
 
-  async function getPoints() {
-    try {
-      const res = await client.get('/users/points');
-      if (res.status === 200) {
-        setPoint(res.data.points);
-      }
-    } catch (err) {
-      console.log(err);
-    }
-  }
+  const { data: pointsdata } = useMyPoints();
+  const point = pointsdata?.data?.points;
 
   async function onClickPayment() {
     if (cost - usePointValue < 0) {
@@ -83,17 +75,14 @@ export default function CreationPayment() {
           clear();
 
           navigate(`/pickle/${notified.data.pickle._id}`, { replace: true });
-
         } else {
           alert('피클 생성이 실패하여 결제 금액은 환불되었습니다.' + notified.data.message);
 
           navigate(`/pickle-create`, { replace: true });
         }
-
       } catch (err) {
         console.log(err);
       }
-
     } else {
       const data = {
         pg: `${paymentMethod === 'kakaopay' ? 'kakaopay.TC0ONETIME' : 'tosspay.tosstest'}`,
@@ -144,17 +133,12 @@ export default function CreationPayment() {
             alert('피클 생성이 실패하여 결제 금액은 환불되었습니다.' + notified.data.message);
             navigate(`/pickle-create`, { replace: true });
           }
-
         } catch (err) {
           console.log(err);
         }
       });
     }
   }
-
-  useEffect(() => {
-    getPoints();
-  }, []);
 
   return (
     <>
