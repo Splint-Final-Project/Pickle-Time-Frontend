@@ -3,21 +3,16 @@ import CardBackImg from '@/assets/images/todayPickleCardBackImg.svg';
 import ClockIcon from '@/assets/icons/ClockIcon';
 import AddressIcon from '@/assets/icons/AddressIcon';
 import Character from '@/assets/icons/character.svg';
-type CardDataType = {
-  title: string;
-  finishDate: string;
-  time: string;
-  startTime: string;
-  address: string;
-  detailAddress: string;
-  isNearby?: boolean;
-};
+import { TodayPickleDataType } from './TodayPickleListContainer';
+import { getTimeGapMessage } from '@/utils/todayPickleCardUtils';
+import { formatTimeRange } from '@/utils/formatData';
 
 interface TodayPickleCardProps {
-  cardData: CardDataType;
+  cardData: TodayPickleDataType;
+  distance: number;
 }
 
-export default function TodayPickleCard({ cardData }: TodayPickleCardProps) {
+export default function TodayPickleCard({ cardData, distance }: TodayPickleCardProps) {
   return (
     <S.CardContainer>
       <S.Character />
@@ -25,26 +20,29 @@ export default function TodayPickleCard({ cardData }: TodayPickleCardProps) {
         <S.CardHeader>
           <S.HeaderWrap>
             <S.CardLogo>오늘의 피클 타임</S.CardLogo>
-            <S.FinishDate>{cardData.finishDate}</S.FinishDate>
+            <S.FinishDate>{`~ ${cardData.when.finishDate.month}.${cardData.when.finishDate.day}`}</S.FinishDate>
           </S.HeaderWrap>
           <S.CardTitle>{cardData.title}</S.CardTitle>
         </S.CardHeader>
         <S.CardBody>
-          <S.AlertMessage>! 피클 한 시간 전이에요</S.AlertMessage>
+          <S.AlertMessage>
+            {getTimeGapMessage(cardData.when.startTime.hour, cardData.when.startTime.minute)}
+          </S.AlertMessage>
           <S.PickleTime>
             <S.IconBox>
               <ClockIcon />
             </S.IconBox>
-            <span>{cardData.time}</span>
+            <span>{formatTimeRange(cardData.when)}</span>
           </S.PickleTime>
-          {cardData.isNearby && <S.AlertMessage>! 1km 남았어요</S.AlertMessage>}
+          {distance <= 1 && distance >= 0.8 && <S.AlertMessage>! 1km 남았어요</S.AlertMessage>}
+          {distance < 0.5 && <S.AlertMessage $arrive>! 도착했어요</S.AlertMessage>}
           <S.PickleAddress>
             <S.IconBox>
               <AddressIcon />
             </S.IconBox>
             <span>
               {cardData.address} <br />
-              <S.RestAddress>{cardData.detailAddress}</S.RestAddress>
+              <S.RestAddress>{cardData.detailedAddress}</S.RestAddress>
             </span>
           </S.PickleAddress>
         </S.CardBody>
@@ -126,8 +124,8 @@ const S = {
     flex-direction: column;
     gap: 1rem;
   `,
-  AlertMessage: styled.span`
-    color: #f66;
+  AlertMessage: styled.span<{ $arrive?: Boolean }>`
+    color: ${({ $arrive }) => ($arrive ? '#FFD66D' : '#f66')};
   `,
   PickleTime: styled.p`
     font-size: 1.3rem;

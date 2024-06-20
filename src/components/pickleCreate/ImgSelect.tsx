@@ -72,7 +72,7 @@ export default function ImgSelect({ hook }: { hook: any }) {
     <S.Container>
       <S.Text>대표 이미지를 설정해 주세요</S.Text>
       <S.ImgSelectContainer>
-        <S.ImgContainer>
+        <S.ImgContainer hasImage={!!imgUrl}>
           {isImgLoading ? (
             <Spinner />
           ) : imgUrl ? (
@@ -116,8 +116,7 @@ const S = {
     line-height: normal;
   `,
 
-  ImgContainer: styled.div`
-    /* cursor: pointer; */
+  ImgContainer: styled.div<{ hasImage: boolean }>`
     display: flex;
     justify-content: center;
     align-items: center;
@@ -126,6 +125,17 @@ const S = {
     flex-shrink: 0;
     border-radius: 0.4rem;
     background: #d9d9d9;
+
+    ${({ hasImage }) =>
+      hasImage &&
+      `
+      @media (min-width: 400px) {
+        height: 20rem;
+      }
+      @media (min-width: 500px) {
+        height: 40rem;
+      }
+    `}
   `,
 
   ImgText: styled.span`

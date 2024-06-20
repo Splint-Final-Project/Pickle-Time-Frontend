@@ -1,8 +1,5 @@
 import styled from '@emotion/styled';
 import { Link } from 'react-router-dom';
-import CategoryBgStudy from '@/assets/images/categoryBgStudy.png';
-import CategoryBgHobby from '@/assets/images/categoryBgHobby.png';
-import CategoryBgExercise from '@/assets/images/categoryBgExercise.png';
 import { pickleState } from './PickleStateFilterBar';
 import { css } from '@emotion/react';
 import useBottomSheetModal from '@/hooks/zustand/useBottomSheetModal';
@@ -26,7 +23,7 @@ export default function MyPickleCard({ pickleData }: MyPickleCardProps) {
   const { handleOpen } = useBottomSheetModal(state => state);
   const handleClickReview = (e: React.MouseEvent) => {
     e.stopPropagation();
-    handleOpen({ renderComponent: ReviewModal });
+    handleOpen({ renderComponent: ReviewModal, pickleId: pickleData.id, pickleTitle: pickleData.title });
   };
   return (
     <S.Card>
@@ -91,13 +88,13 @@ const S = {
     background-image: ${({ $bgtype }) => {
       switch ($bgtype) {
         case '운동':
-          return `url(${CategoryBgExercise})`;
+          return `url('/icons/exercise.svg')`;
 
         case '취미':
-          return `url(${CategoryBgHobby})`;
+          return `url('/icons/hobbies.svg')`;
 
         case '스터디':
-          return `url(${CategoryBgStudy})`;
+          return `url('/icons/study.svg')`;
       }
     }};
     background-repeat: no-repeat;

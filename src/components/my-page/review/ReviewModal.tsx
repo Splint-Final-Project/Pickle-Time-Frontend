@@ -13,16 +13,17 @@ import { keyframes } from '@emotion/react';
  */
 
 interface Props {
+  pickleId: string;
+  pickleTitle: string;
   handleClose: () => void;
 }
 
-const pickleId = '6666b9fdf5c3e2e975e0be57'; //임시
-
-export default function ReviewModal({ handleClose }: Props) {
+export default function ReviewModal({ pickleId, pickleTitle, handleClose }: Props) {
   const [selectedRating, setSelectedRating] = useState(0);
   const [isRatingSelected, setIsRatingSelected] = useState(false);
   const [reviewText, setReviewText] = useState('');
   const [showReviewInput, setShowReviewInput] = useState(false);
+  console.log(pickleId);
 
   const { mutate: postReviewMutate } = useCreateReviewMutation(pickleId, () => handleClose());
 
@@ -38,7 +39,7 @@ export default function ReviewModal({ handleClose }: Props) {
   };
 
   const handleReviewSubmit = () => {
-    postReviewMutate({ star: selectedRating, reviewText });
+    postReviewMutate({ stars: selectedRating, content: reviewText });
     setSelectedRating(0);
     setIsRatingSelected(false);
     setReviewText('');
@@ -59,7 +60,7 @@ export default function ReviewModal({ handleClose }: Props) {
         <S.FadeInContainer>
           <S.ReviewInputSection>
             <S.Title>리뷰쓰기</S.Title>
-            <S.PickleName className="input-section">토익 850 목표 스터디</S.PickleName>
+            <S.PickleName className="input-section">{pickleTitle}</S.PickleName>
             <StarRating selectedRating={selectedRating} onStarHover={handleStarHover} onStarClick={handleStarClick} />
             <S.TextArea
               placeholder={PLACEHOLDER.REVIEW.WRITE}
@@ -74,7 +75,7 @@ export default function ReviewModal({ handleClose }: Props) {
         <S.FadeOutContainer>
           <S.RatingChoiceSection>
             <S.Title>이 피클은 어떠셨나요?</S.Title>
-            <S.PickleName className="rating-section">토익 850 목표 스터디</S.PickleName>
+            <S.PickleName className="rating-section">{pickleTitle}</S.PickleName>
             <StarRating selectedRating={selectedRating} onStarHover={handleStarHover} onStarClick={handleStarClick} />
           </S.RatingChoiceSection>
         </S.FadeOutContainer>
@@ -82,7 +83,7 @@ export default function ReviewModal({ handleClose }: Props) {
       {!isRatingSelected && (
         <S.RatingChoiceSection>
           <S.Title>이 피클은 어떠셨나요?</S.Title>
-          <S.PickleName className="rating-section">토익 850 목표 스터디</S.PickleName>
+          <S.PickleName className="rating-section">{pickleTitle}</S.PickleName>
           <StarRating selectedRating={selectedRating} onStarHover={handleStarHover} onStarClick={handleStarClick} />
         </S.RatingChoiceSection>
       )}
@@ -118,7 +119,7 @@ const S = {
     flex-direction: column;
     align-items: center;
     text-align: center;
-    min-height: 46rem;
+    max-height: 46rem;
   `,
 
   ReviewInputSection: styled.div`
@@ -134,7 +135,7 @@ const S = {
   `,
 
   RatingChoiceSection: styled.div`
-    padding: 16rem 0 13rem;
+    padding: 4rem 0 4rem;
 
     & .rating-section {
       margin: 0.5rem 0 4.5rem;
@@ -162,6 +163,7 @@ const S = {
   Title: styled.h2`
     color: ${({ theme }) => theme.color.basic};
     ${({ theme }) => theme.typography.subTitle1};
+    font-weight: 600;
   `,
 
   PickleName: styled.div`

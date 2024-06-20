@@ -67,7 +67,7 @@ export default function PickleEdit() {
   useEffect(() => {
     if (pickleDetailData) {
       if (user?._id !== pickleDetailData.leader) {
-        alert('피클 작성자만 수정할 수 있습니다.');
+        toast.error('피클 작성자만 수정할 수 있습니다.');
         navigate('/pickle/' + id, { replace: true });
       }
       clear();

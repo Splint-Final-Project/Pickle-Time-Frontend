@@ -30,7 +30,7 @@ const S = {
     background-color: ${({ theme }) => theme.color.background};
   `,
   InnerWrap: styled.div`
-    padding: 1.8rem 1.4rem 0;
+    padding: 1.8rem 1.7rem 0;
   `,
 
   NoData: styled.div`

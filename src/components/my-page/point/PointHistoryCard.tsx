@@ -1,18 +1,28 @@
 import styled from '@emotion/styled';
 
-export default function PointHistoryCard({ date, amount, history }) {
-  const isPlus = amount.plus > 0;
-  const point = isPlus ? `+ ${amount.plus}` : `- ${amount.minus}`;
-  const pointColor = isPlus ? 'accent2' : 'primary';
+type PointHistoryCardProps = {
+  date: Date;
+  type: 'earn' | 'use';
+  amount: number;
+  remaining: number;
+  message: string;
+};
+
+export default function PointHistoryCard({ date, type, amount, remaining, message }: PointHistoryCardProps) {
+  const pointColor = type ? 'primary' : 'accent2';
+  const d = new Date(date);
 
   return (
     <S.Container>
-      <S.Date>{date}</S.Date>
+      <S.Date>
+        {(d.getFullYear() + '').substring(2)}/{(d.getMonth() + 1).toString().padStart(2, '0')}/
+        {d.getDate().toString().padStart(2, '0')}
+      </S.Date>
       <S.HistoryBox>
         <S.PointIcon color={pointColor}>P</S.PointIcon>
         <S.PointHistory color={pointColor}>
-          <span className="point">{point}P</span>
-          <span className="history">{history}</span>
+          <span className="point">{amount}P</span>
+          <span className="history">{message}</span>
         </S.PointHistory>
       </S.HistoryBox>
     </S.Container>

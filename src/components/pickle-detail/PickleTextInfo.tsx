@@ -38,7 +38,7 @@ export default function PickleTextInfo({
         <S.Text>
           <span>{place}</span>
           <span>
-            {address} ({detailedAddress})
+            {address} {detailedAddress && `(${detailedAddress})`}
           </span>
         </S.Text>
       </S.Row>

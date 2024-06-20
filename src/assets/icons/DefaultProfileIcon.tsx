@@ -21,9 +21,9 @@ export default function DefaultProfileIcon({ size = 70, ...props }) {
         <path
           d="M38.3019 41.6411L38.3388 41.6658C38.6737 41.8948 39.0676 42.0223 39.4731 42.0326C39.8787 42.043 40.2786 41.9359 40.6247 41.7243"
           stroke="#020303"
-          stroke-width="2.5"
-          stroke-miterlimit="10"
-          stroke-linecap="round"
+          strokeWidth="2.5"
+          strokeMiterlimit="10"
+          strokeLinecap="round"
         />
       </g>
       <defs>

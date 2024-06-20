@@ -103,7 +103,7 @@ export default function MapSearch() {
           src="/icons/back.svg"
           alt="back"
           onClick={() => {
-            navigate('/');
+            navigate(-1);
           }}
         />
         <div>지도로 탐색하기</div>
@@ -310,7 +310,7 @@ const Container = styled.div`
 `;
 
 export const Title = styled.div`
-  margin-top: 90px;
+  margin-top: 60px;
   padding: 0 17px;
   display: flex;
   align-items: center;
