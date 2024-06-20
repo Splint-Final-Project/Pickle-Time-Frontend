@@ -17,12 +17,22 @@ const useListenMessages = (user: any) => {
   
   useEffect(() => {
     socket?.on('newMessage', (newMessage: any) => {
-      console.log(newMessage);
-      // newMessage.shouldShake = true;ㅌ
+      // console.log(newMessage);
+      // newMessage.shouldShake = true;
       setMessages([...messages, newMessage]);
     });
 
     return () => socket?.off('newMessage');
   }, [socket, setMessages, messages]);
+
+  useEffect(() => {
+    socket?.on('chatBotMessage', (newMessage: any) => {
+      console.log(newMessage);
+      setMessages([...messages, newMessage]);
+    });
+
+    return () => socket?.off('chatBotMessage');
+  }, [socket, setMessages, messages]);
+
 };
 export default useListenMessages;

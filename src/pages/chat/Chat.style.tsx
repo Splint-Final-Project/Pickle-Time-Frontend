@@ -61,7 +61,7 @@ export const S = {
   `,
 
   MessageContainer: styled.div`
-    height: 78.1vh;
+    height: 74vh;
     overflow-y: auto;
     flex-grow: 1;
   `,
