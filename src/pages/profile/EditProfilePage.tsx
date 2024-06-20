@@ -7,13 +7,30 @@ import ActivityArea from '@/components/my-page/edit/ActivityArea';
 import useAuth from '@/hooks/zustand/useAuth';
 import DefaultProfileIcon from '@/assets/icons/DefaultProfileIcon';
 import CancelIcon from '@/assets/icons/CancelIcon';
-import { BUTTON_TYPE } from '@/constants/BUTTON';
 import EditIcon from '@/assets/icons/EditIcon';
+import { BUTTON_TYPE } from '@/constants/BUTTON';
+import { userRequests } from '@/apis/user.api';
 
 export default function EditProfilePage() {
-  const { user } = useAuth();
+  const { user, updateProfile } = useAuth();
+
   const [nickname, setNickname] = useState(user.nickname);
+  const [areaCodes, setAreaCodes] = useState(user.areCods);
+  const [profilePic, setProfilePic] = useState<File | null>(user.profilePic);
   const nicknameRef = useRef<HTMLInputElement>(null);
+  const imgInputRef = useRef<HTMLInputElement>(null);
+
+  const handleFileChange = async (e: any) => {
+    const file = e.target.files[0];
+    if (file) {
+      try {
+        const profileImgUrl = await userRequests.updateImgUrl(file);
+        console.log(profileImgUrl);
+      } catch (e) {
+        console.log(e);
+      }
+    }
+  };
 
   return (
     <>
@@ -50,8 +67,9 @@ export default function EditProfilePage() {
           <span className="email">{user.email}</span>
         </S.ProfileBox>
 
+        <input type="file" accept="image/*" ref={imgInputRef} style={{ display: 'none' }} onChange={handleFileChange} />
         <S.ImgSelectContainer>
-          <Button styleType={BUTTON_TYPE.DISABLE}>
+          <Button onClick={imgInputRef => imgInputRef.currentTarget.click()} styleType={BUTTON_TYPE.DISABLE}>
             <img src="/icons/pictureIcon.svg" />
             <span>라이브러리에서 선택</span>
           </Button>
