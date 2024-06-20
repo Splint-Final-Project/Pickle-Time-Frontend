@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import PickleStateFilterBar, { pickleState } from './PickleStateFilterBar';
 import styled from '@emotion/styled';
 import MyPickleCard, { PickleDataType } from './MyPickleCard';
-import { useQueryClient } from '@tanstack/react-query';
 import { useGetFinishPickles, useGetPendingPickles, useGetProceedingPickles } from '@/hooks/query/pickles';
 
 export default function MyPickleListContainer() {
@@ -44,7 +43,7 @@ function MyPickleList({ currentState }: MyPickleListProps) {
       case 'closed':
         setPicklesList(finishData?.finishedPickles);
         break;
-        
+
       default:
         setPicklesList(pendingData?.pendingPickles);
     }

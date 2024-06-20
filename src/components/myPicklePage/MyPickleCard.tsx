@@ -22,7 +22,7 @@ export type PickleDataType = {
   place: string;
   category: CategoryType;
   state: pickleState;
-  id: string;
+  _id: string;
   when: Time;
 };
 //TODO : 동적으로 값 받게하기
@@ -44,12 +44,12 @@ export default function MyPickleCard({ pickleData }: MyPickleCardProps) {
 
   const handleClickReview = (e: React.MouseEvent) => {
     e.stopPropagation();
-    handleOpen({ renderComponent: ReviewModal, pickleId: pickleData.id, pickleTitle: pickleData.title });
+    handleOpen({ renderComponent: ReviewModal, pickleId: pickleData._id, pickleTitle: pickleData.title });
   };
 
   return (
     <S.Card>
-      <S.CardInner to={`/pickle/${pickleData?.id}`} $picklestate={pickleData?.state}>
+      <S.CardInner to={`/pickle/${pickleData?._id}`} $picklestate={pickleData?.state}>
         <S.CardTitle>{pickleData?.title}</S.CardTitle>
         <S.CardContent>
           <S.Date>{dateFormat}</S.Date>
