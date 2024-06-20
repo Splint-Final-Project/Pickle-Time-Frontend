@@ -61,7 +61,9 @@ export default function TodayPickleListContainer() {
     };
     getDistance();
   }, [currentPage]);
-
+  if (!todayPickles || todayPickles.length === 0) {
+    return <div>오늘의 피클이 없습니다!</div>;
+  }
   return (
     <S.Container>
       <PagenationBar totalDataCount={TEST_DATA?.length} />
