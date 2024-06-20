@@ -27,8 +27,10 @@ export default function PickleTextInfo({
         <img src="/icons/timeIcon.svg" />
         <S.Text>
           <span>{date}</span>
-          <span className="time">{time}</span>
-          <span>{days}</span>
+          <span>
+            {days + '  '}
+            <span className="time">({time})</span>
+          </span>
         </S.Text>
       </S.Row>
       <S.Row>
@@ -78,6 +80,7 @@ const S = {
   Text: styled.div`
     display: flex;
     flex-direction: column;
+    gap: 2px;
 
     & .time {
       margin: 0.4rem 0 0.8rem;
