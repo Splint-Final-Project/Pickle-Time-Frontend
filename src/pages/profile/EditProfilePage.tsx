@@ -10,25 +10,61 @@ import CancelIcon from '@/assets/icons/CancelIcon';
 import EditIcon from '@/assets/icons/EditIcon';
 import { BUTTON_TYPE } from '@/constants/BUTTON';
 import { userRequests } from '@/apis/user.api';
+import openai from '@/apis/openai';
 
 export default function EditProfilePage() {
   const { user, updateProfile } = useAuth();
 
   const [nickname, setNickname] = useState(user.nickname);
   const [areaCodes, setAreaCodes] = useState(user.areCods);
-  const [profilePic, setProfilePic] = useState<File | null>(user.profilePic);
+  const [profileImg, setProfileImg] = useState<File | null>(user.profilePic);
   const nicknameRef = useRef<HTMLInputElement>(null);
   const imgInputRef = useRef<HTMLInputElement>(null);
+
+  const handleClickSelect = (imageInput: any) => {
+    imageInput.current.click();
+  };
 
   const handleFileChange = async (e: any) => {
     const file = e.target.files[0];
     if (file) {
       try {
-        const profileImgUrl = await userRequests.updateImgUrl(file);
-        console.log(profileImgUrl);
+        const { data: profileImgUrl } = await userRequests.updateImgUrl(file);
+        if (profileImgUrl.url) setProfileImg(profileImgUrl.url);
       } catch (e) {
         console.log(e);
       }
+    }
+  };
+
+  const generateImage = async () => {
+    const res = await openai.images.generate({
+      model: 'dall-e-3',
+      prompt: `"사용자의 프로필 이미지를 생성하고 싶은데, 사용자의 ${nickname}을 보고 떠오르는 이미지를 약간 캐릭터화 해서 생성해줘!"`,
+      n: 1,
+      size: '1792x1024',
+    });
+    const image_url = res.data[0].url;
+    console.log('ai가 생성한 이미지', image_url);
+    return image_url;
+  };
+
+  const handleClickAI = async () => {
+    try {
+      const image_url = await generateImage();
+
+      if (image_url) {
+        const imageUrlInStorage = await userRequests.createGeneratedImgUrl(image_url);
+        console.log('저장된 ai 이미지', imageUrlInStorage);
+        if (imageUrlInStorage?.data.url) {
+          setProfileImg(imageUrlInStorage?.data.url);
+          console.log(imageUrlInStorage?.data.url);
+        }
+      } else {
+        throw new Error('이미지 생성 실패');
+      }
+    } catch (e) {
+      console.log(e);
     }
   };
 
@@ -42,11 +78,7 @@ export default function EditProfilePage() {
 
         <S.ProfileBox>
           <S.ProfileImg>
-            {user.profilePic ? (
-              <img className="profile-img" src={user.profilePic} alt="프로필 이미지" />
-            ) : (
-              <DefaultProfileIcon />
-            )}
+            {profileImg ? <img className="profile-img" src={profileImg} alt="프로필 이미지" /> : <DefaultProfileIcon />}
             <EditIcon style={{ position: 'absolute', bottom: -3, right: -5, cursor: 'pointer' }} />
           </S.ProfileImg>
           <S.NickName>
@@ -69,11 +101,11 @@ export default function EditProfilePage() {
 
         <input type="file" accept="image/*" ref={imgInputRef} style={{ display: 'none' }} onChange={handleFileChange} />
         <S.ImgSelectContainer>
-          <Button onClick={imgInputRef => imgInputRef.currentTarget.click()} styleType={BUTTON_TYPE.DISABLE}>
+          <Button onClick={() => handleClickSelect(imgInputRef)} styleType={BUTTON_TYPE.DISABLE}>
             <img src="/icons/pictureIcon.svg" />
             <span>라이브러리에서 선택</span>
           </Button>
-          <Button styleType={BUTTON_TYPE.DISABLE} style={{ marginTop: '1.4rem' }}>
+          <Button onClick={handleClickAI} styleType={BUTTON_TYPE.DISABLE} style={{ marginTop: '1.4rem' }}>
             <img src="/icons/aiIcon.svg" />
             <span>AI로 생성하기</span>
           </Button>
