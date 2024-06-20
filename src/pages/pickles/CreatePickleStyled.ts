@@ -2,8 +2,7 @@ import styled from '@emotion/styled';
 
 export const Container = styled.div`
   width: 100%;
-  min-height: 100%;
-  margin-bottom: 120px;
+  min-height: 100dvh;
   display: flex;
   flex-direction: column;
   gap: 16px;
@@ -71,7 +70,7 @@ export const InputComponent = styled.div`
 `;
 
 export const SubmitButton = styled.button<{ disabled?: boolean }>`
-  margin: 1rem 3.5rem 13rem;
+  margin: 1rem 3.5rem 10rem;
   height: 42px;
   border-radius: 4px;
   background-color: #5dc26d;

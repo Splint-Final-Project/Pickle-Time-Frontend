@@ -28,7 +28,7 @@ import {
 } from './SignUpStyled';
 import { sis, sigus, map } from '@/constants/areas';
 
-type SigusType = {
+export type SigusType = {
   [key: string]: { si: string; gu: string; code: number }[];
 };
 

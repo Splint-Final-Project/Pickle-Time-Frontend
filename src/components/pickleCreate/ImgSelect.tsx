@@ -1,5 +1,4 @@
-import usePickleCreation from '@/hooks/zustand/usePickleCreation';
-import { useRef, useState } from 'react';
+import { useRef } from 'react';
 import SelectInLibraryIcon from '/icons/selectInLibrary.svg';
 import GenerateAIICon from '/icons/generateAI.svg';
 import styled from '@emotion/styled';
@@ -7,8 +6,8 @@ import Spinner from '@/components/common/Spinner';
 import openai from '@/apis/openai';
 import { picklesRequests } from '@/apis/pickle.api';
 
-export default function ImgSelect() {
-  const { title, imgUrl, setImgUrl, isImgLoading, setIsImgLoading } = usePickleCreation();
+export default function ImgSelect({ hook }: { hook: any }) {
+  const { title, imgUrl, setImgUrl, isImgLoading, setIsImgLoading } = hook();
   const imageInput = useRef(null);
 
   async function generateImage() {
@@ -34,7 +33,7 @@ export default function ImgSelect() {
 
         if (imageUrlInStorage?.data.url) {
           setImgUrl(imageUrlInStorage?.data.url);
-          console.log(imageUrlInStorage?.data.url)
+          console.log(imageUrlInStorage?.data.url);
         }
       } else {
         throw new Error('이미지 생성 실패');
@@ -45,7 +44,6 @@ export default function ImgSelect() {
       setIsImgLoading(false);
     }
   };
-
 
   const handleClickSelect = (imageInput: any) => {
     imageInput.current.click();

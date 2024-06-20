@@ -18,7 +18,6 @@ const calculateDday = (deadLine: string) => {
 };
 
 export default function SpecialPickleCard({ pickleData }: { pickleData: any }) {
-  console.log(pickleData);
   const Dday = calculateDday(pickleData.deadLine);
   // // server state
   const { data } = useGetLikeCount(pickleData.id);

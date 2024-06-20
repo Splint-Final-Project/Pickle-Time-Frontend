@@ -24,16 +24,17 @@ export default function Pickle() {
   const { user } = useAuth();
   // 로그인 안 한 경우엔 user가 없을것임.
 
-  const { data } = useGetPickelDetail(pickleId);
+  const { data, error } = useGetPickelDetail(pickleId);
   const pickleDetailData = data?.data;
   const amILeader = user?._id && user._id === pickleDetailData?.leader;
   const amIMember = user?._id && pickleDetailData?.amIMember;
   const full = pickleDetailData?.capacity <= pickleDetailData?.participantNumber;
-  // console.log(pickleDetailData.imgUrl)
-
+  const over = pickleDetailData?.over || false;
 
   const { handleOpen } = useBottomSheetModal(state => state);
-
+  if (error) {
+    navigate('/not-found');
+  }
 
   return (
     <S.Container>
@@ -41,18 +42,53 @@ export default function Pickle() {
         <BackButton />
         <S.TopBox>
           <Category category={pickleDetailData?.category} />
-          {!amILeader && <button className="inquiry-btn" onClick={() => navigate({
-            pathname: `${routes.oneToOneChat}/${pickleId}/${pickleDetailData?.leader}`,
-          })}>
-            1:1문의하기
-          </button>}
+          {!amILeader && (
+            <button
+              className="inquiry-btn"
+              onClick={() =>
+                navigate({
+                  pathname: `${routes.oneToOneChat}/${pickleId}/${pickleDetailData?.leader}`,
+                })
+              }
+            >
+              1:1문의하기
+            </button>
+          )}
         </S.TopBox>
 
         <S.Information>
           <span className="applicant">{pickleDetailData?.participantNumber}명이 신청했어요!</span>
           <S.TitleAndLike>
             <h1 className="pickle-title">{pickleDetailData?.title}</h1>
-            <LikeCount pickleId={pickleId} />
+            <div
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '10px',
+              }}
+            >
+              <img
+                src="/icons/shareButton.svg"
+                alt="share"
+                onClick={() =>
+                  handleOpen({
+                    renderComponent: ShareModal,
+                  })
+                }
+              />
+              {pickleDetailData?.over || (
+                <>
+                  <img
+                    src="/icons/verticalBar.svg"
+                    alt="verticalBar"
+                    style={{
+                      cursor: 'default',
+                    }}
+                  />
+                  <LikeCount pickleId={pickleId} />
+                </>
+              )}
+            </div>
           </S.TitleAndLike>
           <S.Thumbnail src={pickleDetailData?.imgUrl} alt="피클 이미지" />
           <PickleTextInfo
@@ -83,10 +119,10 @@ export default function Pickle() {
           </S.GoalContainer>
           <Button
             className="apply-btn"
-            disabled={(!amILeader && amIMember) || full}
+            disabled={(!amILeader && amIMember) || full || over}
             onClick={() =>
               amILeader
-                ? navigate('/pickle-edit/' + pickleId) //Todo 편집페이지로 변경필요
+                ? navigate('/pickle-edit/' + pickleId)
                 : navigate('/pickle-join/' + pickleId, {
                     state: {
                       pickleId,
@@ -96,7 +132,15 @@ export default function Pickle() {
                   })
             }
           >
-            {amILeader ? '피클 수정하기' : amIMember ? '신청됨' : full ? '마감됨' : '피클 신청하기'}
+            {over
+              ? '신청 기한이 끝났습니다'
+              : full
+                ? '마감된 피클입니다'
+                : amILeader
+                  ? '피클 수정하기'
+                  : amIMember
+                    ? '신청한 피클입니다'
+                    : '피클 신청하기'}
           </Button>
         </S.GoalAndBtn>
       </S.BottomSection>

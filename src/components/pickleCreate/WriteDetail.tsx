@@ -1,10 +1,9 @@
 import openai from '@/apis/openai';
-import usePickleCreation from '@/hooks/zustand/usePickleCreation';
 import styled from '@emotion/styled';
 import { useEffect, useState } from 'react';
 
-export default function WriteDetail() {
-  const { title, explanation, setExplanation } = usePickleCreation();
+export default function WriteDetail({ hook }: { hook: any }) {
+  const { title, explanation, setExplanation } = hook();
   const [placeholder, setPlaceholder] = useState(
     '지향하는 분위기, 주의사항 등 자유롭게 피클을 소개하는 내용을 입력해 주세요.',
   );

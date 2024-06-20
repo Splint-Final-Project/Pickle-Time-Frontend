@@ -51,6 +51,17 @@ const globalStyle = css`
     background: transparent;
   }
 
+  img,
+  a {
+    cursor: pointer;
+    /* user-drag: none; */
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-drag: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+  }
+
   a {
     text-decoration: none;
     color: inherit;

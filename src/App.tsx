@@ -9,7 +9,14 @@ import theme from '@/styles/theme';
 import globalStyle from '@/styles/globalStyle';
 import BottomSheetModal from './components/common/modal/BottomSheetModal';
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchOnWindowFocus: false,
+      retry: false,
+    },
+  },
+});
 
 export default function App() {
   return (

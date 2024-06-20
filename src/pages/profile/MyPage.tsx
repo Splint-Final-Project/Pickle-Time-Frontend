@@ -6,11 +6,14 @@ import MenuList from '@/components/my-page/MenuList';
 import DynamicRender from '@/components/my-page/DynamicRender';
 import routes from '@/constants/routes';
 import { MY_MENU } from '@/constants/BUTTON';
+import useAuth from '@/hooks/zustand/useAuth';
+import DefaultProfileIcon from '@/assets/icons/DefaultProfileIcon';
 
 export type MyMenu = (typeof MY_MENU)[keyof typeof MY_MENU];
 
 export default function MyPage() {
   const [selectedMenu, setSelectedMenu] = useState<MyMenu>(MY_MENU.POINT);
+  const { user } = useAuth();
 
   const menuArray = Object.entries(MY_MENU).map(([key, label]) => ({
     label,
@@ -30,9 +33,9 @@ export default function MyPage() {
           </S.SettingBtn>
         </S.Header>
         <S.Profile className="프로필">
-          <img src="https://avatars.githubusercontent.com/u/124874266?v=4" alt="프로필 이미지" />
-          <span className="nickname">닉네임</span>
-          <span className="email">이메일</span>
+          {user.profilePic ? <img src={user.profilePic} alt="프로필 이미지" /> : <DefaultProfileIcon />}
+          <span className="nickname">{user.nickname}</span>
+          <span className="email">{user.email}</span>
         </S.Profile>
         <MenuList menuList={menuArray} />
       </S.TopSection>

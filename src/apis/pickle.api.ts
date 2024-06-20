@@ -6,7 +6,6 @@ export const picklesRequests = Object.freeze({
   // 피클 전체 목록조회
   get: async () => {
     const { data } = await client.get(`${API.PICKLE}`);
-    console.log(data);
     return data;
   },
 
@@ -46,12 +45,23 @@ export const picklesRequests = Object.freeze({
     return client.get(API_PICKLE.FAVORITES_COUNT(pickleId));
   },
 
+  // 내가 작성한 리뷰 조회
+  getMyReviews: () => {
+    return client.get(API_PICKLE.REVIEWS());
+  },
+
   // 리뷰 작성
   createReview: (pickleId: string, reviewData: CreateReviewData) => {
     return client.post(API_PICKLE.REVIEW(pickleId), {
       data: reviewData,
     });
   },
+
+  // 리뷰 삭제
+  deleteReview: (pickleId: string) => {
+    return client.delete(API_PICKLE.REVIEW(pickleId));
+  },
+
   //진행중(투데이) 피클 조회
   getProceedingPickles: async () => {
     const { data } = await client.get(API_PICKLE.MY_PROCEEDING_PICKLES);
@@ -75,5 +85,10 @@ export const picklesRequests = Object.freeze({
 
   createGeneratedImgUrl: async (imgUrl: string) => {
     return await client.post(API_PICKLE.CREATE_GENERATED_IMG, { imageUrl: imgUrl });
+  },
+
+  editPickle: async (pickleId: string, pickleData: CreatePickleData) => {
+    const { data } = await client.put(API_PICKLE.EDIT(pickleId), pickleData);
+    return data;
   },
 });

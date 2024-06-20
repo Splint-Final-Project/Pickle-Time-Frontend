@@ -1,8 +1,7 @@
 import { InputConstraint, InputField, LabelText } from './CreatePicklePageStyled';
-import usePickleCreation from '@/hooks/zustand/usePickleCreation';
 
-export default function TitleInput() {
-  const { title, setTitle } = usePickleCreation();
+export default function TitleInput({ hook }: { hook: any }) {
+  const { title, setTitle } = hook();
   return (
     <>
       <LabelText htmlFor="title">피클의 이름을 설정해 주세요</LabelText>

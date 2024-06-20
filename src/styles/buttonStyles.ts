@@ -16,7 +16,7 @@ export const buttonStyleByType = {
   `,
 
   DISABLE: `
-  background-color: ${theme.color.category};
+  background-color: ${theme.color.card};
   border-radius: 0.4rem
   color:  ${theme.color.sub};
   ${theme.typography.body1}

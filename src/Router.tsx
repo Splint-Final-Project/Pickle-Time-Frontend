@@ -33,124 +33,7 @@ import OneToOne from '@/pages/chat/OneToOne';
 import routes from '@/constants/routes';
 import CreatePickle from './pages/pickles/CreatePickle';
 import MyPickles from '@/pages/pickles/MyPickles';
-
-const simpleChildren = [
-  {
-    path: '/pickle-join/:id',
-    element: <JoinPickle />,
-  },
-  {
-    path: '/pickle-create',
-    element: <CreatePickle />,
-  },
-  {
-    path: routes.chat,
-    element: <Conversation />,
-  },
-  {
-    path: routes.myPickles,
-    element: <MyPickles />,
-  },
-  {
-    path: routes.pickleJoinRedirect,
-    element: <PickleJoinRedirector />,
-  },
-  {
-    path: routes.pickleCreateRedirect,
-    element: <PickleCreationRedirector />,
-  },
-  {
-    path: routes.mypage,
-    element: <MyPage />,
-  },
-  {
-    path: routes.editProfile,
-    element: <EditProfilePage />,
-  },
-  {
-    path: routes.signUp2,
-    element: <SignUp2 />,
-  },
-  {
-    path: `${routes.oneToOneChat}/:pickleId/:leaderId`,
-    element: <OneToOne />,
-  },
-  {
-    path: `${routes.chat}/:pickleId/:conversationId`,
-    element: <Conversation />,
-  },
-];
-
-const children = [
-  // {
-  //   path: routes.admin,
-  //   element: <Admin />,
-  // },
-  {
-    path: routes.chat,
-    element: <Conversation />,
-  },
-  {
-    path: routes.myPickles,
-    element: <MyPickles />,
-  },
-  {
-    path: routes.mypage,
-    element: <MyPage />,
-  },
-  {
-    path: routes.chatList,
-    element: <ConversationList />,
-  },
-];
-
-// const privateChildren = [
-//   {
-//     path: routes.admin,
-//     element: <Admin />,
-//   },
-//   {
-//     path: '/pickle-join/:id',
-//     element: <JoinPickle />,
-//   },
-//   {
-//     path: '/pickle-create',
-//     element: <CreatePickle />,
-//   },
-//   {
-//     path: routes.chat,
-//     element: <Conversation />,
-//   },
-//   {
-//     path: routes.around,
-//     element: <AroundMe />,
-//   },
-
-//   {
-//     path: routes.myPickles,
-//     element: <MyPickles />,
-//   },
-//   {
-//     path: routes.pickleJoinRedirect,
-//     element: <PickleJoinRedirector />,
-//   },
-//   {
-//     path: routes.pickleCreateRedirect,
-//     element: <PickleCreationRedirector />,
-//   },
-//   {
-//     path: routes.mypage,
-//     element: <MyPage />,
-//   },
-//   {
-//     path: routes.signUp2,
-//     element: <SignUp2 />,
-//   },
-//   {
-//     path: routes.chatList,
-//     element: <ConversationList />,
-//   },
-// ];
+import PickleEdit from './pages/pickles/PickleEdit';
 
 const router = createBrowserRouter([
   {
@@ -165,19 +48,6 @@ const router = createBrowserRouter([
       {
         path: `${routes.pickle}/:pickleId`,
         element: <Pickle />,
-      },
-      {
-        path: '/pickle-join',
-        element: <JoinPickle />,
-      },
-      {
-        //피클 생성 하다만 기록이 있으면 있으면 그 단계에 맞춰서 리다이렉트됨
-        path: '/pickle-create',
-        element: <CreatePickle />,
-      },
-      {
-        path: routes.chatList,
-        element: <ConversationList />,
       },
       {
         path: routes.map,
@@ -195,7 +65,20 @@ const router = createBrowserRouter([
       {
         path: '',
         element: <LoginRedirector />,
-        children: [...children],
+        children: [
+          {
+            path: routes.myPickles,
+            element: <MyPickles />,
+          },
+          {
+            path: routes.mypage,
+            element: <MyPage />,
+          },
+          {
+            path: routes.chatList,
+            element: <ConversationList />,
+          },
+        ],
       },
     ],
   },
@@ -227,7 +110,44 @@ const router = createBrowserRouter([
       {
         path: '',
         element: <LoginRedirector />,
-        children: [...simpleChildren],
+        children: [
+          {
+            path: '/pickle-join/:id',
+            element: <JoinPickle />,
+          },
+          {
+            path: '/pickle-create',
+            element: <CreatePickle />,
+          },
+          {
+            path: '/pickle-edit/:id',
+            element: <PickleEdit />,
+          },
+          {
+            path: routes.pickleJoinRedirect,
+            element: <PickleJoinRedirector />,
+          },
+          {
+            path: routes.pickleCreateRedirect,
+            element: <PickleCreationRedirector />,
+          },
+          {
+            path: `${routes.oneToOneChat}/:pickleId/:leaderId`,
+            element: <OneToOne />,
+          },
+          {
+            path: `${routes.chat}/:pickleId/:conversationId`,
+            element: <Conversation />,
+          },
+          {
+            path: routes.editProfile,
+            element: <EditProfilePage />,
+          },
+          {
+            path: routes.signUp2,
+            element: <SignUp2 />,
+          },
+        ],
       },
     ],
   },

@@ -10,6 +10,8 @@ import CloseIcon from '@/assets/icons/CloseIcon';
 
 import { useGetPickelDetail } from '@/hooks/query/pickles';
 import client from '@/apis/axios';
+import useBottomSheetModal from '@/hooks/zustand/useBottomSheetModal';
+import ConfirmationModal from '@/components/common/modal/ConfirmationModal';
 
 declare global {
   interface Window {
@@ -20,6 +22,7 @@ declare global {
 export default function JoinPickle() {
   const navigate = useNavigate();
   const { user } = useAuth();
+  const { handleOpen } = useBottomSheetModal(state => state);
   // const location = useLocation();
   const { id: pickleId = '' } = useParams();
   console.log(pickleId);
@@ -107,7 +110,18 @@ export default function JoinPickle() {
     <Container>
       <S.Wrapper>
         <S.Inner>
-          <S.CancleButton onClick={() => navigate(-1)}>
+          <S.CancleButton
+            onClick={() =>
+              handleOpen({
+                renderComponent: ConfirmationModal,
+                nocallback: () => {},
+                yescallback: () => navigate(-1),
+                message: '신청을 취소하시겠습니까?',
+                yesText: '확인',
+                noText: '취소',
+              })
+            }
+          >
             <S.IconBox>
               <CloseIcon />
             </S.IconBox>
@@ -196,7 +210,7 @@ const S = {
     }
   `,
   PaymentButton: styled.button`
-    margin: 0 20px;
+    margin: 0 20px 120px;
     height: 42px;
     border-radius: 4px;
     background-color: var(--Main-Color, #5dc26d);

@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
-import { SignInFormValues, SignUpFormValues, SignUpFormValues2 } from '@/apis/types/auth.type';
+import { SignInFormValues, SignUpFormValues, SignUpFormValues2, UpdateProfile } from '@/apis/types/auth.type';
 import { authRequests } from '@/apis/auth.api';
 
 interface State {
@@ -10,6 +10,7 @@ interface State {
   signUp: (data: SignUpFormValues) => any;
   signUp2: (data: SignUpFormValues2) => any;
   signOut: () => any;
+  updateProfile: (data: UpdateProfile) => any;
 }
 
 const useAuth = create(
@@ -20,6 +21,7 @@ const useAuth = create(
         try {
           const res = await authRequests.signIn(data);
           set({ user: res.user });
+          console.log(res.user);
           return res.user.status;
         } catch (err) {
           console.log(err);
@@ -27,6 +29,7 @@ const useAuth = create(
         }
       },
       setMe: (data: any) => {
+        console.log(data);
         set({ user: data });
       },
 
@@ -34,7 +37,7 @@ const useAuth = create(
         try {
           const res = await authRequests.signUp(data);
           set({ user: res.user });
-          console.log(res);
+          console.log(res.user);
         } catch (err) {
           console.log(err);
           throw new Error();
@@ -44,7 +47,7 @@ const useAuth = create(
         try {
           const res = await authRequests.signUp2(data);
           set({ user: res.user });
-          console.log(res);
+          console.log(res.user);
         } catch (err) {
           console.log(err);
           throw new Error();
@@ -59,6 +62,17 @@ const useAuth = create(
           console.log(e);
         } finally {
           location.replace('/sign-in');
+        }
+      },
+      // 아직작업중입니다 임시
+      updateProfile: async (data: UpdateProfile) => {
+        try {
+          const res = await authRequests.updateProfile(data);
+          set({ user: res.user });
+          console.log(res.user);
+        } catch (err) {
+          console.log(err);
+          throw new Error();
         }
       },
     }),
