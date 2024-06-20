@@ -83,17 +83,14 @@ export default function CreationPayment() {
           clear();
 
           navigate(`/pickle/${notified.data.pickle._id}`, { replace: true });
-
         } else {
           alert('피클 생성이 실패하여 결제 금액은 환불되었습니다.' + notified.data.message);
 
           navigate(`/pickle-create`, { replace: true });
         }
-
       } catch (err) {
         console.log(err);
       }
-
     } else {
       const data = {
         pg: `${paymentMethod === 'kakaopay' ? 'kakaopay.TC0ONETIME' : 'tosspay.tosstest'}`,
@@ -144,7 +141,6 @@ export default function CreationPayment() {
             alert('피클 생성이 실패하여 결제 금액은 환불되었습니다.' + notified.data.message);
             navigate(`/pickle-create`, { replace: true });
           }
-
         } catch (err) {
           console.log(err);
         }
@@ -209,7 +205,7 @@ const S = {
     }
   `,
   PaymentButton: styled.button`
-    margin: 0 20px;
+    margin: 0 20px 120px;
     height: 42px;
     border-radius: 4px;
     background: var(--Main-Color, #5dc26d);
