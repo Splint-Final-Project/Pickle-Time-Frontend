@@ -1,21 +1,10 @@
-import CancelIcon from '@/assets/icons/CancelIcon';
-import DefaultProfileIcon from '@/assets/icons/DefaultProfileIcon';
-import EditIcon from '@/assets/icons/EditIcon';
 import styled from '@emotion/styled';
+import { UpdateProfileProps } from '@/apis/types/user.type';
+import DefaultProfileIcon from '@/assets/icons/DefaultProfileIcon';
+import CancelIcon from '@/assets/icons/CancelIcon';
+import EditIcon from '@/assets/icons/EditIcon';
 
-interface ProfileBoxProps {
-  profileState: {
-    nickname: string;
-    areaCodes: number[];
-    profileImg: string;
-  };
-  setProfileState: React.Dispatch<
-    React.SetStateAction<{
-      nickname: string;
-      areaCodes: number[];
-      profileImg: string;
-    }>
-  >;
+interface ProfileBoxProps extends UpdateProfileProps {
   nicknameRef: React.RefObject<HTMLInputElement>;
   user: {
     email: string;

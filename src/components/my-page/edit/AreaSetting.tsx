@@ -2,8 +2,9 @@ import styled from '@emotion/styled';
 import AreaSelectModal from '@/components/common/modal/AreaSelectModal';
 import ActivityArea from '@/components/my-page/edit/ActivityArea';
 import useBottomSheetModal from '@/hooks/zustand/useBottomSheetModal';
+import { UpdateProfileProps } from '@/apis/types/user.type';
 
-export default function AreaSetting({ profileState, setProfileState }) {
+export default function AreaSetting({ profileState, setProfileState }: UpdateProfileProps) {
   const { handleOpen } = useBottomSheetModal(state => state);
   const handleAreaSelectComplete = (newAreaCodes: number[]) => {
     setProfileState({ ...profileState, areaCodes: newAreaCodes });

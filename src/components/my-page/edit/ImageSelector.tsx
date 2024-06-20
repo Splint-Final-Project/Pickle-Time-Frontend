@@ -4,8 +4,9 @@ import Button from '@/components/common/button/Button';
 import openai from '@/apis/openai';
 import { userRequests } from '@/apis/user.api';
 import { BUTTON_TYPE } from '@/constants/BUTTON';
+import { UpdateProfileProps } from '@/apis/types/user.type';
 
-export default function ImageSelector({ profileState, setProfileState }) {
+export default function ImageSelector({ profileState, setProfileState }: UpdateProfileProps) {
   const [isImgLoading, setIsImgLoading] = useState(false);
   const imgInputRef = useRef<HTMLInputElement>(null);
 

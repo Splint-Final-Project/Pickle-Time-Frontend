@@ -18,9 +18,3 @@ export type SignUpFormValues2 = {
   // profilePic: string;
   areaCodes: number[];
 };
-
-export type UpdateProfile = {
-  nickname?: string;
-  imgUrl?: string;
-  areaCodes?: string[];
-};
