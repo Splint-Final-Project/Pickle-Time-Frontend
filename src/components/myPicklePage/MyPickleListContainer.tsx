@@ -60,7 +60,7 @@ function MyPickleList({ currentState }: MyPickleListProps) {
 
   return (
     <S.List>
-      {picklesList.length
+      {picklesList?.length
         ? picklesList?.map((item: any) => (
             <li key={item.id}>
               <MyPickleCard pickleData={item} />
