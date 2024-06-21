@@ -19,6 +19,7 @@ const S = {
     background-color: ${({ theme }) => theme.color.white};
     width: 100%;
     min-height: 100vh;
+    box-shadow: 0 0 20px #0000000d;
   `,
 };
 

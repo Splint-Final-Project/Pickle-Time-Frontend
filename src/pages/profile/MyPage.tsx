@@ -8,6 +8,7 @@ import routes from '@/constants/routes';
 import { MY_MENU } from '@/constants/BUTTON';
 import useAuth from '@/hooks/zustand/useAuth';
 import DefaultProfileIcon from '@/assets/icons/DefaultProfileIcon';
+import BackButton from '@/components/common/button/BackButton';
 
 export type MyMenu = (typeof MY_MENU)[keyof typeof MY_MENU];
 
@@ -30,14 +31,8 @@ export default function MyPage() {
       <S.TopSection>
         <S.Header>
           <S.Title>
-            <img
-              src="/icons/back.svg"
-              alt="back"
-              onClick={() => {
-                navigate(-1);
-              }}
-            />
-            <div>마이 페이지</div>
+            <BackButton />
+            <h1>마이 페이지</h1>
           </S.Title>
           <S.SettingBtn to={routes.editProfile}>
             <img src="/icons/settingIcon.svg" alt="프로필 수정" />
@@ -62,31 +57,23 @@ const S = {
   TopSection: styled.div`
     padding: 6rem 1.7rem 5rem;
     color: ${({ theme }) => theme.color.basic};
-
-    h1 {
-      ${({ theme }) => theme.typography.header};
-    }
-  `,
-  Title: styled.h1`
-    display: flex;
-    align-items: center;
-    padding: 0 1.8rem;
-    gap: 22px;
-    color: var(--Basic, #181f29);
-    font-size: 24px;
-    font-style: normal;
-    font-weight: 600;
-    line-height: normal;
-    img {
-      height: 16px;
-      cursor: pointer;
-    }
   `,
 
   Header: styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
+  `,
+
+  Title: styled.h1`
+    display: flex;
+    align-items: center;
+    padding: 0 1.8rem;
+    gap: 2rem;
+
+    h1 {
+      ${({ theme }) => theme.typography.header};
+    }
   `,
 
   Profile: styled.div`
@@ -123,8 +110,6 @@ const S = {
   `,
 
   BottomSection: styled.div`
-    margin: 0 1.7rem 8.5rem;
-
     ::before {
       display: block;
       height: 1.2rem;
