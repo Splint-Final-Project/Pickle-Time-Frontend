@@ -27,7 +27,7 @@ export type pickleState = 'pending' | 'progress' | 'closed';
 
 interface PickleStateFilterBarProps {
   currentState: pickleState;
-  setCurrentState: React.Dispatch<React.SetStateAction<pickleState>>;
+  setCurrentState: (arg0: any) => void;
 }
 
 export default function PickleStateFilterBar({ currentState, setCurrentState }: PickleStateFilterBarProps) {

@@ -21,7 +21,7 @@ export default function DynamicRender({ menu }: { menu: MyMenu }) {
     const timer = setTimeout(() => {
       setCurrentMenu(menu);
       setAnimation('fadeIn');
-    }, 300);
+    }, 270);
 
     return () => clearTimeout(timer);
   }, [menu]);

@@ -21,8 +21,11 @@ export default function GoalSelect({ hook }: { hook: any }) {
     setAIGeneratedGoals(completion.choices[0].message.content?.split(',') || []);
   }
 
-  const handleKeyDown: KeyboardEventHandler = e => {
+  const handleKeyDown: KeyboardEventHandler = (e: any) => {
     const target = e.target as HTMLInputElement;
+    if (e.isComposing || e.keyCode === 229) {
+      return;
+    }
 
     if (target.value === '' && e.key === 'Backspace') {
       e.preventDefault();
