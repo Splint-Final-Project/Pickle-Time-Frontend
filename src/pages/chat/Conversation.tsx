@@ -84,7 +84,7 @@ export default function Conversation() {
       </S.Gongji>
       <S.MessageContainer>
         {messages?.map((message: any) => (
-          <S.ForRefInMessageContainer ref={lastMessageRef}>
+          <S.ForRefInMessageContainer ref={lastMessageRef} key={message._id}>
             <Message message={message} key={message._id}/>
           </S.ForRefInMessageContainer>
         ))}
