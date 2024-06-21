@@ -125,7 +125,7 @@ const S = {
   `,
   ReviewBtn: styled.button<{ $isShown: boolean }>`
     ${({ $isShown }) =>
-      $isShown &&
+      $isShown ||
       css`
         display: none;
       `}
