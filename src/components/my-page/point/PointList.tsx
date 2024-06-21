@@ -2,14 +2,52 @@ import styled from '@emotion/styled';
 import PointHistoryCard from '@/components/my-page/point/PointHistoryCard';
 import { MyDynamicTemplate } from '@/styles/commonStyles';
 import { useMyPoints } from '@/hooks/query/points';
+import { useEffect } from 'react';
 
 export default function PointList() {
   const { data } = useMyPoints();
   const pointsData = data?.data || [];
+
+  useEffect(() => {
+    const script = document.createElement('script');
+    script.src = 'https://tenor.com/embed.js';
+    script.async = true;
+    document.body.appendChild(script);
+
+    // Apply CSS to hide interactive elements after the script is loaded
+    const style = document.createElement('style');
+    style.textContent = `
+      .tenor-gif-embed iframe {
+        pointer-events: none; /* Disable all interactions */
+      }
+      .tenor-gif-embed .tenor-embed-logo {
+        display: none; /* Hide the logo */
+      }
+      .tenor-gif-embed .tenor-embed-share {
+        display: none; /* Hide the share buttons */
+      }
+    `;
+    document.head.appendChild(style);
+
+    return () => {
+      document.body.removeChild(script);
+      document.head.removeChild(style);
+    };
+  }, []);
+
   return (
     <MyDynamicTemplate>
       <h2>보유 포인트</h2>
-      <h1>{pointsData?.points || 0}P</h1>
+      <S.PointWrapper>
+        <S.PointGif
+          className="tenor-gif-embed"
+          data-postid="19642352"
+          data-share-method="host"
+          data-aspect-ratio="1.33333"
+          // data-width="100%"
+        ></S.PointGif>
+        <S.PointNum>{pointsData?.points || 0}P</S.PointNum>
+      </S.PointWrapper>
       <S.Notice>
         <span>포인트 안내 사항을 확인해 보세요!</span>
         <img src="/icons/rightArrowIcon.svg" alt="더보기" />
@@ -69,5 +107,19 @@ const S = {
     height: 10rem;
     color: ${({ theme }) => theme.color.sub};
     ${({ theme }) => theme.typography.body1};
+  `,
+  PointWrapper: styled.div`
+    display: flex;
+  `,
+  PointGif: styled.div`
+    width: 4rem;
+    height: 4rem;
+    margin-top: 0.57rem;
+    margin-right: -0.5rem;
+    margin-left: -0.5rem;
+    z-index: 0;
+  `,
+  PointNum: styled.h1`
+    z-index: 9;
   `,
 };

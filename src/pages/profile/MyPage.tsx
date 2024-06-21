@@ -19,6 +19,7 @@ export default function MyPage() {
   const menuArray = Object.entries(MY_MENU).map(([key, label]) => ({
     label,
     icon: `/icons/mypage-menu/${key.toLowerCase()}Icon.svg`,
+    selectedIcon: `/icons/mypage-menu/${key.toLowerCase()}SelectedIcon.svg`,
     func: () => {
       setSelectedMenu(label);
     },

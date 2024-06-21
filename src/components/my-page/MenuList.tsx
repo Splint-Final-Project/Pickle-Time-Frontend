@@ -9,6 +9,7 @@ import styled from '@emotion/styled';
 type MenuItem = {
   label: string;
   icon: string;
+  selectedIcon: string;
   func: () => void;
 };
 interface MenuProps {
@@ -31,7 +32,7 @@ export default function MenuList({ menuList }: MenuProps) {
             menu.func();
           }}
         >
-          <img src={menu.icon} alt={menu.label} />
+          <img src={selectedMenu === index ? menu.selectedIcon : menu.icon} alt={menu.label} />
           <span>{menu.label}</span>
         </S.Item>
       ))}
@@ -57,6 +58,7 @@ const S = {
     flex: 1;
     gap: 1rem;
     cursor: pointer;
+    transition: color 0.3s ease;
 
     color: ${({ theme }) => theme.color.sub};
     ${({ theme }) => theme.typography.body1}
