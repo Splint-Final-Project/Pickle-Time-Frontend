@@ -14,6 +14,7 @@ export default function EmptyDataMessage({ children }: EmptyDataMessageProps) {
 
 const S = {
   Wrapper: styled.div`
+    margin-top: 4rem;
     width: 100%;
     font-size: 3.2rem;
     color: #8b8d94;

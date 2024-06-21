@@ -98,4 +98,5 @@ export interface ReviewData {
   pickleImageUrl: string;
   stars: number;
   content: string;
+  date: Date;
 }

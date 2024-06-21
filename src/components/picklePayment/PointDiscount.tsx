@@ -11,8 +11,7 @@ export default function PointDisCount({ cost, totalPoint, setUsePoint }: PointDi
   const [isFocus, setIsFocus] = useState(false);
   const [value, setValue] = useState('0');
   const [error, setError] = useState('');
-  // console.log(Math.min(Math.floor(totalPoint / 10) * 10, cost));
-  // console.log(cost, totalPoint);
+
   const availablePoint = useMemo(() => Math.min(totalPoint, cost), [cost, totalPoint]);
   const handleBlur = () => {
     setIsFocus(false);
@@ -30,7 +29,7 @@ export default function PointDisCount({ cost, totalPoint, setUsePoint }: PointDi
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setValue(e.target.value);
+    setValue(e.target.value || '0');
   };
 
   const handleAllPointUseEvent = () => {
