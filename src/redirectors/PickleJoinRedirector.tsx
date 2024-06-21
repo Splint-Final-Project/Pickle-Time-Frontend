@@ -1,7 +1,7 @@
-import client from '@/apis/axios';
 import { useEffect } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
-import { toast } from 'react-hot-toast';
+import client from '@/apis/axios';
+import { showErrorToast, showToast } from '@/components/common/Toast';
 
 export default function PickleJoinRedirector() {
   const [searchParams] = useSearchParams();
@@ -13,9 +13,9 @@ export default function PickleJoinRedirector() {
       pickle_id: searchParams.get('pickle_id'),
     });
     if (notified.status === 200) {
-      toast.success('결제 및 신청이 완료되었습니다.');
+      showToast('결제 및 신청이 완료되었습니다.');
     } else {
-      toast.error('신청이 실패하여 결제 금액은 환불되었습니다. ' + notified.data.message);
+      showErrorToast('신청이 실패하여 결제 금액은 환불되었습니다. ' + notified.data.message);
     }
     navigate(`/pickles/${searchParams.get('pickle_id')}`, { replace: true });
   }
@@ -23,7 +23,7 @@ export default function PickleJoinRedirector() {
   useEffect(() => {
     const success = searchParams.get('imp_success');
     if (success === 'false') {
-      toast.error(`결제에 실패했습니다: ${searchParams.get('error_msg')}`);
+      showErrorToast(`결제에 실패했습니다: ${searchParams.get('error_msg')}`);
       navigate(`/pickle/${searchParams.get('pickle_id')}`, { replace: true });
     } else {
       handlePayment();
