@@ -5,12 +5,13 @@ import { useGetLikePickles } from '@/hooks/query/like';
 
 export default function WishList() {
   const { data: wishListData } = useGetLikePickles();
+  const isWishListData = wishListData?.pages.at(-1).data?.length !== 0;
 
   return (
     <S.Container>
       <h2>찜한 피클</h2>
       <S.InnerWrap>
-        {wishListData ? (
+        {isWishListData ? (
           <WishListGridTemplate>
             {wishListData?.pages.map(page =>
               page?.data.map((pickle: any) => <SpecialPickleCard key={pickle.id} pickleData={pickle} />),
@@ -37,6 +38,9 @@ const S = {
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 32rem;
+
+    height: 18rem;
+    color: ${({ theme }) => theme.color.sub};
+    ${({ theme }) => theme.typography.body1};
   `,
 };

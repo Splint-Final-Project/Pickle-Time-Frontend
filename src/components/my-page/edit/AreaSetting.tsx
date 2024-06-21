@@ -12,19 +12,17 @@ export default function AreaSetting({ profileState, setProfileState }: UpdatePro
 
   return (
     <>
-      <S.AreaSettingContainer>
+      <S.AreaSettingContainer
+        onClick={() =>
+          handleOpen({
+            renderComponent: AreaSelectModal,
+            areaCodes: profileState.areaCodes,
+            onComplete: handleAreaSelectComplete,
+          })
+        }
+      >
         활동 범위 수정하기
-        <button
-          onClick={() =>
-            handleOpen({
-              renderComponent: AreaSelectModal,
-              areaCodes: profileState.areaCodes,
-              onComplete: handleAreaSelectComplete,
-            })
-          }
-        >
-          <img src="/icons/rightArrowIcon.svg" />
-        </button>
+        <img src="/icons/rightArrowIcon.svg" />
       </S.AreaSettingContainer>
       <ActivityArea areaCodes={profileState.areaCodes} />
     </>
@@ -36,7 +34,7 @@ const S = {
     display: flex;
     justify-content: space-between;
     align-items: center;
-
+    cursor: pointer;
     padding: 1.4rem;
     margin-bottom: 2.1rem;
     border-radius: 0.8rem;

@@ -10,6 +10,9 @@ import { useGetProceedingPickles } from '@/hooks/query/pickles';
 import betweenLength from '@/utils/betweenLength';
 import { When } from '@/apis/types/pickles.type';
 import { useGeolocation } from '@/hooks/useGeolocation';
+import CardBackImg from '@/assets/images/todayPickleCardBackImg.svg';
+import Character from '@/assets/icons/character.svg';
+import { css } from '@emotion/react';
 
 export interface TodayPickleDataType {
   capacity: number;
@@ -44,11 +47,10 @@ export default function TodayPickleListContainer() {
 
   // server state
   const { data } = useGetProceedingPickles();
-  
+
   const currentPage = useMemo(() => {
     return Number(searchParams.get('page')) || 1;
   }, [searchParams]);
-
 
   const handleAttendance = () => {
     alert(`${location?.longitude} ,${location?.latitude}`);
@@ -67,19 +69,37 @@ export default function TodayPickleListContainer() {
   }, [currentPage]);
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentTime(new Date());
-    }, calculateInterval(
-      currentTime,
-      { hour: data?.todayPickles[currentPage - 1].when.startTime.hour, minute: data?.todayPickles[currentPage - 1].when.startTime.minute}, 
-      { hour: data?.todayPickles[currentPage - 1].when.finishTime.hour, minute: data?.todayPickles[currentPage - 1].when.finishTime.minute}
-    ));
+    const interval = setInterval(
+      () => {
+        setCurrentTime(new Date());
+      },
+      calculateInterval(
+        currentTime,
+        {
+          hour: data?.todayPickles[currentPage - 1].when.startTime.hour,
+          minute: data?.todayPickles[currentPage - 1].when.startTime.minute,
+        },
+        {
+          hour: data?.todayPickles[currentPage - 1].when.finishTime.hour,
+          minute: data?.todayPickles[currentPage - 1].when.finishTime.minute,
+        },
+      ),
+    );
 
     return () => clearInterval(interval);
   }, [currentTime]);
 
   if (!data?.todayPickles || data?.todayPickles.length === 0) {
-    return null; // 오늘의 피클이 없습니다
+    return (
+      <S.Container $margin>
+        <S.CardContainer>
+          <S.Card>
+            <S.Character />
+            <S.NotTodayPickleMessage>오늘의 피클이 없어요!</S.NotTodayPickleMessage>
+          </S.Card>
+        </S.CardContainer>
+      </S.Container>
+    ); // 오늘의 피클이 없습니다
   }
 
   return (
@@ -90,7 +110,12 @@ export default function TodayPickleListContainer() {
       </Tilt>
       <S.AttendanceButton
         onClick={handleAttendance}
-        disabled={!isButtonActive(data?.todayPickles[currentPage - 1].when.startTime.hour, data?.todayPickles[currentPage - 1].when.startTime.minute)}
+        disabled={
+          !isButtonActive(
+            data?.todayPickles[currentPage - 1].when.startTime.hour,
+            data?.todayPickles[currentPage - 1].when.startTime.minute,
+          )
+        }
       >
         <span>출석하기</span>
       </S.AttendanceButton>
@@ -99,12 +124,17 @@ export default function TodayPickleListContainer() {
 }
 
 const S = {
-  Container: styled.div`
+  Container: styled.div<{ $margin?: boolean }>`
     width: 34.4rem;
     margin: auto;
     display: flex;
     flex-direction: column;
     gap: 2rem;
+    ${({ $margin }) =>
+      $margin &&
+      css`
+        margin-top: 2.4rem;
+      `}
   `,
   AttendanceButton: styled.button`
     width: 100%;
@@ -121,5 +151,57 @@ const S = {
       color: #8b8d94;
       cursor: auto;
     }
+  `,
+  CardContainer: styled.div`
+    position: relative;
+    width: 100%;
+    margin: auto;
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -webkit-touch-callout: none;
+
+    &::before {
+      content: '';
+      width: 32.5rem;
+      height: 8.9rem;
+      background: #dedede;
+      border-radius: 0.7rem;
+      position: absolute;
+      bottom: -1rem;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 50;
+    }
+  `,
+  Character: styled.div`
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    background-image: url(${Character});
+    background-repeat: no-repeat;
+    background-size: contain;
+    top: -2.1rem;
+    left: 1.5rem;
+    z-index: 200;
+  `,
+  Card: styled.div`
+    padding: 2.8rem 2.5rem;
+    background-image: url(${CardBackImg});
+    background-repeat: no-repeat;
+    background-size: contain;
+    color: #fff;
+    width: 100%;
+    min-height: 23.4rem;
+    position: relative;
+    z-index: 100;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  `,
+  NotTodayPickleMessage: styled.span`
+    font-size: 2.6rem;
+    font-weight: bold;
   `,
 };

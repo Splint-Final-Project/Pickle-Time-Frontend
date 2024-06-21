@@ -72,7 +72,6 @@ const useAuth = create(
         try {
           const currentUser = get().user;
           const { updates } = await userRequests.updateProfile(data);
-          console.log(updates)
           set({ user: { ...currentUser, ...updates } });
           toast.success('프로필 수정이 완료되었습니다!😊');
         } catch (e) {

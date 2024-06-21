@@ -1,7 +1,7 @@
 export default function ChalkboardIcon({ size = 340, ...props }) {
   return (
     <svg width={size} height="95" viewBox="0 0 341 95" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
-      <g clip-path="url(#clip0_1498_2)">
+      <g clipPath="url(#clip0_1498_2)">
         <path
           d="M325.888 0H15.1125C6.76608 0 0 6.45077 0 14.4082V80.5918C0 88.5492 6.76608 95 15.1125 95H325.888C334.234 95 341 88.5492 341 80.5918V14.4082C341 6.45077 334.234 0 325.888 0Z"
           fill="#192923"
