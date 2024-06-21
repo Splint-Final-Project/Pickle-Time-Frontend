@@ -37,6 +37,9 @@ const S = {
     display: flex;
     justify-content: center;
     align-items: center;
+
     min-height: 32rem;
+    color: ${({ theme }) => theme.color.sub};
+    ${({ theme }) => theme.typography.body1};
   `,
 };

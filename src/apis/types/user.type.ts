@@ -1,6 +1,6 @@
 export type UpdateProfile = {
   nickname?: string;
-  imgUrl?: string;
+  profilePic?: string;
   areaCodes?: number[];
 };
 
