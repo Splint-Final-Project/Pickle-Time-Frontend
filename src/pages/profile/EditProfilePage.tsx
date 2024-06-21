@@ -1,4 +1,5 @@
 import { useRef, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled from '@emotion/styled';
 
 import BackButton from '@/components/common/button/BackButton';
@@ -7,14 +8,13 @@ import ProfileBox from '@/components/my-page/edit/ProfileBox';
 import ImageSelector from '@/components/my-page/edit/ImageSelector';
 import AreaSetting from '@/components/my-page/edit/AreaSetting';
 import useAuth from '@/hooks/zustand/useAuth';
-import { useUpdateProfileMutation } from '@/hooks/query/user';
 import { BUTTON_TYPE } from '@/constants/BUTTON';
-import { UpdateProfile } from '@/apis/types/user.type';
+import routes from '@/constants/routes';
 
 export default function EditProfilePage() {
   const { user, updateProfile } = useAuth();
+  const navigate = useNavigate();
   const nicknameRef = useRef<HTMLInputElement>(null);
-  console.log('유저', user);
 
   const [profileState, setProfileState] = useState({
     nickname: user.nickname,
@@ -22,19 +22,14 @@ export default function EditProfilePage() {
     profileImg: user.profilePic,
   });
 
-  const profileData: UpdateProfile = {
-    nickname: profileState.nickname,
-    areaCodes: profileState.areaCodes,
-    imgUrl: profileState.profileImg || '',
-  };
-
-  const { mutate: updateProfileMutate } = useUpdateProfileMutation(() => updateProfile(profileData));
-
   const handleUpdateProfil = () => {
-    updateProfileMutate(profileData);
+    updateProfile({
+      nickname: profileState.nickname,
+      areaCodes: profileState.areaCodes,
+      imgUrl: profileState.profileImg || '',
+    });
+    navigate(routes.mypage);
   };
-
-  console.log('프로필 수정데이터들', profileState);
 
   return (
     <>

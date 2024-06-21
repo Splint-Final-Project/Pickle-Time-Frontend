@@ -4,6 +4,7 @@ import { SignInFormValues, SignUpFormValues, SignUpFormValues2 } from '@/apis/ty
 import { authRequests } from '@/apis/auth.api';
 import { userRequests } from '@/apis/user.api';
 import { UpdateProfile } from '@/apis/types/user.type';
+import { toast } from 'react-hot-toast';
 
 interface State {
   user: any | null;
@@ -71,10 +72,10 @@ const useAuth = create(
         try {
           const currentUser = get().user;
           const res = await userRequests.updateProfile(data);
-          set({ user: { ...currentUser, ...data } });
-          console.log('업데이트 프로필', res.user);
+          set({ user: { ...currentUser, ...data, profilePic: data.imgUrl } });
+          toast.success('프로필 수정이 완료되었습니다!😊');
         } catch (e) {
-          console.log(e);
+          toast.error('프로필 수정에 실패했습니다!🥲');
           throw new Error();
         }
       },
