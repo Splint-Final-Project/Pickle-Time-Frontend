@@ -1,24 +1,45 @@
 import styled from '@emotion/styled';
 import { useState } from 'react';
 import { TwoColumnGridTemplate } from '@/styles/commonStyles';
-import PickleListCard from '@/components/pickleWholeList/PickleListCard';
-import PickleCardListMockData from '@/mocks/pickleCardListMockData';
+import { SpecialPickleCard } from '@/components/pickleWholeList/PickleListCard';
 import routes from '@/constants/routes';
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
+import { useDebounce } from '@uidotdev/usehooks';
+import { useEffect } from 'react';
+import client from '@/apis/axios';
 
 // 피클 검색 결과 페이지 (작업중)
 export default function PickleSearchResults() {
-  const [searchTerm, setSearchTerm] = useState('');
-  const [sortOption, setSortOption] = useState('인기순');
-  const [termOption, setTermOption] = useState('');
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchResults, setSearchResults] = useState([]);
+  const debouncedSearchText = useDebounce(searchParams.get('text') || '', 400);
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchTerm(e.target.value);
-  };
+  async function fetchSearchResults() {
+    try {
+      const response = await client.get('/pickle/search', {
+        params: {
+          text: debouncedSearchText,
+          sort: searchParams.get('sortOption'),
+          term: searchParams.get('termOption'),
+        },
+      });
+      setSearchResults(response.data.data);
+    } catch (error) {
+      console.error(error);
+    }
+  }
 
-  const clearInput = () => {
-    setSearchTerm('');
-  };
+  useEffect(() => {
+    if (debouncedSearchText) fetchSearchResults();
+    else setSearchResults([]);
+  }, [debouncedSearchText, searchParams.get('sortOption'), searchParams.get('termOption')]);
+
+  useEffect(() => {
+    if (!searchParams.get('sort')) {
+      searchParams.set('sort', 'popular');
+      setSearchParams(searchParams);
+    }
+  }, []);
 
   return (
     <S.Container>
@@ -35,13 +56,26 @@ export default function PickleSearchResults() {
           </S.SearchIconWrapper>
           <InputField
             type="text"
-            id="searchInputField"
-            name=""
-            placeholder=""
-            value={searchTerm}
-            onChange={handleInputChange}
+            id="pickleSearch"
+            autoFocus
+            name="pickleSearch"
+            placeholder="지역, 목표 등"
+            value={searchParams.get('text') || ''}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+              if (e.target.value === '') {
+                searchParams.delete('text');
+              } else {
+                searchParams.set('text', e.target.value);
+              }
+              setSearchParams(searchParams);
+            }}
           />
-          <S.DeleteIconWrapper onClick={clearInput}>
+          <S.DeleteIconWrapper
+            onClick={() => {
+              searchParams.delete('text');
+              setSearchParams(searchParams);
+            }}
+          >
             <img src="/icons/xCircle.svg" alt="clear" />
           </S.DeleteIconWrapper>
         </InputContainer>
@@ -51,29 +85,28 @@ export default function PickleSearchResults() {
       <S.Content>
         <S.ContentTopSection>
           <S.PickleCount>
-            피클 <S.PickleNumText>6</S.PickleNumText>
+            피클 <S.PickleNumText>{searchResults.length}</S.PickleNumText>
           </S.PickleCount>
           <S.SortDropdown>
-            <select value={sortOption} onChange={e => setSortOption(e.target.value)}>
-              <option value="인기순">인기순</option>
-              <option value="최신순">최신순</option>
-              <option value="가격 낮은 순">가격 낮은 순</option>
-              <option value="가격 높은 순">가격 높은 순</option>
+            <select
+              value={searchParams.get('sortOption') as 'popular' | 'recent' | 'lowPrice' | 'highPrice'}
+              onChange={e => {
+                searchParams.set('sortOption', e.target.value);
+                setSearchParams(searchParams);
+              }}
+            >
+              <option value="popular">인기순</option>
+              <option value="recent">최신순</option>
+              <option value="lowPrice">가격 낮은 순</option>
+              <option value="highPrice">가격 높은 순</option>
             </select>
           </S.SortDropdown>
         </S.ContentTopSection>
-        <S.TermDropdown>
-          <select value={termOption} onChange={e => setTermOption(e.target.value)}>
-            <option value="">기간</option>
-            <option value="1개월 이상">1개월 이상</option>
-            <option value="3개월 이상">3개월 이상</option>
-            <option value="6개월 이상">6개월 이상</option>
-          </select>
-        </S.TermDropdown>
         <TwoColumnGridTemplate>
+          {searchResults?.map((pickle: any) => <SpecialPickleCard key={pickle.id} pickleData={pickle} />)}
           {/* 카드 검색 데이터에 맞는 카드 나열 */}
           {/* <PickleListCard category="popular" /> */}
-          <PickleCardListMockData />
+          {/* <PickleCardListMockData /> */}
         </TwoColumnGridTemplate>
       </S.Content>
     </S.Container>
@@ -108,11 +141,11 @@ const InputField = styled.input`
 const S = {
   Section: styled.section``,
   Container: styled.div`
-    height: 100dvh;
+    min-height: 100%;
   `,
   HeaderWrapper: styled.div`
     position: relative;
-    padding: 10rem 2.9rem 1.3rem;
+    padding: 5rem 2.8rem 1.3rem;
   `,
   BackButtonWrapper: styled.div`
     margin-left: -1rem;
@@ -143,8 +176,8 @@ const S = {
     cursor: pointer;
   `,
   Icon: styled.img`
-    width: 1rem;
-    height: 1rem;
+    width: 1.5rem;
+    height: 1.5rem;
     margin-right: 0.5rem;
   `,
   GrayBox: styled.div`
@@ -156,7 +189,7 @@ const S = {
   Content: styled.div`
     background: #fff;
     min-height: calc(100% - 30rem);
-    padding: 2rem 2.9rem 1.8rem;
+    padding: 2rem 2.8rem 1.8rem;
   `,
   ContentTopSection: styled.div`
     display: flex;
@@ -178,27 +211,7 @@ const S = {
       background-color: #fff;
       font-size: 14px;
       color: var(--Sub-Text, var(--Tab-Bar-Color-2, #8b8d94));
-      text-align: end;
-    }
-  `,
-  TermDropdown: styled.div`
-    display: flex;
-    align-items: center;
-    margin-top: 1rem;
-
-    select {
-      padding: 0.8rem;
-      padding-left: 1rem;
-      border: 1px solid #d0d0d0;
-      border-radius: 20px;
-      background-color: #fff;
-      font-size: 14px;
-      font-weight: 500;
-      background: url('/icons/dropdown.svg') no-repeat 87% 50%/10px auto;
-      color: var(--Basic, #181f29);
-      -webkit-appearance: none; /* for chrome */
-      -moz-appearance: none; /*for firefox*/
-      appearance: none;
+      text-align: start;
     }
   `,
 };

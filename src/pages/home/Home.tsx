@@ -52,8 +52,8 @@ export default function Home() {
           )}
         </S.Profile>
       </S.TopNavBarContainer>
-      <S.SearchBarContainer>
-        <S.SearchInput placeholder="지역, 목표 등" />
+      <S.SearchBarContainer onClick={() => navigate('/search')}>
+        <S.SearchInput>지역, 목표 등</S.SearchInput>
         <S.SearchIcon src="/icons/search.svg" alt="search" />
       </S.SearchBarContainer>
       <Carousel />
@@ -98,6 +98,7 @@ const S = {
     padding: 2.8rem 2.8rem 0;
   `,
   SearchBarContainer: styled.div`
+    cursor: pointer;
     position: relative;
     display: flex;
     align-items: center;
@@ -107,18 +108,15 @@ const S = {
     background-color: #f4f7f6;
     border-radius: 8px;
   `,
-  SearchInput: styled.input`
+  SearchInput: styled.div`
     width: 100%;
-    color: black;
+    color: var(--Input-Text, #bababa);
     font-size: 14px;
     font-style: normal;
     font-weight: 400;
     line-height: normal;
     border: none;
     background-color: transparent;
-    ::placeholder {
-      color: var(--Input-Text, #bababa);
-    }
   `,
   SearchIcon: styled.img`
     width: 1.5rem;
