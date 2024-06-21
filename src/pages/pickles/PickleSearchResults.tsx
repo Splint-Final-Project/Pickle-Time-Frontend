@@ -35,7 +35,7 @@ export default function PickleSearchResults() {
   }, [debouncedSearchText, searchParams.get('sortOption'), searchParams.get('termOption')]);
 
   useEffect(() => {
-    if (!searchParams.get('sort')) {
+    if (searchParams.get('sort') === null) {
       searchParams.set('sort', 'popular');
       setSearchParams(searchParams);
     }
