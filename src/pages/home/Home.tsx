@@ -41,17 +41,21 @@ export default function Home() {
   return (
     <div style={{ paddingBottom: '8.5rem' }}>
       <S.TopNavBarContainer>
-        <S.Logo src="images/logotext.svg" onClick={() => navigate('/')} />
+        <S.Logo src="/images/logotext.svg" onClick={() => navigate('/')} />
         <S.Profile>
           {user ? (
             <>
-              {user?.nickname}님&nbsp;&nbsp;<S.Logout onClick={signOut}>로그아웃</S.Logout>
+              <span>{user?.nickname}</span>&nbsp;님&nbsp;&nbsp;&nbsp;<S.Logout onClick={signOut}>로그아웃</S.Logout>
             </>
           ) : (
             <Link to={routes.signIn}>Sign In</Link>
           )}
         </S.Profile>
       </S.TopNavBarContainer>
+      <S.SearchBarContainer onClick={() => navigate('/search')}>
+        <S.SearchInput>지역, 목표 등</S.SearchInput>
+        <S.SearchIcon src="/icons/search.svg" alt="search" />
+      </S.SearchBarContainer>
       <Carousel />
       {/* 인기 급상승 피클 */}
       <PickleList.Container>
@@ -77,74 +81,6 @@ export default function Home() {
         <SortButtons />
         <InfinitePickleCardList />
       </PickleList.Container>
-
-      <S.FloatingButton
-        type="button"
-        onClick={() => {
-          if (inProgress) {
-            handleOpen({
-              renderComponent: KeepCreatingModal,
-              callback: () => {
-                navigate('/pickle-create');
-              },
-            });
-          } else {
-            navigate('/pickle-create');
-          }
-        }}
-      >
-        <S.CreatePickleIcon src="/icons/createPickle.svg" alt="" />
-      </S.FloatingButton>
-
-      <br />
-      <br />
-      <br />
-      <br />
-
-      <Button
-        onClick={() => handleOpen({ renderComponent: ReviewModal })}
-        style={{ width: '10rem', marginRight: '1rem' }}
-      >
-        리뷰작성
-      </Button>
-      <Button
-        onClick={() =>
-          handleOpen({
-            renderComponent: ConfirmationModal,
-            nocallback: () => {},
-            yescallback: handleConfirmAction,
-            message: '신청을 취소하시겠습니까?',
-            yesText: '확인',
-            noText: '취소',
-          })
-        }
-        style={{ width: '10rem', marginRight: '1rem' }}
-      >
-        취소확인모달
-      </Button>
-
-      <Button
-        onClick={() =>
-          handleOpen({
-            renderComponent: ShareModal,
-          })
-        }
-        style={{ width: '10rem', marginRight: '1rem' }}
-      >
-        공유하기
-      </Button>
-
-      <Button
-        type="button"
-        onClick={openModal}
-        styleType={BUTTON_TYPE.SECONDARY}
-        style={{ width: '10rem', marginRight: '1rem' }}
-      >
-        모달 테스트 버튼
-      </Button>
-      <BackDropModal isOpen={isModalOpen} onClose={closeModal}>
-        <div>티라노 앙</div>
-      </BackDropModal>
     </div>
   );
 }
@@ -159,23 +95,58 @@ const S = {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0 4rem;
+    padding: 2.8rem 2.8rem 0;
+  `,
+  SearchBarContainer: styled.div`
+    cursor: pointer;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 11px;
+    margin: 18px 28px;
+    background-color: #f4f7f6;
+    border-radius: 8px;
+  `,
+  SearchInput: styled.div`
+    width: 100%;
+    color: var(--Input-Text, #bababa);
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    border: none;
+    background-color: transparent;
+  `,
+  SearchIcon: styled.img`
+    width: 1.5rem;
+    height: 1.5rem;
   `,
   Logo: styled.img`
-    margin: 2rem 0rem 1.4rem;
-    width: 10rem;
+    /* margin: 2rem 0rem 1.4rem; */
+    width: 100px;
     cursor: pointer;
   `,
   Profile: styled.div`
-    color: ${({ theme }) => theme.color.black};
-    font-weight: bold;
+    color: var(--Sub-Text, var(--Tab-Bar-Color-2, #8b8d94));
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    span {
+      color: var(--Basic, #181f29);
+      font-size: 14px;
+      font-style: normal;
+      font-weight: 500;
+      line-height: normal;
+    }
   `,
   Logout: styled.button`
-    border: 1px solid ${({ theme }) => theme.color.secondary};
-    padding: 0.5rem 1rem;
-    background-color: ${({ theme }) => theme.color.secondary};
-    color: ${({ theme }) => theme.color.white};
-    border-radius: 0.8rem;
+    color: var(--Sub-Text, var(--Tab-Bar-Color-2, #8b8d94));
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
   `,
   PickleCardListContainer: styled.div`
     border: 1px solid black;

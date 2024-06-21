@@ -2,7 +2,6 @@ import reset from 'emotion-reset';
 import { css } from '@emotion/react';
 import theme from '@/styles/theme';
 
-// TODO: 서비스에 맞게 조정 필요
 const globalStyle = css`
   ${reset}
 

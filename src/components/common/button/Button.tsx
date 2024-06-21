@@ -21,7 +21,6 @@ export default function Button({ children, styleType = BUTTON_TYPE.PRIMARY, ...h
   );
 }
 
-//TODO : 디자인 확정 시 수정
 const Styled = {
   Button: styled.button<{
     $styleType: ButtonType;

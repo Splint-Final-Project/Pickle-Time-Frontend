@@ -56,11 +56,20 @@ const S = {
     background-color: #f1f1f1;
     border-radius: 1.8rem;
     color: #8b8d94;
+    transition:
+      background-color 0.3s,
+      color 0.3s;
+
     ${({ $current }) =>
       $current &&
       css`
         background: #181f29;
         color: #fff;
       `}
+
+    &:hover {
+      background: ${({ $current }) => ($current ? '#181f29' : '#dcdcdc')};
+      color: ${({ $current }) => ($current ? '#fff' : '#8b8d94')};
+    }
   `,
 };
