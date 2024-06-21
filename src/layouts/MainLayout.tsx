@@ -1,35 +1,24 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import BottomNav from '@/components/common/BottomNav';
-import { Outlet } from 'react-router-dom';
+import { Outlet, useLocation } from 'react-router-dom';
 
 const breakpoints = {
   mobile: '768px',
 };
 
 const S = {
-  LayoutContainer: styled.div`
-    display: flex;
-    flex-direction: column;
+  LayoutContainer: styled.div<{ $isWhiteBack: boolean }>`
+    width: 100vw;
     min-height: 100dvh;
-    border-left: 0.1px solid #e1e1e1;
-    border-right: 0.1px solid #e1e1e1;
-    width: 100%;
-    margin: 0 auto;
+    background-color: ${({ theme, $isWhiteBack }) => ($isWhiteBack ? theme.color.white : theme.color.background)};
+    padding: 0 calc((100vw - 76.7rem) / 2);
+  `,
 
-    @media (min-width: ${breakpoints.mobile}) {
-      max-width: 767px;
-      margin: 0 auto;
-    }
-  `,
-  Content: styled.main`
-    flex: 1;
-    display: flex;
-    flex-direction: row;
-  `,
-  MainContent: styled.div`
-    flex: 1;
+  ContentBox: styled.div`
+    background-color: ${({ theme }) => theme.color.white};
     width: 100%;
+    min-height: 100vh;
   `,
 };
 
@@ -38,15 +27,17 @@ interface MainLayoutProps {
 }
 
 export default function MainLayout({ children }: MainLayoutProps) {
+  const location = useLocation();
+  const { pathname } = location;
+  const isWhiteBack = pathname === '/';
+
   return (
-    <S.LayoutContainer>
+    <S.LayoutContainer $isWhiteBack={isWhiteBack} className="내가 맨위">
       {/* <Header /> */}
-      <S.Content>
-        <S.MainContent>
-          <Outlet />
-          {children}
-        </S.MainContent>
-      </S.Content>
+      <S.ContentBox className="나 다음">
+        <Outlet />
+        {children}
+      </S.ContentBox>
       <BottomNav />
     </S.LayoutContainer>
   );
