@@ -110,14 +110,14 @@ export const useCreateReviewMutation = (pickleId: string, callback: () => void) 
       return picklesRequests.createReview(pickleId, reviewData);
     },
     onSuccess: () => {
-      toast('리뷰 작성이 완료되었어요!');
+      toast('리뷰 작성 완료! 500P가 지급됐습니다.');
       callback();
       queryClient.invalidateQueries({ queryKey: ['reviews'] });
     },
-    onError: error => {
+    onError: (error: any) => {
       console.error(error);
       callback();
-      toast.error('리뷰 작성에 실패했습니다.');
+      toast.error(error.response.data.message);
     },
   });
 };

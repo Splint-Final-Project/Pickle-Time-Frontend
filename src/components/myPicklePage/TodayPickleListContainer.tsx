@@ -13,6 +13,8 @@ import { useGeolocation } from '@/hooks/useGeolocation';
 import CardBackImg from '@/assets/images/todayPickleCardBackImg.svg';
 import Character from '@/assets/icons/character.svg';
 import { css } from '@emotion/react';
+import client from '@/apis/axios';
+import toast from 'react-hot-toast';
 
 export interface TodayPickleDataType {
   capacity: number;
@@ -52,8 +54,17 @@ export default function TodayPickleListContainer() {
     return Number(searchParams.get('page')) || 1;
   }, [searchParams]);
 
-  const handleAttendance = () => {
-    alert(`${location?.longitude} ,${location?.latitude}`);
+  const handleAttendance = async (id: string) => {
+    if (!location) return toast.error('위치 정보를 가져오는 중입니다. 잠시만 기다려주세요.');
+    try {
+      const res = await client.post(`/pickle/${id}/attendance`, {
+        latitude: location?.latitude,
+        longitude: location?.longitude,
+      });
+      toast.success(res.data.message);
+    } catch (e: any) {
+      toast.error(e.response.data.message);
+    }
   };
 
   useEffect(() => {
@@ -109,7 +120,7 @@ export default function TodayPickleListContainer() {
         <TodayPickleCard cardData={data?.todayPickles[currentPage - 1]} distance={0} />
       </Tilt>
       <S.AttendanceButton
-        onClick={handleAttendance}
+        onClick={() => handleAttendance(data?.todayPickles[currentPage - 1].id)}
         disabled={
           !isButtonActive(
             data?.todayPickles[currentPage - 1].when.startTime.hour,
