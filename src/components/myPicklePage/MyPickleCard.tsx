@@ -20,6 +20,7 @@ export type PickleDataType = {
   title: string;
   duration: string;
   place: string;
+  imgUrl: string;
   category: CategoryType;
   state: pickleState;
   id: string;
@@ -60,7 +61,7 @@ export default function MyPickleCard({ pickleData }: MyPickleCardProps) {
           <S.Date>{dateFormat}</S.Date>
           <S.Address>{pickleData.place}</S.Address>
         </S.CardContent>
-        <S.CategoryBg $bgtype={pickleData.category} />
+        <S.CategoryBg src={pickleData.imgUrl} alt="pickle image" />
       </S.CardInner>
       <S.ReviewBtn $isShown={pickleData.status === 'done'} onClick={handleClickReview}>
         리뷰 쓰기
@@ -102,26 +103,14 @@ const S = {
     font-size: 1.4rem;
     color: #8b8d94;
   `,
-  CategoryBg: styled.div<{ $bgtype: CategoryType }>`
-    width: 9.1rem;
-    aspect-ratio: 1/1;
-    background-image: ${({ $bgtype }) => {
-      switch ($bgtype) {
-        case '운동':
-          return `url('/icons/exercise.svg')`;
-
-        case '취미':
-          return `url('/icons/hobbies.svg')`;
-
-        case '스터디':
-          return `url('/icons/study.svg')`;
-      }
-    }};
-    background-repeat: no-repeat;
-    background-size: contain;
+  CategoryBg: styled.img`
+    width: 10rem;
+    height: 10rem;
+    border-radius: 0.8rem;
+    object-fit: cover;
     position: absolute;
-    top: 2.6rem;
-    right: 2.6rem;
+    top: 2.15rem;
+    right: 2.15rem;
   `,
   ReviewBtn: styled.button<{ $isShown: boolean }>`
     ${({ $isShown }) =>

@@ -12,7 +12,7 @@ export default function MyPickleListContainer() {
     setSearchParams(searchParams, { replace: true });
   }
   useEffect(() => {
-    if (searchParams.get('state') === null) setCurrentState('pending');
+    if (searchParams.get('state') === null) setCurrentState('progress');
   }, []);
   return (
     <S.Container>
