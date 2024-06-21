@@ -1,4 +1,6 @@
+import { useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+
 import {
   Container,
   InputComponent,
@@ -13,13 +15,13 @@ import TitleInput from '@/components/pickleCreate/TitleInput';
 import ImgSelect from '@/components/pickleCreate/ImgSelect';
 import WriteDetail from '@/components/pickleCreate/WriteDetail';
 import GoalSelect from '@/components/pickleCreate/GoalSelect';
-import useBottomSheetModal from '@/hooks/zustand/useBottomSheetModal';
 import ConfirmationModal from '@/components/common/modal/ConfirmationModal';
-import { useEffect } from 'react';
+
+import useBottomSheetModal from '@/hooks/zustand/useBottomSheetModal';
 import usePickleEdit from '@/hooks/zustand/usePickleEdit';
 import { useEditPickleMutation, useGetPickelDetail } from '@/hooks/query/pickles';
 import useAuth from '@/hooks/zustand/useAuth';
-import toast from 'react-hot-toast';
+import { showErrorToast } from '@/components/common/Toast';
 
 export default function PickleEdit() {
   const {
@@ -59,7 +61,7 @@ export default function PickleEdit() {
       clear();
       navigate('/pickle/' + id, { replace: true });
     } catch (err) {
-      toast.error('피클 수정에 실패했습니다.');
+      showErrorToast('피클 수정에 실패했어요.');
       console.log(err);
     }
   }
@@ -67,7 +69,7 @@ export default function PickleEdit() {
   useEffect(() => {
     if (pickleDetailData) {
       if (user?._id !== pickleDetailData.leader) {
-        toast.error('피클 작성자만 수정할 수 있습니다.');
+        showErrorToast('피클 작성자만 수정할 수 있어요.');
         navigate('/pickle/' + id, { replace: true });
       }
       clear();

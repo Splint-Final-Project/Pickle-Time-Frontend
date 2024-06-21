@@ -1,9 +1,9 @@
-import { toast } from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
 import { useQuery, useInfiniteQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { showErrorToast } from '@/components/common/Toast';
 import { likeRequests } from '@/apis/like.api';
 import { picklesRequests } from '@/apis/pickle.api';
 import useAuth from '@/hooks/zustand/useAuth';
-import { useNavigate } from 'react-router-dom';
 
 type HandleSuccessFunction = (data: any) => void;
 
@@ -90,7 +90,7 @@ export const usePickleLikeMutation = (pickleId: string) => {
     },
     onError: error => {
       console.log(error);
-      toast.error('피클을 찜하지 못했습니다!');
+      showErrorToast('피클을 찜하지 못했어요.');
     },
   });
 };

@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { toast } from 'react-hot-toast';
+import { showErrorToast, showToast } from '@/components/common/Toast';
 import { DetailPickle } from '@/apis/types/pickles.type';
 import useKakaoShare from '@/hooks/useKakaoShare';
 
@@ -16,9 +16,9 @@ export default function ShareModal({ handleClose, data: pickle }: Props) {
     try {
       await navigator.clipboard.writeText(currentUrl);
       handleClose();
-      toast.success('링크가 복사되었어요!✨');
+      showToast('링크가 복사되었어요!✨');
     } catch (err) {
-      toast.error('링크 복사에 실패했어요!🥲');
+      showErrorToast('링크 복사에 실패했어요!🥲');
     }
   };
 

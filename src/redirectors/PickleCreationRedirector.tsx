@@ -1,8 +1,8 @@
+import { useEffect } from 'react';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import client from '@/apis/axios';
 import usePickleCreation from '@/hooks/zustand/usePickleCreation';
-import React, { useEffect } from 'react';
-import { useNavigate, useSearchParams } from 'react-router-dom';
-import { toast } from 'react-hot-toast';
+import { showErrorToast, showToast } from '@/components/common/Toast';
 
 export default function PickleCreationRedirector() {
   const [searchParams] = useSearchParams();
@@ -15,11 +15,11 @@ export default function PickleCreationRedirector() {
         imp_uid: searchParams.get('imp_uid'),
       });
       if (notified.status === 201) {
-        toast.success('결제 및 피클 생성이 완료되었습니다.');
+        showToast('결제 및 피클 생성이 완료되었어요!');
         clear();
         navigate(`/pickle/${notified.data.pickle._id}`, { replace: true });
       } else {
-        toast.error('피클 생성이 실패하여 결제 금액은 환불되었습니다. ' + notified.data.message);
+        showErrorToast('피클 생성이 실패하여 결제 금액은 환불되었어요. ' + notified.data.message);
         navigate(`/pickle-create-1`, { replace: true });
       }
     } catch (err) {
@@ -30,7 +30,7 @@ export default function PickleCreationRedirector() {
   useEffect(() => {
     const success = searchParams.get('imp_success');
     if (success === 'false') {
-      toast.error(`결제에 실패했습니다: ${searchParams.get('error_msg')}`);
+      showErrorToast(`결제에 실패했습니다: ${searchParams.get('error_msg')}`);
       navigate(`/pickle-create`, { replace: true });
     } else {
       handlePayment();

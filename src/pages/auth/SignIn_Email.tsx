@@ -1,5 +1,7 @@
-import { SubmitHandler, useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
+import { SubmitHandler, useForm } from 'react-hook-form';
+import styled from '@emotion/styled';
+import { showToast } from '@/components/common/Toast';
 import useAuth from '@/hooks/zustand/useAuth';
 import { SignInFormValues } from '@/apis/types/auth.type';
 
@@ -17,10 +19,10 @@ export default function SignIn_Email() {
     try {
       const status = await signIn(data);
       if (status === 'pending') {
-        toast.success('추가 정보 입력 페이지로 이동합니다.');
+        showToast('추가 정보 입력 페이지로 이동할게요.');
         navigate('/sign-up2');
       } else {
-        toast.success('로그인 성공! 홈 페이지로 이동합니다.');
+        showToast('로그인 성공! 홈 페이지로 이동할게요!');
         navigate('/');
       }
     } catch (e) {
@@ -128,9 +130,6 @@ export default function SignIn_Email() {
     </Container>
   );
 }
-
-import styled from '@emotion/styled';
-import toast from 'react-hot-toast';
 
 export const Container = styled.div`
   width: 100%;

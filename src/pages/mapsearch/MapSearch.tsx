@@ -1,10 +1,10 @@
+import { showErrorToast } from '@/components/common/Toast';
 import AroundPickleCard from '@/components/picklecard/AroundPickleCard';
 import { useMyFavoritePickleIds } from '@/hooks/query/like';
 import { useGetNearbyPickles } from '@/hooks/query/pickles';
 import { useGeolocation } from '@/hooks/useGeolocation';
 import styled from '@emotion/styled';
 import { useEffect, useState } from 'react';
-import toast from 'react-hot-toast';
 import { Map, MapMarker, MarkerClusterer } from 'react-kakao-maps-sdk';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 
@@ -62,7 +62,7 @@ export default function MapSearch() {
       if (status === kakao.maps.services.Status.OK) {
         setJusoList(data?.slice(0, 5) || []);
       } else {
-        toast.error('검색 결과가 없습니다.');
+        showErrorToast('검색 결과가 없어요!');
       }
     });
   }
