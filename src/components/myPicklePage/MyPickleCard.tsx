@@ -72,7 +72,7 @@ export default function MyPickleCard({ pickleData }: MyPickleCardProps) {
       </S.CardInner>
       {pickleData.status === 'done' &&
         (pickleData.review ? (
-          <S.ReviewBtn onClick={() => navigate('/mypage')}>작성한 리뷰 보기</S.ReviewBtn>
+          <S.ReviewBtn onClick={() => navigate('/mypage?tab=review')}>작성한 리뷰 보기</S.ReviewBtn>
         ) : (
           <S.ReviewBtn onClick={handleClickReview}>리뷰 쓰기</S.ReviewBtn>
         ))}

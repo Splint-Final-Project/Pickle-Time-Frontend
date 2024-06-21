@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import styled from '@emotion/styled';
 
 import MenuList from '@/components/my-page/MenuList';
@@ -12,7 +12,8 @@ import DefaultProfileIcon from '@/assets/icons/DefaultProfileIcon';
 export type MyMenu = (typeof MY_MENU)[keyof typeof MY_MENU];
 
 export default function MyPage() {
-  const [selectedMenu, setSelectedMenu] = useState<MyMenu>(MY_MENU.POINT);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const selectedMenu = searchParams.get('tab') as 'point' | 'review' | 'wishlist' | null;
   const navigate = useNavigate();
   const { user } = useAuth();
 
@@ -21,9 +22,17 @@ export default function MyPage() {
     icon: `/icons/mypage-menu/${key.toLowerCase()}Icon.svg`,
     selectedIcon: `/icons/mypage-menu/${key.toLowerCase()}SelectedIcon.svg`,
     func: () => {
-      setSelectedMenu(label);
+      searchParams.set('tab', key.toLowerCase());
+      setSearchParams(searchParams, { replace: true });
     },
   }));
+
+  useEffect(() => {
+    if (!selectedMenu) {
+      searchParams.set('tab', 'point');
+      setSearchParams(searchParams, { replace: true });
+    }
+  }, []);
 
   return (
     <>
@@ -52,7 +61,7 @@ export default function MyPage() {
       </S.TopSection>
 
       <S.BottomSection>
-        <DynamicRender menu={selectedMenu} />
+        <DynamicRender menu={selectedMenu as 'point' | 'review' | 'wishlist'} />
       </S.BottomSection>
     </>
   );
