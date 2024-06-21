@@ -26,6 +26,7 @@ export type PickleDataType = {
   id: string;
   when: Time;
   status: 'done' | 'cancelled' | 'progress' | 'pending';
+  review: boolean;
 };
 
 interface MyPickleCardProps {
@@ -69,9 +70,12 @@ export default function MyPickleCard({ pickleData }: MyPickleCardProps) {
         </S.CardContent>
         <S.CategoryBg src={pickleData.imgUrl} alt="pickle image" />
       </S.CardInner>
-      <S.ReviewBtn $isShown={pickleData.status === 'done'} onClick={handleClickReview}>
-        리뷰 쓰기
-      </S.ReviewBtn>
+      {pickleData.status === 'done' &&
+        (pickleData.review ? (
+          <S.ReviewBtn onClick={() => navigate('/mypage')}>작성한 리뷰 보기</S.ReviewBtn>
+        ) : (
+          <S.ReviewBtn onClick={handleClickReview}>리뷰 쓰기</S.ReviewBtn>
+        ))}
     </S.Card>
   );
 }
@@ -124,12 +128,7 @@ const S = {
     top: 2.15rem;
     right: 2.15rem;
   `,
-  ReviewBtn: styled.button<{ $isShown: boolean }>`
-    ${({ $isShown }) =>
-      $isShown ||
-      css`
-        display: none;
-      `}
+  ReviewBtn: styled.button`
     padding: 0.7rem 1.1rem;
     border-radius: 4px;
     font-size: 1.4rem;
@@ -139,6 +138,6 @@ const S = {
     transform: translateZ(0);
     position: absolute;
     bottom: 1.5rem;
-    right: 1.5rem;
+    right: 2rem;
   `,
 };
