@@ -5,6 +5,8 @@ import AddressIcon from '@/assets/icons/AddressIcon';
 import Character from '@/assets/icons/character.svg';
 
 import { formatTime } from '@/utils/dateCalculate';
+import { TodayPickleDataType } from './TodayPickleListContainer';
+import { getTimeGapMessage, untilChulseok } from '@/utils/todayPickleCardUtils';
 
 type Time = {
   times: Date[];
@@ -25,10 +27,6 @@ type CardDataType = {
   detailAddress: string;
   isNearby?: boolean;
 };
-
-import { TodayPickleDataType } from './TodayPickleListContainer';
-import { getTimeGapMessage } from '@/utils/todayPickleCardUtils';
-import { formatTimeRange } from '@/utils/formatData';
 
 
 interface TodayPickleCardProps {
@@ -60,7 +58,11 @@ export default function TodayPickleCard({ cardData }: any) {
         </S.CardHeader>
         <S.CardBody>
           <S.AlertMessage>
-            {getTimeGapMessage(cardData.when.startTime.hour, cardData.when.startTime.minute)}
+            {untilChulseok(
+              {hour: hours, minute: minutes}, 
+              { hour: cardData?.when.startTime.hour, minute: cardData?.when.startTime.minute}, 
+              { hour: cardData?.when.finishTime.hour, minute: cardData?.when.finishTime.minute}
+            )}
           </S.AlertMessage>
           <S.PickleTime>
             <S.IconBox>

@@ -46,7 +46,6 @@ export default function TodayPickleListContainer() {
     return Number(searchParams.get('page')) || 1;
   }, [searchParams]);
 
-  // console.log(data?.todayPickles[currentPage-1]);
 
   const handleAttendance = () => {
     // alert(`${location?.longitude} ,${location?.latitude}`);

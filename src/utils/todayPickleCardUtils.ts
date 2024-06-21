@@ -27,3 +27,28 @@ export function getTimeGapMessage(startHour: number, startMinute: number): strin
   else if (timeGap <= 10 && timeGap >= 5) return '! 피클 5분 전이에요';
   else return '피클 곧 시작이에요!';
 }
+
+export const untilChulseok = (now: {hour: number, minute: number}, pickleStart: any, pickleFinish: any) => {
+  if (!now || !pickleStart) return '';
+
+  const leftHourUntilStart = pickleStart.hour - now.hour;
+  const leftMinuteUntilStart = pickleStart.minute - now.minute;
+
+  const leftHourUntilFinish = pickleFinish.hour - now.hour;
+  const leftMinuteUntilFinish = pickleFinish.minute - now.minute;
+
+  if (leftHourUntilStart > 0) return `피클 ${leftHourUntilStart}시간 전이에요`;
+  if (leftHourUntilStart === 0) {
+    if (leftMinuteUntilStart > 0) return `피클 ${leftMinuteUntilStart}분 전이에요`;
+    if (leftMinuteUntilStart === 0) return '피클이 시작되었어요!'
+  }
+  if (leftHourUntilStart < 0) {
+    if (leftHourUntilFinish > 0) return `피클 종료까지 ${leftHourUntilFinish}시간 남았어요`
+    if (leftHourUntilFinish === 0) {
+      if (leftMinuteUntilFinish > 0) return `피클 종료까지 ${leftMinuteUntilFinish}분 남았어요`
+      if (leftMinuteUntilFinish <= 0) return '피클이 종료되었어요'
+    }
+
+    return '피클이 종료되었어요'
+  }
+};
