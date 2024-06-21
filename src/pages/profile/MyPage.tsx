@@ -4,11 +4,12 @@ import styled from '@emotion/styled';
 
 import MenuList from '@/components/my-page/MenuList';
 import DynamicRender from '@/components/my-page/DynamicRender';
+import BackButton from '@/components/common/button/BackButton';
 import routes from '@/constants/routes';
 import { MY_MENU } from '@/constants/BUTTON';
 import useAuth from '@/hooks/zustand/useAuth';
 import DefaultProfileIcon from '@/assets/icons/DefaultProfileIcon';
-import BackButton from '@/components/common/button/BackButton';
+import EditIcon from '@/assets/icons/EditIcon';
 
 export type MyMenu = (typeof MY_MENU)[keyof typeof MY_MENU];
 
@@ -30,16 +31,14 @@ export default function MyPage() {
     <>
       <S.TopSection>
         <S.Header>
-          <S.Title>
-            <BackButton />
-            <h1>마이 페이지</h1>
-          </S.Title>
-          <S.SettingBtn to={routes.editProfile}>
-            <img src="/icons/settingIcon.svg" alt="프로필 수정" />
-          </S.SettingBtn>
+          <BackButton />
+          <h1>마이 페이지</h1>
         </S.Header>
         <S.Profile className="프로필">
-          {user.profilePic ? <img src={user.profilePic} alt="프로필 이미지" /> : <DefaultProfileIcon />}
+          <S.ProfileImg onClick={() => navigate(routes.editProfile)}>
+            {user.profilePic ? <img src={user.profilePic} alt="프로필 이미지" /> : <DefaultProfileIcon />}
+            <EditIcon style={{ position: 'absolute', bottom: -3, right: -5, cursor: 'pointer' }} />
+          </S.ProfileImg>
           <span className="nickname">{user.nickname}</span>
           <span className="email">{user.email}</span>
         </S.Profile>
@@ -61,12 +60,6 @@ const S = {
 
   Header: styled.div`
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-  `,
-
-  Title: styled.h1`
-    display: flex;
     align-items: center;
     padding: 0 1.8rem;
     gap: 2rem;
@@ -82,12 +75,6 @@ const S = {
     align-items: center;
     margin: 4rem 0 4.7rem;
 
-    img {
-      width: 6.8rem;
-      height: 6.8rem;
-      border-radius: 1.5rem;
-      object-fit: cover;
-    }
     & .nickname {
       ${({ theme }) => theme.typography.subTitle1};
       margin: 1.1rem 0 0.2rem;
@@ -95,6 +82,19 @@ const S = {
     & .email {
       color: ${({ theme }) => theme.color.sub};
       ${({ theme }) => theme.typography.body1};
+    }
+  `,
+
+  ProfileImg: styled.div`
+    position: relative;
+    display: flex;
+    justify-content: center;
+
+    img {
+      width: 6.8rem;
+      height: 6.8rem;
+      border-radius: 1.5rem;
+      object-fit: cover;
     }
   `,
 
