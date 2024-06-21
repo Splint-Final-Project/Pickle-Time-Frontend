@@ -72,7 +72,7 @@ const useAuth = create(
         try {
           const currentUser = get().user;
           const res = await userRequests.updateProfile(data);
-          set({ user: { ...currentUser, ...data, profilePic: data.imgUrl } });
+          set({ user: { ...currentUser, ...data } });
           toast.success('프로필 수정이 완료되었습니다!😊');
         } catch (e) {
           toast.error('프로필 수정에 실패했습니다!🥲');
