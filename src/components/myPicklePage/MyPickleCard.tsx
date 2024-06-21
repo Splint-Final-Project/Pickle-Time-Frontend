@@ -49,17 +49,23 @@ export default function MyPickleCard({ pickleData }: MyPickleCardProps) {
     handleOpen({ renderComponent: ReviewModal, pickleId: pickleData.id, pickleTitle: pickleData.title });
   };
 
-  console.log(pickleData.status);
   return (
     <S.Card>
-      <S.CardInner onClick={() => navigate(`/pickle/${pickleData.id}`)} $status={pickleData.status}>
-        <S.CardTitle>
-          {pickleData.title}
-          {pickleData.status === 'cancelled' ? ' [취소된 피클입니다]' : ''}
-        </S.CardTitle>
+      <S.CardInner
+        disabled={pickleData.status === 'cancelled'}
+        onClick={() => navigate(`/pickle/${pickleData.id}`)}
+        $status={pickleData.status}
+      >
+        <S.CardTitle>{pickleData.title}</S.CardTitle>
         <S.CardContent>
-          <S.Date>{dateFormat}</S.Date>
-          <S.Address>{pickleData.place}</S.Address>
+          {pickleData.status === 'cancelled' ? (
+            <S.CardTitle>인원 미달로 자동취소/환불되었습니다.</S.CardTitle>
+          ) : (
+            <>
+              <S.Date>{dateFormat}</S.Date>
+              <S.Address>{pickleData.place}</S.Address>
+            </>
+          )}
         </S.CardContent>
         <S.CategoryBg src={pickleData.imgUrl} alt="pickle image" />
       </S.CardInner>
@@ -86,6 +92,12 @@ const S = {
     color: #181f29;
     position: relative;
     height: 14.3rem;
+    ${({ $status }) =>
+      $status === 'done' ||
+      ($status === 'cancelled' &&
+        css`
+          opacity: 0.4;
+        `)}
   `,
   CardTitle: styled.h3`
     font-size: 1.5rem;
