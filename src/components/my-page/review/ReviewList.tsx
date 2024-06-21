@@ -10,7 +10,7 @@ export default function ReviewList() {
   const [checkedReviews, setCheckedReviews] = useState<string[]>([]);
 
   const { data } = useMyReviews();
-  const myReviewData = data?.data || [];
+  const myReviewData = data?.data.data || [];
 
   const handleChecked = (id: string) => {
     if (checkedReviews.includes(id)) setCheckedReviews(checkedReviews.filter(item => item !== id));
@@ -20,7 +20,7 @@ export default function ReviewList() {
   return (
     <MyDynamicTemplate>
       <h2>작성한 리뷰</h2>
-      <h1>{myReviewData.length > 0 || 0} 개</h1>
+      <h1>{myReviewData.length || 0} 개</h1>
       {myReviewData.length > 0 ? (
         <>
           <S.Delete $isChecked={checkedReviews.length > 0}>삭제하기</S.Delete>
