@@ -33,29 +33,18 @@ export const untilChulseok = (pickleStart: any, pickleFinish: any) => {
   const hours = now.getHours();
   const minutes = now.getMinutes();
 
-  if (!now || !pickleStart) return '';
+  if (!pickleStart || !pickleFinish) return '';
 
-  const leftHourUntilStart = pickleStart.hour - hours;
-  const leftMinuteUntilStart = (pickleStart.minute + 60) - minutes;
+  // Calculate time difference in minutes
+  const minutesUntilStart = (pickleStart.hour * 60 + pickleStart.minute) - (hours * 60 + minutes);
+  const minutesUntilFinish = (pickleFinish.hour * 60 + pickleFinish.minute) - (hours * 60 + minutes);
 
-  const leftHourUntilFinish = pickleFinish.hour - hours;
-  const leftMinuteUntilFinish = (pickleFinish.minute + 60) - minutes;
+  if (minutesUntilStart > 60) return `피클 ${Math.floor(minutesUntilStart / 60)}시간 전이에요`;
+  if (minutesUntilStart > 0) return `피클 ${minutesUntilStart}분 전이에요`;
+  if (minutesUntilStart <= 0 && minutesUntilFinish > 60) return `피클 종료까지 ${Math.floor(minutesUntilFinish / 60)}시간 남았어요`;
+  if (minutesUntilStart <= 0 && minutesUntilFinish > 0) return `피클 종료까지 ${minutesUntilFinish}분 남았어요`;
 
-  if (leftHourUntilStart > 1) return `피클 ${leftHourUntilStart}시간 전이에요`;
-  if (leftHourUntilStart === 1) {
-    if (leftMinuteUntilStart > 0) return `피클 ${leftMinuteUntilStart}분 전이에요`;
-    if (leftMinuteUntilStart === 60) return '피클이 시작되었어요!'
-  }
-  if (leftHourUntilStart <= 0) {
-    if (leftHourUntilFinish > 1) return `피클 종료까지 ${leftHourUntilFinish}시간 남았어요`
-    if (leftHourUntilFinish === 1) {
-      if (leftMinuteUntilFinish > 0) return `피클 종료까지 ${leftMinuteUntilFinish}분 남았어요`
-      if (leftMinuteUntilFinish === 60) return '피클이 종료되었어요'
-    }
-
-    return '피클이 종료되었어요'
-  }
-  return '피클이 종료되었어요'
+  return '피클이 종료되었어요';
 };
 
 export const calculateInterval = (currentTime: Date, pickleStart: any, pickleFinish: any) => {

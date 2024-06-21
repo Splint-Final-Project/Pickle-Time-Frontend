@@ -75,7 +75,6 @@ export default function TodayPickleListContainer() {
       { hour: data?.todayPickles[currentPage - 1].when.finishTime.hour, minute: data?.todayPickles[currentPage - 1].when.finishTime.minute}
     ));
 
-    console.log(currentTime);
     return () => clearInterval(interval);
   }, [currentTime]);
 
