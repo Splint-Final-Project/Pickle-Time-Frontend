@@ -91,3 +91,11 @@ export interface CreateReviewData {
   stars: number;
   content?: string;
 }
+
+export interface ReviewData {
+  pickleId: string;
+  pickleTitle: string;
+  pickleImageUrl: string;
+  stars: number;
+  content: string;
+}
