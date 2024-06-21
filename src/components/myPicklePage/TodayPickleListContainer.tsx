@@ -76,12 +76,12 @@ export default function TodayPickleListContainer() {
       calculateInterval(
         currentTime,
         {
-          hour: data?.todayPickles[currentPage - 1].when.startTime.hour,
-          minute: data?.todayPickles[currentPage - 1].when.startTime.minute,
+          hour: data?.todayPickles[currentPage - 1]?.when.startTime.hour,
+          minute: data?.todayPickles[currentPage - 1]?.when.startTime.minute,
         },
         {
-          hour: data?.todayPickles[currentPage - 1].when.finishTime.hour,
-          minute: data?.todayPickles[currentPage - 1].when.finishTime.minute,
+          hour: data?.todayPickles[currentPage - 1]?.when.finishTime.hour,
+          minute: data?.todayPickles[currentPage - 1]?.when.finishTime.minute,
         },
       ),
     );
