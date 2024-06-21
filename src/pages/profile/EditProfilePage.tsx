@@ -26,7 +26,7 @@ export default function EditProfilePage() {
     updateProfile({
       nickname: profileState.nickname,
       areaCodes: profileState.areaCodes,
-      imgUrl: profileState.profileImg || '',
+      profilePic: profileState.profileImg || '',
     });
     navigate(routes.mypage);
   };
