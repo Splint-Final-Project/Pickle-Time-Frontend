@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import styled from '@emotion/styled';
 import CardBackImg from '@/assets/images/todayPickleCardBackImg.svg';
 import ClockIcon from '@/assets/icons/ClockIcon';
@@ -6,7 +7,7 @@ import Character from '@/assets/icons/character.svg';
 
 import { formatTime } from '@/utils/dateCalculate';
 import { TodayPickleDataType } from './TodayPickleListContainer';
-import { getTimeGapMessage, untilChulseok } from '@/utils/todayPickleCardUtils';
+import { getTimeGapMessage, untilChulseok, calculateInterval } from '@/utils/todayPickleCardUtils';
 
 type Time = {
   times: Date[];
@@ -35,10 +36,6 @@ interface TodayPickleCardProps {
 }
 
 export default function TodayPickleCard({ cardData }: any) {
-  const now = new Date();
-  const hours = now.getHours();
-  const minutes = now.getMinutes();
-
   // format
   const finishDateFormat = `~${cardData?.when.finishDate.month.toString().padStart(2, '0')}.${cardData?.when.finishDate.day}`
   const startTimeFormat = formatTime(cardData?.when.startTime);
@@ -59,7 +56,6 @@ export default function TodayPickleCard({ cardData }: any) {
         <S.CardBody>
           <S.AlertMessage>
             {untilChulseok(
-              {hour: hours, minute: minutes}, 
               { hour: cardData?.when.startTime.hour, minute: cardData?.when.startTime.minute}, 
               { hour: cardData?.when.finishTime.hour, minute: cardData?.when.finishTime.minute}
             )}

@@ -5,10 +5,11 @@ import Tilt from 'react-parallax-tilt';
 import { useQueryClient } from '@tanstack/react-query';
 import { useSearchParams } from 'react-router-dom';
 import { useEffect, useMemo, useState } from 'react';
-import { isButtonActive, getTimeGapMessage } from '@/utils/todayPickleCardUtils';
+import { isButtonActive, calculateInterval } from '@/utils/todayPickleCardUtils';
 import { useGetProceedingPickles } from '@/hooks/query/pickles';
 import betweenLength from '@/utils/betweenLength';
 import { When } from '@/apis/types/pickles.type';
+import { useGeolocation } from '@/hooks/useGeolocation';
 
 export interface TodayPickleDataType {
   capacity: number;
@@ -36,8 +37,10 @@ export interface TodayPickleDataType {
 }
 
 export default function TodayPickleListContainer() {
+  const [currentTime, setCurrentTime] = useState(new Date());
   const [searchParams, setSearchParams] = useSearchParams();
   const [distance, setDistance] = useState(0);
+  const { location } = useGeolocation();
 
   // server state
   const { data } = useGetProceedingPickles();
@@ -48,7 +51,7 @@ export default function TodayPickleListContainer() {
 
 
   const handleAttendance = () => {
-    // alert(`${location?.longitude} ,${location?.latitude}`);
+    alert(`${location?.longitude} ,${location?.latitude}`);
   };
 
   useEffect(() => {
@@ -63,6 +66,19 @@ export default function TodayPickleListContainer() {
     getDistance();
   }, [currentPage]);
 
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentTime(new Date());
+    }, calculateInterval(
+      currentTime,
+      { hour: data?.todayPickles[currentPage - 1].when.startTime.hour, minute: data?.todayPickles[currentPage - 1].when.startTime.minute}, 
+      { hour: data?.todayPickles[currentPage - 1].when.finishTime.hour, minute: data?.todayPickles[currentPage - 1].when.finishTime.minute}
+    ));
+
+    console.log(currentTime);
+    return () => clearInterval(interval);
+  }, [currentTime]);
+
   if (!data?.todayPickles || data?.todayPickles.length === 0) {
     return null; // 오늘의 피클이 없습니다
   }
@@ -75,7 +91,7 @@ export default function TodayPickleListContainer() {
       </Tilt>
       <S.AttendanceButton
         onClick={handleAttendance}
-        disabled={!isButtonActive(data?.todayPickles[currentPage - 1].startHour, data?.todayPickles[currentPage - 1].startMinute)}
+        disabled={!isButtonActive(data?.todayPickles[currentPage - 1].when.startTime.hour, data?.todayPickles[currentPage - 1].when.startTime.minute)}
       >
         <span>출석하기</span>
       </S.AttendanceButton>

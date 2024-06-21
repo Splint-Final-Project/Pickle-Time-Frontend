@@ -28,27 +28,53 @@ export function getTimeGapMessage(startHour: number, startMinute: number): strin
   else return '피클 곧 시작이에요!';
 }
 
-export const untilChulseok = (now: {hour: number, minute: number}, pickleStart: any, pickleFinish: any) => {
+export const untilChulseok = (pickleStart: any, pickleFinish: any) => {
+  const now = new Date();
+  const hours = now.getHours();
+  const minutes = now.getMinutes();
+
   if (!now || !pickleStart) return '';
 
-  const leftHourUntilStart = pickleStart.hour - now.hour;
-  const leftMinuteUntilStart = pickleStart.minute - now.minute;
+  const leftHourUntilStart = pickleStart.hour - hours;
+  const leftMinuteUntilStart = (pickleStart.minute + 60) - minutes;
 
-  const leftHourUntilFinish = pickleFinish.hour - now.hour;
-  const leftMinuteUntilFinish = pickleFinish.minute - now.minute;
+  const leftHourUntilFinish = pickleFinish.hour - hours;
+  const leftMinuteUntilFinish = (pickleFinish.minute + 60) - minutes;
 
-  if (leftHourUntilStart > 0) return `피클 ${leftHourUntilStart}시간 전이에요`;
-  if (leftHourUntilStart === 0) {
+  if (leftHourUntilStart > 1) return `피클 ${leftHourUntilStart}시간 전이에요`;
+  if (leftHourUntilStart === 1) {
     if (leftMinuteUntilStart > 0) return `피클 ${leftMinuteUntilStart}분 전이에요`;
-    if (leftMinuteUntilStart === 0) return '피클이 시작되었어요!'
+    if (leftMinuteUntilStart === 60) return '피클이 시작되었어요!'
   }
-  if (leftHourUntilStart < 0) {
-    if (leftHourUntilFinish > 0) return `피클 종료까지 ${leftHourUntilFinish}시간 남았어요`
-    if (leftHourUntilFinish === 0) {
+  if (leftHourUntilStart <= 0) {
+    if (leftHourUntilFinish > 1) return `피클 종료까지 ${leftHourUntilFinish}시간 남았어요`
+    if (leftHourUntilFinish === 1) {
       if (leftMinuteUntilFinish > 0) return `피클 종료까지 ${leftMinuteUntilFinish}분 남았어요`
-      if (leftMinuteUntilFinish <= 0) return '피클이 종료되었어요'
+      if (leftMinuteUntilFinish === 60) return '피클이 종료되었어요'
     }
 
     return '피클이 종료되었어요'
+  }
+  return '피클이 종료되었어요'
+};
+
+export const calculateInterval = (currentTime: Date, pickleStart: any, pickleFinish: any) => {
+  const startTime = new Date(currentTime);
+  startTime.setHours(pickleStart.hour);
+  startTime.setMinutes(pickleStart.minute);
+  
+  const finishTime = new Date(currentTime);
+  finishTime.setHours(pickleFinish.hour);
+  finishTime.setMinutes(pickleFinish.minute);
+
+  const timeToStart = startTime.getTime() - currentTime.getTime();
+  const timeToFinish = finishTime.getTime() - currentTime.getTime();
+
+  if (timeToStart > 3600000 || timeToFinish > 3600000) {
+    return 3600000; // 1시간
+  } else if (timeToStart > 600000 || timeToFinish > 600000) {
+    return 600000; // 10분
+  } else {
+    return 60000; // 1분
   }
 };
