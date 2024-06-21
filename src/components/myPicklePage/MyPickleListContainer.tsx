@@ -60,13 +60,15 @@ function MyPickleList({ currentState }: MyPickleListProps) {
 
   return (
     <S.List>
-      {picklesList.length
-        ? picklesList?.map((item: any) => (
-            <li key={item.id}>
-              <MyPickleCard pickleData={item} />
-            </li>
-          ))
-        : emptyPickleListDataRender(currentState)}
+      {picklesList.length ? (
+        picklesList?.map((item: any) => (
+          <li key={item.id}>
+            <MyPickleCard pickleData={item} />
+          </li>
+        ))
+      ) : (
+        <S.Wrapper>{emptyPickleListDataRender(currentState)}</S.Wrapper>
+      )}
     </S.List>
   );
 }
@@ -92,5 +94,12 @@ const S = {
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
+  `,
+  Wrapper: styled.div`
+    width: 100%;
+    min-height: 25rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   `,
 };
