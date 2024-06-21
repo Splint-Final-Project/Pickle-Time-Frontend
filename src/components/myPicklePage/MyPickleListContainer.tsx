@@ -3,13 +3,25 @@ import PickleStateFilterBar, { pickleState } from './PickleStateFilterBar';
 import styled from '@emotion/styled';
 import MyPickleCard, { PickleDataType } from './MyPickleCard';
 import { useGetFinishPickles, useGetPendingPickles, useGetProceedingPickles } from '@/hooks/query/pickles';
+import EmptyDataMessage from '../common/EmptyDataMessage';
+import { useSearchParams } from 'react-router-dom';
 
 export default function MyPickleListContainer() {
-  const [currentState, setCurrentState] = useState<pickleState>('pending');
+  const [searchParams, setSearchParams] = useSearchParams();
+  function setCurrentState(state: pickleState) {
+    searchParams.set('state', state);
+    setSearchParams(searchParams, { replace: true });
+  }
+  useEffect(() => {
+    if (searchParams.get('state') === null) setCurrentState('progress');
+  }, []);
   return (
     <S.Container>
-      <PickleStateFilterBar currentState={currentState} setCurrentState={setCurrentState} />
-      <MyPickleList currentState={currentState} />
+      <PickleStateFilterBar
+        currentState={(searchParams.get('state') || 'pending') as 'pending' | 'progress' | 'closed'}
+        setCurrentState={(state: pickleState) => setCurrentState(state)}
+      />
+      <MyPickleList currentState={(searchParams.get('state') || 'pending') as 'pending' | 'progress' | 'closed'} />
     </S.Container>
   );
 }
@@ -25,15 +37,9 @@ function MyPickleList({ currentState }: MyPickleListProps) {
   const { data: pendingData } = useGetPendingPickles();
   const { data: proceedingData } = useGetProceedingPickles();
   const { data: finishData } = useGetFinishPickles();
-
   const pendingPickles = pendingData?.pendingPickles;
   const proceedingPickles = proceedingData?.proceedingPickles;
   const finishedPickles = finishData?.finishedPickles;
-
-  console.log('pendingPickles', pendingPickles);
-  console.log('proceedingPickles', proceedingPickles);
-  console.log('finishPickles', finishedPickles);
-
 
   useEffect(() => {
     switch (currentState) {
@@ -50,18 +56,31 @@ function MyPickleList({ currentState }: MyPickleListProps) {
       default:
         setPicklesList(pendingPickles);
     }
-  }, [currentState, pendingData]);
+  }, [currentState, pendingData, proceedingData, finishData]);
 
   return (
     <S.List>
-      {picklesList?.map((item: any) => (
-        <li key={item.id}>
-          <MyPickleCard pickleData={item} />
-        </li>
-      ))}
+      {picklesList?.length
+        ? picklesList?.map((item: any) => (
+            <li key={item.id}>
+              <MyPickleCard pickleData={item} />
+            </li>
+          ))
+        : emptyPickleListDataRender(currentState)}
     </S.List>
   );
 }
+
+const emptyPickleListDataRender = (currentState: pickleState) => {
+  switch (currentState) {
+    case 'pending':
+      return <EmptyDataMessage>신청 중인 피클이 없어요!</EmptyDataMessage>;
+    case 'progress':
+      return <EmptyDataMessage>진행 중인 피클이 없어요!</EmptyDataMessage>;
+    case 'closed':
+      return <EmptyDataMessage>종료된 피클이 없어요!</EmptyDataMessage>;
+  }
+};
 
 const S = {
   Container: styled.div`

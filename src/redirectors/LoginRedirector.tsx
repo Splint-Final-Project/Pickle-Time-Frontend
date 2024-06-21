@@ -6,10 +6,10 @@ import useAuth from '@/hooks/zustand/useAuth';
 export default function LoginRedirector() {
   const navigate = useNavigate();
   const { user, signOut } = useAuth();
-  console.log('LoginRedirector.tsx');
+  // console.log('LoginRedirector.tsx');
 
   useEffect(() => {
-    console.log('LoginRedirector.tsx useEffect');
+    // console.log('LoginRedirector.tsx useEffect');
     const responseInterceptor = client.interceptors.response.use(
       function (response: any) {
         return response;
@@ -32,7 +32,7 @@ export default function LoginRedirector() {
     };
   }, [navigate]);
 
-  console.log(user);
+  // console.log(user);
   if (!user) {
     return <Navigate to="/sign-in" replace={true} />;
   }
