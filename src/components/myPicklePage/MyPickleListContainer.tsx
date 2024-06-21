@@ -3,6 +3,7 @@ import PickleStateFilterBar, { pickleState } from './PickleStateFilterBar';
 import styled from '@emotion/styled';
 import MyPickleCard, { PickleDataType } from './MyPickleCard';
 import { useGetFinishPickles, useGetPendingPickles, useGetProceedingPickles } from '@/hooks/query/pickles';
+import EmptyDataMessage from '../common/EmptyDataMessage';
 import { useSearchParams } from 'react-router-dom';
 
 export default function MyPickleListContainer() {
@@ -59,14 +60,27 @@ function MyPickleList({ currentState }: MyPickleListProps) {
 
   return (
     <S.List>
-      {picklesList?.map((item: any) => (
-        <li key={item.id}>
-          <MyPickleCard pickleData={item} />
-        </li>
-      ))}
+      {picklesList.length
+        ? picklesList?.map((item: any) => (
+            <li key={item.id}>
+              <MyPickleCard pickleData={item} />
+            </li>
+          ))
+        : emptyPickleListDataRender(currentState)}
     </S.List>
   );
 }
+
+const emptyPickleListDataRender = (currentState: pickleState) => {
+  switch (currentState) {
+    case 'pending':
+      return <EmptyDataMessage>신청 중인 피클이 없어요!</EmptyDataMessage>;
+    case 'progress':
+      return <EmptyDataMessage>진행 중인 피클이 없어요!</EmptyDataMessage>;
+    case 'closed':
+      return <EmptyDataMessage>종료된 피클이 없어요!</EmptyDataMessage>;
+  }
+};
 
 const S = {
   Container: styled.div`
