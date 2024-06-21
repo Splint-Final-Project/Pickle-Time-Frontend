@@ -9,10 +9,12 @@ import AreaSetting from '@/components/my-page/edit/AreaSetting';
 import useAuth from '@/hooks/zustand/useAuth';
 import { useUpdateProfileMutation } from '@/hooks/query/user';
 import { BUTTON_TYPE } from '@/constants/BUTTON';
+import { UpdateProfile } from '@/apis/types/user.type';
 
 export default function EditProfilePage() {
-  const { user } = useAuth();
+  const { user, updateProfile } = useAuth();
   const nicknameRef = useRef<HTMLInputElement>(null);
+  console.log('유저', user);
 
   const [profileState, setProfileState] = useState({
     nickname: user.nickname,
@@ -20,14 +22,16 @@ export default function EditProfilePage() {
     profileImg: user.profilePic,
   });
 
-  const { mutate: updateProfileMutate } = useUpdateProfileMutation({
+  const profileData: UpdateProfile = {
     nickname: profileState.nickname,
     areaCodes: profileState.areaCodes,
     imgUrl: profileState.profileImg || '',
-  });
+  };
+
+  const { mutate: updateProfileMutate } = useUpdateProfileMutation(() => updateProfile(profileData));
 
   const handleUpdateProfil = () => {
-    updateProfileMutate();
+    updateProfileMutate(profileData);
   };
 
   console.log('프로필 수정데이터들', profileState);

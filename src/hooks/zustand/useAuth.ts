@@ -1,7 +1,9 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
-import { SignInFormValues, SignUpFormValues, SignUpFormValues2, UpdateProfile } from '@/apis/types/auth.type';
+import { SignInFormValues, SignUpFormValues, SignUpFormValues2 } from '@/apis/types/auth.type';
 import { authRequests } from '@/apis/auth.api';
+import { userRequests } from '@/apis/user.api';
+import { UpdateProfile } from '@/apis/types/user.type';
 
 interface State {
   user: any | null;
@@ -15,7 +17,7 @@ interface State {
 
 const useAuth = create(
   persist<State>(
-    set => ({
+    (set, get) => ({
       user: null,
       signIn: async (data: SignInFormValues) => {
         try {
@@ -64,14 +66,15 @@ const useAuth = create(
           location.replace('/sign-in');
         }
       },
-      // 아직작업중입니다 임시
+
       updateProfile: async (data: UpdateProfile) => {
         try {
-          const res = await authRequests.updateProfile(data);
-          set({ user: res.user });
-          console.log(res.user);
-        } catch (err) {
-          console.log(err);
+          const currentUser = get().user;
+          const res = await userRequests.updateProfile(data);
+          set({ user: { ...currentUser, ...data } });
+          console.log('업데이트 프로필', res.user);
+        } catch (e) {
+          console.log(e);
           throw new Error();
         }
       },
