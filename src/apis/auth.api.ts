@@ -32,14 +32,4 @@ export const authRequests = Object.freeze({
     const { data } = await client.delete(API_AUTH.LOGOUT, {});
     return data;
   },
-
-  updateProfile: async (body: UpdateProfile) => {
-    // const { data } = await client.put(API.AUTH, body);
-    const data = {
-      nickname: '임시네임',
-      profilePic: 'ddddd',
-      areaCodes: ['서울 중구', '서울 서대문구'],
-    };
-    return data;
-  },
 });
