@@ -2,8 +2,8 @@ import { useQuery, useInfiniteQuery, useMutation, useQueryClient, useSuspenseQue
 import { keepPreviousData } from '@tanstack/react-query';
 import { picklesRequests } from '@/apis/pickle.api';
 import { Coordinates, CreatePickleData, CreateReviewData } from '@/apis/types/pickles.type';
-import toast from 'react-hot-toast';
 import { useDebounce } from '@uidotdev/usehooks';
+import { showErrorToast, showToast } from '@/components/common/Toast';
 
 interface PICKLE_DATA {}
 
@@ -18,7 +18,7 @@ export const useCreatePickleMutation = (pickleData: any) => {
     onSuccess: () => queryClient.invalidateQueries({ queryKey: ['pickles'] }),
     onError: error => {
       console.error(error);
-      toast.error('피클 생성에 실패했습니다.');
+      showErrorToast('피클 생성에 실패했습니다.');
     },
   });
 };
@@ -33,8 +33,8 @@ export const useEditPickleMutation = (pickleId: string, pickleData: any) => {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['pickles'] });
     },
-    onError: error => {
-      throw new Error('피클 수정에 실패했습니다.');
+    onError: () => {
+      showErrorToast('피클 수정에 실패했습니다.');
     },
   });
 };
@@ -110,14 +110,14 @@ export const useCreateReviewMutation = (pickleId: string, callback: () => void) 
       return picklesRequests.createReview(pickleId, reviewData);
     },
     onSuccess: () => {
-      toast('리뷰 작성이 완료되었어요!');
+      showToast('리뷰 작성이 완료되었어요!');
       callback();
       queryClient.invalidateQueries({ queryKey: ['reviews'] });
     },
     onError: error => {
       console.error(error);
       callback();
-      toast.error('리뷰 작성에 실패했습니다.');
+      showErrorToast('리뷰 작성에 실패했어요.');
     },
   });
 };
@@ -130,12 +130,12 @@ export const useDeleteReviewMutation = (pickleId: string) => {
       return picklesRequests.deleteReview(pickleId);
     },
     onSuccess: () => {
-      toast('리뷰 삭제가 완료되었어요!');
+      showToast('리뷰 삭제가 완료되었어요!');
       queryClient.invalidateQueries({ queryKey: ['reviews'] });
     },
     onError: error => {
       console.error(error);
-      toast.error('리뷰 삭제에 실패했습니다.');
+      showErrorToast('리뷰 삭제에 실패했어요.');
     },
   });
 };

@@ -1,19 +1,17 @@
-import useAuth from '@/hooks/zustand/useAuth';
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { toast } from 'react-hot-toast';
-
-import { Container } from './CreatePickleStyled';
+import client from '@/apis/axios';
+import styled from '@emotion/styled';
 
 import PaymentWindow from '@/components/picklePayment/PaymentComponent';
-import styled from '@emotion/styled';
-import CloseIcon from '@/assets/icons/CloseIcon';
-
-import { useGetPickelDetail } from '@/hooks/query/pickles';
-import client from '@/apis/axios';
-import useBottomSheetModal from '@/hooks/zustand/useBottomSheetModal';
 import ConfirmationModal from '@/components/common/modal/ConfirmationModal';
+import { showErrorToast, showToast } from '@/components/common/Toast';
+import { Container } from './CreatePickleStyled';
+import useAuth from '@/hooks/zustand/useAuth';
+import { useGetPickelDetail } from '@/hooks/query/pickles';
 import { useMyPoints } from '@/hooks/query/points';
+import useBottomSheetModal from '@/hooks/zustand/useBottomSheetModal';
+import CloseIcon from '@/assets/icons/CloseIcon';
 
 declare global {
   interface Window {
@@ -41,11 +39,11 @@ export default function JoinPickle() {
 
   async function onClickPayment() {
     if (pickleData.cost - usePointValue < 0) {
-      toast.error('포인트를 잘못 사용하셨습니다.');
+      showErrorToast('포인트를 잘못 사용했어요!');
       return;
     }
     if (!paymentMethod || !isAgree) {
-      toast.error('결제 수단과 약관에 동의해주세요.');
+      showErrorToast('결제 수단과 약관에 동의해주세요.');
       return;
     }
     if (pickleData.cost - usePointValue === 0) {
@@ -56,9 +54,9 @@ export default function JoinPickle() {
           discount: usePointValue,
           pickle_id: pickleId,
         });
-        toast.success('결제 및 신청이 완료되었습니다.');
+        showToast('결제 및 신청이 완료되었어요!');
       } catch (err: any) {
-        toast.error(err.response.data.message);
+        showErrorToast(err.response.data.message);
       }
       navigate(`/pickle/${pickleId}`, { replace: true });
     } else {
@@ -77,7 +75,7 @@ export default function JoinPickle() {
 
       IMP.request_pay(data, async (response: any) => {
         if (!response.success) {
-          toast.error(`결제에 실패했습니다: ${response.error_msg}`);
+          showErrorToast(`결제에 실패했습니다: ${response.error_msg}`);
           navigate(`/pickle/${pickleId}`, { replace: true });
         }
         try {
@@ -85,9 +83,9 @@ export default function JoinPickle() {
             imp_uid: response.imp_uid,
             pickle_id: pickleId,
           });
-          toast.success('결제 및 신청이 완료되었습니다.');
+          showToast('결제 및 신청이 완료되었어요!');
         } catch (err: any) {
-          toast.error(err.response.data.message);
+          showErrorToast(err.response.data.message);
         }
         navigate(`/pickle/${pickleId}`, { replace: true });
       });
