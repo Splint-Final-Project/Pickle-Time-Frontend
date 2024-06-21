@@ -4,12 +4,13 @@ import Rating from '@/components/my-page/review/Rating';
 import { MyDynamicTemplate } from '@/styles/commonStyles';
 import { useMyReviews } from '@/hooks/query/pickles';
 import { ReviewData } from '@/apis/types/pickles.type';
+import { formatYYMMDD } from '@/utils/formatData';
 
 export default function ReviewList() {
   const [checkedReviews, setCheckedReviews] = useState<string[]>([]);
+
   const { data } = useMyReviews();
   const myReviewData = data?.data || [];
-  console.log('내리뷰목록', myReviewData);
 
   const handleChecked = (id: string) => {
     if (checkedReviews.includes(id)) setCheckedReviews(checkedReviews.filter(item => item !== id));
@@ -19,7 +20,7 @@ export default function ReviewList() {
   return (
     <MyDynamicTemplate>
       <h2>작성한 리뷰</h2>
-      <h1>{myReviewData.length && 0} 개</h1>
+      <h1>{myReviewData.length > 0 || 0} 개</h1>
       {myReviewData.length > 0 ? (
         <>
           <S.Delete $isChecked={checkedReviews.length > 0}>삭제하기</S.Delete>
@@ -32,7 +33,7 @@ export default function ReviewList() {
                   src={checkedReviews.includes(review.pickleId) ? '/icons/filledCheck.svg' : '/icons/emptyCheck.svg'}
                   alt="체크박스"
                 />
-                <span className="writing-date">{review.createdAt} 작성</span>
+                <span className="writing-date">{formatYYMMDD(review.date)} 작성</span>
                 <span className="pickle-title">{review.pickleTitle}</span>
                 <Rating rating={review.stars} />
                 <p>{review.content}</p>
