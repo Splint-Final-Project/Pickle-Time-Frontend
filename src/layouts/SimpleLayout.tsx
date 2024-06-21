@@ -8,24 +8,15 @@ const breakpoints = {
 
 const S = {
   LayoutContainer: styled.div`
-    display: flex;
-    flex-direction: column;
+    width: 100vw;
     min-height: 100dvh;
-    border-left: 0.1px solid #e1e1e1;
-    border-right: 0.1px solid #e1e1e1;
-    width: 100%;
-
-    @media (min-width: ${breakpoints.mobile}) {
-      max-width: 767px;
-      margin: 0 auto;
-    }
+    background-color: ${({ theme }) => theme.color.background};
+    padding: 0 calc((100vw - 76.7rem) / 2);
   `,
-  Content: styled.main`
-    flex: 1;
+  ContentBox: styled.div`
+    background-color: ${({ theme }) => theme.color.white};
     width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
+    min-height: 100vh;
   `,
 };
 
@@ -36,10 +27,10 @@ interface SimpleLayoutProps {
 export default function SimpleLayout({ children }: SimpleLayoutProps) {
   return (
     <S.LayoutContainer>
-      <S.Content>
+      <S.ContentBox>
         <Outlet />
         {children}
-      </S.Content>
+      </S.ContentBox>
     </S.LayoutContainer>
   );
 }
