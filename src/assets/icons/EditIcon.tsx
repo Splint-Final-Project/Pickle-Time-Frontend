@@ -1,7 +1,7 @@
 export default function EditIcon({ size = 18, ...props }) {
   return (
     <svg width={size} height={size} viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
-      <g id="&#237;&#142;&#184;&#236;&#167;&#145; 1" clip-path="url(#clip0_1743_68)">
+      <g id="&#237;&#142;&#184;&#236;&#167;&#145; 1" clipPath="url(#clip0_1743_68)">
         <g id="&#235;&#160;&#136;&#236;&#157;&#180;&#236;&#150;&#180; 2">
           <g id="&#235;&#160;&#136;&#236;&#157;&#180;&#236;&#150;&#180; 1">
             <path

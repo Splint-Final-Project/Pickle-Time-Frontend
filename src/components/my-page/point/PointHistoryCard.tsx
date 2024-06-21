@@ -21,7 +21,10 @@ export default function PointHistoryCard({ date, type, amount, remaining, messag
       <S.HistoryBox>
         <S.PointIcon color={pointColor}>P</S.PointIcon>
         <S.PointHistory color={pointColor}>
-          <span className="point">{amount}P</span>
+          <span className="point">
+            {type === 'earn' ? '+ ' : '- '}
+            {amount}P
+          </span>
           <span className="history">{message}</span>
         </S.PointHistory>
       </S.HistoryBox>

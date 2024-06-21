@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { pickleState } from './PickleStateFilterBar';
 import { css } from '@emotion/react';
 import useBottomSheetModal from '@/hooks/zustand/useBottomSheetModal';
@@ -12,7 +12,7 @@ type Time = {
   startTime: any;
   finishTime: any;
   selectedDays: any;
-}
+};
 
 type CategoryType = '운동' | '취미' | '스터디';
 
@@ -24,40 +24,45 @@ export type PickleDataType = {
   state: pickleState;
   id: string;
   when: Time;
+  status: 'done' | 'cancelled' | 'progress' | 'pending';
 };
-//TODO : 동적으로 값 받게하기
+
 interface MyPickleCardProps {
   pickleData: PickleDataType;
 }
 
 export default function MyPickleCard({ pickleData }: MyPickleCardProps) {
-  console.log(pickleData);
-  // format
   const dateFormat = `
-    ${pickleData?.when.startDate.month.toString().padStart(2, '0')}.
-    ${pickleData?.when.startDate.day.toString().padStart(2, '0')}~
-    ${pickleData?.when.finishDate.month.toString().padStart(2, '0')}.
-    ${pickleData?.when.finishDate.day.toString().padStart(2, '0')}
-  `
+    ${pickleData.when.startDate.month.toString().padStart(2, '0')}.
+    ${pickleData.when.startDate.day.toString().padStart(2, '0')}~
+    ${pickleData.when.finishDate.month.toString().padStart(2, '0')}.
+    ${pickleData.when.finishDate.day.toString().padStart(2, '0')}
+  `;
 
   const { handleOpen } = useBottomSheetModal(state => state);
+
+  const navigate = useNavigate();
 
   const handleClickReview = (e: React.MouseEvent) => {
     e.stopPropagation();
     handleOpen({ renderComponent: ReviewModal, pickleId: pickleData.id, pickleTitle: pickleData.title });
   };
 
+  console.log(pickleData.status);
   return (
     <S.Card>
-      <S.CardInner to={`/pickle/${pickleData?.id}`} $picklestate={pickleData?.state}>
-        <S.CardTitle>{pickleData?.title}</S.CardTitle>
+      <S.CardInner onClick={() => navigate(`/pickle/${pickleData.id}`)} $status={pickleData.status}>
+        <S.CardTitle>
+          {pickleData.title}
+          {pickleData.status === 'cancelled' ? ' [취소된 피클입니다]' : ''}
+        </S.CardTitle>
         <S.CardContent>
           <S.Date>{dateFormat}</S.Date>
-          <S.Address>{pickleData?.place}</S.Address>
+          <S.Address>{pickleData.place}</S.Address>
         </S.CardContent>
-        <S.CategoryBg $bgtype={pickleData?.category} />
+        <S.CategoryBg $bgtype={pickleData.category} />
       </S.CardInner>
-      <S.ReviewBtn $isshow={pickleData?.state !== 'closed'} onClick={handleClickReview}>
+      <S.ReviewBtn $isShown={pickleData.status === 'done'} onClick={handleClickReview}>
         리뷰 쓰기
       </S.ReviewBtn>
     </S.Card>
@@ -68,27 +73,18 @@ const S = {
   Card: styled.div`
     position: relative;
   `,
-  CardInner: styled(Link)<{ $picklestate: pickleState }>`
-    display: block;
+  CardInner: styled.button<{ $status: 'done' | 'cancelled' | 'progress' | 'pending' }>`
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+
     background: #f3f4f6;
     padding: 2.8rem 2.4rem 2rem;
     border-radius: 0.8rem;
     color: #181f29;
     position: relative;
     height: 14.3rem;
-    ${({ $picklestate }) => {
-      switch ($picklestate) {
-        case 'progress':
-          return css`
-            border: 1px solid #5dc26d;
-            background: #f5f9f8;
-          `;
-        case 'closed':
-          return css`
-            opacity: 0.3;
-          `;
-      }
-    }}
   `,
   CardTitle: styled.h3`
     font-size: 1.5rem;
@@ -97,10 +93,12 @@ const S = {
   `,
   CardContent: styled.div``,
   Date: styled.p`
+    text-align: left;
     font-size: 1.6rem;
     margin-bottom: 0.6rem;
   `,
   Address: styled.p`
+    text-align: left;
     font-size: 1.4rem;
     color: #8b8d94;
   `,
@@ -125,9 +123,9 @@ const S = {
     top: 2.6rem;
     right: 2.6rem;
   `,
-  ReviewBtn: styled.button<{ $isshow: boolean }>`
-    ${({ $isshow }) =>
-      $isshow &&
+  ReviewBtn: styled.button<{ $isShown: boolean }>`
+    ${({ $isShown }) =>
+      $isShown &&
       css`
         display: none;
       `}

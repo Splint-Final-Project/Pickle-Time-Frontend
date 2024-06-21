@@ -6,7 +6,6 @@ import { useMyPoints } from '@/hooks/query/points';
 export default function PointList() {
   const { data } = useMyPoints();
   const pointsData = data?.data;
-  console.log('포인트 데이터', pointsData);
   return (
     <MyDynamicTemplate>
       <h2>보유 포인트</h2>
