@@ -295,7 +295,7 @@ export default function MapSearch() {
           </PickleCardContainer>
         </MapContainer>
       ) : (
-        <div>{'asdfasfdasdfasf' + error}</div>
+        <div>{'지도 로딩 중!' + error}</div>
       )}
     </Container>
   );

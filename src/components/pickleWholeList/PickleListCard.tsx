@@ -37,7 +37,7 @@ export default function PickleListCard({ category }: PickleCardListProps) {
   );
 }
 
-function SpecialPickleCard({ pickleData }: { pickleData: any }) {
+export function SpecialPickleCard({ pickleData }: { pickleData: any }) {
   const Dday = calculateDday(pickleData.deadLine);
   const { data } = useGetLikeCount(pickleData.id);
   const { mutate: postLikeMutate } = usePickleLikeMutation(pickleData.id);

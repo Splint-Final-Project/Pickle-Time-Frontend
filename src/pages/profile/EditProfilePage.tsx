@@ -22,7 +22,8 @@ export default function EditProfilePage() {
     profileImg: user.profilePic,
   });
 
-  const handleUpdateProfil = () => {
+  const handleUpdateProfile = () => {
+    console.log(profileState.nickname);
     updateProfile({
       nickname: profileState.nickname,
       areaCodes: profileState.areaCodes,
@@ -55,7 +56,7 @@ export default function EditProfilePage() {
           <h3>변경을 원하는 모임 장소를 설정해 주세요</h3>
           <AreaSetting profileState={profileState} setProfileState={setProfileState} />
           <Button
-            onClick={handleUpdateProfil}
+            onClick={handleUpdateProfile}
             styleType={BUTTON_TYPE.DISABLE}
             style={{ color: '#8B8D94', margin: '10rem 0 3.2rem' }}
           >
