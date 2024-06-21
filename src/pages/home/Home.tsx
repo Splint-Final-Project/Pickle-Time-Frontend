@@ -81,6 +81,23 @@ export default function Home() {
         <SortButtons />
         <InfinitePickleCardList />
       </PickleList.Container>
+      <S.FloatingButton
+        type="button"
+        onClick={() => {
+          if (inProgress) {
+            handleOpen({
+              renderComponent: KeepCreatingModal,
+              callback: () => {
+                navigate('/pickle-create');
+              },
+            });
+          } else {
+            navigate('/pickle-create');
+          }
+        }}
+      >
+        <S.CreatePickleIcon src="/icons/createPickle.svg" alt="" />
+      </S.FloatingButton>
     </div>
   );
 }
