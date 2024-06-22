@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useQuery, useInfiniteQuery, useMutation, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
 import { keepPreviousData } from '@tanstack/react-query';
 import { picklesRequests } from '@/apis/pickle.api';
@@ -173,3 +174,43 @@ export const useGetFinishPickles = () => {
     refetchInterval: 5 * 60 * 1000,
   });
 };
+
+// viewCount에 따라, 홈 부분의 데이터가 변경될 수 있으니, revalidate
+const usePickleViewCountUp = (pickleId: string) => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async () => {
+      return picklesRequests.viewCountUp(pickleId);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['pickles'] });
+    },
+    onError: error => {
+      console.error(error);
+      showErrorToast('방문 횟수가 증가하지 않았어요.');
+    },
+  });
+}
+
+export const useViewCountLimit = (pickleId: string) => {
+  const { mutate } = usePickleViewCountUp(pickleId)
+  const visitKey = `lastVisit-${pickleId}`;
+  const visitThreshold = 60000; // 60초 (1분)
+
+  useEffect(() => {
+    const lastVisit: string | null = localStorage.getItem(visitKey);
+    const now = Date.now();
+
+    if (!lastVisit || now - parseInt(lastVisit) > visitThreshold) {
+      try { 
+        mutate();
+        localStorage.setItem(visitKey, now.toString());
+      } catch (error) {
+        console.error(error);
+      }
+    }
+  }, []); // 빈 배열로 두어 컴포넌트가 마운트될 때 한 번만 실행
+};
+
+export default useViewCountLimit;

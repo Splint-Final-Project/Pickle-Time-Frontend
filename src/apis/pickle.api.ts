@@ -95,4 +95,8 @@ export const picklesRequests = Object.freeze({
     const { data } = await client.put(API_PICKLE.EDIT(pickleId), pickleData);
     return data;
   },
+
+  viewCountUp: async (pickleId: string) => {
+    const { data } = await client.put(API_PICKLE.VIEW_COUNT_UP(pickleId));
+  }
 });
