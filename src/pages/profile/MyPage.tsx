@@ -15,7 +15,7 @@ export type MyMenu = (typeof MY_MENU)[keyof typeof MY_MENU];
 
 export default function MyPage() {
   const [searchParams, setSearchParams] = useSearchParams();
-  const selectedMenu = searchParams.get('tab') as 'point' | 'review' | 'wishlist' | null;
+  const selectedMenu = searchParams.get('tab') || ('point' as 'point' | 'review' | 'wishlist');
   const navigate = useNavigate();
   const { user } = useAuth();
 
@@ -30,11 +30,11 @@ export default function MyPage() {
   }));
 
   useEffect(() => {
-    if (!selectedMenu) {
+    if (searchParams.get('tab') === null) {
       searchParams.set('tab', 'point');
       setSearchParams(searchParams, { replace: true });
     }
-  }, []);
+  }, [searchParams.get('tab')]);
 
   return (
     <>

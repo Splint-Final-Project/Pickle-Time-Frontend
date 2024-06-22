@@ -1,20 +1,20 @@
+import { useEffect, useMemo, useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
+import { css } from '@emotion/react';
 import styled from '@emotion/styled';
+import toast from 'react-hot-toast';
+import Tilt from 'react-parallax-tilt';
+import client from '@/apis/axios';
+import { useQueryClient } from '@tanstack/react-query';
+
 import PagenationBar from './PagenationBar';
 import TodayPickleCard from './TodayPickleCard';
-import Tilt from 'react-parallax-tilt';
-import { useQueryClient } from '@tanstack/react-query';
-import { useSearchParams } from 'react-router-dom';
-import { useEffect, useMemo, useState } from 'react';
+import { When } from '@/apis/types/pickles.type';
 import { isButtonActive, calculateInterval } from '@/utils/todayPickleCardUtils';
 import { useGetProceedingPickles } from '@/hooks/query/pickles';
-import betweenLength from '@/utils/betweenLength';
-import { When } from '@/apis/types/pickles.type';
 import { useGeolocation } from '@/hooks/useGeolocation';
+import Character from '/icons/character.svg';
 import CardBackImg from '@/assets/images/todayPickleCardBackImg.svg';
-import Character from '@/assets/icons/character.svg';
-import { css } from '@emotion/react';
-import client from '@/apis/axios';
-import toast from 'react-hot-toast';
 
 export interface TodayPickleDataType {
   capacity: number;
@@ -45,8 +45,8 @@ export default function TodayPickleListContainer() {
   const [currentTime, setCurrentTime] = useState(new Date());
   const [searchParams, setSearchParams] = useSearchParams();
   const { location } = useGeolocation();
+  const queryClient = useQueryClient();
 
-  // server state
   const { data } = useGetProceedingPickles();
 
   const currentPage = Number(searchParams.get('page')) || 1;
@@ -65,6 +65,7 @@ export default function TodayPickleListContainer() {
         latitude: location?.latitude,
         longitude: location?.longitude,
       });
+      queryClient.invalidateQueries({ queryKey: ['pickles', 'proceeding'] });
       toast.success(res.data.message);
     } catch (e: any) {
       toast.error(e.response.data.message);
@@ -102,7 +103,7 @@ export default function TodayPickleListContainer() {
           </S.Card>
         </S.CardContainer>
       </S.Container>
-    ); // 오늘의 피클이 없습니다
+    );
   }
 
   return (
@@ -128,11 +129,11 @@ export default function TodayPickleListContainer() {
 
 const S = {
   Container: styled.div<{ $margin?: boolean }>`
-    width: 34.4rem;
-    margin: auto;
     display: flex;
     flex-direction: column;
     gap: 2rem;
+    width: 34.4rem;
+    margin: auto;
     ${({ $margin }) =>
       $margin &&
       css`
@@ -140,15 +141,17 @@ const S = {
       `}
   `,
   AttendanceButton: styled.button`
-    width: 100%;
-    background: #5dc26d;
-    color: #fff;
-    font-size: 1.4rem;
-    padding: 1rem 0;
-    border-radius: 0.4rem;
     display: flex;
     justify-content: center;
     align-items: center;
+
+    width: 100%;
+    padding: 1rem 0;
+    border-radius: 0.4rem;
+    background: #5dc26d;
+    color: #fff;
+    font-size: 1.4rem;
+
     &:disabled {
       background: #d0d0d0;
       color: #8b8d94;
@@ -180,29 +183,32 @@ const S = {
   `,
   Character: styled.div`
     position: absolute;
+    top: -2.1rem;
+    left: 1.5rem;
+    z-index: 200;
+
     width: 50px;
     height: 50px;
     background-image: url(${Character});
     background-repeat: no-repeat;
     background-size: contain;
-    top: -2.1rem;
-    left: 1.5rem;
-    z-index: 200;
   `,
   Card: styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    z-index: 100;
+
+    width: 100%;
+    min-height: 23.4rem;
     padding: 2.8rem 2.5rem;
     background-image: url(${CardBackImg});
     background-repeat: no-repeat;
     background-size: contain;
     color: #fff;
-    width: 100%;
-    min-height: 23.4rem;
-    position: relative;
-    z-index: 100;
-    display: flex;
-    justify-content: center;
-    align-items: center;
   `,
+
   NotTodayPickleMessage: styled.span`
     font-size: 2.6rem;
     font-weight: bold;

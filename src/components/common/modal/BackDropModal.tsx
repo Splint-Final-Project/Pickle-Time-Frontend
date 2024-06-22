@@ -2,39 +2,6 @@ import React, { useEffect, useState } from 'react';
 import ReactDOM from 'react-dom';
 import styled from '@emotion/styled';
 
-const S = {
-  ModalBackground: styled.div`
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    z-index: 99999;
-  `,
-  ModalContainer: styled.div`
-    position: relative;
-    padding: 3.2rem 2.8rem 2.8rem;
-    border-radius: 0.8rem;
-    background-color: white;
-    animation: appearModal 0.5s ease-in-out;
-
-    @keyframes appearModal {
-      0% {
-        opacity: 0;
-        transform: translate3d(0, 3%, 0);
-      }
-      100% {
-        opacity: 1;
-        transform: translateZ(0);
-      }
-    }
-  `,
-};
-
 interface BackDropModalProps {
   isOpen: boolean;
   children: React.ReactNode;
@@ -74,3 +41,36 @@ export default function BackDropModal({ isOpen, children, onClose }: BackDropMod
     modalRoot,
   );
 }
+
+const S = {
+  ModalBackground: styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 99999;
+  `,
+  ModalContainer: styled.div`
+    position: relative;
+    padding: 3.2rem 2.8rem 2.8rem;
+    border-radius: 0.8rem;
+    background-color: white;
+    animation: appearModal 0.5s ease-in-out;
+
+    @keyframes appearModal {
+      0% {
+        opacity: 0;
+        transform: translate3d(0, 3%, 0);
+      }
+      100% {
+        opacity: 1;
+        transform: translateZ(0);
+      }
+    }
+  `,
+};

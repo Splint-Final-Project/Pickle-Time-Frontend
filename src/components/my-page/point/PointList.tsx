@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import PointHistoryCard from '@/components/my-page/point/PointHistoryCard';
+import EmptyDataMessage from '@/components/common/EmptyDataMessage';
 import { MyDynamicTemplate } from '@/styles/commonStyles';
 import { useMyPoints } from '@/hooks/query/points';
 import { useEffect } from 'react';
@@ -66,7 +67,7 @@ export default function PointList() {
           ))}
         </S.PointHistoryList>
       ) : (
-        <S.NoPoints>현재 보유중인 포인트가 없어요 🥲</S.NoPoints>
+        <EmptyDataMessage>현재 보유중인 포인트가 없어요!</EmptyDataMessage>
       )}
     </MyDynamicTemplate>
   );
@@ -98,16 +99,6 @@ const S = {
     gap: 1.3rem;
   `,
 
-  NoPoints: styled.div`
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    width: 100%;
-    height: 10rem;
-    color: ${({ theme }) => theme.color.sub};
-    ${({ theme }) => theme.typography.body1};
-  `,
   PointWrapper: styled.div`
     display: flex;
   `,

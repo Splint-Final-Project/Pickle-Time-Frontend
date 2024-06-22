@@ -1,7 +1,7 @@
+import { useNavigate } from 'react-router-dom';
 import styled from '@emotion/styled';
-import { Link, useNavigate } from 'react-router-dom';
-import { pickleState } from './PickleStateFilterBar';
 import { css } from '@emotion/react';
+import { pickleState } from './PickleStateFilterBar';
 import useBottomSheetModal from '@/hooks/zustand/useBottomSheetModal';
 import ReviewModal from '../my-page/review/ReviewModal';
 
@@ -72,7 +72,9 @@ export default function MyPickleCard({ pickleData }: MyPickleCardProps) {
       </S.CardInner>
       {pickleData.status === 'done' &&
         (pickleData.review ? (
-          <S.ReviewBtn onClick={() => navigate('/mypage?tab=review')}>작성한 리뷰 보기</S.ReviewBtn>
+          <S.ReviewBtn $done={true} onClick={() => navigate('/mypage?tab=review')}>
+            리뷰 완료
+          </S.ReviewBtn>
         ) : (
           <S.ReviewBtn onClick={handleClickReview}>리뷰 쓰기</S.ReviewBtn>
         ))}
@@ -128,7 +130,7 @@ const S = {
     top: 2.15rem;
     right: 2.15rem;
   `,
-  ReviewBtn: styled.button`
+  ReviewBtn: styled.button<{ $done?: boolean }>`
     padding: 0.7rem 1.1rem;
     border-radius: 4px;
     font-size: 1.4rem;
@@ -139,5 +141,14 @@ const S = {
     position: absolute;
     bottom: 1.5rem;
     right: 2rem;
+    ${({ $done = false }) => {
+      return (
+        $done &&
+        css`
+          color: #045905;
+          border: 1px solid #045905;
+        `
+      );
+    }}
   `,
 };

@@ -16,9 +16,11 @@ type HandleSuccessFunction = (data: any) => void;
 
 // 내가 찜한 피클들의 id만 가져오기
 export const useMyFavoritePickleIds = () => {
+  const { user } = useAuth();
   return useQuery({
     queryKey: ['pickles', 'myFavorites', 'ids'],
     queryFn: async () => await likeRequests.getMyFavoriteIds(),
+    enabled: !!user,
   });
 };
 

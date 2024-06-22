@@ -1,12 +1,14 @@
+import { HtmlHTMLAttributes } from 'react';
 import styled from '@emotion/styled';
-import EmptyCharacter from '@/assets/icons/emptyDataCharacter.svg';
-interface EmptyDataMessageProps {
+import EmptyCharacter from '/icons/emptyDataCharacter.svg';
+
+interface EmptyDataMessageProps extends HtmlHTMLAttributes<HTMLDivElement> {
   children: string;
 }
 
-export default function EmptyDataMessage({ children }: EmptyDataMessageProps) {
+export default function EmptyDataMessage({ children, ...htmlDivprops }: EmptyDataMessageProps) {
   return (
-    <S.Wrapper>
+    <S.Wrapper {...htmlDivprops}>
       <S.Message>{children}</S.Message>
     </S.Wrapper>
   );

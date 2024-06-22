@@ -129,11 +129,7 @@ export default function Pickle() {
               amILeader
                 ? navigate('/pickle-edit/' + pickleId)
                 : navigate('/pickle-join/' + pickleId, {
-                    state: {
-                      pickleId,
-                      pickleTitle: pickleDetailData?.title,
-                      pickleCost: pickleDetailData?.cost,
-                    },
+                    replace: true,
                   })
             }
           >

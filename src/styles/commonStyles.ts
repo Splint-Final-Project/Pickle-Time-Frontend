@@ -38,7 +38,7 @@ export const WishListGridTemplate = styled.div`
 `;
 
 export const MyDynamicTemplate = styled.div`
-  padding: 2.3rem 1.7rem;
+  padding: 2.3rem 1.7rem 12.3rem;
   color: ${({ theme }) => theme.color.basic};
 
   h1 {

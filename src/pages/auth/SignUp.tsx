@@ -17,7 +17,6 @@ import {
   ErrorMessage,
   SubmitButton,
 } from './SignUpStyled';
-import { toast } from 'react-hot-toast';
 import { showErrorToast } from '@/components/common/Toast';
 
 export default function SignUp() {
@@ -37,9 +36,7 @@ export default function SignUp() {
     try {
       await signUp(data);
       navigate('/sign-up2');
-    } catch (e) {
-      showErrorToast('회원가입에 실패했어요. 다시 시도해 주세요!');
-    }
+    } catch (e: any) {}
   }
 
   return (

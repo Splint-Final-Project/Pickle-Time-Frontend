@@ -109,12 +109,13 @@ export const useCreateReviewMutation = (pickleId: string, callback: () => void) 
   return useMutation({
     mutationFn: async (reviewData: CreateReviewData) => {
       console.log('리뷰데이터', reviewData);
-      return picklesRequests.createReview(pickleId, reviewData);
+      return await picklesRequests.createReview(pickleId, reviewData);
     },
     onSuccess: () => {
-      toast('리뷰 작성 완료! 500P가 지급됐습니다.');
-      callback();
       queryClient.invalidateQueries({ queryKey: ['reviews'] });
+      queryClient.invalidateQueries({ queryKey: ['pickles', 'finish'] });
+      toast.success('리뷰 작성 완료! 500P가 지급됐습니다.');
+      callback();
     },
     onError: (error: any) => {
       console.error(error);
