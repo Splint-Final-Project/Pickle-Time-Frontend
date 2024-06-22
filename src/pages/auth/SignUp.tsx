@@ -1,8 +1,10 @@
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useForm } from 'react-hook-form';
+import client from '@/apis/axios';
+
 import { SignUpFormValues } from '@/apis/types/auth.type';
 import useAuth from '@/hooks/zustand/useAuth';
-import { useState } from 'react';
-import { useForm } from 'react-hook-form';
-import { useNavigate } from 'react-router-dom';
 import {
   Container,
   SubTitle,
@@ -18,9 +20,9 @@ import {
   SubmitButton,
   VerifyButton,
 } from './SignUpStyled';
-import { showErrorToast } from '@/components/common/Toast';
-import client from '@/apis/axios';
-import toast from 'react-hot-toast';
+import { showErrorToast, showToast } from '@/components/common/Toast';
+
+
 
 export default function SignUp() {
   const {
@@ -40,7 +42,7 @@ export default function SignUp() {
   async function handleSignUp(data: SignUpFormValues) {
     try {
       await signUp(data);
-      navigate('/sign-up2');
+      navigate(routes.signUp2);
     } catch (e: any) {}
   }
 
@@ -52,7 +54,7 @@ export default function SignUp() {
     try {
       setIsFetching(true);
       await client.post('/auth/verify-email', { email: getValues('email') });
-      toast.success('인증번호가 전송되었습니다.');
+      showToast('인증번호가 전송되었습니다.');
       setIsVerificationOpen(true);
     } catch (e: any) {
       showErrorToast(e.response.data.error);

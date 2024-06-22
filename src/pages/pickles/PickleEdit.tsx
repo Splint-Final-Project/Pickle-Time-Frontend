@@ -16,14 +16,18 @@ import ImgSelect from '@/components/pickleCreate/ImgSelect';
 import WriteDetail from '@/components/pickleCreate/WriteDetail';
 import GoalSelect from '@/components/pickleCreate/GoalSelect';
 import ConfirmationModal from '@/components/common/modal/ConfirmationModal';
+import { showErrorToast } from '@/components/common/Toast';
 
 import useBottomSheetModal from '@/hooks/zustand/useBottomSheetModal';
 import usePickleEdit from '@/hooks/zustand/usePickleEdit';
+
 import { useEditPickleMutation, useGetPickleDetail } from '@/hooks/query/pickles';
 import useAuth from '@/hooks/zustand/useAuth';
-import { showErrorToast } from '@/components/common/Toast';
 
 export default function PickleEdit() {
+  const { id } = useParams();
+  const navigate = useNavigate();
+
   const {
     step,
     setStep,
@@ -40,13 +44,13 @@ export default function PickleEdit() {
     setGoals,
     isImgLoading,
   } = usePickleEdit();
-
   const { user } = useAuth();
-  const { id } = useParams();
-  const navigate = useNavigate();
   const { handleOpen } = useBottomSheetModal(state => state);
+
   const { data } = useGetPickleDetail(id || '');
+
   const pickleDetailData = data?.data;
+
   const { mutate } = useEditPickleMutation(id || '', {
     title,
     category,

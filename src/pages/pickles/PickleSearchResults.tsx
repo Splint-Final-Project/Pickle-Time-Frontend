@@ -1,12 +1,13 @@
-import styled from '@emotion/styled';
-import { useState } from 'react';
-import { TwoColumnGridTemplate } from '@/styles/commonStyles';
-import { SpecialPickleCard } from '@/components/pickleWholeList/PickleListCard';
-import routes from '@/constants/routes';
+import { useEffect, useState } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
-import { useDebounce } from '@uidotdev/usehooks';
-import { useEffect } from 'react';
+import styled from '@emotion/styled';
 import client from '@/apis/axios';
+import { useDebounce } from '@uidotdev/usehooks';
+
+import { SpecialPickleCard } from '@/components/pickleWholeList/PickleListCard';
+import EmptyDataMessage from '@/components/common/EmptyDataMessage';
+import { TwoColumnGridTemplate } from '@/styles/commonStyles';
+import routes from '@/constants/routes';
 
 // 피클 검색 결과 페이지 (작업중)
 export default function PickleSearchResults() {
@@ -49,11 +50,11 @@ export default function PickleSearchResults() {
           </S.BackButton>
         </S.BackButtonWrapper>
 
-        <InputContainer>
+        <S.InputContainer>
           <S.SearchIconWrapper>
             <img src="/icons/search.svg" alt="search" />
           </S.SearchIconWrapper>
-          <InputField
+          <S.InputField
             type="text"
             id="pickleSearch"
             autoFocus
@@ -77,7 +78,7 @@ export default function PickleSearchResults() {
           >
             <img src="/icons/xCircle.svg" alt="clear" />
           </S.DeleteIconWrapper>
-        </InputContainer>
+        </S.InputContainer>
       </S.HeaderWrapper>
       <S.GrayBox />
 
@@ -106,44 +107,38 @@ export default function PickleSearchResults() {
             {searchResults?.map((pickle: any) => <SpecialPickleCard key={pickle.id} pickleData={pickle} />)}
           </TwoColumnGridTemplate>
         ) : (
-          <S.NoResults>
-            {searchParams.get('text') === '' ? '검색어를 입력해 주세요.' : '검색 결과가 없습니다.'}
-          </S.NoResults>
+          <EmptyDataMessage style={{ paddingTop: '10rem' }}>
+            {searchParams.get('text') === null ? '검색어를 입력해 주세요.' : '검색 결과가 없습니다.'}
+          </EmptyDataMessage>
         )}
       </S.Content>
     </S.Container>
   );
 }
 
-const InputContainer = styled.div`
-  position: relative;
-  width: 100%;
-  margin-top: 32px;
-`;
-
-const InputField = styled.input`
-  width: 100%;
-  height: 3rem;
-  border: none;
-  border-bottom: 1px solid #d0d0d0;
-  font-size: 16px;
-  font-style: normal;
-  font-weight: 500;
-  line-height: normal;
-  padding: 0rem 2rem 0.8rem 2.5rem;
-
-  &:focus {
-    border-bottom-color: #045905;
-  }
-  ::placeholder {
-    color: var(--Input-Text, #bababa);
-  }
-`;
-
 const S = {
-  Section: styled.section``,
   Container: styled.div`
     min-height: 100%;
+  `,
+  InputContainer: styled.div`
+    position: relative;
+    width: 100%;
+    margin-top: 3.2rem;
+  `,
+  InputField: styled.input`
+    width: 100%;
+    height: 3rem;
+    padding: 0rem 2rem 0.8rem 2.5rem;
+    border: none;
+    border-bottom: ${({ theme }) => theme.border};
+    ${({ theme }) => theme.typography.subTitle3};
+
+    &:focus {
+      border-bottom-color: #045905;
+    }
+    ::placeholder {
+      color: ${({ theme }) => theme.color.inputText};
+    }
   `,
   HeaderWrapper: styled.div`
     position: relative;
@@ -157,23 +152,23 @@ const S = {
   `,
   SearchBarWrapper: styled.div`
     display: flex;
-    margin-top: 4.1rem;
     height: 3rem;
-    padding-bottom: 8px;
+    margin-top: 4.1rem;
+    padding-bottom: 0.8rem;
     border-bottom: 1px solid #d0d0d0;
   `,
   SearchIconWrapper: styled.div`
-    display: flex;
     position: absolute;
-    top: 3px;
+    top: 0.3rem;
+    display: flex;
     align-items: center;
     width: 3rem;
   `,
   DeleteIconWrapper: styled.div`
-    display: flex;
     position: absolute;
-    top: 3px;
-    right: 3px;
+    top: 0.3rem;
+    right: 0.3rem;
+    display: flex;
     align-items: center;
     cursor: pointer;
   `,
@@ -185,9 +180,8 @@ const S = {
   GrayBox: styled.div`
     background-color: #f6f6f6;
     width: 100%;
-    height: 12px;
+    height: 1.2rem;
   `,
-
   Content: styled.div`
     background: #fff;
     min-height: calc(100% - 30rem);
@@ -200,7 +194,7 @@ const S = {
   `,
   PickleCount: styled.div``,
   PickleNumText: styled.span`
-    color: var(--Sub-Text, var(--Tab-Bar-Color-2, #8b8d94));
+    color: ${({ theme }) => theme.color.sub};
   `,
   SortDropdown: styled.div`
     display: flex;
@@ -208,26 +202,12 @@ const S = {
 
     select {
       padding: 0.5rem;
-      border: 0px;
-      border-radius: 4px;
+      border: 0;
+      border-radius: 0.4rem;
       background-color: #fff;
-      font-size: 14px;
-      color: var(--Sub-Text, var(--Tab-Bar-Color-2, #8b8d94));
+      font-size: 1.4rem;
+      color: ${({ theme }) => theme.color.sub};
       text-align: start;
     }
-  `,
-  NoResults: styled.div`
-    width: 100%;
-    height: 300px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    color: var(--Sub-Text, var(--Tab-Bar-Color-2, #8b8d94));
-    font-family: Pretendard;
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: normal;
   `,
 };
