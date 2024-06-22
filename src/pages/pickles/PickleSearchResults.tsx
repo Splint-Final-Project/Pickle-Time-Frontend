@@ -19,8 +19,7 @@ export default function PickleSearchResults() {
       const response = await client.get('/pickle/search', {
         params: {
           text: debouncedSearchText,
-          sort: searchParams.get('sortOption'),
-          term: searchParams.get('termOption'),
+          sort: searchParams.get('sort'),
         },
       });
       setSearchResults(response.data.data);
@@ -32,12 +31,12 @@ export default function PickleSearchResults() {
   useEffect(() => {
     if (debouncedSearchText) fetchSearchResults();
     else setSearchResults([]);
-  }, [debouncedSearchText, searchParams.get('sortOption'), searchParams.get('termOption')]);
+  }, [debouncedSearchText, searchParams.get('sort'), searchParams.get('termOption')]);
 
   useEffect(() => {
     if (searchParams.get('sort') === null) {
       searchParams.set('sort', 'popular');
-      setSearchParams(searchParams);
+      setSearchParams(searchParams, { replace: true });
     }
   }, []);
 
@@ -67,13 +66,13 @@ export default function PickleSearchResults() {
               } else {
                 searchParams.set('text', e.target.value);
               }
-              setSearchParams(searchParams);
+              setSearchParams(searchParams, { replace: true });
             }}
           />
           <S.DeleteIconWrapper
             onClick={() => {
               searchParams.delete('text');
-              setSearchParams(searchParams);
+              setSearchParams(searchParams, { replace: true });
             }}
           >
             <img src="/icons/xCircle.svg" alt="clear" />
@@ -89,10 +88,10 @@ export default function PickleSearchResults() {
           </S.PickleCount>
           <S.SortDropdown>
             <select
-              value={searchParams.get('sortOption') as 'popular' | 'recent' | 'lowPrice' | 'highPrice'}
+              value={searchParams.get('sort') || ('popular' as 'popular' | 'recent' | 'lowPrice' | 'highPrice')}
               onChange={e => {
-                searchParams.set('sortOption', e.target.value);
-                setSearchParams(searchParams);
+                searchParams.set('sort', e.target.value);
+                setSearchParams(searchParams, { replace: true });
               }}
             >
               <option value="popular">인기순</option>
