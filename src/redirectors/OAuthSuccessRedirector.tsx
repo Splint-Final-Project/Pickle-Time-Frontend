@@ -5,6 +5,7 @@ import { Navigate, useSearchParams } from 'react-router-dom';
 export default function OAuthSuccessRedirector() {
   const { setMe } = useAuth();
   const [searchParams] = useSearchParams();
+  const token = searchParams.get('token') || '';
   const status = searchParams.get('status');
   const _id = searchParams.get('_id');
   const nickname = searchParams.get('nickname');
@@ -15,7 +16,7 @@ export default function OAuthSuccessRedirector() {
   const oauthId = searchParams.get('oauthId');
 
   const handleSetMe = useCallback(() => {
-    setMe({
+    setMe(token, {
       _id,
       nickname,
       status,
@@ -24,7 +25,7 @@ export default function OAuthSuccessRedirector() {
       oauthType,
       oauthId,
     });
-  }, [_id, nickname, status, profilePic, areaCodes, oauthType, oauthId]);
+  }, [token, _id, nickname, status, profilePic, areaCodes, oauthType, oauthId]);
 
   useEffect(() => {
     handleSetMe();
