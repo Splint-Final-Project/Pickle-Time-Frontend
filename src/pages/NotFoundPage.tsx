@@ -75,6 +75,7 @@ const S = {
 
     img {
       margin-top: -0.5rem;
+      cursor: auto;
     }
   `,
 
