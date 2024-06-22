@@ -1,5 +1,5 @@
 import client from '@/apis/axios';
-import { SignInFormValues, SignUpFormValues, SignUpFormValues2, UpdateProfile } from '@/apis/types/auth.type';
+import { SignInFormValues, SignUpFormValues, SignUpFormValues2 } from '@/apis/types/auth.type';
 import { API, API_AUTH } from '@/constants/API';
 const TOKEN = '임시 토큰';
 

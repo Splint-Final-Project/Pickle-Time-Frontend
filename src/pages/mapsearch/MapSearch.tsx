@@ -14,7 +14,7 @@ import { useNavigate, useSearchParams } from 'react-router-dom';
 
 const geolocationOptions = {
   enableHighAccuracy: true,
-  timeout: 1000 * 6,
+  timeout: 1000 * 4 * 1000,
 };
 
 export default function MapSearch() {
@@ -24,6 +24,7 @@ export default function MapSearch() {
     latitude: Number(searchParams.get('lat')),
     longitude: Number(searchParams.get('lng')),
   };
+
   const level = Number(searchParams.get('level'));
 
   const { location: initialLocation, error } = useGeolocation(geolocationOptions);
@@ -38,6 +39,7 @@ export default function MapSearch() {
 
   const { data } = useGetNearbyPickles(location, level);
   const { data: favoriteIds } = useMyFavoritePickleIds();
+
   let nearbyPickle: any[] = data?.data || [];
   if (activeTabs.has('찜')) {
     console.log('찜');
