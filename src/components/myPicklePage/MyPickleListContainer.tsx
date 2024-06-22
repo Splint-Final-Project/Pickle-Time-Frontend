@@ -1,10 +1,11 @@
 import { useEffect, useState } from 'react';
-import PickleStateFilterBar, { pickleState } from './PickleStateFilterBar';
-import styled from '@emotion/styled';
-import MyPickleCard, { PickleDataType } from './MyPickleCard';
-import { useGetFinishPickles, useGetPendingPickles, useGetProceedingPickles } from '@/hooks/query/pickles';
-import EmptyDataMessage from '../common/EmptyDataMessage';
 import { useSearchParams } from 'react-router-dom';
+import styled from '@emotion/styled';
+
+import PickleStateFilterBar, { pickleState } from './PickleStateFilterBar';
+import MyPickleCard from './MyPickleCard';
+import EmptyDataMessage from '../common/EmptyDataMessage';
+import { useGetFinishPickles, useGetPendingPickles, useGetProceedingPickles } from '@/hooks/query/pickles';
 
 export default function MyPickleListContainer() {
   const [searchParams, setSearchParams] = useSearchParams();

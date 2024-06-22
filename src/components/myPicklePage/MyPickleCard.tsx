@@ -1,7 +1,7 @@
+import { useNavigate } from 'react-router-dom';
 import styled from '@emotion/styled';
-import { Link, useNavigate } from 'react-router-dom';
-import { pickleState } from './PickleStateFilterBar';
 import { css } from '@emotion/react';
+import { pickleState } from './PickleStateFilterBar';
 import useBottomSheetModal from '@/hooks/zustand/useBottomSheetModal';
 import ReviewModal from '../my-page/review/ReviewModal';
 

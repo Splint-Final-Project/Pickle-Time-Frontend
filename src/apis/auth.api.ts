@@ -1,7 +1,6 @@
 import client from '@/apis/axios';
-import { SignInFormValues, SignUpFormValues, SignUpFormValues2, UpdateProfile } from '@/apis/types/auth.type';
-import { API, API_AUTH } from '@/constants/API';
-const TOKEN = '임시 토큰';
+import { SignInFormValues, SignUpFormValues, SignUpFormValues2 } from '@/apis/types/auth.type';
+import { API_AUTH } from '@/constants/API';
 
 // auth : react-Query에서 호출 x, 대신 zustand에서 직접 호출합니다!
 export const authRequests = Object.freeze({
@@ -9,12 +8,6 @@ export const authRequests = Object.freeze({
     const { data } = await client.post(API_AUTH.LOGIN, body);
     return data;
   },
-
-  // not used
-  // getMe: async () => {
-  //   const { data } = await client.get(API_AUTH.ME);
-  //   return data;
-  // },
 
   signUp: async (body: SignUpFormValues) => {
     console.log(body);

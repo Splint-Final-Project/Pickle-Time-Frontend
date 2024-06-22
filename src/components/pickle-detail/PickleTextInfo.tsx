@@ -1,7 +1,6 @@
+import styled from '@emotion/styled';
 import { When } from '@/apis/types/pickles.type';
 import { formatCurrency, formatDays, formatPeriod, formatTimeRange } from '@/utils/formatData';
-import styled from '@emotion/styled';
-import { useMemo } from 'react';
 
 export default function PickleTextInfo({
   when,

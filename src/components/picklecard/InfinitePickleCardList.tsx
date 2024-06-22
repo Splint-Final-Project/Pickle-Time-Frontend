@@ -21,9 +21,7 @@ export default function InfinitePickleCardList({ sortBy }: InfinitePickleCardLis
 
   return (
     <GridTemplate>
-      {pickleData.map((pickle: any) => (
-        <WholePickleCard key={pickle.id} {...pickle} type={'study'} />
-      ))}
+      {pickleData?.map((pickle: any) => <WholePickleCard key={pickle.id} {...pickle} type={'study'} />)}
     </GridTemplate>
   );
 }

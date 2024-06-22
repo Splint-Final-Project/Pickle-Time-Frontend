@@ -1,7 +1,7 @@
-import PageNationNextArrowIcon from '@/assets/icons/PagenationNextArrow';
-import PageNationPrevArrowIcon from '@/assets/icons/PagenationPrevArrow';
 import styled from '@emotion/styled';
 import { useSearchParams } from 'react-router-dom';
+import PageNationNextArrowIcon from '@/assets/icons/PagenationNextArrow';
+import PageNationPrevArrowIcon from '@/assets/icons/PagenationPrevArrow';
 
 interface PagenationBarProps {
   totalDataCount: number;

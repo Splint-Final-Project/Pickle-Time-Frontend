@@ -1,11 +1,8 @@
 import { Link } from 'react-router-dom';
-import useAuth from '@/hooks/zustand/useAuth';
-import { CategoryType } from './CategoryFilterBar';
 import styled from '@emotion/styled';
+import { CategoryType } from './CategoryFilterBar';
 import { useGetConversations } from '@/hooks/query/conversation';
-
 import routes from '@/constants/routes';
-
 
 interface ChatListProps {
   currentCategory: CategoryType;
@@ -13,9 +10,6 @@ interface ChatListProps {
 }
 
 export default function ChatList({ currentCategory, searchValue }: ChatListProps) {
-  const regex = new RegExp(searchValue, 'i');
-  console.log(searchValue);
-  // server state
   const { data } = useGetConversations(currentCategory);
 
   return (
@@ -25,17 +19,6 @@ export default function ChatList({ currentCategory, searchValue }: ChatListProps
           <ChatListItem chatData={conversation} />
         </li>
       ))}
-      {/* {currentCategory === '전체' && searchValue === ''
-        ? testData.map(item => (
-            <li key={item.id}>
-              <ChatListItem chatData={item} />
-            </li>
-          ))
-        : filterData.map(item => (
-            <li key={item.id}>
-              <ChatListItem chatData={item} />
-            </li>
-          ))} */}
     </S.Container>
   );
 }
@@ -44,10 +27,11 @@ function ChatListItem({ chatData }: { chatData: any }) {
   const time = timeParsed(chatData.updatedAt);
 
   return (
-    <S.Item to={{
-      pathname: `${routes.chat}/${chatData?.pickleId}/${chatData._id}`,
-      // search: params.toString(),
-    }}>
+    <S.Item
+      to={{
+        pathname: `${routes.chat}/${chatData?.pickleId}/${chatData._id}`,
+      }}
+    >
       <S.ItemInner>
         <S.ItemImg alt="피클 이미지" src={chatData.imageUrl} />
         <S.ItemTextContent>
@@ -74,8 +58,8 @@ function timeParsed(time: string) {
   const period = hours >= 12 ? '오후' : '오전';
 
   hours = hours % 12;
-  hours = hours ? hours : 12; 
-  
+  hours = hours ? hours : 12;
+
   return `${period} ${hours}시 ${minutes}분`;
 }
 

@@ -1,13 +1,11 @@
 import { useState, useRef, useEffect } from 'react';
 import styled from '@emotion/styled';
-import { css, keyframes } from '@emotion/react';
 import { HOME_PICK_SORT_TAB } from '@/constants/BUTTON';
 import { SortByOptions } from '@/apis/types/pickles.type';
 
 /**
  * SortButtons - 홈 피클 목록 정렬 탭 컴포넌트
  * - 전체 / 인기 순 / 가격 낮은 순 / 가격 높은 순
- * - 추후 공통 정렬탭으로 바뀔 수 있음
  */
 
 interface SortButtonsProps {
