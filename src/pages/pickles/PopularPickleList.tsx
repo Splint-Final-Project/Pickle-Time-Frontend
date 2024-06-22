@@ -1,6 +1,6 @@
 import PickleListHeader from '@/components/pickleWholeList/PickleListHeader';
 import styled from '@emotion/styled';
-import { useState } from 'react';
+import { useState, startTransition } from 'react';
 import { TwoColumnGridTemplate } from '@/styles/commonStyles';
 import PickleListCard from '@/components/pickleWholeList/PickleListCard';
 
@@ -11,7 +11,9 @@ export default function PopularPickleList() {
   const tabs = ['전체', '운동', '취미', '스터디'];
 
   const handleTabClick = (tabName: string) => {
-    setActiveTab(tabName);
+    startTransition(() => {
+      setActiveTab(tabName);
+    });
   };
 
   return (
@@ -32,7 +34,7 @@ export default function PopularPickleList() {
       </PickleListHeader>
       <S.Content>
         <TwoColumnGridTemplate>
-          <PickleListCard category="popular" />
+          <PickleListCard category="popular" tab={activeTab} />
         </TwoColumnGridTemplate>
       </S.Content>
     </S.Container>
@@ -53,9 +55,9 @@ const S = {
     }
   `,
   Tab: styled.button<{ $active: boolean }>`
-    -webkit-touch-callout: none; /* iOS Safari */
-    -webkit-user-select: none; /* Safari */
-    -ms-user-select: none; /* 인터넷익스플로러 */
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
     user-select: none;
     font-size: 1.4rem;
     display: inline-flex;
