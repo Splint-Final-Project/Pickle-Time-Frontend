@@ -13,8 +13,11 @@ interface SortType {
   title: string;
   func: () => void;
 }
+interface SortButtonsProps {
+  onSortChange: (sort: string) => void;
+}
 
-export default function SortButtons() {
+export default function SortButtons({ onSortChange }: SortButtonsProps) {
   const [selectedSort, setSelectedSort] = useState(HOME_PICK_SORT_TAB[0]);
   const [indicatorStyle, setIndicatorStyle] = useState({ left: '0px', width: '0px' });
   const tabsRef = useRef<HTMLDivElement>(null);
@@ -28,6 +31,7 @@ export default function SortButtons() {
     if (selectedSort === sortType.title) return;
     setSelectedSort(sortType.title);
     sortType.func();
+    onSortChange(sortType.title);
 
     const left = tabElement.offsetLeft;
     const width = tabElement.clientWidth;
