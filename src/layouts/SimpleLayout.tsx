@@ -15,6 +15,7 @@ const S = {
   `,
   ContentBox: styled.div`
     background-color: ${({ theme }) => theme.color.white};
+    padding-bottom: 1rem;
     width: 100%;
     min-height: 100vh;
   `,
