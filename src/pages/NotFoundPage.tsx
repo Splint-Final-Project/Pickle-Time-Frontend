@@ -1,23 +1,35 @@
-import styled from '@emotion/styled';
 import { useNavigate } from 'react-router-dom';
+import styled from '@emotion/styled';
+import routes from '@/constants/routes';
 
-//Todo : 임시제작! 디자인 생기면 수정
 export default function NotFoundPage() {
   const navigate = useNavigate();
 
   return (
     <S.Container>
-      <S.Error>404🥒</S.Error>
-      <div className="message">
-        요청하신 페이지를 찾을 수 없습니다...🥹
-        <br />
-      </div>
+      <S.Error>
+        <span>4</span>
+        <img src="icons/sadCharacterIcon.svg" alt="슬픈 메인 캐릭터" />
+        <span>4</span>
+      </S.Error>
+      <h1>Page not found.</h1>
+      <h3>페이지를 열 수 없어요!</h3>
+
       <S.GoBack
         onClick={() => {
-          navigate(-1);
+          navigate(routes.home);
         }}
       >
-        이전 페이지로 돌아가기
+        <svg xmlns="http://www.w3.org/2000/svg" width="8" height="12" viewBox="0 0 8 12" fill="none">
+          <path
+            d="M6.38477 1L1.00015 6L6.38477 11"
+            stroke="#5DC26D"
+            stroke-width="1.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+        <span>다시 홈으로 돌아가기</span>
       </S.GoBack>
     </S.Container>
   );
@@ -25,41 +37,58 @@ export default function NotFoundPage() {
 
 const S = {
   Container: styled.div`
-    width: 100%;
-    height: 100%;
-    padding-top: 22rem;
-
     display: flex;
     flex-direction: column;
     align-items: center;
+    padding: 28rem 2rem;
 
-    .message {
-      font-size: 1.8rem;
-      color: #777;
+    gap: 1rem;
+
+    h1 {
+      color: ${({ theme }) => theme.color.primary};
+      font-family: 'Poppins';
+      font-size: 2.5rem;
+      font-weight: 700;
+      line-height: normal;
+    }
+
+    h3 {
+      color: ${({ theme }) => theme.color.sub};
+      ${({ theme }) => theme.typography.subTitle3};
     }
   `,
 
   Error: styled.div`
-    padding-bottom: 2rem;
-    font-size: 14rem;
-    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+
+    margin-bottom: 0.5rem;
+
+    span {
+      color: #3f444a;
+      font-family: 'Poppins';
+      font-size: 8rem;
+      font-weight: 700;
+      line-height: normal;
+    }
+
+    img {
+      margin-top: -0.5rem;
+    }
   `,
 
   GoBack: styled.button`
     display: flex;
     justify-content: center;
     align-items: center;
+    gap: 1.5rem;
+    position: absolute;
+    bottom: 5.5rem;
 
-    padding: 1.2rem;
-    margin-top: 5rem;
-    border: 1px solid ${({ theme }) => theme.color.primary};
-    border-radius: 0.8rem;
-    font-size: 1.6rem;
-    font-weight: 500;
-    background-color: #f7f9f7;
-
-    &:hover {
-      background-color: ${({ theme }) => theme.color.primary};
+    span {
+      color: ${({ theme }) => theme.color.sub};
+      ${({ theme }) => theme.typography.subTitle2};
     }
   `,
 };
