@@ -4,7 +4,7 @@ import PointList from '@/components/my-page/point/PointList';
 import ReviewList from '@/components/my-page/review/ReviewList';
 import WishList from '@/components/my-page/wishlist/WishList';
 import { MY_MENU } from '@/constants/BUTTON';
-import { MyMenu } from '@/pages/profile/MyPage';
+type MyMenu = 'point' | 'review' | 'wishlist';
 
 export default function DynamicRender({ menu }: { menu: MyMenu }) {
   const [currentMenu, setCurrentMenu] = useState<MyMenu>(menu);
@@ -28,11 +28,11 @@ export default function DynamicRender({ menu }: { menu: MyMenu }) {
 
   const renderComponent = (menu: MyMenu) => {
     switch (menu) {
-      case MY_MENU.POINT:
+      case 'point':
         return <PointList />;
-      case MY_MENU.REVIEW:
+      case 'review':
         return <ReviewList />;
-      case MY_MENU.WISHLIST:
+      case 'wishlist':
         return <WishList />;
     }
   };

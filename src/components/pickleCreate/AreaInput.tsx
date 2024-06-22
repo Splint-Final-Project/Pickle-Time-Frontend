@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { JusoOption, InputField, LabelText, SearchButton, InputConstraint } from './CreatePicklePageStyled';
 import { Map, MapMarker } from 'react-kakao-maps-sdk';
-import toast from 'react-hot-toast';
+import { showErrorToast } from '@/components/common/Toast';
 
 export default function AreaInput({ hook }: { hook: any }) {
   const {
@@ -57,7 +57,7 @@ export default function AreaInput({ hook }: { hook: any }) {
         if (status === kakao.maps.services.Status.OK) {
           setAreaCode(Number(result[0].address.b_code));
         } else {
-          toast.error('주소를 찾을 수 없습니다.');
+          showErrorToast('주소를 찾을 수 없습니다.');
         }
       });
     }
@@ -74,7 +74,7 @@ export default function AreaInput({ hook }: { hook: any }) {
         if (status === kakao.maps.services.Status.OK) {
           setAreaCode(Number(result[0].address.b_code));
         } else {
-          toast.error('주소를 찾을 수 없습니다.');
+          showErrorToast('주소를 찾을 수 없습니다.');
         }
       });
     }

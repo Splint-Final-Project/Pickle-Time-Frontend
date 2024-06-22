@@ -13,6 +13,8 @@ import { useGeolocation } from '@/hooks/useGeolocation';
 import CardBackImg from '@/assets/images/todayPickleCardBackImg.svg';
 import Character from '@/assets/icons/character.svg';
 import { css } from '@emotion/react';
+import client from '@/apis/axios';
+import toast from 'react-hot-toast';
 
 export interface TodayPickleDataType {
   capacity: number;
@@ -42,31 +44,32 @@ export interface TodayPickleDataType {
 export default function TodayPickleListContainer() {
   const [currentTime, setCurrentTime] = useState(new Date());
   const [searchParams, setSearchParams] = useSearchParams();
-  const [distance, setDistance] = useState(0);
   const { location } = useGeolocation();
 
   // server state
   const { data } = useGetProceedingPickles();
 
-  const currentPage = useMemo(() => {
-    return Number(searchParams.get('page')) || 1;
-  }, [searchParams]);
+  const currentPage = Number(searchParams.get('page')) || 1;
 
-  const handleAttendance = () => {
-    alert(`${location?.longitude} ,${location?.latitude}`);
-  };
+  const attended = useMemo(() => {
+    return data?.todayPickles[currentPage - 1]?.attendance.find((item: any) => {
+      const date = new Date(item);
+      return date.getDate() === currentTime.getDate() && date.getMonth() === currentTime.getMonth();
+    });
+  }, [data?.todayPickles, currentPage, currentTime]);
 
-  useEffect(() => {
-    const getDistance = async () => {
-      if (!data?.todayPickles || data?.todayPickles.length === 0) return;
-      const distance = await betweenLength({
-        latitude: data?.todayPickles[currentPage - 1].latitude,
-        longitude: data?.todayPickles[currentPage - 1].longtitude,
+  const handleAttendance = async (id: string) => {
+    if (!location) return toast.error('위치 정보를 가져오는 중입니다. 잠시만 기다려주세요.');
+    try {
+      const res = await client.post(`/pickle/${id}/attendance`, {
+        latitude: location?.latitude,
+        longitude: location?.longitude,
       });
-      setDistance(distance);
-    };
-    getDistance();
-  }, [currentPage]);
+      toast.success(res.data.message);
+    } catch (e: any) {
+      toast.error(e.response.data.message);
+    }
+  };
 
   useEffect(() => {
     const interval = setInterval(
@@ -109,15 +112,15 @@ export default function TodayPickleListContainer() {
         <TodayPickleCard cardData={data?.todayPickles[currentPage - 1]} distance={0} />
       </Tilt>
       <S.AttendanceButton
-        onClick={handleAttendance}
+        onClick={() => handleAttendance(data?.todayPickles[currentPage - 1].id)}
         disabled={
           !isButtonActive(
             data?.todayPickles[currentPage - 1].when.startTime.hour,
             data?.todayPickles[currentPage - 1].when.startTime.minute,
-          )
+          ) || attended
         }
       >
-        <span>출석하기</span>
+        <span>{attended ? '출석완료' : '출석하기'}</span>
       </S.AttendanceButton>
     </S.Container>
   );

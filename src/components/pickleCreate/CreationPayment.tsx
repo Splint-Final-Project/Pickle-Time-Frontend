@@ -6,7 +6,7 @@ import client from '@/apis/axios';
 import PaymentWindow from '@/components/picklePayment/PaymentComponent';
 import styled from '@emotion/styled';
 import { useMyPoints } from '@/hooks/query/points';
-import toast from 'react-hot-toast';
+import { showErrorToast, showToast } from '@/components/common/Toast';
 
 export default function CreationPayment() {
   const { user } = useAuth();
@@ -40,12 +40,12 @@ export default function CreationPayment() {
 
   async function onClickPayment() {
     if (cost - usePointValue < 0) {
-      toast.error('포인트를 잘못 사용하셨습니다.');
+      showErrorToast('포인트를 잘못 사용하셨습니다.');
       return;
     }
 
     if (!paymentMethod || !isAgree) {
-      toast.error('결제 수단과 약관 동의를 확인해주세요.');
+      showErrorToast('결제 수단과 약관 동의를 확인해주세요.');
       return;
     }
 
@@ -72,12 +72,12 @@ export default function CreationPayment() {
         });
 
         if (notified.status === 201) {
-          toast.success('전액 포인트로 피클 생성이 완료되었습니다.');
+          showToast('전액 포인트로 피클 생성이 완료되었요!');
           clear();
 
           navigate(`/pickle/${notified.data.pickle._id}`, { replace: true });
         } else {
-          toast.error('피클 생성이 실패하여 결제 금액은 환불되었습니다.' + notified.data.message);
+          showErrorToast('피클 생성이 실패하여 결제 금액은 환불되었어요' + notified.data.message);
 
           navigate(`/pickle-create`, { replace: true });
         }
@@ -118,7 +118,7 @@ export default function CreationPayment() {
 
       IMP.request_pay(data, async (response: any) => {
         if (!response.success) {
-          toast.error(`결제에 실패했습니다: ${response.error_msg}`);
+          showErrorToast(`결제에 실패했습니다: ${response.error_msg}`);
           navigate(`/pickle-create`, { replace: true });
         }
 
@@ -127,11 +127,11 @@ export default function CreationPayment() {
             imp_uid: response.imp_uid,
           });
           if (notified.status === 201) {
-            toast.success('결제 및 피클 생성이 완료되었습니다.');
+            showToast('결제 및 피클 생성이 완료되었습니다.');
             clear();
             navigate(`/pickle/${notified.data.pickle._id}`, { replace: true });
           } else {
-            toast.error('피클 생성이 실패하여 결제 금액은 환불되었습니다.' + notified.data.message);
+            showErrorToast('피클 생성이 실패하여 결제 금액은 환불되었습니다.' + notified.data.message);
             navigate(`/pickle-create`, { replace: true });
           }
         } catch (err) {
