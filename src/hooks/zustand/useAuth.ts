@@ -4,7 +4,9 @@ import { SignInFormValues, SignUpFormValues, SignUpFormValues2 } from '@/apis/ty
 import { authRequests } from '@/apis/auth.api';
 import { userRequests } from '@/apis/user.api';
 import { UpdateProfile } from '@/apis/types/user.type';
-import { showErrorToast, showToast } from '@/components/common/Toast';
+import { showToast } from '@/components/common/Toast';
+import { showErrorToast } from '@/components/common/Toast';
+import toast from 'react-hot-toast';
 
 interface State {
   user: any | null;
@@ -24,15 +26,13 @@ const useAuth = create(
         try {
           const res = await authRequests.signIn(data);
           set({ user: res.user });
-          console.log(res.user);
           return res.user.status;
-        } catch (err) {
-          console.log(err);
+        } catch (err: any) {
+          showErrorToast(err.response?.data.error || '로그인에 실패했습니다.');
           throw new Error();
         }
       },
       setMe: (data: any) => {
-        console.log(data);
         set({ user: data });
       },
 
@@ -40,9 +40,8 @@ const useAuth = create(
         try {
           const res = await authRequests.signUp(data);
           set({ user: res.user });
-          console.log(res.user);
-        } catch (err) {
-          console.log(err);
+        } catch (err: any) {
+          showErrorToast(err.response?.data.error || '회원가입에 실패했습니다.');
           throw new Error();
         }
       },
@@ -50,9 +49,8 @@ const useAuth = create(
         try {
           const res = await authRequests.signUp2(data);
           set({ user: res.user });
-          console.log(res.user);
-        } catch (err) {
-          console.log(err);
+        } catch (err: any) {
+          showErrorToast(err.response?.data.error || '회원가입에 실패했습니다.');
           throw new Error();
         }
       },
@@ -60,7 +58,6 @@ const useAuth = create(
         try {
           set({ user: null });
           const res = await authRequests.signOut();
-          console.log(res);
         } catch (e) {
           console.log(e);
         } finally {

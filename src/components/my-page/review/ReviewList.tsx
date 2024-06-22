@@ -5,6 +5,7 @@ import { MyDynamicTemplate } from '@/styles/commonStyles';
 import { useMyReviews } from '@/hooks/query/pickles';
 import { ReviewData } from '@/apis/types/pickles.type';
 import { formatYYMMDD } from '@/utils/formatData';
+import EmptyDataMessage from '@/components/common/EmptyDataMessage';
 
 export default function ReviewList() {
   const [checkedReviews, setCheckedReviews] = useState<string[]>([]);
@@ -42,7 +43,7 @@ export default function ReviewList() {
           ))}
         </>
       ) : (
-        <S.NoReview>작성된 리뷰가 없습니다 😥</S.NoReview>
+        <EmptyDataMessage>작성된 리뷰가 없어요!</EmptyDataMessage>
       )}
     </MyDynamicTemplate>
   );
@@ -96,16 +97,5 @@ const S = {
     top: 0;
     right: 0.4rem;
     cursor: pointer;
-  `,
-
-  NoReview: styled.div`
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    width: 100%;
-    height: 15rem;
-    color: ${({ theme }) => theme.color.sub};
-    ${({ theme }) => theme.typography.body1};
   `,
 };
