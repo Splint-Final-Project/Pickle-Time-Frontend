@@ -2,6 +2,7 @@ import styled from '@emotion/styled';
 import SpecialPickleCard from '@/components/picklecard/SpecialPickleCard';
 import { MyDynamicTemplate, WishListGridTemplate } from '@/styles/commonStyles';
 import { useGetLikePickles } from '@/hooks/query/like';
+import EmptyDataMessage from '@/components/common/EmptyDataMessage';
 
 export default function WishList() {
   const { data: wishListData } = useGetLikePickles();
@@ -18,7 +19,7 @@ export default function WishList() {
             )}
           </WishListGridTemplate>
         ) : (
-          <S.NoData>아직 찜한 피클이 없어요 🥒</S.NoData>
+          <EmptyDataMessage style={{ paddingTop: '3.2rem' }}>아직 찜한 피클이 없어요!</EmptyDataMessage>
         )}
       </S.InnerWrap>
     </S.Container>
