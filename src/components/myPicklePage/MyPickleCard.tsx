@@ -34,10 +34,10 @@ interface MyPickleCardProps {
 
 export default function MyPickleCard({ pickleData }: MyPickleCardProps) {
   const dateFormat = `
-    ${pickleData.when.startDate.month.toString().padStart(2, '0')}.
-    ${pickleData.when.startDate.day.toString().padStart(2, '0')}~
-    ${pickleData.when.finishDate.month.toString().padStart(2, '0')}.
-    ${pickleData.when.finishDate.day.toString().padStart(2, '0')}
+    ${pickleData?.when.startDate.month.toString().padStart(2, '0')}.
+    ${pickleData?.when.startDate.day.toString().padStart(2, '0')}~
+    ${pickleData?.when.finishDate.month.toString().padStart(2, '0')}.
+    ${pickleData?.when.finishDate.day.toString().padStart(2, '0')}
   `;
 
   const { handleOpen } = useBottomSheetModal(state => state);

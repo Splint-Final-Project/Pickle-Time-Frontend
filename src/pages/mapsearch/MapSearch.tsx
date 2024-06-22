@@ -14,7 +14,7 @@ import { useNavigate, useSearchParams } from 'react-router-dom';
 
 const geolocationOptions = {
   enableHighAccuracy: true,
-  timeout: 1000 * 4,
+  timeout: 1000 * 6,
 };
 
 export default function MapSearch() {
