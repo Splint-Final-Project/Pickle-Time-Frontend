@@ -62,7 +62,7 @@ export default function GoalSelect({ hook }: { hook: any }) {
   };
 
   const handleRemove = (removedName: string) => {
-    const updatedGoals = goals.filter(goal => goal !== removedName);
+    const updatedGoals = goals.filter((goal: any) => goal !== removedName);
     setGoals(updatedGoals);
   };
 
@@ -82,7 +82,7 @@ export default function GoalSelect({ hook }: { hook: any }) {
           <S.SubText>15자 이내로 최대 5개까지 입력 가능합니다.</S.SubText>
         </S.InputWithType>
         <S.GoalContainer>
-          {goals?.map(goal => (
+          {goals?.map((goal: any) => (
             <Tag key={goal} handleRemove={() => handleRemove(goal)} hasHandler={true}>
               {goal}
             </Tag>
