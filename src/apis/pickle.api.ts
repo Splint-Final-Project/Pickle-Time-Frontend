@@ -1,11 +1,13 @@
 import client from '@/apis/axios';
 import { API, API_PICKLE } from '@/constants/API';
-import { Coordinates, CreatePickleData, CreateReviewData } from './types/pickles.type';
+import { Coordinates, SortByOptions, CreatePickleData, CreateReviewData } from './types/pickles.type';
 
 export const picklesRequests = Object.freeze({
   // 피클 전체 목록조회
-  get: async () => {
-    const { data } = await client.get(`${API.PICKLE}`);
+  get: async (sortBy: SortByOptions['option'] = '전체') => {
+    const { data } = await client.get(`${API.PICKLE}`, {
+      params: { sortBy },
+    });
     return data;
   },
 
