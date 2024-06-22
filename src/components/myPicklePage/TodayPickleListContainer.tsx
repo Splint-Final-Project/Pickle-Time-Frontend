@@ -52,7 +52,7 @@ export default function TodayPickleListContainer() {
   const currentPage = Number(searchParams.get('page')) || 1;
 
   const attended = useMemo(() => {
-    return data?.todayPickles[currentPage - 1].attendance.find((item: any) => {
+    return data?.todayPickles[currentPage - 1]?.attendance.find((item: any) => {
       const date = new Date(item);
       return date.getDate() === currentTime.getDate() && date.getMonth() === currentTime.getMonth();
     });
