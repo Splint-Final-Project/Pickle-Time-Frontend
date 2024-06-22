@@ -65,24 +65,21 @@ export const useGetNearbyPickles = (location: Coordinates | null, level: number)
   });
 };
 
-export const useGetSpecialPickles = (type: 'hotTime' | 'popular') => {
-  if (type === 'hotTime') {
-    return useSuspenseQuery({
-      queryKey: ['pickles', 'hotTime'],
-      queryFn: async () => await picklesRequests.getHotTime(),
-      select: data => data.data,
-
-      refetchOnWindowFocus: true, // 포커스 될 때 재요청
-      refetchIntervalInBackground: true, // 백그라운드 일 때 재요청 o
-      refetchInterval: 5 * 60 * 1000,
-    });
-  } else {
-    return useSuspenseQuery({
-      queryKey: ['pickles', 'popular'],
-      queryFn: async () => await picklesRequests.getPopular(),
-      select: data => data.data,
-    });
-  }
+export const useGetSpecialPickles = (type: 'hotTime' | 'popular', category: string) => {
+  return useSuspenseQuery({
+    queryKey: ['pickles', type, category],
+    queryFn: async () => {
+      if (type === 'hotTime') {
+        return await picklesRequests.getHotTime(category);
+      } else {
+        return await picklesRequests.getPopular(category);
+      }
+    },
+    select: data => data.data,
+    refetchOnWindowFocus: true,
+    refetchIntervalInBackground: true,
+    refetchInterval: 5 * 60 * 1000,
+  });
 };
 
 export const useGetPickleDetail = (pickleId: string) => {
