@@ -34,6 +34,7 @@ export default function SignUp() {
   const [revealPw, setRevealPw] = useState(false);
   const [revealConfirmPw, setRevealConfirmPw] = useState(false);
   const [isVerificationOpen, setIsVerificationOpen] = useState(false);
+  const [isFetching, setIsFetching] = useState(false);
   const navigate = useNavigate();
   const { signUp } = useAuth();
   async function handleSignUp(data: SignUpFormValues) {
@@ -49,11 +50,14 @@ export default function SignUp() {
       return;
     }
     try {
+      setIsFetching(true);
       await client.post('/auth/verify-email', { email: getValues('email') });
       toast.success('인증번호가 전송되었습니다.');
       setIsVerificationOpen(true);
     } catch (e: any) {
       showErrorToast(e.response.data.error);
+    } finally {
+      setIsFetching(false);
     }
   }
 
@@ -79,7 +83,7 @@ export default function SignUp() {
               id="email"
               type="email"
               placeholder="user@pickletime.com"
-              autoComplete="off"
+              autoComplete="new-password"
               disabled={isVerificationOpen}
               {...register('email', {
                 required: true,
@@ -90,7 +94,9 @@ export default function SignUp() {
               })}
             />
             <VerifyButton
+              disabled={isFetching}
               onClick={e => {
+                e.preventDefault();
                 e.stopPropagation();
                 handleVerifyButtonClick();
               }}
@@ -110,7 +116,7 @@ export default function SignUp() {
               <InputField
                 id="verifySearch"
                 type="number"
-                autoComplete="off"
+                autoComplete="new-password"
                 placeholder="인증번호 입력"
                 {...register('verify', {
                   required: {
@@ -151,7 +157,7 @@ export default function SignUp() {
               id="password"
               type={revealPw ? 'text' : 'password'}
               placeholder="********"
-              autoComplete="off"
+              autoComplete="new-password"
               {...register('password', {
                 required: true,
                 minLength: {
@@ -186,7 +192,7 @@ export default function SignUp() {
               id="checkPassword"
               type={revealConfirmPw ? 'text' : 'password'}
               placeholder="********"
-              autoComplete="off"
+              autoComplete="new-password"
               {...register('checkPassword', {
                 required: true,
                 validate: value => value === getValues('password') || '비밀번호가 일치하지 않습니다.',
