@@ -62,6 +62,7 @@ const S = {
 
     color: ${({ theme }) => theme.color.sub};
     ${({ theme }) => theme.typography.body1}
+    font-weight: 600;
 
     &.selected {
       color: ${({ theme }) => theme.color.basic};

@@ -358,7 +358,7 @@ const ReCenterButton = styled.img`
 
 const PickleCardContainer = styled.div`
   position: absolute;
-  width: 100%;
+  width: auto;
   bottom: 100px;
   display: flex;
   flex-shrink: 0;
