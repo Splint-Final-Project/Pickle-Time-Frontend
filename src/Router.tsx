@@ -1,40 +1,40 @@
-import { createBrowserRouter, redirect } from 'react-router-dom';
+import { createBrowserRouter } from 'react-router-dom';
 
-import Home from '@/pages/home/Home';
-import Conversation from '@/pages/chat/Conversation';
-import ConversationList from '@/pages/chat/ConversationList';
+import SignIn from '@/pages/auth/SignIn.page';
+import SignInEmailPage from '@/pages/auth/SignInEmail.page';
+import SignUp from '@/pages/auth/SignUp.page';
+import SignUp2 from './pages/auth/SignUp2.page';
+
+import Home from '@/pages/home/Home.page';
+import PopularPickleList from '@/pages/pickles/PopularPickleList.page';
+import HotTimePickleList from '@/pages/pickles/HotTimePickleList.page';
+import PickleSearchResults from '@/pages/pickles/PickleSearchResults.page';
+
+import MapSearch from './pages/mapsearch/MapSearch.page';
+
+import CreatePickle from './pages/pickles/CreatePickle.page';
+import PickleEdit from './pages/pickles/PickleEdit.page';
+import PickleDetailPage from '@/pages/pickles/PickleDetail.page';
+import JoinPickle from '@/pages/pickles/JoinPickle.page';
+
+import MyPickles from '@/pages/pickles/MyPickle.page';
+
+import OneToOne from '@/pages/chat/OneToOne.page';
+import Conversation from '@/pages/chat/Conversation.page';
+import ConversationList from '@/pages/chat/ConversationList.page';
+
 import MyPage from '@/pages/profile/MyPage';
-import EditProfilePage from './pages/profile/EditProfilePage';
+import EditProfilePage from './pages/profile/EditProfile.page';
 
-import Admin from '@/pages/auth/Admin';
-import SignUp from '@/pages/auth/SignUp';
-import SignUp2 from './pages/auth/SignUp2';
-
-import Pickle from '@/pages/pickles/Pickle';
-import JoinPickle from '@/pages/pickles/JoinPickle';
-
-import MapSearch from './pages/mapsearch/MapSearch';
-
-import OAuthSuccessRedirector from './redirectors/OAuthSuccessRedirector';
-import LoginRedirector from './redirectors/LoginRedirector';
-
-import SignIn from '@/pages/auth/SignIn';
-import SignIn_Email from '@/pages/auth/SignIn_Email';
+import NotFoundPage from '@/pages/NotFound.page';
 import MainLayout from '@/layouts/MainLayout';
 import SimpleLayout from '@/layouts/SimpleLayout';
-import NotFoundPage from '@/pages/NotFoundPage';
-
-import PopularPickleList from '@/pages/pickles/PopularPickleList';
-import HotTimePickleList from '@/pages/pickles/HotTimePickleList';
+import LoginRedirector from './redirectors/LoginRedirector';
+import OAuthSuccessRedirector from './redirectors/OAuthSuccessRedirector';
 import PickleJoinRedirector from './redirectors/PickleJoinRedirector';
 import PickleCreationRedirector from './redirectors/PickleCreationRedirector';
-import OneToOne from '@/pages/chat/OneToOne';
 
 import routes from '@/constants/routes';
-import CreatePickle from './pages/pickles/CreatePickle';
-import MyPickles from '@/pages/pickles/MyPickles';
-import PickleEdit from './pages/pickles/PickleEdit';
-import PickleSearchResults from '@/pages/pickles/PickleSearchResults';
 
 const router = createBrowserRouter([
   {
@@ -106,11 +106,11 @@ const router = createBrowserRouter([
       },
       {
         path: routes.signInEmail,
-        element: <SignIn_Email />,
+        element: <SignInEmailPage />,
       },
       {
         path: `${routes.pickle}/:pickleId`,
-        element: <Pickle />,
+        element: <PickleDetailPage />,
       },
       {
         path: routes.picklePopularList,

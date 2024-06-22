@@ -10,7 +10,7 @@ import {
   SiElement,
   SiSelector,
 } from '@/pages/auth/SignUpStyled';
-import { SigusType } from '@/pages/auth/SignUp2';
+import { SigusType } from '@/pages/auth/SignUp2.page';
 import Button from '@/components/common/button/Button';
 import { map, sigus, sis } from '@/constants/areas';
 import { BUTTON_TYPE } from '@/constants/BUTTON';
