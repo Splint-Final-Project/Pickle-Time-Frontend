@@ -328,7 +328,7 @@ export const Title = styled.div`
 
 const MapContainer = styled.div`
   width: 100%;
-  height: 100%;
+  height: 100vh;
   position: relative;
   overflow: hidden;
   div {
