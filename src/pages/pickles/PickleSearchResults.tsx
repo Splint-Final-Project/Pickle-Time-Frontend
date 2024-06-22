@@ -102,12 +102,15 @@ export default function PickleSearchResults() {
             </select>
           </S.SortDropdown>
         </S.ContentTopSection>
-        <TwoColumnGridTemplate>
-          {searchResults?.map((pickle: any) => <SpecialPickleCard key={pickle.id} pickleData={pickle} />)}
-          {/* 카드 검색 데이터에 맞는 카드 나열 */}
-          {/* <PickleListCard category="popular" /> */}
-          {/* <PickleCardListMockData /> */}
-        </TwoColumnGridTemplate>
+        {searchResults.length ? (
+          <TwoColumnGridTemplate>
+            {searchResults?.map((pickle: any) => <SpecialPickleCard key={pickle.id} pickleData={pickle} />)}
+          </TwoColumnGridTemplate>
+        ) : (
+          <S.NoResults>
+            {searchParams.get('text') === '' ? '검색어를 입력해 주세요.' : '검색 결과가 없습니다.'}
+          </S.NoResults>
+        )}
       </S.Content>
     </S.Container>
   );
@@ -213,5 +216,19 @@ const S = {
       color: var(--Sub-Text, var(--Tab-Bar-Color-2, #8b8d94));
       text-align: start;
     }
+  `,
+  NoResults: styled.div`
+    width: 100%;
+    height: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: var(--Sub-Text, var(--Tab-Bar-Color-2, #8b8d94));
+    font-family: Pretendard;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
   `,
 };
