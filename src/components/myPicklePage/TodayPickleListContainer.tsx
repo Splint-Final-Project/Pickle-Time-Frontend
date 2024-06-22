@@ -45,6 +45,7 @@ export default function TodayPickleListContainer() {
   const [currentTime, setCurrentTime] = useState(new Date());
   const [searchParams, setSearchParams] = useSearchParams();
   const { location } = useGeolocation();
+  const queryClient = useQueryClient();
 
   // server state
   const { data } = useGetProceedingPickles();
@@ -65,6 +66,7 @@ export default function TodayPickleListContainer() {
         latitude: location?.latitude,
         longitude: location?.longitude,
       });
+      queryClient.invalidateQueries({ queryKey: ['pickles', 'proceeding'] });
       toast.success(res.data.message);
     } catch (e: any) {
       toast.error(e.response.data.message);

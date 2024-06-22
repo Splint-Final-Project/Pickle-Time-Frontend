@@ -16,7 +16,7 @@ type Time = {
   startTime: any;
   finishTime: any;
   selectedDays: any;
-}
+};
 
 type CardDataType = {
   title: string;
@@ -29,7 +29,6 @@ type CardDataType = {
   isNearby?: boolean;
 };
 
-
 interface TodayPickleCardProps {
   cardData: TodayPickleDataType;
   distance: number;
@@ -37,10 +36,10 @@ interface TodayPickleCardProps {
 
 export default function TodayPickleCard({ cardData }: any) {
   // format
-  const finishDateFormat = `~${cardData?.when.finishDate.month.toString().padStart(2, '0')}.${cardData?.when.finishDate.day}`
+  const finishDateFormat = `~${cardData?.when.finishDate.month.toString().padStart(2, '0')}.${cardData?.when.finishDate.day.toString().padStart(2, '0')}`;
   const startTimeFormat = formatTime(cardData?.when.startTime);
   const finishTimeFormat = formatTime(cardData?.when.finishTime);
-  const timeFormat = `${startTimeFormat}~${finishTimeFormat}`
+  const timeFormat = `${startTimeFormat}~${finishTimeFormat}`;
 
   return (
     <S.CardContainer>
@@ -56,8 +55,8 @@ export default function TodayPickleCard({ cardData }: any) {
         <S.CardBody>
           <S.AlertMessage>
             {untilChulseok(
-              { hour: cardData?.when.startTime.hour, minute: cardData?.when.startTime.minute}, 
-              { hour: cardData?.when.finishTime.hour, minute: cardData?.when.finishTime.minute}
+              { hour: cardData?.when.startTime.hour, minute: cardData?.when.startTime.minute },
+              { hour: cardData?.when.finishTime.hour, minute: cardData?.when.finishTime.minute },
             )}
           </S.AlertMessage>
           <S.PickleTime>
