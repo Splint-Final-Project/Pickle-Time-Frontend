@@ -85,6 +85,11 @@ export default function MyPickleCard({ pickleData }: MyPickleCardProps) {
 const S = {
   Card: styled.div`
     position: relative;
+
+    &:hover {
+      transform: translateY(-6px);
+      transition: all ease-in-out 0.25s;
+    }
   `,
   CardInner: styled.button<{ $status: 'done' | 'cancelled' | 'progress' | 'pending' }>`
     width: 100%;
