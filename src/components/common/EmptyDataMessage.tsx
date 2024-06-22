@@ -1,6 +1,7 @@
+import { HtmlHTMLAttributes } from 'react';
 import styled from '@emotion/styled';
 import EmptyCharacter from '/icons/emptyDataCharacter.svg';
-import { HtmlHTMLAttributes } from 'react';
+
 interface EmptyDataMessageProps extends HtmlHTMLAttributes<HTMLDivElement> {
   children: string;
 }

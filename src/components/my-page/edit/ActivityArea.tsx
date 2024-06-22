@@ -1,5 +1,5 @@
-import { map } from '@/constants/areas';
 import styled from '@emotion/styled';
+import { map } from '@/constants/areas';
 
 export default function ActivityArea({ areaCodes }: { areaCodes: number[] }) {
   return (
@@ -9,7 +9,6 @@ export default function ActivityArea({ areaCodes }: { areaCodes: number[] }) {
         return (
           <S.Area key={code}>
             <span>{item.si + ' ' + item.gu}</span>
-            {/* <img src="/icons/x.svg" alt="삭제"  /> */}
           </S.Area>
         );
       })}

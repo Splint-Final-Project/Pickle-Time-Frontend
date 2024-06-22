@@ -1,11 +1,11 @@
-import fistStudyImg from '@/assets/images/study-1.jpg';
-import secondStudyImg from '@/assets/images/study-2.jpg';
-import fistExerciseImg from '@/assets/images/exercise-1.jpg';
-
-import CarouselImg from './CarouselImg';
 import { useEffect, useState } from 'react';
 import styled from '@emotion/styled';
 import { css } from '@emotion/react';
+
+import fistStudyImg from '@/assets/images/study-1.jpg';
+import secondStudyImg from '@/assets/images/study-2.jpg';
+import fistExerciseImg from '@/assets/images/exercise-1.jpg';
+import CarouselImg from './CarouselImg';
 
 const CAROUSEL_IMG_LIST = [
   {
@@ -105,7 +105,7 @@ const S = {
     justify-content: center;
     overflow: hidden;
   `,
-  CarouselWrapper: styled.div<{ currentIndex: number, isInitialize: boolean }>`
+  CarouselWrapper: styled.div<{ currentIndex: number; isInitialize: boolean }>`
     display: flex;
     ${({ currentIndex, isInitialize }) =>
       isInitialize
@@ -117,7 +117,7 @@ const S = {
             transform: translateX(${-currentIndex * 100}%);
           `}
   `,
-  
+
   CarouselButton: styled.button<{ position: 'left' | 'right' }>`
     position: absolute;
     top: 50%;

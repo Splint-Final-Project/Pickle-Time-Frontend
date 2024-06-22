@@ -1,5 +1,5 @@
-import { formatYYMMDD } from '@/utils/formatData';
 import styled from '@emotion/styled';
+import { formatYYMMDD } from '@/utils/formatData';
 
 type PointHistoryCardProps = {
   date: Date;

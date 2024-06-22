@@ -17,7 +17,7 @@ interface WholePickleCardProps {
   cost: number;
 }
 
-export default function WholePickleCard({ id: pickleId, type, title, when, cost }: WholePickleCardProps) {
+export default function WholePickleCard({ id: pickleId, type, title, cost }: WholePickleCardProps) {
   const { data } = useGetLikeCount(pickleId);
   const { mutate: postLikeMutate } = usePickleLikeMutation(pickleId);
   const { mutate: deleteLikeMutate } = useDeletePickleLikeMutation(pickleId);
@@ -36,7 +36,6 @@ export default function WholePickleCard({ id: pickleId, type, title, when, cost 
   return (
     <S.CardLayer to={`${routes.pickle}/${pickleId}`} $backImgType={type}>
       <HeartButton $active={data?.data.isClicked} onClick={handleHeartClick} />
-      {/* <S.ProgressDay>{when.summary}</S.ProgressDay> */}
       <S.Title>{title}</S.Title>
       <S.Price>{formatCurrency(cost)}원</S.Price>
     </S.CardLayer>
@@ -47,15 +46,12 @@ const S = {
   CardLayer: styled(Link, {
     shouldForwardProp: prop => prop !== '$backImgType',
   })<{ $backImgType: 'study' | 'exercise' }>`
-    display: block;
-    /* width: 15rem; */
-    height: 10.7rem;
-    /* margin: auto; */
-    /* margin-top: 20px; */
-    background: #f3f4f6;
-    border-radius: 0.4rem;
-    padding: 1.2rem 0 1.2rem 1.4rem;
     position: relative;
+    display: block;
+    height: 10.7rem;
+    padding: 1.2rem 0 1.2rem 1.4rem;
+    border-radius: 0.4rem;
+    background: #f3f4f6;
     background-image: ${({ $backImgType }) =>
       $backImgType === 'study' ? `url(${CategoryStudy})` : `url(${CategoryExercise})`};
     background-repeat: no-repeat;
@@ -69,18 +65,17 @@ const S = {
     font-weight: 500;
   `,
   Title: styled.h3`
-    color: #161616;
-    font-size: 1.4rem;
-    font-weight: 600;
     width: 80%;
-    letter-spacing: -0.9px;
     margin-top: 1rem;
     margin-bottom: 1.2rem;
+    color: #161616;
+    ${({ theme }) => theme.typography.subTitle4}
+    letter-spacing: -0.9px;
   `,
   Price: styled.em`
     color: #666;
-    font-size: 1.2rem;
-    font-weight: 600;
+    ${({ theme }) => theme.typography.detail}
+
     span {
       font-size: 1rem;
       font-weight: 500;

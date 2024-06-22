@@ -1,6 +1,6 @@
-import SearchIcon from '@/assets/icons/SearchIcon';
-import styled from '@emotion/styled';
 import { KeyboardEvent, useState } from 'react';
+import styled from '@emotion/styled';
+import SearchIcon from '@/assets/icons/SearchIcon';
 
 interface ChatListSearchBarProps {
   setValue: React.Dispatch<React.SetStateAction<string>>;

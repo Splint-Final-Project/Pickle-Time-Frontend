@@ -1,41 +1,13 @@
-import { useEffect, useState } from 'react';
 import styled from '@emotion/styled';
+import { TodayPickleDataType } from './TodayPickleListContainer';
 import CardBackImg from '@/assets/images/todayPickleCardBackImg.svg';
 import ClockIcon from '@/assets/icons/ClockIcon';
 import AddressIcon from '@/assets/icons/AddressIcon';
 import Character from '/icons/character.svg';
-
 import { formatTime } from '@/utils/dateCalculate';
-import { TodayPickleDataType } from './TodayPickleListContainer';
-import { getTimeGapMessage, untilChulseok, calculateInterval } from '@/utils/todayPickleCardUtils';
-
-type Time = {
-  times: Date[];
-  startDate: any;
-  finishDate: any;
-  startTime: any;
-  finishTime: any;
-  selectedDays: any;
-};
-
-type CardDataType = {
-  title: string;
-  finishDate: string;
-  when: Time;
-  time: string;
-  startTime: string;
-  place: string;
-  detailAddress: string;
-  isNearby?: boolean;
-};
-
-interface TodayPickleCardProps {
-  cardData: TodayPickleDataType;
-  distance: number;
-}
+import { untilChulseok } from '@/utils/todayPickleCardUtils';
 
 export default function TodayPickleCard({ cardData }: any) {
-  // format
   const finishDateFormat = `~${cardData?.when.finishDate.month.toString().padStart(2, '0')}.${cardData?.when.finishDate.day.toString().padStart(2, '0')}`;
   const startTimeFormat = formatTime(cardData?.when.startTime);
   const finishTimeFormat = formatTime(cardData?.when.finishTime);
@@ -65,7 +37,6 @@ export default function TodayPickleCard({ cardData }: any) {
             </S.IconBox>
             <span>{timeFormat}</span>
           </S.PickleTime>
-          {/* {cardData?.isNearby && <S.AlertMessage>! 1km 남았어요</S.AlertMessage>} */}
           <S.PickleAddress>
             <S.IconBox>
               <AddressIcon />

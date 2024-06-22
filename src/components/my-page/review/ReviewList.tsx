@@ -1,11 +1,12 @@
 import { useState } from 'react';
 import styled from '@emotion/styled';
+
 import Rating from '@/components/my-page/review/Rating';
+import EmptyDataMessage from '@/components/common/EmptyDataMessage';
 import { MyDynamicTemplate } from '@/styles/commonStyles';
 import { useMyReviews } from '@/hooks/query/pickles';
 import { ReviewData } from '@/apis/types/pickles.type';
 import { formatYYMMDD } from '@/utils/formatData';
-import EmptyDataMessage from '@/components/common/EmptyDataMessage';
 
 export default function ReviewList() {
   const [checkedReviews, setCheckedReviews] = useState<string[]>([]);
