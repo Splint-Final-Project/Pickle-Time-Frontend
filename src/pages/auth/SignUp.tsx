@@ -1,8 +1,9 @@
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useForm } from 'react-hook-form';
+
 import { SignUpFormValues } from '@/apis/types/auth.type';
 import useAuth from '@/hooks/zustand/useAuth';
-import { useState } from 'react';
-import { useForm } from 'react-hook-form';
-import { useNavigate } from 'react-router-dom';
 import {
   Container,
   SubTitle,
@@ -17,7 +18,6 @@ import {
   ErrorMessage,
   SubmitButton,
 } from './SignUpStyled';
-import { showErrorToast } from '@/components/common/Toast';
 
 export default function SignUp() {
   const {
