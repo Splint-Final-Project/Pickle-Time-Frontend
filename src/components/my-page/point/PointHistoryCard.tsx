@@ -57,6 +57,7 @@ const S = {
     height: 3rem;
     border-radius: 99rem;
     border: 1.8px solid #8b8d94;
+    padding-top: 0.3rem;
 
     color: ${({ theme, color }) => theme.color[color]};
     font-size: 1.7rem;
