@@ -15,12 +15,19 @@ import routes from '@/constants/routes';
 import useAuth from '@/hooks/zustand/useAuth';
 import useBottomSheetModal from '@/hooks/zustand/useBottomSheetModal';
 import usePickleCreation from '@/hooks/zustand/usePickleCreation';
+import { SortByOptions } from '@/apis/types/pickles.type';
 
 export default function Home() {
   const navigate = useNavigate();
+  const [sortBy, setSortBy] = useState<SortByOptions['option']>('전체');
+  
   const { user, signOut } = useAuth();
   const { inProgress } = usePickleCreation();
   const { handleOpen } = useBottomSheetModal(state => state);
+  
+  const handleSortChange = (sort: SortByOptions['option']) => {
+    setSortBy(sort);
+  };
 
   return (
     <div style={{ paddingBottom: '8.5rem' }}>
@@ -62,8 +69,8 @@ export default function Home() {
       {/* 전체 피클 */}
       <PickleList.Container>
         <PickleList.Header category="total" />
-        <SortButtons />
-        <InfinitePickleCardList />
+        <SortButtons onSortChange={handleSortChange} />
+        <InfinitePickleCardList sortBy={sortBy} />
       </PickleList.Container>
       <S.FloatingButton
         type="button"

@@ -5,7 +5,20 @@ const client = axios.create({
   headers: {
     'Content-type': 'application/json',
   },
-  withCredentials: true,
+  // withCredentials: true,
 });
+
+client.interceptors.request.use(
+  config => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      config.headers.Authorization = token;
+    }
+    return config;
+  },
+  error => {
+    return Promise.reject(error);
+  },
+);
 
 export default client;

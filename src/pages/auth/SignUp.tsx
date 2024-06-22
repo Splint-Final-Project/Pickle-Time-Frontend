@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
+import client from '@/apis/axios';
 
 import { SignUpFormValues } from '@/apis/types/auth.type';
 import useAuth from '@/hooks/zustand/useAuth';
@@ -17,7 +18,11 @@ import {
   InputButton,
   ErrorMessage,
   SubmitButton,
+  VerifyButton,
 } from './SignUpStyled';
+import { showErrorToast, showToast } from '@/components/common/Toast';
+
+
 
 export default function SignUp() {
   const {
@@ -30,13 +35,32 @@ export default function SignUp() {
 
   const [revealPw, setRevealPw] = useState(false);
   const [revealConfirmPw, setRevealConfirmPw] = useState(false);
+  const [isVerificationOpen, setIsVerificationOpen] = useState(false);
+  const [isFetching, setIsFetching] = useState(false);
   const navigate = useNavigate();
   const { signUp } = useAuth();
   async function handleSignUp(data: SignUpFormValues) {
     try {
       await signUp(data);
-      navigate('/sign-up2');
+      navigate(routes.signUp2);
     } catch (e: any) {}
+  }
+
+  async function handleVerifyButtonClick() {
+    if (errors?.email) {
+      showErrorToast('이메일을 입력해 주세요.');
+      return;
+    }
+    try {
+      setIsFetching(true);
+      await client.post('/auth/verify-email', { email: getValues('email') });
+      showToast('인증번호가 전송되었습니다.');
+      setIsVerificationOpen(true);
+    } catch (e: any) {
+      showErrorToast(e.response.data.error);
+    } finally {
+      setIsFetching(false);
+    }
   }
 
   return (
@@ -61,7 +85,8 @@ export default function SignUp() {
               id="email"
               type="email"
               placeholder="user@pickletime.com"
-              autoComplete="off"
+              autoComplete="new-password"
+              disabled={isVerificationOpen}
               {...register('email', {
                 required: true,
                 pattern: {
@@ -70,18 +95,55 @@ export default function SignUp() {
                 },
               })}
             />
-            <InputButton
-              src="/icons/clear.svg"
-              alt="clear"
+            <VerifyButton
+              disabled={isFetching}
               onClick={e => {
+                e.preventDefault();
                 e.stopPropagation();
-                setValue('email', '', { shouldValidate: true });
+                handleVerifyButtonClick();
               }}
-            />
+            >
+              {isVerificationOpen ? '재전송' : '인증하기'}
+            </VerifyButton>
           </InputContainer>
-          {errors.email?.message && <ErrorMessage>{errors.email.message?.toString()}</ErrorMessage>}
+          {isVerificationOpen && (
+            <InputContainer
+              $isError={false}
+              onClick={() => {
+                const inputField = document.getElementById('verify') as HTMLInputElement;
+                inputField.focus();
+              }}
+              style={{ marginTop: '5px', backgroundColor: '#fff', border: 'none', padding: '0 14px', height: '40px' }}
+            >
+              <InputField
+                id="verifySearch"
+                type="number"
+                autoComplete="new-password"
+                placeholder="인증번호 입력"
+                {...register('verify', {
+                  required: {
+                    value: true,
+                    message: '이메일 인증을 완료해 주세요.',
+                  },
+                  min: {
+                    value: 100000,
+                    message: '여섯 자리 숫자를 입력해 주세요.',
+                  },
+                  max: {
+                    value: 999999,
+                    message: '여섯 자리 숫자를 입력해 주세요.',
+                  },
+                })}
+                style={{
+                  borderBottom: '1px solid #e0e0e0',
+                  height: '40px',
+                  borderRadius: '0',
+                }}
+              />
+            </InputContainer>
+          )}
+          {errors.verify?.message && <ErrorMessage>{errors.verify.message?.toString()}</ErrorMessage>}
         </FormField>
-        <span>TODO: 이메일 중복 확인 및 이메일 인증 로직</span>
 
         <FormField disabled={isSubmitting}>
           <Label>비밀번호를 작성해 주세요</Label>
@@ -97,7 +159,7 @@ export default function SignUp() {
               id="password"
               type={revealPw ? 'text' : 'password'}
               placeholder="********"
-              autoComplete="off"
+              autoComplete="new-password"
               {...register('password', {
                 required: true,
                 minLength: {
@@ -132,7 +194,7 @@ export default function SignUp() {
               id="checkPassword"
               type={revealConfirmPw ? 'text' : 'password'}
               placeholder="********"
-              autoComplete="off"
+              autoComplete="new-password"
               {...register('checkPassword', {
                 required: true,
                 validate: value => value === getValues('password') || '비밀번호가 일치하지 않습니다.',

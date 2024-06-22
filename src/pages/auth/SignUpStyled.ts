@@ -14,6 +14,7 @@ export {
   Label,
   SubmitButton,
   FinishButton,
+  VerifyButton,
 };
 
 const Container = styled.div`
@@ -47,6 +48,7 @@ const Form = styled.form`
 const FormField = styled.fieldset`
   display: flex;
   flex-direction: column;
+  position: relative;
   width: 100%;
 `;
 
@@ -95,6 +97,17 @@ const InputField = styled.input`
   }
 `;
 
+const VerifyButton = styled.button`
+  position: absolute;
+  right: 15px;
+  bottom: 7px;
+  width: 49px;
+  height: 25px;
+  /* background-color: lightgray; */
+  border: none;
+  border-radius: 4px;
+`;
+
 const InputButton = styled.img`
   position: absolute;
   right: 1.5rem;
@@ -106,7 +119,7 @@ const InputButton = styled.img`
 
 const ErrorMessage = styled.span`
   position: absolute;
-  margin-top: 10.2rem;
+  bottom: -25px;
   color: ${({ theme }) => theme.color.error};
   ${({ theme }) => theme.typography.body2};
   line-height: normal;

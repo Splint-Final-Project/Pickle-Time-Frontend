@@ -1,5 +1,5 @@
 export const API = Object.freeze({
-  AUTH: '/user',
+  AUTH: '/auth',
   USER: '/users',
   PICKLE: '/pickle',
   MESSAGES: '/messages',

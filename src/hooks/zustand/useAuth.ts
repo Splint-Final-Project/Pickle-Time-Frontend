@@ -11,7 +11,7 @@ import toast from 'react-hot-toast';
 interface State {
   user: any | null;
   signIn: (data: SignInFormValues) => any;
-  setMe: (data: any) => any;
+  setMe: (token: string, data: any) => any;
   signUp: (data: SignUpFormValues) => any;
   signUp2: (data: SignUpFormValues2) => any;
   signOut: () => any;
@@ -25,6 +25,7 @@ const useAuth = create(
       signIn: async (data: SignInFormValues) => {
         try {
           const res = await authRequests.signIn(data);
+          localStorage.setItem('token', res.token);
           set({ user: res.user });
           return res.user.status;
         } catch (err: any) {
@@ -32,13 +33,15 @@ const useAuth = create(
           throw new Error();
         }
       },
-      setMe: (data: any) => {
+      setMe: (token: string, data: any) => {
+        localStorage.setItem('token', token);
         set({ user: data });
       },
 
       signUp: async (data: SignUpFormValues) => {
         try {
           const res = await authRequests.signUp(data);
+          localStorage.setItem('token', res.token);
           set({ user: res.user });
         } catch (err: any) {
           showErrorToast(err.response?.data.error || '회원가입에 실패했습니다.');
@@ -57,6 +60,7 @@ const useAuth = create(
       signOut: async () => {
         try {
           set({ user: null });
+          localStorage.removeItem('token');
           const res = await authRequests.signOut();
         } catch (e) {
           console.log(e);
