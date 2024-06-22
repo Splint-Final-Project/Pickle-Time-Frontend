@@ -19,7 +19,7 @@ import ConfirmationModal from '@/components/common/modal/ConfirmationModal';
 
 import useBottomSheetModal from '@/hooks/zustand/useBottomSheetModal';
 import usePickleEdit from '@/hooks/zustand/usePickleEdit';
-import { useEditPickleMutation, useGetPickelDetail } from '@/hooks/query/pickles';
+import { useEditPickleMutation, useGetPickleDetail } from '@/hooks/query/pickles';
 import useAuth from '@/hooks/zustand/useAuth';
 import { showErrorToast } from '@/components/common/Toast';
 
@@ -45,7 +45,7 @@ export default function PickleEdit() {
   const { id } = useParams();
   const navigate = useNavigate();
   const { handleOpen } = useBottomSheetModal(state => state);
-  const { data } = useGetPickelDetail(id || '');
+  const { data } = useGetPickleDetail(id || '');
   const pickleDetailData = data?.data;
   const { mutate } = useEditPickleMutation(id || '', {
     title,

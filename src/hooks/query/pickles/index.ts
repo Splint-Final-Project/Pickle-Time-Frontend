@@ -85,7 +85,7 @@ export const useGetSpecialPickles = (type: 'hotTime' | 'popular') => {
   }
 };
 
-export const useGetPickelDetail = (pickleId: string) => {
+export const useGetPickleDetail = (pickleId: string) => {
   return useQuery({
     queryKey: ['pickles', pickleId],
     queryFn: async () => {
