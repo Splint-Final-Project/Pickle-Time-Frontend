@@ -1,9 +1,9 @@
 import styled from '@emotion/styled';
 import PointHistoryCard from '@/components/my-page/point/PointHistoryCard';
+import EmptyDataMessage from '@/components/common/EmptyDataMessage';
 import { MyDynamicTemplate } from '@/styles/commonStyles';
 import { useMyPoints } from '@/hooks/query/points';
 import { useEffect } from 'react';
-import EmptyDataMessage from '@/components/common/EmptyDataMessage';
 
 export default function PointList() {
   const { data } = useMyPoints();

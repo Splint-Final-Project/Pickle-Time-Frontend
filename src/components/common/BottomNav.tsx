@@ -13,55 +13,6 @@ interface NavItemProps {
   children: React.ReactNode;
 }
 
-const S = {
-  Container: styled.div`
-    position: fixed;
-    z-index: 99999;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 100%;
-    max-width: 767px;
-    height: 8.5rem;
-    background-color: #fff;
-    padding: 10px;
-    border: 1px solid #ddd;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-radius: 20px 20px 0 0;
-    box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.07);
-
-    @media (max-width: ${breakpoints.mobile}) {
-      max-width: 100%;
-    }
-  `,
-  NavItem: styled(({ active, ...props }: NavItemProps) => <Link {...props} />)<{ active: boolean }>`
-    text-decoration: none;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    width: 10rem;
-    height: 50px;
-    opacity: ${props => (props.active ? 1 : 0.5)};
-
-    @media (max-width: ${breakpoints.mobile}) {
-      /* margin: 0 10px; */
-    }
-    @media (max-width: 500px) {
-      font-size: 1.2rem;
-    }
-  `,
-  Icon: styled.img`
-    height: 100%;
-    margin-bottom: 8px;
-    @media (max-width: 500px) {
-      height: 45%;
-    }
-  `,
-};
-
 export default function BottomNav() {
   const location = useLocation();
 
@@ -89,3 +40,52 @@ export default function BottomNav() {
     </S.Container>
   );
 }
+
+const S = {
+  Container: styled.div`
+    position: fixed;
+    bottom: 0;
+    left: 50%;
+
+    display: flex;
+    z-index: 9999;
+    justify-content: space-between;
+    align-items: center;
+
+    transform: translateX(-50%);
+    width: 100%;
+    max-width: 76.7rem;
+    height: 8.5rem;
+    padding: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 2rem 2rem 0 0;
+    background-color: #fff;
+    box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.07);
+
+    @media (max-width: ${breakpoints.mobile}) {
+      max-width: 100%;
+    }
+  `,
+
+  NavItem: styled(({ active, ...props }: NavItemProps) => <Link {...props} />)<{ active: boolean }>`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 10rem;
+    height: 5rem;
+    opacity: ${props => (props.active ? 1 : 0.5)};
+    text-decoration: none;
+
+    @media (max-width: 500px) {
+      font-size: 1.2rem;
+    }
+  `,
+  Icon: styled.img`
+    height: 100%;
+    margin-bottom: 0.8rem;
+    @media (max-width: 500px) {
+      height: 45%;
+    }
+  `,
+};

@@ -1,22 +1,27 @@
-import { useRef } from 'react';
-
+import { SortByOptions } from '@/apis/types/pickles.type';
 import WholePickleCard from '@/components/picklecard/WholePickleCard';
-import InfinitePickleCardLoader from '@/components/picklecard/InfinitePickleCardLoader';
-import useIntersectionObserver from '@/hooks/useIntersectionObserver';
 import { useGetInfinitePickles } from '@/hooks/query/pickles';
-import { WholePickle } from '@/apis/types/pickles.type';
 import { GridTemplate } from '@/styles/commonStyles';
+import { useEffect, useState } from 'react';
 
-export default function InfinitePickleCardList() {
-  const { data: infiniteWholePickleData } = useGetInfinitePickles();
+interface InfinitePickleCardListProps {
+  sortBy: SortByOptions['option'];
+}
+
+export default function InfinitePickleCardList({ sortBy }: InfinitePickleCardListProps) {
+  const { data, isFetching } = useGetInfinitePickles(sortBy);
+
+  const [pickleData, setPickleData] = useState(data?.data || []);
+
+  useEffect(() => {
+    if (!isFetching && data) {
+      setPickleData(data.data);
+    }
+  }, [data, isFetching]);
 
   return (
-    <>
-      <GridTemplate>
-        {infiniteWholePickleData?.data.map((pickle: any) =>
-          <WholePickleCard key={pickle.id} {...pickle} type={'study'} />
-        )}
-      </GridTemplate>
-    </>
+    <GridTemplate>
+      {pickleData?.map((pickle: any) => <WholePickleCard key={pickle.id} {...pickle} type={'study'} />)}
+    </GridTemplate>
   );
 }

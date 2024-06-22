@@ -1,7 +1,6 @@
 import styled from '@emotion/styled';
 import HeartButton from '@/components/common/button/HeartButton';
 import { useDeletePickleLikeMutation, usePickleLikeMutation, useGetLikeCount } from '@/hooks/query/like';
-import { useState } from 'react';
 
 interface LikeCountProps {
   pickleId: string;

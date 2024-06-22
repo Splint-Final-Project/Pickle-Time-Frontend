@@ -1,5 +1,6 @@
-import { map, sigus, sis } from '@/constants/areas';
-import { SigusType } from '@/pages/auth/SignUp2';
+import { useState } from 'react';
+import styled from '@emotion/styled';
+
 import {
   AreaSelector,
   GuElement,
@@ -9,9 +10,9 @@ import {
   SiElement,
   SiSelector,
 } from '@/pages/auth/SignUpStyled';
-import styled from '@emotion/styled';
-import { useState } from 'react';
-import Button from '../button/Button';
+import { SigusType } from '@/pages/auth/SignUp2';
+import Button from '@/components/common/button/Button';
+import { map, sigus, sis } from '@/constants/areas';
 import { BUTTON_TYPE } from '@/constants/BUTTON';
 
 interface AreaCodes {

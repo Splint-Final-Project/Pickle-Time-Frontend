@@ -1,11 +1,11 @@
 import { useState, useEffect, useRef } from 'react';
+import { keyframes } from '@emotion/react';
 import styled from '@emotion/styled';
+
 import StarRating, { Rating } from '@/components/my-page/review/StarRating';
 import Button from '@/components/common/button/Button';
 import PLACEHOLDER from '@/constants/PLACEHOLDER';
 import { useCreateReviewMutation } from '@/hooks/query/pickles';
-import { keyframes } from '@emotion/react';
-import { useQueryClient } from '@tanstack/react-query';
 
 /**
  * 리뷰작성 모달
@@ -22,8 +22,8 @@ interface Props {
 export default function ReviewModal({ pickleId, pickleTitle, handleClose }: Props) {
   const [selectedRating, setSelectedRating] = useState(0);
   const [isRatingSelected, setIsRatingSelected] = useState(false);
-  const reviewRef = useRef<HTMLTextAreaElement>(null);
   const [showReviewInput, setShowReviewInput] = useState(false);
+  const reviewRef = useRef<HTMLTextAreaElement>(null);
 
   const { mutate: postReviewMutate } = useCreateReviewMutation(pickleId, () => handleClose());
 
@@ -40,16 +40,13 @@ export default function ReviewModal({ pickleId, pickleTitle, handleClose }: Prop
 
   const handleReviewSubmit = () => {
     postReviewMutate({ stars: selectedRating, content: reviewRef.current?.value });
-    // setSelectedRating(0);
-    // setIsRatingSelected(false);
-    // setReviewText('');
   };
 
   useEffect(() => {
     if (isRatingSelected) {
       const timer = setTimeout(() => {
         setShowReviewInput(true);
-      }, 300);
+      }, 380);
       return () => clearTimeout(timer);
     }
   }, [isRatingSelected]);
@@ -60,7 +57,7 @@ export default function ReviewModal({ pickleId, pickleTitle, handleClose }: Prop
         <S.FadeInContainer>
           <S.ReviewInputSection>
             <S.Title>리뷰쓰기</S.Title>
-            <S.PickleName className="input-section">{pickleTitle}</S.PickleName>
+            <S.PickleName className="input-section">{pickleTitle}비비큐 황올 먹방 촬영</S.PickleName>
             <StarRating selectedRating={selectedRating} onStarHover={handleStarHover} onStarClick={handleStarClick} />
             <S.TextArea placeholder={PLACEHOLDER.REVIEW.WRITE} ref={reviewRef} />
             <Button onClick={handleReviewSubmit}>작성 완료하기</Button>
@@ -90,22 +87,20 @@ export default function ReviewModal({ pickleId, pickleTitle, handleClose }: Prop
 const fadeIn = keyframes`
   from {
     opacity: 0;
-    transform: translateY(10px);
   }
   to {
     opacity: 1;
-    transform: translateY(0);
   }
 `;
 
 const fadeOut = keyframes`
-  from {
+  0% {
     opacity: 1;
-    transform: translateY(0);
+    height: 200px;
   }
-  to {
+  100% {
     opacity: 0;
-    transform: translateY(10px);
+    height: 450px;
   }
 `;
 
@@ -115,7 +110,7 @@ const S = {
     flex-direction: column;
     align-items: center;
     text-align: center;
-    max-height: 46rem;
+    /* max-height: 46rem; */
   `,
 
   ReviewInputSection: styled.div`
@@ -132,6 +127,7 @@ const S = {
 
   RatingChoiceSection: styled.div`
     padding: 4rem 0 4rem;
+    height: 200px;
 
     & .rating-section {
       margin: 0.5rem 0 4.5rem;
@@ -143,7 +139,7 @@ const S = {
     flex-direction: column;
     align-items: center;
     width: 100%;
-    height: 100%;
+    height: 450px;
     animation: ${fadeIn} 0.4s ease-in-out;
   `,
 
@@ -152,7 +148,6 @@ const S = {
     flex-direction: column;
     align-items: center;
     width: 100%;
-    height: 100%;
     animation: ${fadeOut} 0.4s ease-in-out;
   `,
 

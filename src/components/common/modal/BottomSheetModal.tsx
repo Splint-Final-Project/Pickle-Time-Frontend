@@ -35,9 +35,7 @@ export default function BottomSheetModal() {
           <S.CloseBtn onClick={closeModal}>
             <CloseIcon />
           </S.CloseBtn>
-          {/* <S.DragBarWrap>
-            <S.DragBar />
-          </S.DragBarWrap> */}
+
           <Component handleClose={closeModal} callback={callback} {...props} />
         </S.Container>
       </S.BackLayout>,
@@ -88,17 +86,5 @@ const S = {
     position: absolute;
     top: 2rem;
     left: 1.6rem;
-  `,
-  DragBarWrap: styled.div`
-    display: flex;
-    justify-content: center;
-    margin-bottom: 0.8rem;
-  `,
-  DragBar: styled.span`
-    display: inline-block;
-    width: 3rem;
-    height: 1rem;
-    background: #c5c5c5;
-    border-radius: 20px;
   `,
 };
