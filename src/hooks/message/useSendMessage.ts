@@ -36,12 +36,11 @@ export const useSendMessage = () => {
     setLoading(true);
 
     try {
-      // socket.emit('chatBotMessage', message);
+      socket.emit('chatBotMessage', message);
+
       const data = await messages.sendByConversationId({ message }, conversationId);
 
       if (data.error) throw new Error(data.error);
-
-      setMessages([...stateOfMessage, data]);
     } catch (error) {
       console.error(error);
     } finally {
