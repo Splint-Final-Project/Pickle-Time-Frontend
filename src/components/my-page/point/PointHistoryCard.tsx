@@ -19,11 +19,20 @@ export default function PointHistoryCard({ date, type, amount, remaining, messag
       <S.HistoryBox>
         <S.PointIcon color={pointColor}>P</S.PointIcon>
         <S.PointHistory color={pointColor}>
-          <span className="point">
+          <div className="point">
             {sign}
             {amount}P
-          </span>
-          <span className="history">{message}</span>
+          </div>
+          <S.History>
+            <div>{message}</div>
+            <div
+              style={{
+                color: '#8b8d94',
+              }}
+            >
+              총 {remaining} P
+            </div>
+          </S.History>
         </S.PointHistory>
       </S.HistoryBox>
     </S.Container>
@@ -65,6 +74,7 @@ const S = {
   `,
 
   PointHistory: styled.div<{ color: 'primary' | 'accent2' }>`
+    flex: 1;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -74,8 +84,13 @@ const S = {
       color: ${({ theme, color }) => theme.color[color]};
       ${({ theme }) => theme.typography.subTitle4};
     }
-    & .history {
-      ${({ theme }) => theme.typography.detail};
-    }
+  `,
+
+  History: styled.div`
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    ${({ theme }) => theme.typography.detail};
   `,
 };

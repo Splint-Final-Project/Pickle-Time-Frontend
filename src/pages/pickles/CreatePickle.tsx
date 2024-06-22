@@ -21,6 +21,7 @@ import DateSelect from '@/components/pickleCreate/dateSelect/DateSelect';
 import CreationPayment from '@/components/pickleCreate/CreationPayment';
 import useBottomSheetModal from '@/hooks/zustand/useBottomSheetModal';
 import ConfirmationModal from '@/components/common/modal/ConfirmationModal';
+import { useEffect } from 'react';
 
 export default function CreatePickle() {
   const {
@@ -46,6 +47,9 @@ export default function CreatePickle() {
 
   const navigate = useNavigate();
   const { handleOpen } = useBottomSheetModal(state => state);
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [step]);
 
   return (
     <Container>

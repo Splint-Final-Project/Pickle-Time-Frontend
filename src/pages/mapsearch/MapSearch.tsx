@@ -194,7 +194,7 @@ export default function MapSearch() {
           )}
           <Map
             center={{ lat: location.latitude, lng: location.longitude }}
-            style={{ width: '100%', height: 'calc(100% + 70px)', marginTop: '-140px' }}
+            style={{ width: '100%', height: 'calc(100% + 100px)', marginTop: '-150px' }}
             level={level}
             onCreate={setMap}
           >
@@ -306,7 +306,7 @@ const Container = styled.div`
   flex-direction: column;
   align-items: flex-start;
   width: 100%;
-  height: 100%;
+  height: 100dvh;
 `;
 
 export const Title = styled.div`
@@ -328,7 +328,7 @@ export const Title = styled.div`
 
 const MapContainer = styled.div`
   width: 100%;
-  height: 100vh;
+  height: 100%;
   position: relative;
   overflow: hidden;
   div {

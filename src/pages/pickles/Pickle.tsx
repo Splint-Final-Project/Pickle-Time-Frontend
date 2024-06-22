@@ -125,9 +125,7 @@ export default function Pickle() {
             disabled={(!amILeader && amIMember) || full || over}
             onClick={() =>
               amILeader
-                ? navigate('/pickle-edit/' + pickleId, {
-                    replace: true,
-                  })
+                ? navigate('/pickle-edit/' + pickleId)
                 : navigate('/pickle-join/' + pickleId, {
                     replace: true,
                   })

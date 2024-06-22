@@ -1,11 +1,14 @@
 import { useState, useEffect } from 'react';
 import { keyframes } from '@emotion/react';
 import styled from '@emotion/styled';
+import { useQueryClient } from '@tanstack/react-query';
 
 import StarRating, { Rating } from '@/components/my-page/review/StarRating';
 import Button from '@/components/common/button/Button';
 import PLACEHOLDER from '@/constants/PLACEHOLDER';
 import { useCreateReviewMutation } from '@/hooks/query/pickles';
+
+
 
 /**
  * 리뷰작성 모달
@@ -22,9 +25,8 @@ interface Props {
 export default function ReviewModal({ pickleId, pickleTitle, handleClose }: Props) {
   const [selectedRating, setSelectedRating] = useState(0);
   const [isRatingSelected, setIsRatingSelected] = useState(false);
-  const [reviewText, setReviewText] = useState('');
+  const reviewRef = useRef<HTMLTextAreaElement>(null);
   const [showReviewInput, setShowReviewInput] = useState(false);
-  console.log(pickleId);
 
   const { mutate: postReviewMutate } = useCreateReviewMutation(pickleId, () => handleClose());
 
@@ -40,10 +42,10 @@ export default function ReviewModal({ pickleId, pickleTitle, handleClose }: Prop
   };
 
   const handleReviewSubmit = () => {
-    postReviewMutate({ stars: selectedRating, content: reviewText });
-    setSelectedRating(0);
-    setIsRatingSelected(false);
-    setReviewText('');
+    postReviewMutate({ stars: selectedRating, content: reviewRef.current?.value });
+    // setSelectedRating(0);
+    // setIsRatingSelected(false);
+    // setReviewText('');
   };
 
   useEffect(() => {
@@ -63,11 +65,7 @@ export default function ReviewModal({ pickleId, pickleTitle, handleClose }: Prop
             <S.Title>리뷰쓰기</S.Title>
             <S.PickleName className="input-section">{pickleTitle}</S.PickleName>
             <StarRating selectedRating={selectedRating} onStarHover={handleStarHover} onStarClick={handleStarClick} />
-            <S.TextArea
-              placeholder={PLACEHOLDER.REVIEW.WRITE}
-              value={reviewText}
-              onChange={e => setReviewText(e.target.value)}
-            />
+            <S.TextArea placeholder={PLACEHOLDER.REVIEW.WRITE} ref={reviewRef} />
             <Button onClick={handleReviewSubmit}>작성 완료하기</Button>
           </S.ReviewInputSection>
         </S.FadeInContainer>
