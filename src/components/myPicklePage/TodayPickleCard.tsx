@@ -3,7 +3,7 @@ import styled from '@emotion/styled';
 import CardBackImg from '@/assets/images/todayPickleCardBackImg.svg';
 import ClockIcon from '@/assets/icons/ClockIcon';
 import AddressIcon from '@/assets/icons/AddressIcon';
-import Character from '@/assets/icons/character.svg';
+import Character from '/icons/character.svg';
 
 import { formatTime } from '@/utils/dateCalculate';
 import { TodayPickleDataType } from './TodayPickleListContainer';

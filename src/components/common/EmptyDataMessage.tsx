@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import EmptyCharacter from '@/assets/icons/emptyDataCharacter.svg';
+import EmptyCharacter from '/icons/emptyDataCharacter.svg';
 interface EmptyDataMessageProps {
   children: string;
 }
