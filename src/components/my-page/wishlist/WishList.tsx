@@ -1,8 +1,8 @@
 import styled from '@emotion/styled';
 import SpecialPickleCard from '@/components/picklecard/SpecialPickleCard';
+import EmptyDataMessage from '@/components/common/EmptyDataMessage';
 import { MyDynamicTemplate, WishListGridTemplate } from '@/styles/commonStyles';
 import { useGetLikePickles } from '@/hooks/query/like';
-import EmptyDataMessage from '@/components/common/EmptyDataMessage';
 
 export default function WishList() {
   const { data: wishListData } = useGetLikePickles();

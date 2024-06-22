@@ -1,9 +1,9 @@
 import { useState, useEffect, useRef } from 'react';
 import styled from '@emotion/styled';
+
 import PointList from '@/components/my-page/point/PointList';
 import ReviewList from '@/components/my-page/review/ReviewList';
 import WishList from '@/components/my-page/wishlist/WishList';
-import { MY_MENU } from '@/constants/BUTTON';
 type MyMenu = 'point' | 'review' | 'wishlist';
 
 export default function DynamicRender({ menu }: { menu: MyMenu }) {

@@ -1,6 +1,6 @@
 import { ReactNode } from 'react';
-import TagDeleteIcon from '/icons/TagDelete.svg';
 import styled from '@emotion/styled';
+import TagDeleteIcon from '/icons/TagDelete.svg';
 
 interface TagInterface {
   children: ReactNode;
@@ -32,7 +32,6 @@ const S = {
 
   Text: styled.span`
     color: #5dc26d;
-    font-family: Pretendard;
     font-size: 1.2rem;
     font-weight: 500;
     font-style: normal;
@@ -43,7 +42,7 @@ const S = {
     width: 1.1rem;
     height: 1.1rem;
     flex-shrink: 0;
-    margin-left: 0.5rem; /* 아이콘과 텍스트 사이의 간격 조정 */
-    cursor: pointer; /* 클릭 가능한 아이콘을 위한 커서 변경 */
+    margin-left: 0.5rem;
+    cursor: pointer;
   `,
 };

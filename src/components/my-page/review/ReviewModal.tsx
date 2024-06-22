@@ -1,10 +1,11 @@
 import { useState, useEffect } from 'react';
+import { keyframes } from '@emotion/react';
 import styled from '@emotion/styled';
+
 import StarRating, { Rating } from '@/components/my-page/review/StarRating';
 import Button from '@/components/common/button/Button';
 import PLACEHOLDER from '@/constants/PLACEHOLDER';
 import { useCreateReviewMutation } from '@/hooks/query/pickles';
-import { keyframes } from '@emotion/react';
 
 /**
  * 리뷰작성 모달
