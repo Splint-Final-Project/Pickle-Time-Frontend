@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import CheckIcon from '@/assets/icons/checkIcon.svg';
+import CheckIcon from '/icons/checkIcon.svg';
 import useBottomSheetModal from '@/hooks/zustand/useBottomSheetModal';
 import { useCallback, useRef } from 'react';
 

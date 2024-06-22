@@ -11,7 +11,7 @@ import betweenLength from '@/utils/betweenLength';
 import { When } from '@/apis/types/pickles.type';
 import { useGeolocation } from '@/hooks/useGeolocation';
 import CardBackImg from '@/assets/images/todayPickleCardBackImg.svg';
-import Character from '@/assets/icons/character.svg';
+import Character from '/icons/character.svg';
 import { css } from '@emotion/react';
 import client from '@/apis/axios';
 import toast from 'react-hot-toast';
