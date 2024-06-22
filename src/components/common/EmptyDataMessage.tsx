@@ -16,18 +16,18 @@ const S = {
   Wrapper: styled.div`
     margin-top: 4rem;
     width: 100%;
-    font-size: 3.2rem;
-    color: #8b8d94;
-    font-weight: 700;
+    font-size: 1.4rem;
+    font-weight: 600;
     position: relative;
     text-align: center;
     padding: 1rem;
+    color: #8b8d94;
   `,
 
   Message: styled.span`
     background-image: url(${EmptyCharacter});
     background-repeat: no-repeat;
-    background-position: 5px 2px;
+    background-position: 1px 0px;
     padding: 2rem 0;
   `,
 };
