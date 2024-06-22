@@ -1,53 +1,38 @@
 import { Suspense, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import styled from '@emotion/styled';
-import BackDropModal from '@/components/common/modal/BackDropModal';
+
 import Carousel from '@/components/carousel/Carousel';
 import PickleList from '@/components/picklecardlist/PickleCardListElement';
 import PickleCardList from '@/components/picklecardlist/PickleCardList';
-import ErrorBoundary from '@/components/common/ErrorBoundary';
-import SkeletonPickleCardList from '@/components/picklecardlist/PickleCardList.Skeleton';
-import ReviewModal from '@/components/my-page/review/ReviewModal';
 import SortButtons from '@/components/common/button/SortButtons';
 import InfinitePickleCardList from '@/components/picklecard/InfinitePickleCardList';
-import Button from '@/components/common/button/Button';
-import { BUTTON_TYPE } from '@/constants/BUTTON';
+import ErrorBoundary from '@/components/common/ErrorBoundary';
+import SkeletonPickleCardList from '@/components/picklecardlist/PickleCardList.Skeleton';
+import KeepCreatingModal from '@/components/common/modal/KeepCreatingModal';
 
 import routes from '@/constants/routes';
 import useAuth from '@/hooks/zustand/useAuth';
 import useBottomSheetModal from '@/hooks/zustand/useBottomSheetModal';
-import ConfirmationModal from '@/components/common/modal/ConfirmationModal';
-import ShareModal from '@/components/common/modal/ShareModal';
-import KeepCreatingModal from '@/components/common/modal/KeepCreatingModal';
 import usePickleCreation from '@/hooks/zustand/usePickleCreation';
 import { SortByOptions } from '@/apis/types/pickles.type';
 
 export default function Home() {
   const navigate = useNavigate();
-
-  const [isModalOpen, setModalOpen] = useState(false);
   const [sortBy, setSortBy] = useState<SortByOptions['option']>('전체');
-
+  
+  const { user, signOut } = useAuth();
   const { inProgress } = usePickleCreation();
   const { handleOpen } = useBottomSheetModal(state => state);
-
-  const openModal = () => setModalOpen(true);
-  const closeModal = () => setModalOpen(false);
-
-  const handleConfirmAction = () => {
-    console.log('확인을 누르셨어요');
-  };
-
+  
   const handleSortChange = (sort: SortByOptions['option']) => {
     setSortBy(sort);
   };
 
-  const { user, signOut } = useAuth();
-
   return (
     <div style={{ paddingBottom: '8.5rem' }}>
       <S.TopNavBarContainer>
-        <S.Logo src="/images/logotext.svg" onClick={() => navigate('/')} />
+        <S.Logo src="/images/logotext.svg" onClick={() => navigate(routes.home)} />
         <S.Profile>
           {user ? (
             <>
@@ -58,9 +43,9 @@ export default function Home() {
           )}
         </S.Profile>
       </S.TopNavBarContainer>
-      <S.SearchBarContainer onClick={() => navigate('/search')}>
+      <S.SearchBarContainer onClick={() => navigate(routes.pickleSearchResults)}>
         <S.SearchInput>지역, 목표 등</S.SearchInput>
-        <S.SearchIcon src="/icons/search.svg" alt="search" />
+        <S.SearchIcon src="/icons/search.svg" alt="검색바 아이콘" />
       </S.SearchBarContainer>
       <Carousel />
       {/* 인기 급상승 피클 */}
@@ -94,15 +79,15 @@ export default function Home() {
             handleOpen({
               renderComponent: KeepCreatingModal,
               callback: () => {
-                navigate('/pickle-create');
+                navigate(routes.pickleCreate);
               },
             });
           } else {
-            navigate('/pickle-create');
+            navigate(routes.pickleCreate);
           }
         }}
       >
-        <S.CreatePickleIcon src="/icons/createPickle.svg" alt="" />
+        <S.CreatePickleIcon src="/icons/createPickle.svg" alt="피클생성 아이콘" />
       </S.FloatingButton>
     </div>
   );
@@ -121,55 +106,42 @@ const S = {
     padding: 2.8rem 2.8rem 0;
   `,
   SearchBarContainer: styled.div`
-    cursor: pointer;
     position: relative;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 14px 11px;
-    margin: 18px 28px;
+    padding: 1.4rem 1.1rem;
+    margin: 1.8rem 2.8rem;
     background-color: #f4f7f6;
-    border-radius: 8px;
+    border-radius: 0.8rem;
+    cursor: pointer;
   `,
   SearchInput: styled.div`
     width: 100%;
-    color: var(--Input-Text, #bababa);
-    font-size: 14px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
     border: none;
     background-color: transparent;
+    color: ${({ theme }) => theme.color.inputText};
+    ${({ theme }) => theme.typography.body3};
   `,
   SearchIcon: styled.img`
     width: 1.5rem;
     height: 1.5rem;
   `,
   Logo: styled.img`
-    /* margin: 2rem 0rem 1.4rem; */
-    width: 100px;
+    width: 10rem;
     cursor: pointer;
   `,
   Profile: styled.div`
-    color: var(--Sub-Text, var(--Tab-Bar-Color-2, #8b8d94));
-    font-size: 14px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: normal;
+    color: ${({ theme }) => theme.color.sub};
+    ${({ theme }) => theme.typography.body1};
+
     span {
-      color: var(--Basic, #181f29);
-      font-size: 14px;
-      font-style: normal;
-      font-weight: 500;
-      line-height: normal;
+      color: ${({ theme }) => theme.color.basic};
     }
   `,
   Logout: styled.button`
-    color: var(--Sub-Text, var(--Tab-Bar-Color-2, #8b8d94));
-    font-size: 14px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: normal;
+    color: ${({ theme }) => theme.color.sub};
+    ${({ theme }) => theme.typography.body1};
   `,
   PickleCardListContainer: styled.div`
     border: 1px solid black;
@@ -177,20 +149,19 @@ const S = {
   FloatingButton: styled.button`
     position: fixed;
     left: 50%;
-    transform: translateX(30rem);
     bottom: 10rem;
-
-    width: 5.7rem;
-    height: 5.7rem;
-
-    background-color: ${({ theme }) => theme.color.primary};
-    border-radius: 50%;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transform: translateX(30rem);
     display: flex;
     justify-content: center;
     align-items: center;
-    cursor: pointer;
+
+    width: 5.7rem;
+    height: 5.7rem;
+    background-color: ${({ theme }) => theme.color.primary};
+    border-radius: 50%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     transition: background-color 0.3s ease;
+    cursor: pointer;
 
     &:hover {
       background-color: ${({ theme }) => theme.color.secondary};
