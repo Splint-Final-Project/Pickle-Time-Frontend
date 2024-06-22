@@ -16,8 +16,11 @@ import {
   InputButton,
   ErrorMessage,
   SubmitButton,
+  VerifyButton,
 } from './SignUpStyled';
 import { showErrorToast } from '@/components/common/Toast';
+import client from '@/apis/axios';
+import toast from 'react-hot-toast';
 
 export default function SignUp() {
   const {
@@ -30,6 +33,7 @@ export default function SignUp() {
 
   const [revealPw, setRevealPw] = useState(false);
   const [revealConfirmPw, setRevealConfirmPw] = useState(false);
+  const [isVerificationOpen, setIsVerificationOpen] = useState(false);
   const navigate = useNavigate();
   const { signUp } = useAuth();
   async function handleSignUp(data: SignUpFormValues) {
@@ -37,6 +41,20 @@ export default function SignUp() {
       await signUp(data);
       navigate('/sign-up2');
     } catch (e: any) {}
+  }
+
+  async function handleVerifyButtonClick() {
+    if (errors?.email) {
+      showErrorToast('이메일을 입력해 주세요.');
+      return;
+    }
+    try {
+      await client.post('/auth/verify-email', { email: getValues('email') });
+      toast.success('인증번호가 전송되었습니다.');
+      setIsVerificationOpen(true);
+    } catch (e: any) {
+      showErrorToast(e.response.data.error);
+    }
   }
 
   return (
@@ -62,6 +80,7 @@ export default function SignUp() {
               type="email"
               placeholder="user@pickletime.com"
               autoComplete="off"
+              disabled={isVerificationOpen}
               {...register('email', {
                 required: true,
                 pattern: {
@@ -70,18 +89,53 @@ export default function SignUp() {
                 },
               })}
             />
-            <InputButton
-              src="/icons/clear.svg"
-              alt="clear"
+            <VerifyButton
               onClick={e => {
                 e.stopPropagation();
-                setValue('email', '', { shouldValidate: true });
+                handleVerifyButtonClick();
               }}
-            />
+            >
+              {isVerificationOpen ? '재전송' : '인증하기'}
+            </VerifyButton>
           </InputContainer>
-          {errors.email?.message && <ErrorMessage>{errors.email.message?.toString()}</ErrorMessage>}
+          {isVerificationOpen && (
+            <InputContainer
+              $isError={false}
+              onClick={() => {
+                const inputField = document.getElementById('verify') as HTMLInputElement;
+                inputField.focus();
+              }}
+              style={{ marginTop: '5px', backgroundColor: '#fff', border: 'none', padding: '0 14px', height: '40px' }}
+            >
+              <InputField
+                id="verifySearch"
+                type="number"
+                autoComplete="off"
+                placeholder="인증번호 입력"
+                {...register('verify', {
+                  required: {
+                    value: true,
+                    message: '이메일 인증을 완료해 주세요.',
+                  },
+                  min: {
+                    value: 100000,
+                    message: '여섯 자리 숫자를 입력해 주세요.',
+                  },
+                  max: {
+                    value: 999999,
+                    message: '여섯 자리 숫자를 입력해 주세요.',
+                  },
+                })}
+                style={{
+                  borderBottom: '1px solid #e0e0e0',
+                  height: '40px',
+                  borderRadius: '0',
+                }}
+              />
+            </InputContainer>
+          )}
+          {errors.verify?.message && <ErrorMessage>{errors.verify.message?.toString()}</ErrorMessage>}
         </FormField>
-        <span>TODO: 이메일 중복 확인 및 이메일 인증 로직</span>
 
         <FormField disabled={isSubmitting}>
           <Label>비밀번호를 작성해 주세요</Label>

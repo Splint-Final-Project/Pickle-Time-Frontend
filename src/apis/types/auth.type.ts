@@ -9,6 +9,7 @@ export type UserInfoType = {
 
 export type SignUpFormValues = {
   email: string;
+  verify: number;
   password: string;
   checkPassword: string;
 };
