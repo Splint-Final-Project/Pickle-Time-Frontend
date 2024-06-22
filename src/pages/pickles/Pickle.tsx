@@ -1,17 +1,19 @@
+import { useNavigate, useParams } from 'react-router-dom';
 import styled from '@emotion/styled';
 
 import BackButton from '@/components/common/button/BackButton';
 import Category from '@/components/pickle-detail/Category';
 import PickleTextInfo from '@/components/pickle-detail/PickleTextInfo';
 import LikeCount from '@/components/pickle-detail/LikeCount';
+import Tag from '@/components/common/tag/Tag';
 import Button from '@/components/common/button/Button';
 import ShareModal from '@/components/common/modal/ShareModal';
+
+
+import routes from '@/constants/routes';
 import { useGetPickelDetail, useViewCountLimit } from '@/hooks/query/pickles';
 import useAuth from '@/hooks/zustand/useAuth';
-import routes from '@/constants/routes';
 import useBottomSheetModal from '@/hooks/zustand/useBottomSheetModal';
-import Tag from '@/components/common/tag/Tag';
-import { useNavigate, useParams } from 'react-router-dom';
 
 /**
  * 피클 상세 페이지
@@ -22,18 +24,18 @@ export default function Pickle() {
   const { pickleId = '' } = useParams();
 
   const { user } = useAuth();
-  // 로그인 안 한 경우엔 user가 없을것임.
-
   const { data, error } = useGetPickelDetail(pickleId);
   useViewCountLimit(pickleId);
 
   const pickleDetailData = data?.data;
+
   const amILeader = user?._id && user._id === pickleDetailData?.leader;
   const amIMember = user?._id && pickleDetailData?.amIMember;
   const full = pickleDetailData?.capacity <= pickleDetailData?.participantNumber;
   const over = pickleDetailData?.over || false;
 
   const { handleOpen } = useBottomSheetModal(state => state);
+
   if (error) {
     navigate('/not-found', { replace: true });
   }
@@ -158,20 +160,14 @@ const S = {
       ${({ theme }) => theme.typography.subTitle4}
     }
   `,
+
   Title: styled.h1`
     display: flex;
     align-items: center;
-    gap: 22px;
-    color: var(--Basic, #181f29);
-    font-size: 24px;
-    font-style: normal;
-    font-weight: 600;
-    line-height: normal;
-    img {
-      height: 16px;
-      cursor: pointer;
-    }
+    gap: 2.2rem;
+    ${({ theme }) => theme.typography.header}
   `,
+
   TopSection: styled.div`
     padding: 6rem 3.4rem 2.7rem;
   `,
@@ -263,13 +259,12 @@ const S = {
     gap: 1rem;
   `,
 
-  ShareButton: styled.button``,
   FloatingButton: styled(Button)`
-    /* position: fixed;
+    position: fixed;
     bottom: 4rem;
     left: 50%;
     transform: translateX(-50%);
     max-width: 650px;
-    width: 80%; */
+    width: 80%;
   `,
 };

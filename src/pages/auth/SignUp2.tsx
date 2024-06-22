@@ -1,10 +1,9 @@
-import { authRequests } from '@/apis/auth.api';
+import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useForm } from 'react-hook-form';
+
 import { SignUpFormValues2 } from '@/apis/types/auth.type';
 import useAuth from '@/hooks/zustand/useAuth';
-import { useEffect, useState } from 'react';
-import { set, useForm } from 'react-hook-form';
-import { useNavigate } from 'react-router-dom';
-
 import {
   Container,
   SubTitle,
@@ -45,7 +44,7 @@ export default function SignUp2() {
   const [selectedGus, setSelectedGus] = useState<Set<number>>(new Set());
 
   const navigate = useNavigate();
-  const { user, signUp2 } = useAuth();
+  const { signUp2 } = useAuth();
 
   async function handleSignUp2(data: SignUpFormValues2) {
     try {

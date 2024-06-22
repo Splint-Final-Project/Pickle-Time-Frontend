@@ -35,7 +35,7 @@ const globalStyle = css`
   body {
     font-weight: 400;
     font-size: 1.6rem;
-    color: ${theme.color.black};
+    color: ${theme.color.basic};
     max-width: 100%;
     min-height: calc(var(--vh, 1vh) * 100);
     overflow-x: hidden;
@@ -88,6 +88,14 @@ const globalStyle = css`
 
   input {
     outline: none;
+  }
+
+  input[type='number']::-webkit-inner-spin-button,
+  input[type='number']::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    margin: 0;
   }
 
   textarea {

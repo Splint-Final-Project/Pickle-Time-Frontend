@@ -1,6 +1,6 @@
-import ChatListContainer from '@/components/chatList/ChatListContainer';
-import styled from '@emotion/styled';
 import { useNavigate } from 'react-router-dom';
+import styled from '@emotion/styled';
+import ChatListContainer from '@/components/chatList/ChatListContainer';
 
 export default function ConversationList() {
   const navigate = useNavigate();
@@ -23,23 +23,20 @@ export default function ConversationList() {
 
 const S = {
   Container: styled.div`
-    width: 100%;
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 2rem;
+    width: 100%;
     padding: 6rem 3.5rem 8.5rem;
   `,
   Title: styled.h1`
     display: flex;
     align-items: center;
-    gap: 22px;
-    color: var(--Basic, #181f29);
-    font-size: 24px;
-    font-style: normal;
-    font-weight: 600;
-    line-height: normal;
+    gap: 2.2rem;
+    ${({ theme }) => theme.typography.header};
+
     img {
-      height: 16px;
+      height: 1.6rem;
       cursor: pointer;
     }
   `,

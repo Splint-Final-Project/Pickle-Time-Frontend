@@ -5,9 +5,9 @@ import usePickleCreation from '@/hooks/zustand/usePickleCreation';
 import { showErrorToast, showToast } from '@/components/common/Toast';
 
 export default function PickleCreationRedirector() {
+  const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const { clear } = usePickleCreation();
-  const navigate = useNavigate();
 
   async function handlePayment() {
     try {

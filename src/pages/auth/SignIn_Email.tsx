@@ -1,6 +1,7 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import styled from '@emotion/styled';
+
 import { showToast } from '@/components/common/Toast';
 import useAuth from '@/hooks/zustand/useAuth';
 import { SignInFormValues } from '@/apis/types/auth.type';
@@ -70,15 +71,7 @@ export default function SignIn_Email() {
               })}
             />
           </Field>
-          <Button
-            type="submit"
-            style={{
-              backgroundColor: '#5DC26D',
-              color: 'white',
-            }}
-          >
-            로그인
-          </Button>
+          <Button type="submit">로그인</Button>
         </FieldSet>
       </Form>
       <EmailSignupRedirectorLink>
@@ -148,95 +141,72 @@ export const Form = styled.form`
 `;
 
 export const Title = styled.h1`
-  color: #292929;
-
-  font-size: 24px;
-  font-style: normal;
-  font-weight: 600;
-  line-height: normal;
-  margin-bottom: 64px;
-`;
-
-export const Subtitle = styled.h4`
-  color: #989898;
-
-  font-size: 14px;
-  font-style: normal;
-  font-weight: 500;
-  line-height: normal;
+  margin-bottom: 6.4rem;
+  ${({ theme }) => theme.typography.header};
 `;
 
 export const FieldSet = styled.fieldset`
-  width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 22px;
+  gap: 2.2rem;
+  width: 100%;
 `;
 
 export const Field = styled.div`
   position: relative;
-  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 8px;
+  gap: 0.8rem;
+  width: 100%;
 `;
 
 export const Label = styled.label`
   color: #2c2c2c;
-
-  font-size: 14px;
-  font-style: normal;
-  font-weight: 500;
-  line-height: normal;
+  ${({ theme }) => theme.typography.body1};
 `;
 
 export const Input = styled.input<{ $error: boolean }>`
   width: 100%;
-  height: 44px;
-  padding: 13px;
-  color: black;
+  height: 4.4rem;
+  padding: 1.3rem;
 
-  font-size: 14px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: normal;
-  border-radius: 4px;
-  background-color: #f4f7f4;
   border: none;
-  ::placeholder {
-    color: #bababa;
-  }
+  border-radius: 0.4rem;
   ${props => (props.$error ? 'border: 1px solid red;' : '')};
+  background-color: #f4f7f4;
+  color: black;
+  line-height: normal;
+  ${({ theme }) => theme.typography.body3};
+
+  ::placeholder {
+    color: ${({ theme }) => theme.color.inputText};
+  }
+
   &:focus {
     border: 1px solid #888d88;
   }
 `;
 
 export const ErrorMessage = styled.span`
-  /* position: absolute; */
-  color: #d54040;
-
-  font-size: 12px;
-  font-style: normal;
-  font-weight: 500;
+  color: ${({ theme }) => theme.color.error};
+  ${({ theme }) => theme.typography.body2};
   line-height: normal;
 `;
 
 export const Button = styled.button`
-  width: 100%;
-  height: 42px;
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 8px;
-  border-radius: 4px;
-  outline: none;
+  gap: 0.8rem;
 
-  font-size: 14px;
-  font-style: normal;
-  font-weight: 500;
-  line-height: normal;
+  width: 100%;
+  height: 4.2rem;
+  border-radius: 0.4rem;
+  outline: none;
+  background-color: ${({ theme }) => theme.color.primary};
+  color: ${({ theme }) => theme.color.white};
+  ${({ theme }) => theme.typography.body1};
 `;
 
 export const EmailSignupRedirectorLink = styled.div`
@@ -244,29 +214,20 @@ export const EmailSignupRedirectorLink = styled.div`
   align-self: center;
   flex-direction: column;
   align-items: center;
-  gap: 6px;
-  margin: 33px 0 118px;
+  gap: 0.6rem;
+  margin: 3.3rem 0 11.8rem;
 
-  font-style: normal;
-  font-weight: 400;
-  line-height: normal;
   span {
-    color: #777;
-
-    font-size: 12px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: normal;
+    color: ${({ theme }) => theme.color.sub};
+    ${({ theme }) => theme.typography.body2};
   }
-  a {
-    color: #0ac50a;
 
-    font-size: 14px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: normal;
-    &hover {
-      color: green;
+  a {
+    color: ${({ theme }) => theme.color.primary};
+    ${({ theme }) => theme.typography.body1};
+
+    &:hover {
+      color: ${({ theme }) => theme.color.primaryDark};
     }
   }
 `;
@@ -276,15 +237,12 @@ export const Or = styled.div`
   align-self: center;
   align-items: center;
   justify-content: center;
-  margin-bottom: 20px;
-  gap: 11px;
-  span {
-    color: #777;
+  margin-bottom: 2rem;
+  gap: 1.1rem;
 
-    font-size: 14px;
-    font-style: normal;
-    font-weight: 600;
-    line-height: normal;
+  span {
+    color: ${({ theme }) => theme.color.sub};
+    ${({ theme }) => theme.typography.body2};
   }
 `;
 
@@ -293,18 +251,15 @@ export const SocialCircles = styled.div`
   align-self: center;
   align-items: center;
   justify-content: center;
-  gap: 18px;
+  gap: 1.8rem;
 `;
 
 export const SocialCircle = styled.button`
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 8px;
-  color: #ababab;
+  gap: 0.8rem;
 
-  font-size: 10px;
-  font-style: normal;
-  font-weight: 500;
-  line-height: normal;
+  color: ${({ theme }) => theme.color.sub};
+  ${({ theme }) => theme.typography.caption};
 `;

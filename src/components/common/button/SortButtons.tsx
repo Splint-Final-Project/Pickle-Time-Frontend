@@ -1,31 +1,26 @@
 import { useState, useRef, useEffect } from 'react';
 import styled from '@emotion/styled';
 import { HOME_PICK_SORT_TAB } from '@/constants/BUTTON';
+import { SortByOptions } from '@/apis/types/pickles.type';
 
 /**
  * SortButtons - 홈 피클 목록 정렬 탭 컴포넌트
  * - 전체 / 인기 순 / 가격 낮은 순 / 가격 높은 순
  */
 
-interface SortType {
-  title: string;
-  func: () => void;
+interface SortButtonsProps {
+  onSortChange: (sort: SortByOptions['option']) => void;
 }
 
-export default function SortButtons() {
-  const [selectedSort, setSelectedSort] = useState(HOME_PICK_SORT_TAB[0]);
+export default function SortButtons({ onSortChange }: SortButtonsProps) {
+  const [selectedSort, setSelectedSort] = useState<SortByOptions['option']>('전체');
   const [indicatorStyle, setIndicatorStyle] = useState({ left: '0px', width: '0px' });
   const tabsRef = useRef<HTMLDivElement>(null);
 
-  const sortTypeArray = HOME_PICK_SORT_TAB.map(title => ({
-    title,
-    func: () => setSelectedSort(title),
-  }));
-
-  const handleSortTabClick = (sortType: SortType, tabElement: HTMLButtonElement) => {
-    if (selectedSort === sortType.title) return;
-    setSelectedSort(sortType.title);
-    sortType.func();
+  const handleSortTabClick = (sortType: SortByOptions['option'], tabElement: HTMLButtonElement) => {
+    if (selectedSort === sortType) return;
+    setSelectedSort(sortType);
+    onSortChange(sortType);
 
     const left = tabElement.offsetLeft;
     const width = tabElement.clientWidth;
@@ -45,14 +40,14 @@ export default function SortButtons() {
 
   return (
     <S.Container ref={tabsRef}>
-      {sortTypeArray.map(sortType => (
+      {HOME_PICK_SORT_TAB.map(sortType => (
         <S.Tab
-          key={sortType.title}
-          value={sortType.title}
-          className={`${selectedSort === sortType.title ? 'selected' : ''}`}
-          onClick={e => handleSortTabClick(sortType, e.currentTarget)}
+          key={sortType}
+          value={sortType}
+          className={`${selectedSort === sortType ? 'selected' : ''}`}
+          onClick={e => handleSortTabClick(sortType as SortByOptions['option'], e.currentTarget)}
         >
-          {sortType.title}
+          {sortType}
         </S.Tab>
       ))}
       <S.Indicator style={indicatorStyle} />
