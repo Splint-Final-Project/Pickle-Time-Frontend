@@ -14,7 +14,7 @@ export default function MyPickleListContainer() {
   }
   useEffect(() => {
     if (searchParams.get('state') === null) setCurrentState('progress');
-  }, []);
+  }, [searchParams.get('state')]);
 
   return (
     <S.Container>

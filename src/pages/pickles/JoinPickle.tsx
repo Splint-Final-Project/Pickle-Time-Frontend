@@ -101,7 +101,7 @@ export default function JoinPickle() {
               handleOpen({
                 renderComponent: ConfirmationModal,
                 nocallback: () => {},
-                yescallback: () => navigate(-1),
+                yescallback: () => navigate('/pickle/' + pickleId, { replace: true }),
                 message: '신청을 취소하시겠습니까?',
                 yesText: '확인',
                 noText: '취소',
