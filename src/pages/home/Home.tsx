@@ -20,22 +20,28 @@ import ConfirmationModal from '@/components/common/modal/ConfirmationModal';
 import ShareModal from '@/components/common/modal/ShareModal';
 import KeepCreatingModal from '@/components/common/modal/KeepCreatingModal';
 import usePickleCreation from '@/hooks/zustand/usePickleCreation';
+import { SortByOptions } from '@/apis/types/pickles.type';
 
 export default function Home() {
   const navigate = useNavigate();
+
   const [isModalOpen, setModalOpen] = useState(false);
+  const [sortBy, setSortBy] = useState<SortByOptions['option']>('전체');
 
   const { inProgress } = usePickleCreation();
+  const { handleOpen } = useBottomSheetModal(state => state);
 
   const openModal = () => setModalOpen(true);
   const closeModal = () => setModalOpen(false);
 
-  const { handleOpen } = useBottomSheetModal(state => state);
   const handleConfirmAction = () => {
     console.log('확인을 누르셨어요');
   };
 
-  // 전역 상태
+  const handleSortChange = (sort: SortByOptions['option']) => {
+    setSortBy(sort);
+  };
+
   const { user, signOut } = useAuth();
 
   return (
@@ -78,8 +84,8 @@ export default function Home() {
       {/* 전체 피클 */}
       <PickleList.Container>
         <PickleList.Header category="total" />
-        <SortButtons />
-        <InfinitePickleCardList />
+        <SortButtons onSortChange={handleSortChange} />
+        <InfinitePickleCardList sortBy={sortBy} />
       </PickleList.Container>
       <S.FloatingButton
         type="button"

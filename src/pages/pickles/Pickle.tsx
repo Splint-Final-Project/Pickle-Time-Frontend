@@ -263,11 +263,11 @@ const S = {
 
   ShareButton: styled.button``,
   FloatingButton: styled(Button)`
-    /* position: fixed;
+    position: fixed;
     bottom: 4rem;
     left: 50%;
     transform: translateX(-50%);
     max-width: 650px;
-    width: 80%; */
+    width: 80%;
   `,
 };

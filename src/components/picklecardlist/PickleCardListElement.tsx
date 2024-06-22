@@ -43,7 +43,7 @@ function Header({ category }: SectionHeaderProps) {
     <S.Wrapper>
       <S.Summary>{HEADER_CATEGORY_TEXT[category].summary}</S.Summary>
       <S.Title>{HEADER_CATEGORY_TEXT[category].title}</S.Title>
-      <S.WholeLink href={HEADER_CATEGORY_TEXT[category].totalLink}>전체보기</S.WholeLink>
+      {category !== 'total' && <S.WholeLink href={HEADER_CATEGORY_TEXT[category].totalLink}>전체보기</S.WholeLink>}
     </S.Wrapper>
   );
 }
