@@ -1,6 +1,6 @@
-import useAuth from '@/hooks/zustand/useAuth';
 import { useCallback, useEffect } from 'react';
 import { Navigate, useSearchParams } from 'react-router-dom';
+import useAuth from '@/hooks/zustand/useAuth';
 
 export default function OAuthSuccessRedirector() {
   const { setMe } = useAuth();

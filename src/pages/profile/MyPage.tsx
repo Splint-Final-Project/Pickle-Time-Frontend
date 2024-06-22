@@ -14,9 +14,9 @@ import EditIcon from '@/assets/icons/EditIcon';
 export type MyMenu = (typeof MY_MENU)[keyof typeof MY_MENU];
 
 export default function MyPage() {
+  const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
   const selectedMenu = searchParams.get('tab') || ('point' as 'point' | 'review' | 'wishlist');
-  const navigate = useNavigate();
   const { user } = useAuth();
 
   const menuArray = Object.entries(MY_MENU).map(([key, label]) => ({
