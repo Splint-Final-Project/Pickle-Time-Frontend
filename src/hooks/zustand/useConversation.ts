@@ -7,7 +7,7 @@ interface conversationType {
 	messages: [];
 	setLeaderId: (leaderId: string) => void;
 	setPickleId: (pickleId: string) => void;
-	setMessages: (messages: any) => void;
+	setMessages: (messages: any[]) => void;
 	setConversationId: (conversationId: string) => void;
 	clear: () => void;
 }

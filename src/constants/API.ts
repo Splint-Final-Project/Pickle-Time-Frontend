@@ -40,6 +40,7 @@ export const API_PICKLE = Object.freeze({
   RE_REQUEST: (pickleId: string) => `${API.PICKLE}/${pickleId}/reRequest`,
   RE_REVIEW: (pickleId: string) => `${API.PICKLE}/${pickleId}/reReview`,
   REGENERATE: (pickleId: string) => `${API.PICKLE}/${pickleId}/reReCruiting`, // 피클 재생성
+  VIEW_COUNT_UP: (pickleId: string) => `${API.PICKLE}/${pickleId}/viewCountUp`,
 
   // 내피클
   MY_PICKEL: (userId: string) => `${API.PICKLE}/${userId}`,

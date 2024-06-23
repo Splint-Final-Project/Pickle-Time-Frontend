@@ -61,12 +61,10 @@ export default function Conversation() {
   }, [user, conversationId, pickleId]);
 
   useEffect(() => {
-    setTimeout(() => {
-      lastMessageRef.current?.scrollIntoView({ behavior: 'smooth' });
-    }, 100);
-    console.log(messages);
-    console.log(lastMessageRef);
-  }, [messages]);
+		setTimeout(() => {
+			lastMessageRef.current?.scrollIntoView({ behavior: "smooth" });
+		}, 100);
+	}, [messages]);
 
   return (
     <S.Container>
@@ -83,7 +81,7 @@ export default function Conversation() {
         <S.BaseImg src={BottomArrowIcon} />
       </S.Gongji>
       <S.MessageContainer>
-        {messages?.map((message: any) => (
+        {messages && messages?.map((message: any) => (
           <S.ForRefInMessageContainer ref={lastMessageRef} key={message._id}>
             <Message message={message} key={message._id} />
           </S.ForRefInMessageContainer>

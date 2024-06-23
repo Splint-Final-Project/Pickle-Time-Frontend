@@ -16,13 +16,12 @@ import { useGeolocation } from '@/hooks/useGeolocation';
 
 const geolocationOptions = {
   enableHighAccuracy: true,
-  timeout: 1000 * 4,
+  timeout: 1000 * 4 * 1000,
 };
 
 export default function MapSearch() {
   const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
-
   const [activeTabs, setActiveTabs] = useState<Set<string>>(new Set([]));
   const [jusoSearch, setJusoSearch] = useState('');
   const [jusoList, setJusoList] = useState<any[] | null>(null);
@@ -40,6 +39,7 @@ export default function MapSearch() {
   const { location: initialLocation, error } = useGeolocation(geolocationOptions);
   const { data } = useGetNearbyPickles(location, level);
   const { data: favoriteIds } = useMyFavoritePickleIds();
+
   let nearbyPickle: any[] = data?.data || [];
 
   if (activeTabs.has('찜')) {
