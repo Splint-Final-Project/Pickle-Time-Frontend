@@ -27,6 +27,7 @@ import MyPage from '@/pages/profile/MyPage';
 import EditProfilePage from './pages/profile/EditProfile.page';
 
 import NotFoundPage from '@/pages/NotFound.page';
+
 import MainLayout from '@/layouts/MainLayout';
 import SimpleLayout from '@/layouts/SimpleLayout';
 import LoginRedirector from './redirectors/LoginRedirector';
