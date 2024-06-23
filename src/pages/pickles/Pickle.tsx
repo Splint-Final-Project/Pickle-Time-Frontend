@@ -9,8 +9,9 @@ import Tag from '@/components/common/tag/Tag';
 import Button from '@/components/common/button/Button';
 import ShareModal from '@/components/common/modal/ShareModal';
 
+import { useGetPickleDetail } from '@/hooks/query/pickles';
+
 import routes from '@/constants/routes';
-import { useGetPickelDetail } from '@/hooks/query/pickles';
 import useAuth from '@/hooks/zustand/useAuth';
 import useBottomSheetModal from '@/hooks/zustand/useBottomSheetModal';
 
@@ -23,7 +24,10 @@ export default function Pickle() {
   const { pickleId = '' } = useParams();
 
   const { user } = useAuth();
-  const { data, error } = useGetPickelDetail(pickleId);
+
+  // 로그인 안 한 경우엔 user가 없을것임.
+
+  const { data, error } = useGetPickleDetail(pickleId);
   const pickleDetailData = data?.data;
 
   const amILeader = user?._id && user._id === pickleDetailData?.leader;

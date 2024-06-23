@@ -1,17 +1,19 @@
-import { useState } from 'react';
-import styled from '@emotion/styled';
 import PickleListHeader from '@/components/pickleWholeList/PickleListHeader';
+import styled from '@emotion/styled';
+import { useState, startTransition } from 'react';
 import PickleListCard from '@/components/pickleWholeList/PickleListCard';
 import { TwoColumnGridTemplate } from '@/styles/commonStyles';
 
 const imgsrc = ['', '/images/category1.svg', '/images/category2.svg', '/images/category3.svg'];
 
-export default function HotTimePickleList() {
+export default function PopularPickleList() {
   const [activeTab, setActiveTab] = useState('전체');
   const tabs = ['전체', '운동', '취미', '스터디'];
 
   const handleTabClick = (tabName: string) => {
-    setActiveTab(tabName);
+    startTransition(() => {
+      setActiveTab(tabName);
+    });
   };
 
   return (
@@ -32,7 +34,7 @@ export default function HotTimePickleList() {
       </PickleListHeader>
       <S.Content>
         <TwoColumnGridTemplate>
-          <PickleListCard category="hotTime" />
+          <PickleListCard category="hotTime" tab={activeTab} />
         </TwoColumnGridTemplate>
       </S.Content>
     </S.Container>
@@ -53,6 +55,11 @@ const S = {
     }
   `,
   Tab: styled.button<{ $active: boolean }>`
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+
     display: inline-flex;
     align-items: center;
     border-radius: 1.8rem;
