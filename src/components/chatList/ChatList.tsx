@@ -25,7 +25,7 @@ export default function ChatList({ currentCategory, searchValue }: ChatListProps
 
 function ChatListItem({ chatData }: { chatData: any }) {
   const time = timeParsed(chatData.updatedAt);
-
+  console.log(chatData.lastMessageIsTrack)
   return (
     <S.Item
       to={{
@@ -44,7 +44,11 @@ function ChatListItem({ chatData }: { chatData: any }) {
             </S.ItemTitle>
             <S.ItemLastMessageTime dateTime={chatData.lastMessageTime}>{time}</S.ItemLastMessageTime>
           </S.Wrap>
-          <S.ItemLastMessage>{chatData.lastMessage}</S.ItemLastMessage>
+          {chatData?.lastMessageIsTrack ? (
+            <S.ItemLastMessage>뮤직 트랙</S.ItemLastMessage>
+          ) : (
+            <S.ItemLastMessage>{chatData.lastMessage}</S.ItemLastMessage>
+          )}
         </S.ItemTextContent>
       </S.ItemInner>
     </S.Item>
