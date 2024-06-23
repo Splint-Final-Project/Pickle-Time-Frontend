@@ -1,5 +1,6 @@
-import usePickleCreation from '@/hooks/zustand/usePickleCreation';
+import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+
 import {
   Container,
   InputComponent,
@@ -9,19 +10,24 @@ import {
   Title,
   TitleContainer,
 } from './CreatePickleStyled';
-import CategorySelect from '@/components/pickleCreate/CategorySelect';
-import CapacitySelect from '@/components/pickleCreate/CapacitySelect';
 import TitleInput from '@/components/pickleCreate/TitleInput';
+import AreaInput from '@/components/pickleCreate/AreaInput';
+
+import CategorySelect from '@/components/pickleCreate/CategorySelect';
+import DateSelect from '@/components/pickleCreate/dateSelect/DateSelect';
 import CostSelect from '@/components/pickleCreate/CostSelect';
+
 import ImgSelect from '@/components/pickleCreate/ImgSelect';
 import WriteDetail from '@/components/pickleCreate/WriteDetail';
+import CapacitySelect from '@/components/pickleCreate/CapacitySelect';
 import GoalSelect from '@/components/pickleCreate/GoalSelect';
-import AreaInput from '@/components/pickleCreate/AreaInput';
-import DateSelect from '@/components/pickleCreate/dateSelect/DateSelect';
+
 import CreationPayment from '@/components/pickleCreate/CreationPayment';
-import useBottomSheetModal from '@/hooks/zustand/useBottomSheetModal';
 import ConfirmationModal from '@/components/common/modal/ConfirmationModal';
-import { useEffect } from 'react';
+
+import useBottomSheetModal from '@/hooks/zustand/useBottomSheetModal';
+import usePickleCreation from '@/hooks/zustand/usePickleCreation';
+import routes from '@/constants/routes';
 
 export default function CreatePickle() {
   const {
@@ -64,14 +70,14 @@ export default function CreatePickle() {
                   handleOpen({
                     renderComponent: ConfirmationModal,
                     nocallback: () => {},
-                    yescallback: () => navigate('/', { replace: true }),
+                    yescallback: () => navigate(routes.home, { replace: true }),
                     message: '작성중이던 피클은 임시 저장됩니다.',
                     yesText: '확인',
                     noText: '취소',
                   });
                 } else {
                   clear();
-                  navigate('/', { replace: true });
+                  navigate(routes.home, { replace: true });
                 }
               } else {
                 setStep((step - 1) as 1 | 2 | 3 | 4);

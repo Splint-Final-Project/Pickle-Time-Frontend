@@ -96,12 +96,14 @@ export default function TodayPickleListContainer() {
   if (!data?.todayPickles || data?.todayPickles.length === 0) {
     return (
       <S.Container $margin>
-        <S.CardContainer>
-          <S.Card>
-            <S.Character />
-            <S.NotTodayPickleMessage>오늘의 피클이 없어요!</S.NotTodayPickleMessage>
-          </S.Card>
-        </S.CardContainer>
+        <Tilt>
+          <S.CardContainer>
+            <S.Card>
+              <S.Character />
+              <S.NotTodayPickleMessage>오늘의 피클이 없어요!</S.NotTodayPickleMessage>
+            </S.Card>
+          </S.CardContainer>
+        </Tilt>
       </S.Container>
     );
   }

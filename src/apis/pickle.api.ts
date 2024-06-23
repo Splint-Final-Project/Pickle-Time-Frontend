@@ -1,23 +1,29 @@
 import client from '@/apis/axios';
 import { API, API_PICKLE } from '@/constants/API';
-import { Coordinates, CreatePickleData, CreateReviewData } from './types/pickles.type';
+import { Coordinates, SortByOptions, CreatePickleData, CreateReviewData } from './types/pickles.type';
 
 export const picklesRequests = Object.freeze({
   // 피클 전체 목록조회
-  get: async () => {
-    const { data } = await client.get(`${API.PICKLE}`);
+  get: async (sortBy: SortByOptions['option'] = '전체') => {
+    const { data } = await client.get(`${API.PICKLE}`, {
+      params: { sortBy },
+    });
     return data;
   },
 
   // 인기 피클
-  getPopular: async () => {
-    const { data } = await client.get(API_PICKLE.POPULAR);
+  getPopular: async (category: string = '') => {
+    const { data } = await client.get(API_PICKLE.POPULAR, {
+      params: category && category !== '전체' ? { category } : {},
+    });
     return data;
   },
 
   // 마감 임박 피클
-  getHotTime: async () => {
-    const { data } = await client.get(API_PICKLE.HOT_TIME);
+  getHotTime: async (category: string = '') => {
+    const { data } = await client.get(API_PICKLE.HOT_TIME, {
+      params: category && category !== '전체' ? { category } : {},
+    });
     return data;
   },
 

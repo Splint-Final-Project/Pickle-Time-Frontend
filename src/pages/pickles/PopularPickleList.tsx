@@ -1,6 +1,6 @@
 import PickleListHeader from '@/components/pickleWholeList/PickleListHeader';
 import styled from '@emotion/styled';
-import { useState } from 'react';
+import { useState, startTransition } from 'react';
 import { TwoColumnGridTemplate } from '@/styles/commonStyles';
 import PickleListCard from '@/components/pickleWholeList/PickleListCard';
 
@@ -11,7 +11,9 @@ export default function PopularPickleList() {
   const tabs = ['전체', '운동', '취미', '스터디'];
 
   const handleTabClick = (tabName: string) => {
-    setActiveTab(tabName);
+    startTransition(() => {
+      setActiveTab(tabName);
+    });
   };
 
   return (
@@ -32,7 +34,7 @@ export default function PopularPickleList() {
       </PickleListHeader>
       <S.Content>
         <TwoColumnGridTemplate>
-          <PickleListCard category="popular" />
+          <PickleListCard category="popular" tab={activeTab} />
         </TwoColumnGridTemplate>
       </S.Content>
     </S.Container>
@@ -40,7 +42,6 @@ export default function PopularPickleList() {
 }
 
 const S = {
-  Section: styled.section``,
   Container: styled.div`
     height: 100dvh;
   `,
@@ -48,22 +49,24 @@ const S = {
     display: flex;
     margin-top: 4rem;
     gap: 1.4rem;
+
     @media (max-width: 500px) {
       gap: 1rem;
     }
   `,
   Tab: styled.button<{ $active: boolean }>`
-    -webkit-touch-callout: none; /* iOS Safari */
-    -webkit-user-select: none; /* Safari */
-    -ms-user-select: none; /* 인터넷익스플로러 */
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
     user-select: none;
-    font-size: 1.4rem;
+
     display: inline-flex;
     align-items: center;
-    border-radius: 18px;
+    padding: 0.7rem 1.4rem;
+    border-radius: 1.8rem;
+    font-size: 1.4rem;
     background: ${({ $active }) => ($active ? '#000' : '#f1f1f1')};
     color: ${({ $active }) => ($active ? '#fff' : 'var(--Sub-Text, var(--Tab-Bar-Color-2, #8b8d94))')};
-    padding: 0.7rem 1.4rem;
     transition:
       background-color 0.3s,
       color 0.3s;
@@ -85,9 +88,9 @@ const S = {
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 2rem;
     width: 2rem;
-    margin-right: 3px;
+    height: 2rem;
+    margin-right: 0.3rem;
   `,
   Img: styled.img`
     width: 1.8rem;

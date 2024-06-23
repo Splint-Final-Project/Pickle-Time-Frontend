@@ -8,7 +8,7 @@ import ConfirmationModal from '@/components/common/modal/ConfirmationModal';
 import { showErrorToast, showToast } from '@/components/common/Toast';
 import { Container } from './CreatePickleStyled';
 import useAuth from '@/hooks/zustand/useAuth';
-import { useGetPickelDetail } from '@/hooks/query/pickles';
+import { useGetPickleDetail } from '@/hooks/query/pickles';
 import { useMyPoints } from '@/hooks/query/points';
 import useBottomSheetModal from '@/hooks/zustand/useBottomSheetModal';
 import CloseIcon from '@/assets/icons/CloseIcon';
@@ -24,7 +24,7 @@ export default function JoinPickle() {
   const { user } = useAuth();
   const { handleOpen } = useBottomSheetModal(state => state);
   const { id: pickleId = '' } = useParams();
-  const { data } = useGetPickelDetail(pickleId);
+  const { data } = useGetPickleDetail(pickleId);
 
   const pickleData = data?.data;
 
@@ -96,7 +96,7 @@ export default function JoinPickle() {
     <Container>
       <S.Wrapper>
         <S.Inner>
-          <S.CancleButton
+          <S.CancelButton
             onClick={() =>
               handleOpen({
                 renderComponent: ConfirmationModal,
@@ -111,7 +111,7 @@ export default function JoinPickle() {
             <S.IconBox>
               <CloseIcon />
             </S.IconBox>
-          </S.CancleButton>
+          </S.CancelButton>
           <S.Title>피클 신청</S.Title>
         </S.Inner>
       </S.Wrapper>
@@ -180,7 +180,7 @@ const S = {
     font-size: 2.4rem;
     font-weight: 600;
   `,
-  CancleButton: styled.button`
+  CancelButton: styled.button`
     display: inline-flex;
     justify-content: center;
     align-items: center;

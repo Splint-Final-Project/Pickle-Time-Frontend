@@ -3,6 +3,10 @@ export interface Coordinates {
   longitude: number;
 }
 
+export interface SortByOptions {
+  option: '전체' | '인기순' | '가격 높은 순' | '가격 낮은 순';
+}
+
 export interface When {
   times: Date[];
   startDate: {

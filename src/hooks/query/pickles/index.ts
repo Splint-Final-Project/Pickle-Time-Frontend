@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useQuery, useInfiniteQuery, useMutation, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
 import { keepPreviousData } from '@tanstack/react-query';
 import { picklesRequests } from '@/apis/pickle.api';
-import { Coordinates, CreatePickleData, CreateReviewData } from '@/apis/types/pickles.type';
+import { Coordinates, CreatePickleData, CreateReviewData, SortByOptions } from '@/apis/types/pickles.type';
 import { useDebounce } from '@uidotdev/usehooks';
 import { showErrorToast, showToast } from '@/components/common/Toast';
 import toast from 'react-hot-toast';
@@ -41,10 +41,10 @@ export const useEditPickleMutation = (pickleId: string, pickleData: any) => {
   });
 };
 
-export const useGetInfinitePickles = () => {
+export const useGetInfinitePickles = (sortBy: SortByOptions['option']) => {
   return useQuery({
-    queryKey: ['pickles'],
-    queryFn: async () => await picklesRequests.get(),
+    queryKey: ['pickles', sortBy],
+    queryFn: async () => await picklesRequests.get(sortBy),
 
     refetchOnWindowFocus: true, // 포커스 될 때 재요청
     refetchIntervalInBackground: true, // 백그라운드 일 때 재요청 o
@@ -66,27 +66,24 @@ export const useGetNearbyPickles = (location: Coordinates | null, level: number)
   });
 };
 
-export const useGetSpecialPickles = (type: 'hotTime' | 'popular') => {
-  if (type === 'hotTime') {
-    return useSuspenseQuery({
-      queryKey: ['pickles', 'hotTime'],
-      queryFn: async () => await picklesRequests.getHotTime(),
-      select: data => data.data,
-
-      refetchOnWindowFocus: true, // 포커스 될 때 재요청
-      refetchIntervalInBackground: true, // 백그라운드 일 때 재요청 o
-      refetchInterval: 5 * 60 * 1000,
-    });
-  } else {
-    return useSuspenseQuery({
-      queryKey: ['pickles', 'popular'],
-      queryFn: async () => await picklesRequests.getPopular(),
-      select: data => data.data,
-    });
-  }
+export const useGetSpecialPickles = (type: 'hotTime' | 'popular', category: string) => {
+  return useSuspenseQuery({
+    queryKey: ['pickles', type, category],
+    queryFn: async () => {
+      if (type === 'hotTime') {
+        return await picklesRequests.getHotTime(category);
+      } else {
+        return await picklesRequests.getPopular(category);
+      }
+    },
+    select: data => data.data,
+    refetchOnWindowFocus: true,
+    refetchIntervalInBackground: true,
+    refetchInterval: 5 * 60 * 1000,
+  });
 };
 
-export const useGetPickelDetail = (pickleId: string) => {
+export const useGetPickleDetail = (pickleId: string) => {
   return useQuery({
     queryKey: ['pickles', pickleId],
     queryFn: async () => {

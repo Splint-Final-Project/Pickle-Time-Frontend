@@ -15,9 +15,10 @@ export default function KeepCreatingModal({ handleClose, callback }: ModalProps)
     handleClose();
     callback();
   }
+
   return (
     <S.Container>
-      <S.Message>{`생성중인 피클이 있습니다${title ? ': ' + title : '.'}`}</S.Message>
+      <S.Message>{`생성중인 피클이 있습니다${title ? ' 👉🏻 ' + title : '.'}`}</S.Message>
       <S.Buttons>
         <RoundButton onClick={clearAndCallback} color={ROUND_BUTTON_COLOR.GRAY}>
           처음부터 만들기
