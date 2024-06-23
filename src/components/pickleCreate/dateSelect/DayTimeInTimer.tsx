@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { TimeTypeInInterface } from '@/hooks/zustand/usePickleCreation';
 import styled from '@emotion/styled';
 
-const DAY_TIME = ['AM', 'PM'];
+const DAY_TIME: ('AM' | 'PM')[] = ['AM', 'PM'];
 
 interface TimeTextProps {
   time: TimeTypeInInterface;

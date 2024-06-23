@@ -15,6 +15,7 @@ export type DateTypeInInterface = {
 export type TimeTypeInInterface = {
   hour: number;
   minute: number;
+  dayTime?: 'AM' | 'PM';
 };
 
 const usePickleCreation = create(

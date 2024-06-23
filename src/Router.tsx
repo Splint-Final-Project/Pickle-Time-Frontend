@@ -6,7 +6,6 @@ import ConversationList from '@/pages/chat/ConversationList';
 import MyPage from '@/pages/profile/MyPage';
 import EditProfilePage from './pages/profile/EditProfilePage';
 
-import Admin from '@/pages/auth/Admin';
 import SignUp from '@/pages/auth/SignUp';
 import SignUp2 from './pages/auth/SignUp2';
 
