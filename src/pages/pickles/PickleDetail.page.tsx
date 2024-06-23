@@ -8,8 +8,9 @@ import LikeCount from '@/components/pickle-detail/LikeCount';
 import Tag from '@/components/common/tag/Tag';
 import Button from '@/components/common/button/Button';
 import ShareModal from '@/components/common/modal/ShareModal';
-import { useGetPickleDetail, useViewCountLimit } from '@/hooks/query/pickles';
+
 import routes from '@/constants/routes';
+import { useGetPickleDetail, useViewCountLimit } from '@/hooks/query/pickles';
 import useAuth from '@/hooks/zustand/useAuth';
 import useBottomSheetModal from '@/hooks/zustand/useBottomSheetModal';
 
@@ -22,13 +23,10 @@ export default function Pickle() {
   const { pickleId = '' } = useParams();
 
   const { user } = useAuth();
-
-  // 로그인 안 한 경우엔 user가 없을것임.
-
-  
   const { data, error } = useGetPickleDetail(pickleId);
-  useViewCountLimit(pickleId);
   const pickleDetailData = data?.data;
+
+  useViewCountLimit(pickleId);
 
   const amILeader = user?._id && user._id === pickleDetailData?.leader;
   const amIMember = user?._id && pickleDetailData?.amIMember;
@@ -186,7 +184,7 @@ const S = {
       ${({ theme }) => theme.typography.body1};
 
       &:hover {
-        background-color: #f7f7f7; //임시
+        background-color: #f7f7f7;
       }
     }
   `,

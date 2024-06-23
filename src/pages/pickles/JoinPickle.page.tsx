@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import client from '@/apis/axios';
 import styled from '@emotion/styled';
+import client from '@/apis/axios';
 
 import PaymentWindow from '@/components/picklePayment/PaymentComponent';
 import ConfirmationModal from '@/components/common/modal/ConfirmationModal';
@@ -21,21 +21,21 @@ declare global {
 
 export default function JoinPickle() {
   const navigate = useNavigate();
-  const { user } = useAuth();
-  const { handleOpen } = useBottomSheetModal(state => state);
   const { id: pickleId = '' } = useParams();
-  const { data } = useGetPickleDetail(pickleId);
-
-  const pickleData = data?.data;
 
   const [paymentMethod, setPaymentMethod] = useState<string>('');
   const [usePointValue, setUsePointValue] = useState(0);
   const [isAgree, setIsAgree] = useState(false);
 
-  const { IMP } = window;
+  const { user } = useAuth();
+  const { data } = useGetPickleDetail(pickleId);
+  const pickleData = data?.data;
 
   const { data: pointsdata } = useMyPoints();
   const point = pointsdata?.data?.points;
+
+  const { IMP } = window;
+  const { handleOpen } = useBottomSheetModal(state => state);
 
   async function onClickPayment() {
     if (pickleData.cost - usePointValue < 0) {
@@ -196,18 +196,17 @@ const S = {
     }
   `,
   PaymentButton: styled.button`
-    margin: 0 20px 120px;
-    height: 42px;
-    border-radius: 4px;
-    background-color: var(--Main-Color, #5dc26d);
-    color: white;
+    margin: 0 2rem 12rem;
+    height: 4.2rem;
+    border-radius: 0.4rem;
+    background-color: ${({ theme }) => theme.color.primary};
+    transition: background-color 0.3s;
+    color: ${({ theme }) => theme.color.white};
     font-size: 1.4rem;
 
     &:disabled {
       background-color: #d0d0d0;
       cursor: auto;
     }
-
-    transition: background-color 0.3s;
   `,
 };

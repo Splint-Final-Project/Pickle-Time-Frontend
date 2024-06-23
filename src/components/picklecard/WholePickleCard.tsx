@@ -57,6 +57,11 @@ const S = {
     background-repeat: no-repeat;
     background-position: bottom 15px right 0;
     cursor: pointer;
+
+    &:hover {
+      transform: translateY(-6px);
+      transition: all ease-in-out 0.25s;
+    }
   `,
   ProgressDay: styled.span`
     display: inline-block;

@@ -69,6 +69,11 @@ const S = {
     box-shadow: 0px 1px 2.8px 0px rgba(0, 0, 0, 0.25);
     color: #161616;
     transition: 0.5s;
+
+    &:hover {
+      transform: translateY(-6px);
+      transition: all ease-in-out 0.25s;
+    }
   `,
   Wrap: styled.div`
     display: flex;

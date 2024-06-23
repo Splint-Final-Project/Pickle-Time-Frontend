@@ -1,7 +1,7 @@
-import routes from '@/constants/routes';
+import React from 'react';
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
-import React from 'react';
+import routes from '@/constants/routes';
 
 interface SectionProps {
   children: React.ReactNode;
