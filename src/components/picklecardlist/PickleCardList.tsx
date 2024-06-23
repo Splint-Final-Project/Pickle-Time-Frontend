@@ -1,13 +1,11 @@
 import styled from '@emotion/styled';
 import { useEffect, useRef, useState } from 'react';
-import { css } from '@emotion/react';
 
 import SpecialPickleCard from '../picklecard/SpecialPickleCard';
 import { useGetSpecialPickles } from '@/hooks/query/pickles';
 
 import leftArrow from '/icons/leftBlackArrow.svg';
 import rightArrow from '/icons/rightBlackArrow.svg';
-import PickleCardMockData from '@/mocks/pickleCardMockData';
 
 interface PickleCardListProps {
   category: 'hotTime' | 'popular';

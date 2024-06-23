@@ -113,11 +113,6 @@ export const picklesRequests = Object.freeze({
   createGeneratedImgUrl: async (imgUrl: string) => {
     return await client.post(API_PICKLE.CREATE_GENERATED_IMG, { imageUrl: imgUrl });
   },
-  
-  editPickle: async (pickleId: string, pickleData: CreatePickleData) => {
-    const { data } = await client.put(API_PICKLE.EDIT(pickleId), pickleData);
-    return data;
-  },
 
   viewCountUp: async (pickleId: string) => {
     const { data } = await client.put(API_PICKLE.VIEW_COUNT_UP(pickleId));
