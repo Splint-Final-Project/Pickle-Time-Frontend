@@ -22,7 +22,6 @@ const geolocationOptions = {
 export default function MapSearch() {
   const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
-
   const [activeTabs, setActiveTabs] = useState<Set<string>>(new Set([]));
   const [jusoSearch, setJusoSearch] = useState('');
   const [jusoList, setJusoList] = useState<any[] | null>(null);
