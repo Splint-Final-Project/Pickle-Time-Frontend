@@ -49,7 +49,7 @@ declare module '@emotion/react' {
       [key in typography]: {
         fontSize: string;
         fontWeight: number;
-        lineHeight?: string;
+        lineHeight?: string | number;
       };
     };
     border: string;

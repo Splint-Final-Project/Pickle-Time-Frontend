@@ -20,8 +20,8 @@ import { showErrorToast } from '@/components/common/Toast';
 
 import useBottomSheetModal from '@/hooks/zustand/useBottomSheetModal';
 import usePickleEdit from '@/hooks/zustand/usePickleEdit';
+import { useEditPickleMutation, useGetPickleDetail } from '@/hooks/query/pickles';
 import useAuth from '@/hooks/zustand/useAuth';
-import { useEditPickleMutation, useGetPickelDetail } from '@/hooks/query/pickles';
 
 export default function PickleEdit() {
   const { id } = useParams();
@@ -46,7 +46,7 @@ export default function PickleEdit() {
   const { user } = useAuth();
   const { handleOpen } = useBottomSheetModal(state => state);
 
-  const { data } = useGetPickelDetail(id || '');
+  const { data } = useGetPickleDetail(id || '');
   const pickleDetailData = data?.data;
 
   const { mutate } = useEditPickleMutation(id || '', {

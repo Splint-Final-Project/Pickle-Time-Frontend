@@ -10,7 +10,7 @@ import Button from '@/components/common/button/Button';
 import ShareModal from '@/components/common/modal/ShareModal';
 
 import routes from '@/constants/routes';
-import { useGetPickelDetail } from '@/hooks/query/pickles';
+import { useGetPickleDetail, useViewCountLimit } from '@/hooks/query/pickles';
 import useAuth from '@/hooks/zustand/useAuth';
 import useBottomSheetModal from '@/hooks/zustand/useBottomSheetModal';
 
@@ -23,8 +23,10 @@ export default function Pickle() {
   const { pickleId = '' } = useParams();
 
   const { user } = useAuth();
-  const { data, error } = useGetPickelDetail(pickleId);
+  const { data, error } = useGetPickleDetail(pickleId);
   const pickleDetailData = data?.data;
+
+  useViewCountLimit(pickleId);
 
   const amILeader = user?._id && user._id === pickleDetailData?.leader;
   const amIMember = user?._id && pickleDetailData?.amIMember;
@@ -182,7 +184,7 @@ const S = {
       ${({ theme }) => theme.typography.body1};
 
       &:hover {
-        background-color: #f7f7f7; //임시
+        background-color: #f7f7f7;
       }
     }
   `,

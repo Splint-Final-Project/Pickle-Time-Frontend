@@ -1,15 +1,14 @@
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import client from '@/apis/axios';
 import styled from '@emotion/styled';
+import client from '@/apis/axios';
 
 import PaymentWindow from '@/components/picklePayment/PaymentComponent';
 import ConfirmationModal from '@/components/common/modal/ConfirmationModal';
 import { showErrorToast, showToast } from '@/components/common/Toast';
-
 import { Container } from './CreatePickleStyled';
 import useAuth from '@/hooks/zustand/useAuth';
-import { useGetPickelDetail } from '@/hooks/query/pickles';
+import { useGetPickleDetail } from '@/hooks/query/pickles';
 import { useMyPoints } from '@/hooks/query/points';
 import useBottomSheetModal from '@/hooks/zustand/useBottomSheetModal';
 import CloseIcon from '@/assets/icons/CloseIcon';
@@ -29,7 +28,7 @@ export default function JoinPickle() {
   const [isAgree, setIsAgree] = useState(false);
 
   const { user } = useAuth();
-  const { data } = useGetPickelDetail(pickleId);
+  const { data } = useGetPickleDetail(pickleId);
   const pickleData = data?.data;
 
   const { data: pointsdata } = useMyPoints();
@@ -92,15 +91,12 @@ export default function JoinPickle() {
       });
     }
   }
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
 
   return (
     <Container>
       <S.Wrapper>
         <S.Inner>
-          <S.CancleButton
+          <S.CancelButton
             onClick={() =>
               handleOpen({
                 renderComponent: ConfirmationModal,
@@ -115,7 +111,7 @@ export default function JoinPickle() {
             <S.IconBox>
               <CloseIcon />
             </S.IconBox>
-          </S.CancleButton>
+          </S.CancelButton>
           <S.Title>피클 신청</S.Title>
         </S.Inner>
       </S.Wrapper>
@@ -184,7 +180,7 @@ const S = {
     font-size: 2.4rem;
     font-weight: 600;
   `,
-  CancleButton: styled.button`
+  CancelButton: styled.button`
     display: inline-flex;
     justify-content: center;
     align-items: center;
@@ -195,7 +191,6 @@ const S = {
   Notice: styled.p`
     color: #8b8d94;
     font-size: 1.2rem;
-
     &:nth-of-type(1) {
       margin-bottom: 0.8rem;
     }

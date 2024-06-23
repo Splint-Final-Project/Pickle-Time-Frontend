@@ -13,6 +13,7 @@ import { useGetLikeCount, usePickleLikeMutation, useDeletePickleLikeMutation } f
 
 interface PickleCardListProps {
   category: 'hotTime' | 'popular';
+  tab: string;
 }
 
 const ONEDAY_MILLISECOND = 1000 * 60 * 60 * 24;
@@ -23,8 +24,8 @@ const calculateDday = (deadLine: string) => {
   return Math.floor((deadLineMilliseconds - today) / ONEDAY_MILLISECOND);
 };
 
-export default function PickleListCard({ category }: PickleCardListProps) {
-  const { data } = useGetSpecialPickles(category);
+export default function PickleListCard({ category, tab }: PickleCardListProps) {
+  const { data } = useGetSpecialPickles(category, tab);
 
   return (
     <>

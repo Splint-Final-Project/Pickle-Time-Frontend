@@ -11,7 +11,6 @@ export const useGetMessagesInOneToOne = () => {
       setLoading(true);
       try {
         const data = await messages.getByLeaderId(leaderId, pickleId);
-
         if (data.error) throw new Error(data.error);
 
         setMessages(data);
@@ -38,7 +37,6 @@ export const useGetMessages = () => {
       
       try {
         const data = await messages.getByConversationId(conversationId);
-
         if (data.error) throw new Error(data.error);
 
         setMessages(data);

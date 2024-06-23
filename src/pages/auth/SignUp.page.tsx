@@ -21,8 +21,7 @@ import {
   VerifyButton,
 } from './SignUpStyled';
 import { showErrorToast, showToast } from '@/components/common/Toast';
-
-
+import routes from '@/constants/routes';
 
 export default function SignUp() {
   const {
