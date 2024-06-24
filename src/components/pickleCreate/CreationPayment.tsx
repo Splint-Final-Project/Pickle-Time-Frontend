@@ -140,6 +140,14 @@ export default function CreationPayment() {
       });
     }
   }
+  useEffect(() => {
+    if (cost - usePointValue === 0) {
+      setPaymentMethod('free');
+    }
+  }, [usePointValue]);
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   return (
     <>
@@ -164,7 +172,7 @@ export default function CreationPayment() {
         <PaymentWindow.FinalAmount total={cost} usePoint={usePointValue} />
       </PaymentWindow.Section>
       <PaymentWindow.Section>
-        <PaymentWindow.Methods setState={setPaymentMethod} />
+        <PaymentWindow.Methods state={paymentMethod} setState={setPaymentMethod} />
       </PaymentWindow.Section>
       <PaymentWindow.Section>
         <PaymentWindow.PaymentEvent />
