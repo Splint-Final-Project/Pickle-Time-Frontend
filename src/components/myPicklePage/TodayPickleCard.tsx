@@ -63,18 +63,18 @@ const S = {
     -ms-user-select: none;
     -webkit-touch-callout: none;
 
-    &::before {
+    /* &::before {
       content: '';
       width: 32.5rem;
       height: 8.9rem;
-      /* background: #dedede; */
+      background: #dedede;
       border-radius: 0.7rem;
       position: absolute;
       bottom: -1rem;
       left: 50%;
       transform: translateX(-50%);
       z-index: 50;
-    }
+    } */
   `,
   Character: styled.div`
     position: absolute;
