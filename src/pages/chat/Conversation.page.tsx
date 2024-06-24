@@ -83,7 +83,17 @@ export default function Conversation() {
       <S.MessageContainer>
         {messages && messages?.map((message: any) => (
           <S.ForRefInMessageContainer ref={lastMessageRef} key={message._id}>
-            <Message message={message} key={message._id} />
+            {message?.isTrack ? (
+              <iframe
+                src={`https://open.spotify.com/embed/track/${message.message}`}
+                width="300"
+                height="380"
+                frameBorder="0"
+                allow="encrypted-media"
+              ></iframe>
+            ) : (
+              <Message message={message} key={message._id} />
+            )}
           </S.ForRefInMessageContainer>
         ))}
       </S.MessageContainer>
