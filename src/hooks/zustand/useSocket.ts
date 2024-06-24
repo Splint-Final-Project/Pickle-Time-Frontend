@@ -11,7 +11,7 @@ const useSocket = create<SocketType>((set, get) => ({
   socket: null,
   initializeSocket: (authUserId: string) => {
     if (authUserId) {
-      const socket = io("http://localhost:8080", {
+      const socket = io(`${import.meta.env.VITE_BACKEND_URL}`, {
         query: {
           userId: authUserId,
         },
