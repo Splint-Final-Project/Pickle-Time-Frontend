@@ -75,7 +75,7 @@ export const SubTitle = styled.h2`
 export const Logo = styled.img`
   min-width: 21rem;
   max-width: 30rem;
-  margin-top: 3rem;
+  margin-top: 1rem;
 
   @media (max-width: 630px) {
     min-width: 18rem;

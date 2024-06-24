@@ -1,6 +1,6 @@
-import PickleListHeader from '@/components/pickleWholeList/PickleListHeader';
-import styled from '@emotion/styled';
 import { useState, startTransition } from 'react';
+import styled from '@emotion/styled';
+import PickleListHeader from '@/components/pickleWholeList/PickleListHeader';
 import PickleListCard from '@/components/pickleWholeList/PickleListCard';
 import { TwoColumnGridTemplate } from '@/styles/commonStyles';
 
@@ -18,7 +18,7 @@ export default function PopularPickleList() {
 
   return (
     <S.Container>
-      <PickleListHeader title="마감 임박 피클" summary="마감이 얼마 남지 않은 피클!">
+      <PickleListHeader title="인기 급상승 피클" summary="참여하고 싶어지는 급상승 피클!">
         <S.TabWrapper>
           {tabs.map((tab, index) => (
             <S.Tab key={tab} $active={activeTab === tab} onClick={() => handleTabClick(tab)}>
@@ -34,7 +34,7 @@ export default function PopularPickleList() {
       </PickleListHeader>
       <S.Content>
         <TwoColumnGridTemplate>
-          <PickleListCard category="hotTime" tab={activeTab} />
+          <PickleListCard category="popular" tab={activeTab} />
         </TwoColumnGridTemplate>
       </S.Content>
     </S.Container>
@@ -62,11 +62,11 @@ const S = {
 
     display: inline-flex;
     align-items: center;
-    border-radius: 1.8rem;
     padding: 0.7rem 1.4rem;
+    border-radius: 1.8rem;
+    font-size: 1.4rem;
     background: ${({ $active }) => ($active ? '#000' : '#f1f1f1')};
     color: ${({ $active }) => ($active ? '#fff' : 'var(--Sub-Text, var(--Tab-Bar-Color-2, #8b8d94))')};
-    font-size: 1.4rem;
     transition:
       background-color 0.3s,
       color 0.3s;
@@ -75,7 +75,6 @@ const S = {
       background: ${({ $active }) => ($active ? '#000' : '#dcdcdc')};
       color: ${({ $active }) => ($active ? '#fff' : '#8b8d94')};
     }
-
     @media (max-width: 500px) {
       font-size: 1.2rem;
     }
@@ -89,8 +88,8 @@ const S = {
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 2rem;
     width: 2rem;
+    height: 2rem;
     margin-right: 0.3rem;
   `,
   Img: styled.img`

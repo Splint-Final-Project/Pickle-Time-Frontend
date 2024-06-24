@@ -9,6 +9,7 @@ import { showErrorToast } from '@/components/common/Toast';
 import { useMyFavoritePickleIds } from '@/hooks/query/like';
 import { useGetNearbyPickles } from '@/hooks/query/pickles';
 import { useGeolocation } from '@/hooks/useGeolocation';
+import EmptyDataMessage from '@/components/common/EmptyDataMessage';
 
 /**
  * 내 주변 페이지
@@ -291,7 +292,7 @@ export default function MapSearch() {
           </PickleCardContainer>
         </MapContainer>
       ) : (
-        <div>{'지도 로딩 중!' + error}</div>
+        <EmptyDataMessage>{'지도를 로딩 중이에요!' + error}</EmptyDataMessage>
       )}
     </Container>
   );
