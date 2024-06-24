@@ -67,7 +67,7 @@ const S = {
       content: '';
       width: 32.5rem;
       height: 8.9rem;
-      background: #dedede;
+      /* background: #dedede; */
       border-radius: 0.7rem;
       position: absolute;
       bottom: -1rem;
