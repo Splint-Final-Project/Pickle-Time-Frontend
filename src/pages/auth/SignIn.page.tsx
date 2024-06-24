@@ -6,9 +6,9 @@ export default function SignIn() {
     <Container>
       <StyledHomeLink to="/">
         <SubTitle>
-          함께 공부하고 싶을 때
+          다양한 사람들과 함께하는
           <br />
-          스터디 생성 플랫폼
+          생산적이고 즐거운 시간!
         </SubTitle>
 
         <Logo src="images/logotext.svg" />
@@ -75,7 +75,7 @@ export const SubTitle = styled.h2`
 export const Logo = styled.img`
   min-width: 21rem;
   max-width: 30rem;
-  margin-top: 3rem;
+  margin-top: 1rem;
 
   @media (max-width: 630px) {
     min-width: 18rem;

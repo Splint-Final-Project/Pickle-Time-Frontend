@@ -67,7 +67,7 @@ export default function SignUp() {
       <SubTitle>1분이면 끝나요</SubTitle>
       <Title>
         피클 타임과
-        <br /> 함께 스터디해요!
+        <br /> 함께 자기계발해요!
       </Title>
       <Form onSubmit={handleSubmit(handleSignUp)}>
         <FormField disabled={isSubmitting}>

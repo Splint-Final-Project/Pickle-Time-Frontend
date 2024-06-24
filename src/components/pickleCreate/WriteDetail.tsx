@@ -97,6 +97,7 @@ const S = {
   Input: styled.textarea`
     width: 100%;
     padding-bottom: 20rem;
+    overflow: hidden;
     border: none;
     border-bottom: 0.2rem solid #ddd;
     font-family: Pretendard;

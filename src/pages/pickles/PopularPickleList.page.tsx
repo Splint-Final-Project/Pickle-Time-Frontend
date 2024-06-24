@@ -33,9 +33,7 @@ export default function PopularPickleList() {
         </S.TabWrapper>
       </PickleListHeader>
       <S.Content>
-        <TwoColumnGridTemplate>
-          <PickleListCard category="popular" tab={activeTab} />
-        </TwoColumnGridTemplate>
+        <PickleListCard category="popular" tab={activeTab} />
       </S.Content>
     </S.Container>
   );
