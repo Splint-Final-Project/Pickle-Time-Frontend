@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import { TodayPickleDataType } from './TodayPickleListContainer';
-import CardBackImg from '/images/todayPickleCardBackImg.svg';
+// import CardBackImg from '/images/todayPickleCardBackImg.svg';
 import ClockIcon from '@/assets/icons/ClockIcon';
 import AddressIcon from '@/assets/icons/AddressIcon';
 import Character from '/icons/character.svg';
