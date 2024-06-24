@@ -11,7 +11,7 @@ const useSocket = create<SocketType>((set, get) => ({
   socket: null,
   initializeSocket: (authUserId: string) => {
     if (authUserId) {
-      const socket = io(`${import.meta.env.VITE_BACKEND_URL}`, {
+      const socket = io("wss://pickle-time.net/socket.io/", {
         query: {
           userId: authUserId,
         },
