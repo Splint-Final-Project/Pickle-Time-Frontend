@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import { TodayPickleDataType } from './TodayPickleListContainer';
-import CardBackImg from '@/assets/images/todayPickleCardBackImg.svg';
+import CardBackImg from '/images/todayPickleCardBackImg.svg';
 import ClockIcon from '@/assets/icons/ClockIcon';
 import AddressIcon from '@/assets/icons/AddressIcon';
 import Character from '/icons/character.svg';
@@ -63,7 +63,7 @@ const S = {
     -ms-user-select: none;
     -webkit-touch-callout: none;
 
-    /* &::before {
+    &::before {
       content: '';
       width: 32.5rem;
       height: 8.9rem;
@@ -74,7 +74,7 @@ const S = {
       left: 50%;
       transform: translateX(-50%);
       z-index: 50;
-    } */
+    }
   `,
   Character: styled.div`
     position: absolute;
@@ -89,7 +89,7 @@ const S = {
   `,
   Card: styled.div`
     padding: 2.8rem 2.5rem;
-    background-image: url(${CardBackImg});
+    background-image: url('/images/todayPickleCardBackImg.svg');
     background-repeat: no-repeat;
     background-size: contain;
     color: #fff;
