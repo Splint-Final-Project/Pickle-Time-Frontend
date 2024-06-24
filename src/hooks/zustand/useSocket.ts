@@ -17,7 +17,7 @@ const useSocket = create<SocketType>((set, get) => ({
         },
         timeout: 5000, // 타임아웃 설정 (예: 5초)
         reconnectionAttempts: 5, // 재연결 시도 횟수 제한
-        transports: ['websocket'], // 사용할 전송 프로토콜 지정
+        transports: ['polling', 'websocket'],  // 폴링과 웹소켓을 모두 지원
         withCredentials: true
       });
 
