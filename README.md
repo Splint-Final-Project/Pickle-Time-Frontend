@@ -22,13 +22,13 @@ https://pickle-time-frontend.vercel.app/
       <img style="width: 200px;"src="https://cdn.011st.com/11dims/resize/600x600/quality/75/11src/product/5617982918/B.jpg?852000000" alt=""/><br />
       <sub><b>[FE, BE] 노은수</b></sub></a><br /></td>
       <td align="center"><a href="https://github.com/vinoankr">
-      <img style="width: 200px;" src="https://github.com/Splint-Final-Project/Pickle-Time-Frontend/assets/76935187/965c5623-50af-4fc6-8aac-2cd3b3c116a1" alt=""/><br />
+      <img style="width: 200px;" src="https://github.com/Splint-Final-Project/Pickle-Time-Frontend/assets/76935187/3e7944b2-5191-499b-a9fa-ce624d1738b8" alt=""/><br />
       <sub><b>[FE, BE] 안주언</b></sub></a><br /></td>
       <td align="center"><a href="https://github.com/sihyonn">
       <img style="width: 200px;" src="https://github.com/Splint-Final-Project/Pickle-Time-Frontend/assets/76935187/11456898-b2b0-4e0b-baf6-29495cf49116" alt=""/><br />
       <sub><b>[FE] 김시현</b></sub></a><br /></td>
       <td align="center"><a href="https://github.com/juniorcoma">
-      <img style="width: 200px;" src="https://github.com/Splint-Final-Project/Pickle-Time-Frontend/assets/76935187/c776a49b-1f71-42ad-aa8d-78a2be989616" alt=""/><br />
+      <img style="width: 200px;" src="https://github.com/Splint-Final-Project/Pickle-Time-Frontend/assets/76935187/807b2f1f-456e-41cd-8a12-ac11b25ef979" alt=""/><br />
       <sub><b>[FE] 박현우</b></sub></a><br /></td>
       <td align="center"><a href="https://github.com/minjo0n61">
       <img style="width: 200px;" src="https://github.com/Splint-Final-Project/Pickle-Time-Frontend/assets/76935187/6ad9bcc0-e7f4-4ac5-a5d1-53bdfb773113" alt=""/><br />
