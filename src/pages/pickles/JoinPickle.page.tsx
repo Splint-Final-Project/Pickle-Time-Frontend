@@ -54,7 +54,7 @@ export default function JoinPickle() {
           discount: usePointValue,
           pickle_id: pickleId,
         });
-        showToast('결제 및 신청이 완료되었어요!');
+        showToast('신청이 완료되었어요!');
       } catch (err: any) {
         showErrorToast(err.response.data.message);
       }
@@ -91,6 +91,10 @@ export default function JoinPickle() {
       });
     }
   }
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   return (
     <Container>
@@ -138,7 +142,7 @@ export default function JoinPickle() {
             <PaymentWindow.FinalAmount total={pickleData.cost} usePoint={usePointValue} />
           </PaymentWindow.Section>
           <PaymentWindow.Section>
-            <PaymentWindow.Methods setState={setPaymentMethod} />
+            <PaymentWindow.Methods disabled={pickleData.cost - usePointValue === 0} setState={setPaymentMethod} />
           </PaymentWindow.Section>
           <PaymentWindow.Section>
             <PaymentWindow.PaymentEvent />

@@ -20,12 +20,4 @@ export default defineConfig({
       { find: '@/utils', replacement: path.resolve(__dirname, 'src/utils') },
     ],
   },
-  server: {
-    port: 4000,
-    proxy: {
-      '/api': {
-        target: 'http://localhost:8080',
-      },
-    },
-  },
 });

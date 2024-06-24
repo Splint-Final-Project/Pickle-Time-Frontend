@@ -141,6 +141,10 @@ export default function CreationPayment() {
     }
   }
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
     <>
       <PaymentWindow.Section>
@@ -164,7 +168,7 @@ export default function CreationPayment() {
         <PaymentWindow.FinalAmount total={cost} usePoint={usePointValue} />
       </PaymentWindow.Section>
       <PaymentWindow.Section>
-        <PaymentWindow.Methods setState={setPaymentMethod} />
+        <PaymentWindow.Methods disabled={cost - usePointValue === 0} setState={setPaymentMethod} />
       </PaymentWindow.Section>
       <PaymentWindow.Section>
         <PaymentWindow.PaymentEvent />

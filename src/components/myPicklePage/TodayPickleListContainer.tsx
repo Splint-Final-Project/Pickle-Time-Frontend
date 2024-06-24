@@ -14,7 +14,6 @@ import { isButtonActive, calculateInterval } from '@/utils/todayPickleCardUtils'
 import { useGetProceedingPickles } from '@/hooks/query/pickles';
 import { useGeolocation } from '@/hooks/useGeolocation';
 import Character from '/icons/character.svg';
-import CardBackImg from '@/assets/images/todayPickleCardBackImg.svg';
 
 export interface TodayPickleDataType {
   capacity: number;
@@ -205,7 +204,7 @@ const S = {
     width: 100%;
     min-height: 23.4rem;
     padding: 2.8rem 2.5rem;
-    background-image: url(${CardBackImg});
+    background-image: url('/images/todayPickleCardBackImg.svg');
     background-repeat: no-repeat;
     background-size: contain;
     color: #fff;
