@@ -1,8 +1,9 @@
-import { SortByOptions } from '@/apis/types/pickles.type';
+import { useEffect, useState } from 'react';
 import WholePickleCard from '@/components/picklecard/WholePickleCard';
+import NoPickle from '@/components/common/NoPickle';
+import { SortByOptions } from '@/apis/types/pickles.type';
 import { useGetInfinitePickles } from '@/hooks/query/pickles';
 import { GridTemplate } from '@/styles/commonStyles';
-import { useEffect, useState } from 'react';
 
 interface InfinitePickleCardListProps {
   sortBy: SortByOptions['option'];
@@ -19,9 +20,15 @@ export default function InfinitePickleCardList({ sortBy }: InfinitePickleCardLis
     }
   }, [data, isFetching]);
 
-  return (
+  return pickleData?.length ? (
     <GridTemplate>
-      {pickleData?.map((pickle: any) => <WholePickleCard key={pickle.id} {...pickle} type={'study'} />)}
+      {pickleData.map((pickle: any) => (
+        <WholePickleCard key={pickle.id} {...pickle} type={'study'} />
+      ))}
     </GridTemplate>
+  ) : (
+    <div style={{ paddingTop: '3rem' }}>
+      <NoPickle />
+    </div>
   );
 }

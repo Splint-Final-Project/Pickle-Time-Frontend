@@ -6,6 +6,8 @@ import { useGetSpecialPickles } from '@/hooks/query/pickles';
 import { useGetLikeCount, usePickleLikeMutation, useDeletePickleLikeMutation } from '@/hooks/query/like';
 import SpecialPickleCardArrowIcon from '@/assets/icons/SpecialPickleCardArrowIcon';
 import routes from '@/constants/routes';
+import NoPickle from '../common/NoPickle';
+import { TwoColumnGridTemplate } from '@/styles/commonStyles';
 
 /**
  * 전체보기 눌렀을 때 나오는 화면에서 사용하는 카드 컴포넌트
@@ -30,9 +32,15 @@ export default function PickleListCard({ category, tab }: PickleCardListProps) {
   return (
     <>
       {data?.length ? (
-        data.map((pickle: any) => <SpecialPickleCard key={pickle.id} pickleData={pickle} />)
+        <TwoColumnGridTemplate>
+          {data.map((pickle: any) => (
+            <SpecialPickleCard key={pickle.id} pickleData={pickle} />
+          ))}
+        </TwoColumnGridTemplate>
       ) : (
-        <S.NoPicklesImg src="/images/noPickles.png" alt="nopickles" />
+        <div style={{ width: '100%', paddingTop: '5rem' }}>
+          <NoPickle />
+        </div>
       )}
     </>
   );
