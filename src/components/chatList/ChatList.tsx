@@ -14,7 +14,7 @@ export default function ChatList({ currentCategory, searchValue }: ChatListProps
 
   return (
     <S.Container>
-      {data?.data.reverse().map((conversation: any) => (
+      {data?.data.map((conversation: any) => (
         <li key={conversation._id}>
           <ChatListItem chatData={conversation} />
         </li>
@@ -25,7 +25,7 @@ export default function ChatList({ currentCategory, searchValue }: ChatListProps
 
 function ChatListItem({ chatData }: { chatData: any }) {
   const time = timeParsed(chatData.updatedAt);
-  console.log(chatData.lastMessageIsTrack)
+  console.log(chatData.lastMessageIsTrack);
   return (
     <S.Item
       to={{
