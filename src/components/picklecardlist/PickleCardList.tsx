@@ -6,6 +6,7 @@ import { useGetSpecialPickles } from '@/hooks/query/pickles';
 
 import leftArrow from '/icons/leftBlackArrow.svg';
 import rightArrow from '/icons/rightBlackArrow.svg';
+import NoPickle from '../common/NoPickle';
 
 interface PickleCardListProps {
   category: 'hotTime' | 'popular';
@@ -49,28 +50,23 @@ export default function PickleCardList({ category }: PickleCardListProps) {
 
   return (
     <S.Container ref={ListContainerRef}>
-      <S.ListViewBox>
-        <S.ListInner>
-          <S.List $transLateX={moveSliderValue} ref={ListRef}>
-            {/* 데이터 사용 시 아래 조건문 주석 제거 */}
-            {data?.length ? (
-              data.map((pickle: any) => (
+      {data?.length ? (
+        <S.ListViewBox className="inner">
+          <S.ListInner>
+            <S.List $transLateX={moveSliderValue} ref={ListRef}>
+              {data.map((pickle: any) => (
                 <li key={pickle.id}>
                   <SpecialPickleCard pickleData={pickle} />
                 </li>
-              ))
-            ) : (
-              <S.CardWrapper>
-                <S.CardLayer>
-                  <S.NoPicklesImg src="/images/noPickles.png" />
-                </S.CardLayer>
-              </S.CardWrapper>
-            )}
-            {/* 목데이터 */}
-            {/* <PickleCardMockData /> */}
-          </S.List>
-        </S.ListInner>
-      </S.ListViewBox>
+              ))}
+            </S.List>
+          </S.ListInner>
+        </S.ListViewBox>
+      ) : (
+        <S.ListViewBox className="inner">
+          <NoPickle />
+        </S.ListViewBox>
+      )}
       <S.HoverAreaLeft onMouseEnter={() => setIsMouseInLeft(true)} onMouseLeave={() => setIsMouseInLeft(false)}>
         <S.SliderControlBtn onClick={handleLeftBtn} $isShow={isMouseInLeft && existData}>
           <img src={leftArrow} alt="Left Arrow" />
@@ -89,26 +85,7 @@ const S = {
   Container: styled.div`
     position: relative;
   `,
-  CardWrapper: styled.div`
-    display: flex;
-  `,
-  CardLayer: styled.div`
-    display: block;
-    margin: auto;
 
-    width: 29.6rem;
-    height: 16.5rem;
-    border-radius: 0.4rem;
-    background: #fff;
-    padding: 1.2rem 1.2rem 1.2rem 2.2rem;
-    color: #161616;
-    position: relative;
-    box-shadow: 0px 1px 2.8px 0px rgba(0, 0, 0, 0.25);
-    transition: 0.5s;
-  `,
-  NoPicklesImg: styled.img`
-    height: 100%;
-  `,
   ListViewBox: styled.div`
     margin-left: -2.8rem;
     margin-right: -2.8rem;
