@@ -320,6 +320,7 @@ const MapContainer = styled.div`
   height: 100%;
   position: relative;
   overflow: hidden;
+  /* overflow-x: scroll; */
   div {
     div {
       div {
@@ -466,6 +467,7 @@ const PickleCardContainer = styled.div`
   flex-shrink: 0;
   gap: 2rem;
   width: auto;
+  max-width: 100%;
   padding: 0 2rem;
   overflow: scroll;
 `;
