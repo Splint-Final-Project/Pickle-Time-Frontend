@@ -57,10 +57,6 @@ const router = createBrowserRouter([
         element: <CreatePickle />,
       },
       {
-        path: routes.chatList,
-        element: <ConversationList />,
-      },
-      {
         path: routes.map,
         element: <MapSearch />,
       },
