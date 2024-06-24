@@ -1,11 +1,11 @@
 import styled from '@emotion/styled';
 
 interface PaymentMeansProps {
-  state: string;
+  disabled: boolean;
   setState: React.Dispatch<React.SetStateAction<string>>;
 }
 
-export default function PaymentMeans({ state, setState }: PaymentMeansProps) {
+export default function PaymentMeans({ disabled, setState }: PaymentMeansProps) {
   return (
     <>
       <S.Title>결제방법</S.Title>
@@ -15,7 +15,7 @@ export default function PaymentMeans({ state, setState }: PaymentMeansProps) {
           value="tosspay"
           type="radio"
           name="paymentMethod"
-          disabled={state === 'free'}
+          disabled={disabled}
           onChange={e => setState(e.target.value)}
         />
         <S.Label htmlFor="tosspay">
@@ -29,7 +29,7 @@ export default function PaymentMeans({ state, setState }: PaymentMeansProps) {
           value="kakaopay"
           type="radio"
           name="paymentMethod"
-          disabled={state === 'free'}
+          disabled={disabled}
           onChange={e => setState(e.target.value)}
         />
         <S.Label htmlFor="kakaopay">
