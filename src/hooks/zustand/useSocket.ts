@@ -35,6 +35,10 @@ const useSocket = create<SocketType>((set, get) => ({
         console.error('Connection error:', err);
       });
 
+      socket.on('error', (err) => {
+        console.error('Connection error2:', err);
+      });
+
       return () => {
         socket.close();
         set({ socket: null });
