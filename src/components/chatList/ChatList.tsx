@@ -14,7 +14,7 @@ export default function ChatList({ currentCategory, searchValue }: ChatListProps
 
   return (
     <S.Container>
-      {data?.data.map((conversation: any) => (
+      {data?.data.reverse().map((conversation: any) => (
         <li key={conversation._id}>
           <ChatListItem chatData={conversation} />
         </li>
