@@ -15,27 +15,31 @@ https://pickle-time-frontend.vercel.app/
 
 ### 🧑‍💻팀원 소개
 
-<table>
+<table align="center">
   <tbody>
     <tr>
       <td align="center"><a href="https://github.com/whai2">
-      <img width=200px src="https://github.com/Hooni07/Rolling/assets/79882248/b2d355ae-4264-4b2a-bb3a-6f0f8c3e567d" alt=""/><br />
+      <img style="width: 200px;"src="https://cdn.011st.com/11dims/resize/600x600/quality/75/11src/product/5617982918/B.jpg?852000000" alt=""/><br />
       <sub><b>[FE, BE] 노은수</b></sub></a><br /></td>
       <td align="center"><a href="https://github.com/vinoankr">
-      <img width=200px src="https://github.com/Hooni07/Rolling/assets/79882248/0ceb7aa5-595a-467e-8b06-caa156c4b58a" alt=""/><br />
+      <img style="width: 200px;" src="https://github.com/Splint-Final-Project/Pickle-Time-Frontend/assets/76935187/965c5623-50af-4fc6-8aac-2cd3b3c116a1" alt=""/><br />
       <sub><b>[FE, BE] 안주언</b></sub></a><br /></td>
       <td align="center"><a href="https://github.com/sihyonn">
-      <img width=200px src="https://github.com/Hooni07/Rolling/assets/79882248/1874290d-8a99-4c65-9683-75ce2acc2615" alt=""/><br />
+      <img style="width: 200px;" src="https://github.com/Splint-Final-Project/Pickle-Time-Frontend/assets/76935187/11456898-b2b0-4e0b-baf6-29495cf49116" alt=""/><br />
       <sub><b>[FE] 김시현</b></sub></a><br /></td>
       <td align="center"><a href="https://github.com/juniorcoma">
-      <img width=200px src="https://github.com/Hooni07/Rolling/assets/79882248/dd37743b-6cd8-4349-ad30-0a49c4655caa" alt=""/><br />
+      <img style="width: 200px;" src="https://github.com/Splint-Final-Project/Pickle-Time-Frontend/assets/76935187/c776a49b-1f71-42ad-aa8d-78a2be989616" alt=""/><br />
       <sub><b>[FE] 박현우</b></sub></a><br /></td>
       <td align="center"><a href="https://github.com/minjo0n61">
-      <img width=200px src="https://github.com/Hooni07/Rolling/assets/79882248/395a8089-fad9-4b60-b954-0ca1ad5f3bf3" alt=""/><br />
+      <img style="width: 200px;" src="https://github.com/Splint-Final-Project/Pickle-Time-Frontend/assets/76935187/6ad9bcc0-e7f4-4ac5-a5d1-53bdfb773113" alt=""/><br />
       <sub><b>[FE] 최민준</b></sub></a><br /></td>
     </tr>
   </tbody>
 </table>
+
+
+
+
 
 ## 🗓️ 개발기간
 
