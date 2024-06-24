@@ -11,14 +11,13 @@ const useSocket = create<SocketType>((set, get) => ({
   socket: null,
   initializeSocket: (authUserId: string) => {
     if (authUserId) {
-      const socket = io(`${import.meta.env.VITE_BACKEND_URL}`, {
+      const socket = io("https://pickle-time.net", {
         query: {
           userId: authUserId,
         },
         timeout: 5000, // 타임아웃 설정 (예: 5초)
         reconnectionAttempts: 5, // 재연결 시도 횟수 제한
         transports: ['websocket'], // 사용할 전송 프로토콜 지정
-        secure: false,
       });
 
       // socket.on("getOnlineUsers", (users) => {
@@ -29,6 +28,10 @@ const useSocket = create<SocketType>((set, get) => ({
 
       socket.on('disconnect', () => {
         set({ socket: null });
+      });
+      
+      socket.on('connect_error', (err) => {
+        console.error('Connection error:', err);
       });
 
       return () => {
