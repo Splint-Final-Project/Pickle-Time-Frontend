@@ -10,6 +10,7 @@ import { useMyFavoritePickleIds } from '@/hooks/query/like';
 import { useGetNearbyPickles } from '@/hooks/query/pickles';
 import { useGeolocation } from '@/hooks/useGeolocation';
 import EmptyDataMessage from '@/components/common/EmptyDataMessage';
+import { keyframes } from '@emotion/react';
 
 /**
  * 내 주변 페이지
@@ -292,11 +293,28 @@ export default function MapSearch() {
           </PickleCardContainer>
         </MapContainer>
       ) : (
-        <EmptyDataMessage>{'지도를 로딩 중이에요!' + error}</EmptyDataMessage>
+        <SpinnerBox>
+          <CircleBorder>
+            <CircleCore></CircleCore>
+          </CircleBorder>
+          <div>로딩중</div>
+        </SpinnerBox>
       )}
     </Container>
   );
 }
+
+const spin = keyframes`
+ 
+  from {
+    transform: rotate(0);
+  }
+  to{
+    transform: rotate(359deg);
+  }
+
+
+`;
 
 const Container = styled.div`
   display: flex;
@@ -320,6 +338,7 @@ const MapContainer = styled.div`
   height: 100%;
   position: relative;
   overflow: hidden;
+  /* overflow-x: scroll; */
   div {
     div {
       div {
@@ -466,6 +485,38 @@ const PickleCardContainer = styled.div`
   flex-shrink: 0;
   gap: 2rem;
   width: auto;
+  max-width: 100%;
   padding: 0 2rem;
   overflow: scroll;
+`;
+
+const SpinnerBox = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: transparent;
+  flex-direction: column;
+  gap: 8px;
+  height: 600px;
+`;
+
+const CircleBorder = styled.div`
+  width: 50px;
+  height: 50px;
+  padding: 3px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  background: rgb(63, 249, 220);
+  background: linear-gradient(0deg, rgba(63, 249, 220, 0.1) 33%, rgba(93, 194, 109, 1) 100%);
+  animation: ${spin} 0.8s linear 0s infinite;
+`;
+
+const CircleCore = styled.div`
+  width: 100%;
+  height: 100%;
+  background-color: #fff;
+  border-radius: 50%;
 `;

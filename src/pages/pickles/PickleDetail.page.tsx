@@ -44,7 +44,6 @@ export default function Pickle() {
       <S.TopSection>
         <S.Title>
           <BackButton />
-          피클
         </S.Title>
         <S.TopBox>
           <Category category={pickleDetailData?.category} />

@@ -142,13 +142,13 @@ const S = {
   `,
   HeaderWrapper: styled.div`
     position: relative;
-    padding: 5rem 2.8rem 1.3rem;
+    padding: 6rem 3.5rem 1.3rem;
   `,
   BackButtonWrapper: styled.div`
     margin-left: -1rem;
   `,
   BackButton: styled(Link)`
-    padding: 0.5rem 0.5rem 0.5rem 0.9rem;
+    padding: 0.5rem 0.5rem 0.5rem;
   `,
   SearchBarWrapper: styled.div`
     display: flex;

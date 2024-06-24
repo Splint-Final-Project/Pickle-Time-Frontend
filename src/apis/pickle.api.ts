@@ -12,18 +12,14 @@ export const picklesRequests = Object.freeze({
   },
 
   // 인기 피클
-  getPopular: async (category: string = '') => {
-    const { data } = await client.get(API_PICKLE.POPULAR, {
-      params: category && category !== '전체' ? { category } : {},
-    });
+  getPopular: async () => {
+    const { data } = await client.get(API_PICKLE.POPULAR, {});
     return data;
   },
 
   // 마감 임박 피클
-  getHotTime: async (category: string = '') => {
-    const { data } = await client.get(API_PICKLE.HOT_TIME, {
-      params: category && category !== '전체' ? { category } : {},
-    });
+  getHotTime: async () => {
+    const { data } = await client.get(API_PICKLE.HOT_TIME, {});
     return data;
   },
 
@@ -116,5 +112,5 @@ export const picklesRequests = Object.freeze({
 
   viewCountUp: async (pickleId: string) => {
     const { data } = await client.put(API_PICKLE.VIEW_COUNT_UP(pickleId));
-  }
+  },
 });

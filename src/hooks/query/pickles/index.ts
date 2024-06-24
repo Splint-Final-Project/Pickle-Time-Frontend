@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect } from 'react';
 import { useQuery, useInfiniteQuery, useMutation, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
 import { keepPreviousData } from '@tanstack/react-query';
 import { picklesRequests } from '@/apis/pickle.api';
@@ -66,14 +66,14 @@ export const useGetNearbyPickles = (location: Coordinates | null, level: number)
   });
 };
 
-export const useGetSpecialPickles = (type: 'hotTime' | 'popular', category: string) => {
+export const useGetSpecialPickles = (category: 'hotTime' | 'popular') => {
   return useSuspenseQuery({
-    queryKey: ['pickles', type, category],
+    queryKey: ['pickles', category],
     queryFn: async () => {
-      if (type === 'hotTime') {
-        return await picklesRequests.getHotTime(category);
+      if (category === 'hotTime') {
+        return await picklesRequests.getHotTime();
       } else {
-        return await picklesRequests.getPopular(category);
+        return await picklesRequests.getPopular();
       }
     },
     select: data => data.data,
@@ -189,10 +189,10 @@ const usePickleViewCountUp = (pickleId: string) => {
       showErrorToast('방문 횟수가 증가하지 않았어요.');
     },
   });
-}
+};
 
 export const useViewCountLimit = (pickleId: string) => {
-  const { mutate } = usePickleViewCountUp(pickleId)
+  const { mutate } = usePickleViewCountUp(pickleId);
   const visitKey = `lastVisit-${pickleId}`;
   const visitThreshold = 60000; // 60초 (1분)
 
@@ -201,7 +201,7 @@ export const useViewCountLimit = (pickleId: string) => {
     const now = Date.now();
 
     if (!lastVisit || now - parseInt(lastVisit) > visitThreshold) {
-      try { 
+      try {
         mutate();
         localStorage.setItem(visitKey, now.toString());
       } catch (error) {
