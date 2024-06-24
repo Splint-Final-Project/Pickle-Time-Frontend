@@ -2,7 +2,6 @@ import { useState, startTransition } from 'react';
 import styled from '@emotion/styled';
 import PickleListHeader from '@/components/pickleWholeList/PickleListHeader';
 import PickleListCard from '@/components/pickleWholeList/PickleListCard';
-import { TwoColumnGridTemplate } from '@/styles/commonStyles';
 
 const imgsrc = ['', '/images/category1.svg', '/images/category2.svg', '/images/category3.svg'];
 
@@ -33,9 +32,7 @@ export default function PopularPickleList() {
         </S.TabWrapper>
       </PickleListHeader>
       <S.Content>
-        <TwoColumnGridTemplate>
-          <PickleListCard category="hotTime" tab={activeTab} />
-        </TwoColumnGridTemplate>
+        <PickleListCard category="hotTime" tab={activeTab} />
       </S.Content>
     </S.Container>
   );

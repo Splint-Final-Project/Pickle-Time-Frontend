@@ -212,7 +212,6 @@ const S = {
   `,
 
   NotTodayPickleMessage: styled.span`
-    font-size: 2.6rem;
-    font-weight: bold;
+    ${({ theme }) => theme.typography.subTitle1}
   `,
 };
