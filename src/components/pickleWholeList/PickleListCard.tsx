@@ -27,7 +27,12 @@ const calculateDday = (deadLine: string) => {
 };
 
 export default function PickleListCard({ category, tab }: PickleCardListProps) {
-  const { data } = useGetSpecialPickles(category, tab);
+  let { data } = useGetSpecialPickles(category);
+
+  //tab 에 따라 필터링
+  if (tab !== '전체') {
+    data = data?.filter((pickle: any) => pickle.category === tab);
+  }
 
   return (
     <>

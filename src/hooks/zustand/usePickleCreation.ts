@@ -1,10 +1,11 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 
-const d = new Date();
-const year = d.getFullYear(); // 년
-const month = d.getMonth(); // 월
-const day = d.getDate(); // 일
+const eightDaysLater = new Date();
+eightDaysLater.setDate(eightDaysLater.getDate() + 8);
+const year = eightDaysLater.getFullYear(); // 년
+const month = eightDaysLater.getMonth(); // 월
+const day = eightDaysLater.getDate(); // 일
 
 export type DateTypeInInterface = {
   year: number;
