@@ -14,7 +14,6 @@ function padZero(number: number) {
 
 export default function Message({ message }: { message: any }) {
   const { user } = useAuth();
-
   const time = extractTime(message.updatedAt);
   const fromMe = user?._id === message?.senderId;
 
@@ -26,19 +25,27 @@ export default function Message({ message }: { message: any }) {
             <S.OutsideNumberText>1</S.OutsideNumberText>
             <S.OutSideTimeText>{time}</S.OutSideTimeText>
           </S.OutSide>
-          <S.MessageContainer fromMe={fromMe}>
-            <S.TextContainer>
-              <S.Text fromMe={fromMe}>{message?.message}</S.Text>
-            </S.TextContainer>
-          </S.MessageContainer>
+          <S.MessageAndNick fromMe={fromMe}>
+            <S.NickNameText>{message?.senderNickname}</S.NickNameText>
+            <S.MessageContainer fromMe={fromMe}>
+              <S.TextContainer>
+                <S.Text fromMe={fromMe}>{message?.message}</S.Text>
+              </S.TextContainer>
+            </S.MessageContainer>
+          </S.MessageAndNick>
+          <S.OutsideProfile src={message?.profilePic} alt='이미지'/>
         </>
       ) : (
         <>
-          <S.MessageContainer fromMe={fromMe}>
-            <S.TextContainer>
-              <S.Text fromMe={fromMe}>{message?.message}</S.Text>
-            </S.TextContainer>
-          </S.MessageContainer>
+          <S.OutsideProfile src={message?.profilePic} alt='이미지'/>
+          <S.MessageAndNick fromMe={fromMe}>
+            <S.NickNameText>{message?.senderNickname}</S.NickNameText>
+            <S.MessageContainer fromMe={fromMe}>
+              <S.TextContainer>
+                <S.Text fromMe={fromMe}>{message?.message}</S.Text>
+              </S.TextContainer>
+            </S.MessageContainer>
+          </S.MessageAndNick>
           <S.OutSide fromMe={fromMe}>
             <S.OutsideNumberText>1</S.OutsideNumberText>
             <S.OutSideTimeText>{time}</S.OutSideTimeText>
@@ -56,7 +63,7 @@ const S = {
     justify-content: center;
     align-items: center;
     display: flex;
-    gap: 0.4em;
+    gap: 0.8em;
   `,
 
   MessageContainer: styled.div<{ fromMe: boolean }>`
@@ -64,7 +71,7 @@ const S = {
     max-width: 22.6rem;
     height: auto;
     min-height: 4.1rem;
-    margin: 0.5rem 0;
+    margin: 0.8rem 0;
     border-radius: ${props => (props.fromMe ? '2.0rem 1.0rem 2.0rem 2.0rem' : '1.0rem 2.0rem 2.0rem 2.0rem')};
     background: ${props => (props.fromMe ? '#5DC26D' : '#F3F4F6')};
     word-wrap: break-word;
@@ -90,9 +97,17 @@ const S = {
   OutSide: styled.div<{ fromMe: boolean }>`
     display: flex;
     flex-direction: column;
-    margin-bottom: -1.3rem;
+    margin-bottom: -3.5rem;
     align-items: ${props => (props.fromMe ? 'flex-end' : 'flex-start')};
   `,
+
+  MessageAndNick: styled.div<{ fromMe: boolean }>`
+  display: flex;
+  flex-direction: column;
+  /* margin-bottom: -.5rem; */
+  align-items: ${props => (props.fromMe ? 'flex-end' : 'flex-start')};
+  `,
+
 
   OutsideNumberText: styled.span`
     color: ${({ theme }) => theme.color.basic};
@@ -107,4 +122,23 @@ const S = {
     font-weight: 400;
     line-height: normal;
   `,
+
+  OutsideProfile: styled.img`
+    width: 33px;
+    height: 33px;
+    flex-shrink: 0;
+    border-radius: 12px;
+    background: #D9D9D9;
+  `,
+
+  NickNameText: styled.div`
+    color: var(--Basic, #181F29);
+
+    /* Caption */
+    font-family: Pretendard;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+  `
 };
