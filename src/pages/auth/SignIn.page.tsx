@@ -6,9 +6,9 @@ export default function SignIn() {
     <Container>
       <StyledHomeLink to="/">
         <SubTitle>
-          함께 공부하고 싶을 때
+          다양한 사람들과 함께하는
           <br />
-          스터디 생성 플랫폼
+          생산적이고 즐거운 시간!
         </SubTitle>
 
         <Logo src="images/logotext.svg" />
