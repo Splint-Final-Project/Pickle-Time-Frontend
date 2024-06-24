@@ -45,65 +45,104 @@ https://pickle-time-frontend.vercel.app/
 
 ### ❓피클 타임이란
 
-피클타임은 일상의 '피크타임'과 반대되는 개념으로, 바쁜 일상 속에서 잠깐씩 짬이 날 때마다 피클로 입가심하듯이 자기개발을 하는 시간을 의미합니다. 
+피클타임은 일상의 `피크타임`과 반대되는 개념으로, 바쁜 일상 속에서 잠깐씩 짬이 날 때마다 피클로 입가심하듯이 자기개발을 하는 시간을 의미합니다. 
 
 알찬 피클을 생성하고 참여하여 일상 속에서 작은 성취를 이루어내는 순간들을 만들어가세요! 🍀
 
 ### ❓피클이란
 
-피클타임에서 '피클'은 '챌린지'를 의미합니다.짧지만 집중력 있는 시간 동안 자신을 발전시키기 위한 세션을 '피클'이라고 부르죠.
+피클타임에서 `피클`은 `챌린지`를 의미합니다. 짧지만 집중력 있는 시간 동안 자신을 발전시키기 위한 세션을 `피클`이라고 부르죠.
 
 이러한 피클을 통해 여러분의 시간 활용도를 극대화합니다.
 
 ## 👀 서비스 주요 기능
 
-(수정 예정)
+### 🔔 회원가입/로그인
+  - 회원가입 후 로그인
+    - 이메일
+    - 소셜 로그인)
+#### - 이메일 회원가입
 
-### 홈페이지(main 및 list 페이지)
+![이메일 회원가입](https://github.com/Splint-Final-Project/Pickle-Time-Frontend/assets/76935187/bb753c17-6f0a-449f-8bc6-44b7b3a667fb)
 
-![main](https://github.com/Hooni07/Rolling/assets/79882248/68ff7ef6-b2bb-44f0-854b-eb56650adf26)
+#### - 소셜 회원가입
 
-### 롤링페이퍼 목록 페이지
+![카카오 회원가입](https://github.com/Splint-Final-Project/Pickle-Time-Frontend/assets/76935187/4f6c829a-9937-4331-a568-9f8f3a03f223)
 
-![list_shortcut](https://github.com/Hooni07/Rolling/assets/79882248/0930ce8d-9ab6-4083-93ea-195e76d77c84)
 
-### 롤링페이퍼 만들기 페이지
 
-![post](https://github.com/Hooni07/Rolling/assets/79882248/584e5688-ab65-496e-bc5b-52361ed1120f)
+### 🔔 홈페이지
+  - 피클 생성
+  - 피클 리스트 중 하나 신청하기(결제)
+  - 피클 찜하기
+  - 피클 검색하기
+#### - 피클 생성
 
-### 롤링페이퍼 페이지
+![피클생성2](https://github.com/Splint-Final-Project/Pickle-Time-Frontend/assets/76935187/46ec11b9-5941-4e7d-9600-242ce2776bf3)
 
-![postid](https://github.com/Hooni07/Rolling/assets/79882248/564f0930-8888-49c0-b302-7345db7a2515)
+#### - 찜하기
 
-### 롤링페이퍼 수정 페이지
+![찜하기](https://github.com/Splint-Final-Project/Pickle-Time-Frontend/assets/76935187/23d4ad9d-6f30-4ac8-82ed-b68a9c703cd6)
 
-![postid_edit(edit)](https://github.com/Hooni07/Rolling/assets/79882248/43cb38ad-de7a-4705-bf4b-2752083453b4)
+#### - 검색해서 피클 찾기
+  
+![2](https://github.com/Splint-Final-Project/Pickle-Time-Frontend/assets/76935187/8feef912-c942-411e-8c08-7d7ed480fa7a)
 
-### 롤링페이퍼 메세지 페이지
 
-![postid_message](https://github.com/Hooni07/Rolling/assets/79882248/1984ec98-c3d1-4924-9249-329affdd95e4)
 
-### 롤링페이퍼 메세지 수정 페이지
+### 🔔 내 주변
+  - 장소, 지명으로 검색해 피클 찾기
+  - 카테고리로 피클 찾기
+#### - 지도 탐색을 이용한 피클 신청
 
-![postid_edit(message_edit](https://github.com/Hooni07/Rolling/assets/79882248/b1fdb02e-bb25-455c-92be-fd357f18eb7e)
+![지도를 탐색을 이용한 피클 신청2](https://github.com/Splint-Final-Project/Pickle-Time-Frontend/assets/76935187/2f9d2bfa-1adc-4f7e-ad1d-532a534cfd94)
 
-## 📻 기능별 preview
 
-### 이모지 추가, 정렬
 
-![add_emoji](https://github.com/Hooni07/Rolling/assets/79882248/dcff1370-673a-413c-8196-666b86b12fbe)
+### 🔔 내 피클
+  - 오늘의 피클 확인 후 출석하기 (내일 발표 때 실시간으로 보여주기)
+  - 신청 중, 진행 중, 종료된 피클 목록 확인하기
+  - 종료된 피클 리뷰 작성하기
+#### - 내 피클 확인하기
 
-### 무한 스크롤
+![내 피틀 확인하기2](https://github.com/Splint-Final-Project/Pickle-Time-Frontend/assets/76935187/49170a7e-ca5a-4ee7-982c-06389311759d)
 
-![infinite_scroll](https://github.com/Hooni07/Rolling/assets/79882248/6874cf8b-88d7-4e0f-ae5b-4f2cdcb85d70)
+#### - 피클 수정
 
-### 롤링페이퍼 메세지 삭제
+![피클 수정](https://github.com/Splint-Final-Project/Pickle-Time-Frontend/assets/76935187/5de96615-446e-4513-a448-7c03b812e8aa)
 
-![postid_edit(message_delete)](https://github.com/Hooni07/Rolling/assets/79882248/ece87711-f7ca-4f03-b922-57893cbe599a)
 
-### 롤링페이퍼 페이지 삭제
 
-![postid_edit(page_delete)](https://github.com/Hooni07/Rolling/assets/79882248/f7fd33c0-1057-4b38-993d-f1b9bcabbf36)
+### 🔔 메세지
+  - 1 : 1문의 채팅
+  - 진행중인 피클 내부 단체 채팅
+#### - 메세지 보내기
+
+![메세지](https://github.com/Splint-Final-Project/Pickle-Time-Frontend/assets/76935187/cf376c51-e39b-49f3-8385-1e67546a088d)
+
+
+
+### 🔔 마이페이지
+  - 나의 프로필 수정하기
+  - 포인트 내역 보기
+  - 리뷰 관리하기
+  - 찜한 피클 관리
+#### - 마이페이지 확인
+
+![마이페이지확인](https://github.com/Splint-Final-Project/Pickle-Time-Frontend/assets/76935187/90f6d860-ee3d-4f12-aa3c-11065f31d829)
+
+#### - 내 프로필 수정
+
+![3](https://github.com/Splint-Final-Project/Pickle-Time-Frontend/assets/76935187/3c26b313-031b-4492-85e8-bf3b47bb4e1d)
+
+#### - 미로그인시 리다이렉트
+
+![미로그인시 리다이렉트](https://github.com/Splint-Final-Project/Pickle-Time-Frontend/assets/76935187/7db12c08-b627-4e8d-9d54-ff319e7a085d)
+
+
+
+
+
 
 
 ## 💡 기술 스택
@@ -129,6 +168,7 @@ https://pickle-time-frontend.vercel.app/
   <img src="https://img.shields.io/badge/MongoDB-47A248?style=for-the-badge&logo=MongoDB&logoColor=white">
   <img src="https://img.shields.io/badge/LangChain-1C3C3C?style=for-the-badge&logo=LangChain&logoColor=white">
   <img src="https://img.shields.io/badge/OpenAI-412991?style=for-the-badge&logo=OpenAI&logoColor=white">
+  <img src="https://img.shields.io/badge/Socket.IO-010101?style=for-the-badge&logo=Socket.IO&logoColor=white">
  </div>
 
 #### 협업
