@@ -30,8 +30,6 @@ export default function ChatList({ currentCategory, searchValue }: ChatListProps
 
 function ChatListItem({ chatData }: { chatData: any }) {
   const time = timeParsed(chatData.updatedAt);
-  console.log(typeof chatData.updatedAt);
-  console.log(chatData.lastMessageTime);
   return (
     <S.Item
       to={{
@@ -62,15 +60,23 @@ function ChatListItem({ chatData }: { chatData: any }) {
 }
 
 function timeParsed(time: string) {
-  const date = new Date(time);
-  let hours = date.getHours();
-  const minutes = date.getMinutes();
-  const period = hours >= 12 ? '오후' : '오전';
+  const currentDate = new Date();
+  const messageDate = new Date(time);
+  const diffInMilliseconds = currentDate.getTime() - messageDate.getTime();
+  const diffInDays = Math.floor(diffInMilliseconds / (1000 * 60 * 60 * 24));
 
-  hours = hours % 12;
-  hours = hours ? hours : 12;
+  if (diffInDays < 1) {
+    let hours = messageDate.getHours();
+    const minutes = messageDate.getMinutes();
+    const period = hours >= 12 ? '오후' : '오전';
 
-  return `${period} ${hours}시 ${minutes}분`;
+    hours = hours % 12;
+    hours = hours ? hours : 12;
+
+    return `${period} ${hours}시 ${minutes}분`;
+  } else {
+    return `${diffInDays}일 전`;
+  }
 }
 
 const S = {
