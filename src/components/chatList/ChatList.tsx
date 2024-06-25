@@ -12,9 +12,14 @@ interface ChatListProps {
 export default function ChatList({ currentCategory, searchValue }: ChatListProps) {
   const { data } = useGetConversations(currentCategory);
 
+  const filteredData =
+    data?.data.sort((a: any, b: any) => {
+      return new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime();
+    }) || [];
+
   return (
     <S.Container>
-      {data?.data.map((conversation: any) => (
+      {filteredData.map((conversation: any) => (
         <li key={conversation._id}>
           <ChatListItem chatData={conversation} />
         </li>
@@ -25,7 +30,7 @@ export default function ChatList({ currentCategory, searchValue }: ChatListProps
 
 function ChatListItem({ chatData }: { chatData: any }) {
   const time = timeParsed(chatData.updatedAt);
-  console.log(chatData.updatedAt);
+  console.log(typeof chatData.updatedAt);
   console.log(chatData.lastMessageTime);
   return (
     <S.Item
