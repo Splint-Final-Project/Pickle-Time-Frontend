@@ -64,10 +64,6 @@ function timeParsed(time: string) {
   const messageDate = new Date(time);
   const diffInMilliseconds = currentDate.getTime() - messageDate.getTime();
   const diffInDays = Math.floor(diffInMilliseconds / (1000 * 60 * 60 * 24));
-  console.log(currentDate);
-  console.log(messageDate);
-  console.log(diffInMilliseconds);
-  console.log(diffInDays);
 
   if (diffInDays < 1) {
     let hours = messageDate.getHours();
