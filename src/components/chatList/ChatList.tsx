@@ -25,7 +25,8 @@ export default function ChatList({ currentCategory, searchValue }: ChatListProps
 
 function ChatListItem({ chatData }: { chatData: any }) {
   const time = timeParsed(chatData.updatedAt);
-  console.log(chatData.lastMessageIsTrack);
+  console.log(chatData.updatedAt);
+  console.log(chatData.lastMessageTime);
   return (
     <S.Item
       to={{
