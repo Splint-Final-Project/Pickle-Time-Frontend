@@ -20,8 +20,8 @@ import routes from '@/constants/routes';
 import useIntersectionObserver from '@/hooks/useIntersectionObserver';
 
 export default function Conversation() {
-  const { pickleId = '', conversationId = '' } = useParams();
   const navigate = useNavigate();
+  const { pickleId = '', conversationId = '' } = useParams();
 
   // server state
   const { data: pickleData } = useGetPickleDetail(pickleId);
