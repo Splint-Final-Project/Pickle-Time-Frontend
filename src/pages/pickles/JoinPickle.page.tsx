@@ -141,9 +141,11 @@ export default function JoinPickle() {
           <PaymentWindow.Section>
             <PaymentWindow.FinalAmount total={pickleData.cost} usePoint={usePointValue} />
           </PaymentWindow.Section>
-          <PaymentWindow.Section>
-            <PaymentWindow.Methods disabled={pickleData.cost - usePointValue === 0} setState={setPaymentMethod} />
-          </PaymentWindow.Section>
+          {pickleData.cost - usePointValue !== 0 && (
+            <PaymentWindow.Section>
+              <PaymentWindow.Methods disabled={pickleData.cost - usePointValue === 0} setState={setPaymentMethod} />
+            </PaymentWindow.Section>
+          )}
           <PaymentWindow.Section>
             <PaymentWindow.PaymentEvent />
           </PaymentWindow.Section>
@@ -154,8 +156,11 @@ export default function JoinPickle() {
             <S.Notice>* 1주 이내 모집이 완료되지 않으면 피클은 사라집니다.</S.Notice>
             <S.Notice>* 사라진 피클은 입금 계좌로 영업일 2~3일 이내 환불됩니다.</S.Notice>
           </S.Wrap>
-          <S.PaymentButton onClick={onClickPayment} disabled={!paymentMethod || !isAgree}>
-            {pickleData.cost - usePointValue}원 결제하기
+          <S.PaymentButton
+            onClick={onClickPayment}
+            disabled={!isAgree && (!paymentMethod || pickleData.cost - usePointValue === 0)}
+          >
+            {pickleData.cost - usePointValue ? `${pickleData.cost - usePointValue}원 결제하기` : '신청하기'}
           </S.PaymentButton>
         </>
       )}
