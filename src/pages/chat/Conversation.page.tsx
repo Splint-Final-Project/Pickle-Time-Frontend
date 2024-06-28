@@ -1,12 +1,9 @@
 import { useEffect, useState, useRef } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 
-import { useGetMessages } from '@/hooks/message/useGetMessages';
+import useSocket from '@/hooks/zustand/useSocket';
 import { useGetPickleDetail } from '@/hooks/query/pickles';
-
-import useConversation from '@/hooks/zustand/useConversation';
-import { useSendMessage } from '@/hooks/message/useSendMessage';
-import useListenMessages from '@/hooks/message/useListenMessage';
+import { useGetInfiniteMessages, useSendMessage } from '@/hooks/query/messages';
 
 import Message from '@/components/message/Message';
 
@@ -24,58 +21,51 @@ import useIntersectionObserver from '@/hooks/useIntersectionObserver';
 
 export default function Conversation() {
   const { pickleId = '', conversationId = '' } = useParams();
+  const navigate = useNavigate();
 
   // server state
   const { data: pickleData } = useGetPickleDetail(pickleId);
+  const { data: messagesData, fetchNextPage } = useGetInfiniteMessages(conversationId);
+  const { mutate } = useSendMessage(conversationId);
 
   // local state
-  const [page, setPage] = useState(1); 
   const [message, setMessage] = useState('');
 
   // global state
   const { user } = useAuth();
-  const { setConversationId, setPickleId, clear, nextPage } = useConversation();
-  const { messages, loading } = useGetMessages(page);
-  const { sendMessage } = useSendMessage();
 
-  const handlePage = () => {
-    if (nextPage > page) {
-      setPage(nextPage);
-    }
-  }
-
-  const navigate = useNavigate();
   const lastMessageRef = useRef<HTMLDivElement | null>(null);
   const messageObserverRef = useRef<HTMLDivElement | null>(null);
-  const observer = useIntersectionObserver(handlePage, messageObserverRef);
+  useIntersectionObserver(fetchNextPage, messageObserverRef);
 
   // socket
-  useListenMessages(user);
+  const { socket, initializeSocket, closeSocket } = useSocket();
 
   const handleSendMessage = async (e: any, message: string) => {
     e.preventDefault();
     if (!message) return;
 
-    await sendMessage(message);
+    mutate({message, socket});
     setMessage('');
   };
 
   const goBack = () => {
-    clear();
     navigate(`${routes.chatList}`);
   };
 
-  // 전역 상태 리셋
   useEffect(() => {
-    setConversationId(conversationId);
-    setPickleId(pickleId);
-  }, [user, conversationId, pickleId]);
+    initializeSocket(user._id);
+
+    return () => {
+      closeSocket();
+    };
+  }, [user._id, initializeSocket, closeSocket]);
 
   useEffect(() => {
 		setTimeout(() => {
 			lastMessageRef.current?.scrollIntoView({ behavior: "smooth" });
 		}, 100);
-	}, [messages]);
+	}, [messagesData]);
 
   return (
     <S.Container>
@@ -93,7 +83,7 @@ export default function Conversation() {
       </S.Gongji>
       <S.MessageContainer>
         <div ref={messageObserverRef}/>
-        {messages && messages?.map((message: any) => (
+        {messagesData && messagesData?.map((message: any) => (
           <S.ForRefInMessageContainer ref={lastMessageRef} key={message._id}>
             {message?.isTrack ? (
               <iframe

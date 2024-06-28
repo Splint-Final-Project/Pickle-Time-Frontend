@@ -32,5 +32,6 @@ const useListenMessages = (user: any) => {
     return () => socket?.off('chatBotMessage');
   }, [socket, setMessages, messages]);
 
+  return socket;
 };
 export default useListenMessages;
