@@ -220,10 +220,10 @@ export default function MapSearch() {
               disableClickZoom={true}
               onClusterclick={(_target, cluster) => {
                 map?.setCenter(cluster.getCenter());
-                map?.setLevel(2);
+                map?.setLevel(level + 1);
                 searchParams.set('lat', cluster.getCenter().getLat() + '');
                 searchParams.set('lng', cluster.getCenter().getLng() + '');
-                searchParams.set('level', '2');
+                searchParams.set('level', level + 1 + '');
                 setSearchParams(searchParams, { replace: true });
               }}
               styles={[

@@ -96,12 +96,12 @@ export default function TodayPickleListContainer() {
     return (
       <S.Container $margin>
         <Tilt>
-        <S.CardContainer>
-          <S.Card>
-            <S.Character />
-            <S.NotTodayPickleMessage>오늘의 피클이 없어요!</S.NotTodayPickleMessage>
-          </S.Card>
-        </S.CardContainer>
+          <S.CardContainer>
+            <S.Card>
+              <S.Character />
+              <S.NotTodayPickleMessage>오늘의 피클이 없어요!</S.NotTodayPickleMessage>
+            </S.Card>
+          </S.CardContainer>
         </Tilt>
       </S.Container>
     );
@@ -114,7 +114,10 @@ export default function TodayPickleListContainer() {
         <TodayPickleCard cardData={data?.todayPickles[currentPage - 1]} distance={0} />
       </Tilt>
       <S.AttendanceButton
-        onClick={() => handleAttendance(data?.todayPickles[currentPage - 1].id)}
+        onClick={() => {
+          console.log(data?.todayPickles[currentPage - 1].id);
+          handleAttendance(data?.todayPickles[currentPage - 1].id);
+        }}
         disabled={
           !isButtonActive(
             data?.todayPickles[currentPage - 1].when.startTime.hour,

@@ -1,34 +1,34 @@
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 
-export type CategoryType = '전체' | '1:1 문의' | '진행 중'
+export type CategoryType = 'all' | 'one-to-one' | 'group';
 
 interface CategoryFilterBarProps {
-  setCategory: React.Dispatch<React.SetStateAction<CategoryType>>;
+  setCategory: any;
   currentCategory: CategoryType;
   resetInputValue: React.Dispatch<React.SetStateAction<string>>;
 }
 
 interface TabListType {
   id: number;
-  text: CategoryType;
-  value: '' | '1:1 문의' | '진행 중';
+  text: any;
+  value: '전체' | '1:1 문의' | '진행 중';
 }
 
 const TAB_LIST: TabListType[] = [
   {
     id: 1,
-    text: '전체',
-    value: '',
+    text: 'all',
+    value: '전체',
   },
   {
     id: 2,
-    text: '1:1 문의',
+    text: 'one-to-one',
     value: '1:1 문의',
   },
   {
     id: 3,
-    text: '진행 중',
+    text: 'group',
     value: '진행 중',
   },
 ];
@@ -43,7 +43,7 @@ export default function CategoryFilterBar({ setCategory, currentCategory, resetI
       <S.Inner>
         {TAB_LIST.map(tab => (
           <S.Tab key={tab.id} onClick={() => onClickCategory(tab.text)} $isclick={tab.text === currentCategory}>
-            <span>{tab.text}</span>
+            <span>{tab.value}</span>
           </S.Tab>
         ))}
       </S.Inner>

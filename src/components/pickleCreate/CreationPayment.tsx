@@ -167,9 +167,11 @@ export default function CreationPayment() {
       <PaymentWindow.Section>
         <PaymentWindow.FinalAmount total={cost} usePoint={usePointValue} />
       </PaymentWindow.Section>
-      <PaymentWindow.Section>
-        <PaymentWindow.Methods disabled={cost - usePointValue === 0} setState={setPaymentMethod} />
-      </PaymentWindow.Section>
+      {cost - usePointValue !== 0 && (
+        <PaymentWindow.Section>
+          <PaymentWindow.Methods disabled={cost - usePointValue === 0} setState={setPaymentMethod} />
+        </PaymentWindow.Section>
+      )}
       <PaymentWindow.Section>
         <PaymentWindow.PaymentEvent />
       </PaymentWindow.Section>
@@ -180,8 +182,8 @@ export default function CreationPayment() {
         <S.Notice>* 1주 이내 모집이 완료되지 않으면 피클은 사라집니다.</S.Notice>
         <S.Notice>* 사라진 피클은 입금 계좌로 영업일 2~3일 이내 환불됩니다.</S.Notice>
       </S.Wrap>
-      <S.PaymentButton onClick={onClickPayment} disabled={!paymentMethod || !isAgree}>
-        {cost - usePointValue}원 결제하기
+      <S.PaymentButton onClick={onClickPayment} disabled={!isAgree && (!paymentMethod || cost - usePointValue === 0)}>
+        {cost - usePointValue ? `${cost - usePointValue}원 결제하기` : '피클 생성하기'}
       </S.PaymentButton>
     </>
   );
