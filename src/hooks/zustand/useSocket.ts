@@ -11,7 +11,7 @@ const useSocket = create<SocketType>((set, get) => ({
   socket: null,
   initializeSocket: (authUserId: string) => {
     if (authUserId) {
-      const socket = io("https://pickle-time.net", {
+      const socket = io("http://localhost:8080", {
         query: {
           userId: authUserId,
         },
@@ -20,10 +20,6 @@ const useSocket = create<SocketType>((set, get) => ({
         transports: ['polling', 'websocket'],  // 폴링과 웹소켓을 모두 지원
         withCredentials: true
       });
-
-      // socket.on("getOnlineUsers", (users) => {
-      //   set({ onlineUsers: users });
-      // });
 
       set({ socket });
 

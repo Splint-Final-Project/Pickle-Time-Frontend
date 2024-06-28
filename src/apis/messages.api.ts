@@ -13,8 +13,12 @@ export const messages = Object.freeze({
     return data;
   },
 
-  getByConversationId: async (conversationId: string) => {
-    const { data } = await client.get(API_CHAT.MESSAGES_IN_CONVERSATION(conversationId));
+  getByConversationId: async (conversationId: string, page: number) => {
+    const { data } = await client.get(API_CHAT.MESSAGES_IN_CONVERSATION(conversationId), {
+      params: {
+        page: page
+      }
+    });
     return data;
   },
 

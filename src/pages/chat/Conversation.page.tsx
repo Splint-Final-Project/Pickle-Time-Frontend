@@ -20,23 +20,34 @@ import SendMessageIcon from '/icons/sendMessage.svg';
 import { S } from './Chat.style';
 import useAuth from '@/hooks/zustand/useAuth';
 import routes from '@/constants/routes';
+import useIntersectionObserver from '@/hooks/useIntersectionObserver';
 
 export default function Conversation() {
-  const navigate = useNavigate();
   const { pickleId = '', conversationId = '' } = useParams();
-  const lastMessageRef = useRef<HTMLDivElement | null>(null);
 
   // server state
   const { data: pickleData } = useGetPickleDetail(pickleId);
 
+  // local state
+  const [page, setPage] = useState(1); 
+  const [message, setMessage] = useState('');
+
   // global state
   const { user } = useAuth();
-  const { setConversationId, setPickleId, clear } = useConversation();
-  const { messages, loading } = useGetMessages();
+  const { setConversationId, setPickleId, clear, nextPage } = useConversation();
+  const { messages, loading } = useGetMessages(page);
   const { sendMessage } = useSendMessage();
 
-  // local state
-  const [message, setMessage] = useState('');
+  const handlePage = () => {
+    if (nextPage > page) {
+      setPage(nextPage);
+    }
+  }
+
+  const navigate = useNavigate();
+  const lastMessageRef = useRef<HTMLDivElement | null>(null);
+  const messageObserverRef = useRef<HTMLDivElement | null>(null);
+  const observer = useIntersectionObserver(handlePage, messageObserverRef);
 
   // socket
   useListenMessages(user);
@@ -81,6 +92,7 @@ export default function Conversation() {
         <S.BaseImg src={BottomArrowIcon} />
       </S.Gongji>
       <S.MessageContainer>
+        <div ref={messageObserverRef}/>
         {messages && messages?.map((message: any) => (
           <S.ForRefInMessageContainer ref={lastMessageRef} key={message._id}>
             {message?.isTrack ? (
