@@ -11,6 +11,7 @@ interface ChatListProps {
 
 export default function ChatList({ currentCategory, searchValue }: ChatListProps) {
   const { data } = useGetConversations(currentCategory);
+  console.log(data);
 
   const filteredData =
     data?.data.sort((a: any, b: any) => {
@@ -54,6 +55,7 @@ function ChatListItem({ chatData }: { chatData: any }) {
             <S.ItemLastMessage>{chatData.lastMessage}</S.ItemLastMessage>
           )}
         </S.ItemTextContent>
+        <S.UnreadBadge>{chatData?.unReadNumber}</S.UnreadBadge>
       </S.ItemInner>
     </S.Item>
   );
@@ -129,4 +131,14 @@ const S = {
     margin-left: 0.5rem;
     font-weight: 400;
   `,
+  UnreadBadge: styled.div`
+    position: absolute;
+    top: 1.7rem;
+    right: 0.2rem;
+    padding: 0.5rem;
+    border: 1px solid red;
+    border-radius: 10rem;
+    background-color: red;
+    color: white;
+  `
 };

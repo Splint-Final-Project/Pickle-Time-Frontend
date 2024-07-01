@@ -27,7 +27,6 @@ export default function OneToOne() {
   const { data: pickleData } = useGetPickleDetail(pickleId);
   const { data: messagesData, fetchNextPage } = useGetInfiniteMessagesInOneToOne(leaderId, pickleId);
   const { mutate } = useSendMessageOneToOne(leaderId, pickleId);
-  console.log(messagesData)
 
   // global state
   const { user } = useAuth();
