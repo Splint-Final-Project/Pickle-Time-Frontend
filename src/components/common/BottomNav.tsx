@@ -41,7 +41,7 @@ export default function BottomNav() {
       <S.NavItemForMessage to={routes.chatList} active={location.pathname === routes.chatList}>
         <S.MessageIcon active={location.pathname === routes.chatList} src="/icons/bottomNavbar/message.svg" alt="Message" />
         피클 메세지
-        {totalUnread && <UnreadBadge unReadNumber={totalUnread}/>}
+        {totalUnread ? <UnreadBadge unReadNumber={totalUnread}/> : null}
       </S.NavItemForMessage>
       <S.NavItem to={routes.mypage} active={location.pathname === routes.mypage}>
         <S.Icon src="/icons/bottomNavbar/myPage.svg" alt="My Page" />

@@ -54,7 +54,7 @@ export default function Conversation() {
   };
 
   useEffect(() => {
-    initializeSocket(user._id);
+    initializeSocket(user._id, conversationId);
 
     return () => {
       closeSocket();

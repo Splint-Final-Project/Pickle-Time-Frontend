@@ -3,13 +3,13 @@ import io from 'socket.io-client';
 
 interface SocketType {
   socket: any | null;
-  initializeSocket: (authUserId: string) => void;
+  initializeSocket: (authUserId: string, conversationId?: string, leaderId?: string) => void;
   closeSocket: () => void;
 }
 
 const useSocket = create<SocketType>((set, get) => ({
   socket: null,
-  initializeSocket: (authUserId: string) => {
+  initializeSocket: (authUserId: string, conversationId?: string, leaderId?: string) => {
     if (authUserId) {
       const socket = io("http://localhost:8080", {
         query: {
