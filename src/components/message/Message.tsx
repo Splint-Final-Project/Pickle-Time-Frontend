@@ -23,7 +23,7 @@ export default function Message({ message }: { message: any }) {
       {fromMe ? (
         <>
           <S.OutSide fromMe={fromMe}>
-            <S.OutsideNumberText>{message?.unReadNumber}</S.OutsideNumberText>
+            {message?.unReadNumber ? <S.OutsideNumberText>{message?.unReadNumber}</S.OutsideNumberText> : null}
             <S.OutSideTimeText>{time}</S.OutSideTimeText>
           </S.OutSide>
           <S.MessageAndNick fromMe={fromMe}>
@@ -48,7 +48,7 @@ export default function Message({ message }: { message: any }) {
             </S.MessageContainer>
           </S.MessageAndNick>
           <S.OutSide fromMe={fromMe}>
-          <S.OutsideNumberText>{message?.unReadNumber}</S.OutsideNumberText>
+          {message?.unReadNumber ? <S.OutsideNumberText>{message?.unReadNumber}</S.OutsideNumberText> : null}
             <S.OutSideTimeText>{time}</S.OutSideTimeText>
           </S.OutSide>
         </>

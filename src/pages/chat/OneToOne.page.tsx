@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 
-import { useGetInfiniteMessagesInOneToOne, useSendMessageOneToOne } from '@/hooks/query/messages';
+import { useGetInfiniteMessagesInOneToOne, useSendMessageOneToOne, useMessageSocketInOneToOne } from '@/hooks/query/messages';
 import { useGetPickleDetail } from '@/hooks/query/pickles';
 
 import Message from '@/components/message/Message';
@@ -20,6 +20,9 @@ import useSocket from '@/hooks/zustand/useSocket';
 import useIntersectionObserver from '@/hooks/useIntersectionObserver';
 
 export default function OneToOne() {
+  // socket
+  const { socket, initializeSocket, closeSocket } = useSocket();
+  
   const navigate = useNavigate();
   const { leaderId = '', pickleId = '' } = useParams();
 
@@ -27,6 +30,7 @@ export default function OneToOne() {
   const { data: pickleData } = useGetPickleDetail(pickleId);
   const { data: messagesData, fetchNextPage } = useGetInfiniteMessagesInOneToOne(leaderId, pickleId);
   const { mutate } = useSendMessageOneToOne(leaderId, pickleId);
+  useMessageSocketInOneToOne(socket, leaderId, pickleId);
 
   // global state
   const { user } = useAuth();
@@ -38,14 +42,11 @@ export default function OneToOne() {
   const messageObserverRef = useRef<HTMLDivElement | null>(null);
   useIntersectionObserver(fetchNextPage, messageObserverRef);
 
-  // socket
-  const { socket, initializeSocket, closeSocket } = useSocket();
-
   const handleSendMessage = async (e: any, message: string) => {
     e.preventDefault();
     if (!message) return;
 
-    mutate({message, socket});
+    mutate({message});
     setMessage('');
   };
 

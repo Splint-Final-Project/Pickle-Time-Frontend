@@ -3,7 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 
 import useSocket from '@/hooks/zustand/useSocket';
 import { useGetPickleDetail } from '@/hooks/query/pickles';
-import { useGetInfiniteMessages, useSendMessage } from '@/hooks/query/messages';
+import { useGetInfiniteMessages, useSendMessage, useMessageSocket } from '@/hooks/query/messages';
 
 import Message from '@/components/message/Message';
 
@@ -20,13 +20,17 @@ import routes from '@/constants/routes';
 import useIntersectionObserver from '@/hooks/useIntersectionObserver';
 
 export default function Conversation() {
+  // socket
+  const { socket, initializeSocket, closeSocket } = useSocket();
+
   const navigate = useNavigate();
   const { pickleId = '', conversationId = '' } = useParams();
 
   // server state
   const { data: pickleData } = useGetPickleDetail(pickleId);
-  const { data: messagesData, fetchNextPage } = useGetInfiniteMessages(conversationId);
+  const { data: messagesData, fetchNextPage } = useGetInfiniteMessages(conversationId, socket);
   const { mutate } = useSendMessage(conversationId);
+  useMessageSocket(socket, conversationId);
 
   // local state
   const [message, setMessage] = useState('');
@@ -37,9 +41,6 @@ export default function Conversation() {
   const lastMessageRef = useRef<HTMLDivElement | null>(null);
   const messageObserverRef = useRef<HTMLDivElement | null>(null);
   useIntersectionObserver(fetchNextPage, messageObserverRef);
-
-  // socket
-  const { socket, initializeSocket, closeSocket } = useSocket();
 
   const handleSendMessage = async (e: any, message: string) => {
     e.preventDefault();
