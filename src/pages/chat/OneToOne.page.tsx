@@ -1,11 +1,8 @@
 import { useEffect, useRef, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 
-import { useGetMessagesInOneToOne } from '@/hooks/message/useGetMessages';
+import { useGetInfiniteMessagesInOneToOne, useSendMessageOneToOne, useMessageSocketInOneToOne } from '@/hooks/query/messages';
 import { useGetPickleDetail } from '@/hooks/query/pickles';
-import useConversation from '@/hooks/zustand/useConversation';
-import { useSendMessageOneToOne } from '@/hooks/message/useSendMessage';
-import useListenMessages from '@/hooks/message/useListenMessage';
 
 import Message from '@/components/message/Message';
 
@@ -19,45 +16,57 @@ import SendMessageIcon from '/icons/sendMessage.svg';
 import { S } from './Chat.style';
 import useAuth from '@/hooks/zustand/useAuth';
 import routes from '@/constants/routes';
+import useSocket from '@/hooks/zustand/useSocket';
+import useIntersectionObserver from '@/hooks/useIntersectionObserver';
 
 export default function OneToOne() {
+  // socket
+  const { socket, initializeSocket, closeSocket } = useSocket();
+  
   const navigate = useNavigate();
   const { leaderId = '', pickleId = '' } = useParams();
-  const lastMessageRef = useRef<HTMLDivElement | null>(null);
 
   // server state
   const { data: pickleData } = useGetPickleDetail(pickleId);
+  const { data: messagesData, fetchNextPage } = useGetInfiniteMessagesInOneToOne(leaderId, pickleId);
+  const { mutate } = useSendMessageOneToOne(leaderId, pickleId);
+  useMessageSocketInOneToOne(socket, leaderId, pickleId);
 
   // global state
   const { user } = useAuth();
-  const { setLeaderId, setPickleId, clear } = useConversation();
-  const { messages, loading } = useGetMessagesInOneToOne();
-  const { sendMessage } = useSendMessageOneToOne();
 
   // local state
   const [message, setMessage] = useState('');
 
-  // socket
-  useListenMessages(user);
+  const lastMessageRef = useRef<HTMLDivElement | null>(null);
+  const messageObserverRef = useRef<HTMLDivElement | null>(null);
+  useIntersectionObserver(fetchNextPage, messageObserverRef);
 
   const handleSendMessage = async (e: any, message: string) => {
     e.preventDefault();
     if (!message) return;
 
-    await sendMessage(message);
+    mutate({message});
     setMessage('');
   };
 
   const goBack = () => {
-    clear();
     navigate(`${routes.chatList}`);
   };
 
-  // 전역 상태 리셋
   useEffect(() => {
-    setLeaderId(leaderId);
-    setPickleId(pickleId);
-  }, [user, leaderId, pickleId]);
+    initializeSocket(user._id);
+
+    return () => {
+      closeSocket();
+    };
+  }, [user._id, initializeSocket, closeSocket]);
+
+  useEffect(() => {
+		setTimeout(() => {
+			lastMessageRef.current?.scrollIntoView({ behavior: "smooth" });
+		}, 100);
+	}, [messagesData]);
 
   return (
     <S.Container>
@@ -74,9 +83,10 @@ export default function OneToOne() {
         <S.BaseImg src={BottomArrowIcon} />
       </S.Gongji>
       <S.MessageContainer>
-        {messages?.map((message: any) => (
-          <S.ForRefInMessageContainer ref={lastMessageRef}>
-            <Message message={message} key={message?._id} />
+        <div ref={messageObserverRef}/>
+        {messagesData && messagesData?.map((message: any) => (
+          <S.ForRefInMessageContainer ref={lastMessageRef} key={message._id} >
+            <Message message={message} key={message._id} />
           </S.ForRefInMessageContainer>
         ))}
       </S.MessageContainer>

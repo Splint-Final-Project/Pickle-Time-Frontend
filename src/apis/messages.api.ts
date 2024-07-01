@@ -13,13 +13,21 @@ export const messages = Object.freeze({
     return data;
   },
 
-  getByConversationId: async (conversationId: string) => {
-    const { data } = await client.get(API_CHAT.MESSAGES_IN_CONVERSATION(conversationId));
+  getByConversationId: async (conversationId: string, page: number) => {
+    const { data } = await client.get(API_CHAT.MESSAGES_IN_CONVERSATION(conversationId), {
+      params: {
+        page: page
+      }
+    });
     return data;
   },
 
-  getByLeaderId: async (receiverId: string, pickleId: string) => {
-    const { data } = await client.get(API_CHAT.MESSAGE_ONE_TO_ONE(receiverId, pickleId));
+  getByLeaderId: async (receiverId: string, pickleId: string, page: number) => {
+    const { data } = await client.get(API_CHAT.MESSAGE_ONE_TO_ONE(receiverId, pickleId), {
+      params: {
+        page: page
+      }
+    });
     return data;
   },
 });

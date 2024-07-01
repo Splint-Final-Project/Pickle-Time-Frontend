@@ -1,4 +1,5 @@
 import useAuth from '@/hooks/zustand/useAuth';
+import MessageDefaultProfileIcon from '/icons/messageProfile.svg';
 import styled from '@emotion/styled';
 
 function extractTime(dateString: string) {
@@ -22,7 +23,7 @@ export default function Message({ message }: { message: any }) {
       {fromMe ? (
         <>
           <S.OutSide fromMe={fromMe}>
-            <S.OutsideNumberText>1</S.OutsideNumberText>
+            {message?.unReadNumber ? <S.OutsideNumberText>{message?.unReadNumber}</S.OutsideNumberText> : null}
             <S.OutSideTimeText>{time}</S.OutSideTimeText>
           </S.OutSide>
           <S.MessageAndNick fromMe={fromMe}>
@@ -33,11 +34,11 @@ export default function Message({ message }: { message: any }) {
               </S.TextContainer>
             </S.MessageContainer>
           </S.MessageAndNick>
-          <S.OutsideProfile src={message?.profilePic} alt='이미지'/>
+          {message?.profilePic ? <S.OutsideProfile src={message?.profilePic} alt='이미지'/> : <S.OutsideProfile src={MessageDefaultProfileIcon} alt='이미지'/>}
         </>
       ) : (
         <>
-          <S.OutsideProfile src={message?.profilePic} alt='이미지'/>
+          {message?.profilePic ? <S.OutsideProfile src={message?.profilePic} alt='이미지'/> : <S.OutsideProfile src={MessageDefaultProfileIcon} alt='이미지'/>}
           <S.MessageAndNick fromMe={fromMe}>
             <S.NickNameText>{message?.senderNickname}</S.NickNameText>
             <S.MessageContainer fromMe={fromMe}>
@@ -47,7 +48,7 @@ export default function Message({ message }: { message: any }) {
             </S.MessageContainer>
           </S.MessageAndNick>
           <S.OutSide fromMe={fromMe}>
-            <S.OutsideNumberText>1</S.OutsideNumberText>
+          {message?.unReadNumber ? <S.OutsideNumberText>{message?.unReadNumber}</S.OutsideNumberText> : null}
             <S.OutSideTimeText>{time}</S.OutSideTimeText>
           </S.OutSide>
         </>

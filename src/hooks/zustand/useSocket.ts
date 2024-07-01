@@ -3,15 +3,15 @@ import io from 'socket.io-client';
 
 interface SocketType {
   socket: any | null;
-  initializeSocket: (authUserId: string) => void;
+  initializeSocket: (authUserId: string, conversationId?: string, leaderId?: string) => void;
   closeSocket: () => void;
 }
 
 const useSocket = create<SocketType>((set, get) => ({
   socket: null,
-  initializeSocket: (authUserId: string) => {
+  initializeSocket: (authUserId: string, conversationId?: string, leaderId?: string) => {
     if (authUserId) {
-      const socket = io("https://pickle-time.net", {
+      const socket = io(`${import.meta.env.VITE_BACKEND_URL}`, {
         query: {
           userId: authUserId,
         },
@@ -20,10 +20,6 @@ const useSocket = create<SocketType>((set, get) => ({
         transports: ['polling', 'websocket'],  // 폴링과 웹소켓을 모두 지원
         withCredentials: true
       });
-
-      // socket.on("getOnlineUsers", (users) => {
-      //   set({ onlineUsers: users });
-      // });
 
       set({ socket });
 
