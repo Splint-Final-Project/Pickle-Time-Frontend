@@ -158,7 +158,7 @@ export default function JoinPickle() {
           </S.Wrap>
           <S.PaymentButton
             onClick={onClickPayment}
-            disabled={!isAgree && (!paymentMethod || pickleData.cost - usePointValue === 0)}
+            disabled={!isAgree && pickleData.cost - usePointValue !== 0 && !paymentMethod}
           >
             {pickleData.cost - usePointValue ? `${pickleData.cost - usePointValue}원 결제하기` : '신청하기'}
           </S.PaymentButton>
