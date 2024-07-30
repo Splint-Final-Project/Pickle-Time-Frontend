@@ -223,7 +223,7 @@ export default function MapSearch() {
                 map?.setLevel(level + 1);
                 searchParams.set('lat', cluster.getCenter().getLat() + '');
                 searchParams.set('lng', cluster.getCenter().getLng() + '');
-                searchParams.set('level', level + 1 + '');
+                searchParams.set('level', level - 1 + '');
                 setSearchParams(searchParams, { replace: true });
               }}
               styles={[
