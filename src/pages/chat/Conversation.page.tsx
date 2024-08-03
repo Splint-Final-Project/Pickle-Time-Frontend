@@ -51,6 +51,7 @@ export default function Conversation() {
   };
 
   const goBack = () => {
+    messageObserverRef.current = null;
     navigate(`${routes.chatList}`);
   };
 

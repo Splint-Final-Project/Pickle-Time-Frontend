@@ -27,7 +27,7 @@ function useIntersectionObserver(callback: () => void, loaderRef: RefObject<Elem
 
     const unobserve = observe(loaderRef.current);
     return unobserve;
-  }, [loaderRef, callback]);
+  }, [loaderRef]);
 }
 
 export default useIntersectionObserver;
