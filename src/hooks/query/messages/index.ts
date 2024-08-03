@@ -83,7 +83,7 @@ export const useMessageSocket = (socket: any, conversationId: string) => {
         // 최신 데이터를 기반으로 상태 업데이트
         const updatedPages = oldData.pages.map((page: any, index: number) => {
           // 마지막 페이지에 새로운 메시지를 추가
-          if (index === oldData.pages.length - 1) {
+          if (index === 0) {
             return {
               ...page,
               messages: [...page.messages, newMessage],
